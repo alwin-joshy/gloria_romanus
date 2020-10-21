@@ -40,6 +40,7 @@ public class Province {
 
     public int applyTax() {
         wealth += wealthGrowth;
+        if (isSeaProvince) wealth += faction.getPortBonus();
         int taxedAmount = (int) Math.round(wealth * tax.getRate());
         wealth -= taxedAmount;
         return (int) taxedAmount;
@@ -47,5 +48,42 @@ public class Province {
 
     public void setLandlocked() {
         isSeaProvince = false;
+    }
+
+    public void build(Project project){
+        if (project instanceof Unit){
+            if (unitsInTraining == unitTrainingLimit) return;
+            unitsInTraining++;
+        } else if (buildingInfrastructure()) {
+            return;
+        }
+        ProjectDetails p = new ProjectDetails(project);
+        projects.add(p);
+    }
+
+    public void updateProjects() {
+        for (ProjectDetails project : projects) {
+            if (project.decrementTurnsRemaining()){
+                if (project.getProject() instanceof Infrastructure) {
+                    infrastructure.add(project);
+                } else {
+                    units.add(project);
+                }
+                projects.remove(project);
+            }
+        }
+    }
+
+
+
+    private boolean buildingInfrastructure(){
+        for (ProjectDetails project : projects) {
+            if (project.getProject() instanceof Infrastructure)  return true; 
+        }
+        return false;
+    }
+
+    public boolean checkSeaProvince() {
+        return isSeaProvince;
     }
 }
