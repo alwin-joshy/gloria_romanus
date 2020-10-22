@@ -32,19 +32,21 @@ public class Faction {
     }
 
     public void calculateMineMultiplier() {
-        mineMultiplier = 1;
+        mineMultiplier = 1.0;
         for (Province p : alliedProvinces) {
-            if (Mine m = p.getMine()){
-                mineMultiplier *= m.getMultiplierValue();
+            Mine m = p.getMine();
+            if (m != null){
+                mineMultiplier *= m.getMultiplier();
             }
         } 
     }
 
-    public void calculueMarketMultiplier() {
-        marketMultiplier = 1;
+    public void calculateMarketMultiplier() {
+        marketMultiplier = 1.0;
         for (Province p : alliedProvinces) {
-            if (Market m = p.getMarket()) {
-                marketMultiplier *= m.getMultiplierValue();
+            Market m = p.getMarket();
+            if (m != null) {
+                marketMultiplier *= m.getMultiplier();
             }
         }
     }
@@ -52,9 +54,14 @@ public class Faction {
     public void calculatePortBonus() {
         portBonus = 0;
         for (Province p : alliedProvinces) {
-            if (Port pt = p.getPort()) {
+            Port pt = p.getPort();
+            if (pt != null) {
                 portBonus += pt.getBonus();
             }
         }
+    }
+    
+    public int getPortBonus() {
+        return portBonus;
     }
 }

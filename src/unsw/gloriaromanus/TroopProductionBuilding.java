@@ -5,11 +5,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TroopProductionBuilding extends Infrastructure{
-    private static Map<K,V> <Integer, ArrayList<Unit>> generalUnits = new Map<Integer, ArrayList<Unit>>;
+    private Faction f;
+    private static Map<Integer, ArrayList<Unit>> generalUnits = new HashMap<Integer, ArrayList<Unit>>();
     private Map<Integer, ArrayList<Unit>> uniqueUnits;
 
-    public TroopProductionBuilding() {
-        setLevel(1);
+    public TroopProductionBuilding(Faction f) {
+        this.f = f;
         uniqueUnits = new HashMap<Integer, ArrayList<Unit>>();
     }
 
@@ -24,6 +25,10 @@ public class TroopProductionBuilding extends Infrastructure{
         generalUnits.put(4, levelFour);
     }
 
-
+    public void nextLevel() {
+        increaseLevel();
+        setBaseCost(cost);
+        setBaseContructionTime(turns);
+    }
 
 }

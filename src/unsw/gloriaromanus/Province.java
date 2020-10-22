@@ -21,8 +21,9 @@ public class Province {
         this.faction = faction;
         units = new ArrayList<Unit>();
         infrastructure = new ArrayList<Infrastructure>();
+        infrastructure.add(new Road());
         wealth = 100;
-        wealthGrowth = 10;
+        wealthGrowth = 15;
         tax = new Tax(0.15, 0);
         projects = new ArrayList<ProjectDetails>();
         unitsInTraining = 0;
@@ -51,7 +52,7 @@ public class Province {
     }
 
     public void build(Project project){
-        if (project instanceof Unit){
+        if (project instanceof Unit) {
             if (unitsInTraining == unitTrainingLimit) return;
             unitsInTraining++;
         } else if (buildingInfrastructure()) {
@@ -64,21 +65,23 @@ public class Province {
     public void updateProjects() {
         for (ProjectDetails project : projects) {
             if (project.decrementTurnsRemaining()){
-                if (project.getProject() instanceof Infrastructure) {
-                    infrastructure.add(project);
+                Project p = project.getProject();
+                if (p instanceof Infrastructure) {
+                    if (p instanceof Farm) unitTrainingLimit = ((Farm) p).getBonus();
+                    Infrastructure inf = (Infrastructure) p;
+                    inf.levelUp();
+                    infrastructure.add(inf);
                 } else {
-                    units.add(project);
+                    units.add((Unit) p);
                 }
                 projects.remove(project);
             }
         }
     }
 
-
-
     private boolean buildingInfrastructure(){
         for (ProjectDetails project : projects) {
-            if (project.getProject() instanceof Infrastructure)  return true; 
+            if (project.getProject() instanceof Infrastructure) return true; 
         }
         return false;
     }
@@ -86,4 +89,26 @@ public class Province {
     public boolean checkSeaProvince() {
         return isSeaProvince;
     }
+
+	public Market getMarket() {
+		for (Infrastructure i : infrastructure) {
+            if (i instanceof Market) return (Market) i;
+        }
+        return null;
+    }
+    
+    public Port getPort() {
+        for (Infrastructure i : infrastructure) {
+            if (i instanceof Port) return (Port) i;
+        }
+        return null;
+    }
+
+    public Mine getMine() {
+        for (Infrastructure i : infrastructure) {
+            if (i instanceof Mine) return (Mine) i;
+        }
+        return null;
+    }
+
 }
