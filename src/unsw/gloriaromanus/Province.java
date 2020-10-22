@@ -21,7 +21,7 @@ public class Province {
         this.faction = faction;
         units = new ArrayList<Unit>();
         infrastructure = new ArrayList<Infrastructure>();
-        infrastructure.add(new Road());
+        infrastructure.add(new Road(this));
         wealth = 100;
         wealthGrowth = 15;
         tax = new Tax(0.15, 0);

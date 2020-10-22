@@ -1,8 +1,6 @@
 package unsw.gloriaromanus;
 
-import unsw.gloriaromanus.BuffStrategy;
-
-public class Port extends WealthGenerationBuilding implements BuffStrategy {
+public class Port extends WealthGenerationBuilding {
     private Faction f;
     private int bonus;
     

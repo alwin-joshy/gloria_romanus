@@ -1,5 +1,13 @@
 package unsw.gloriaromanus;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
@@ -45,7 +53,7 @@ public class Game {
             JSONObject connected = map.getJSONObject(key1);
             Map<String, Integer> distance = new HashMap<String, Integer>();
             for (String key2 : connected.keySet()) {
-                if (connected.getString(key2).equals("true")) {
+                if (connected.getBoolean(key2)) {
                     distance.put(key2, 4);
                 } else {
                     distance.put(key2, 0);
@@ -60,6 +68,53 @@ public class Game {
         for (String key : province.keySet()) {
             province.compute(key, (k, v) -> v--);
         }
+    }
+
+    public void saveGame() {
+        FileOutputStream out;
+        try {
+            out = new FileOutputStream("fooFile");
+            ObjectOutputStream os = new ObjectOutputStream(out);
+            os.writeObject(adjacentProvinces);
+            os.writeObject(currentYear);
+            os.writeObject(factions);
+            os.flush();
+            os.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadGame() {
+        FileInputStream in;
+        ObjectInputStream ins;
+        try {
+            in = new FileInputStream("fooFile");
+            ins = new ObjectInputStream(in);
+            adjacentProvinces = (Map<String, Map<String, Integer>>) ins.readObject();
+            currentYear = (int) ins.readObject();
+            factions = (ArrayList<Faction>) ins.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        Game game = new Game();
+        try {
+            String content = Files.readString(Paths.get("src/unsw/gloriaromanus/initial_province_ownership.json"));
+            JSONObject map = new JSONObject(content);
+            content = Files.readString(Paths.get("src/unsw/gloriaromanus/landlocked_provinces.json"));
+            JSONArray landlocked = new JSONArray(content);
+            content = Files.readString(Paths.get("src/unsw/gloriaromanus/province_adjacency_matrix_fully_connected.json"));
+            JSONObject a = new JSONObject(content);
+            game.initialiseAdjacencyMatrix(a);
+            game.initialiseFactions(map, landlocked);
+            game.saveGame();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
     }
 
 }
