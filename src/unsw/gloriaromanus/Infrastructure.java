@@ -1,6 +1,8 @@
 package unsw.gloriaromanus;
 
-public abstract class Infrastructure implements Project{
+import java.io.Serializable;
+
+public abstract class Infrastructure implements Project, Serializable{
     private int baseCost;
     private int baseConstructionTime;
     private int level;
