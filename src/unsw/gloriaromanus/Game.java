@@ -4,23 +4,20 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 
-import com.google.gson.JsonObject;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class Game {
 
     private ArrayList<Faction> factions;
-    private Map<String, Object> adjacentProvinces;
+    private static Map<String, Map<String, Integer>> adjacentProvinces;
     private int currentYear;
 
     public Game() {
         factions = new ArrayList<Faction>();
-        adjacentProvinces = new HashMap<String, Object>();
+        adjacentProvinces = new HashMap<String, Map<String, Integer>>();
         currentYear = -200;
     }
-
 
     public void initialiseFactions(JSONObject map, JSONArray landlocked) {
         for (String key : map.keySet()) {
@@ -54,7 +51,14 @@ public class Game {
                     distance.put(key2, 0);
                 }
             }
-            adjacentProvinces.put(key1, connected);
+            adjacentProvinces.put(key1, distance);
+        }
+    }
+
+    public static void updateAdjacentProvinces(Province p) {
+        Map<String, Integer> province = adjacentProvinces.get(p.getName());
+        for (String key : province.keySet()) {
+            province.compute(key, (k, v) -> v--);
         }
     }
 
