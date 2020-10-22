@@ -11,6 +11,7 @@ public class Faction implements Serializable{
     private int totalProvinceWealth;
     private Boolean isPlayer;
     private Double mineMultiplier;
+    private int mineTurnReduction;
     private Double marketMultiplier;
     private int portBonus;
 
@@ -48,6 +49,9 @@ public class Faction implements Serializable{
             Market m = p.getMarket();
             if (m != null) {
                 marketMultiplier *= m.getMultiplier();
+                if (m.getLevel() == 4) {
+                    mineTurnReduction++;
+                }
             }
         }
     }
@@ -69,4 +73,13 @@ public class Faction implements Serializable{
     public int getPortBonus() {
         return portBonus;
     }
+
+    public int getMineTurnReduction(){
+        return mineTurnReduction;
+    }
+
+    public double getMarketMultiplier() {
+        return marketMultiplier;
+    }
 }
+

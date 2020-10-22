@@ -59,7 +59,7 @@ public class Province implements Serializable{
         } else if (buildingInfrastructure()) {
             return;
         }
-        ProjectDetails p = new ProjectDetails(project);
+        ProjectDetails p = new ProjectDetails(faction, project);
         projects.add(p);
     }
 
