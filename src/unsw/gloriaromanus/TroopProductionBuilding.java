@@ -13,9 +13,9 @@ public class TroopProductionBuilding extends Infrastructure{
         this.f = f;
         uniqueUnits = new HashMap<Integer, ArrayList<Unit>>();
     }
-
+/*
     public static void populateGeneralUnits(){
-        ArrayList<Unit> levelOne = new ArrayList<Unit>(new Peasant(), new SlingerMan());
+       ArrayList<Unit> levelOne = new ArrayList<Unit>(new Peasant(), new SlingerMan());
         generalUnits.put(1, levelOne);
         ArrayList<Unit> levelTwo = new ArrayList<Unit>(new Swordsman(), new Spearman(), new Archer(), new HorseArcher(), new SiegeTower());
         generalUnits.put(2, levelTwo);
@@ -24,11 +24,9 @@ public class TroopProductionBuilding extends Infrastructure{
         ArrayList<Unit> levelFour = new ArrayList<Unit>(new Crossbowman(), new Cannon(), new Trebuchet(), new Knight());
         generalUnits.put(4, levelFour);
     }
-
-    public void nextLevel() {
-        increaseLevel();
-        setBaseCost(cost);
-        setBaseContructionTime(turns);
+*/
+    public void levelUp() {
+        updateCosts();
     }
 
 }

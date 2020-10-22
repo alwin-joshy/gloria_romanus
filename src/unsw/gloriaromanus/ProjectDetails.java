@@ -6,7 +6,7 @@ public class ProjectDetails {
 
     public ProjectDetails(Project project) {
         this.project = project;
-        turnsRemaining = project.getConstructionTime();
+        turnsRemaining = project.getBaseConstructionTime();
     }
 
     public Project getProject() {
