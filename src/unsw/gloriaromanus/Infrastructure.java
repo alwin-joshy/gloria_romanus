@@ -6,6 +6,7 @@ public abstract class Infrastructure implements Project, Serializable{
     private int baseCost;
     private int baseConstructionTime;
     private int level;
+    private Faction f;
 
     public Infrastructure() {
         level = 0;
@@ -38,6 +39,11 @@ public abstract class Infrastructure implements Project, Serializable{
 
     public void setBaseContructionTime(int turns) {
         baseConstructionTime = turns;
+    }
+
+    public int getConstructionTime() {
+        int constructionTime = baseConstructionTime - f.getMineTurnReduction();
+        return constructionTime >= 1 ? constructionTime : 1;
     }
 
     public int getBaseConstructionTime(){

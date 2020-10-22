@@ -3,12 +3,19 @@ package unsw.gloriaromanus;
 import java.io.Serializable;
 
 public class ProjectDetails implements Serializable{
+    private Faction f;
     private Project project;
     private int turnsRemaining;
 
-    public ProjectDetails(Project project) {
+    public ProjectDetails(Faction f, Project project) {
         this.project = project;
-        turnsRemaining = project.getBaseConstructionTime();
+        turnsRemaining = project.getConstructionTime();
+        if (project instanceof Infrastructure) {
+            turnsRemaining -= f.getMineTurnReduction();
+        }
+        if (turnsRemaining < 1) {
+            turnsRemaining = 1;
+        }
     }
 
     public Project getProject() {
