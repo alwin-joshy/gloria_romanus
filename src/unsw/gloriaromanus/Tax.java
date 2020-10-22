@@ -1,6 +1,8 @@
 package unsw.gloriaromanus;
 
-public class Tax {
+import java.io.Serializable;
+
+public class Tax implements Serializable{
     private double rate;
     private int wealthGrowthDelta;
 

@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -70,10 +71,11 @@ public class Game {
         }
     }
 
-    public void saveGame() {
+    public void saveGame(String filename) {
         FileOutputStream out;
         try {
-            out = new FileOutputStream("fooFile");
+            new File("saves").mkdirs();
+            out = new FileOutputStream("saves/" + filename);
             ObjectOutputStream os = new ObjectOutputStream(out);
             os.writeObject(adjacentProvinces);
             os.writeObject(currentYear);
@@ -85,17 +87,29 @@ public class Game {
         }
     }
 
-    public void loadGame() {
+    public void loadGame(String filename) {
         FileInputStream in;
         ObjectInputStream ins;
         try {
-            in = new FileInputStream("fooFile");
+            in = new FileInputStream("saves/" + filename);
             ins = new ObjectInputStream(in);
             adjacentProvinces = (Map<String, Map<String, Integer>>) ins.readObject();
             currentYear = (int) ins.readObject();
             factions = (ArrayList<Faction>) ins.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void clear() {
+        factions.clear();
+        adjacentProvinces.clear();
+        currentYear = 0;
+    }
+
+    public void printFactions() {
+        for (Faction f : factions) {
+            System.out.println(f.getName());
         }
     }
 
@@ -110,7 +124,10 @@ public class Game {
             JSONObject a = new JSONObject(content);
             game.initialiseAdjacencyMatrix(a);
             game.initialiseFactions(map, landlocked);
-            game.saveGame();
+            game.saveGame("xD");
+            game.clear();
+            game.loadGame("xD");
+            game.printFactions();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,6 +1,8 @@
 package unsw.gloriaromanus;
 
-public class ProjectDetails {
+import java.io.Serializable;
+
+public class ProjectDetails implements Serializable{
     private Project project;
     private int turnsRemaining;
 

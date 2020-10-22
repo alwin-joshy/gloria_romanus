@@ -1,9 +1,10 @@
 package unsw.gloriaromanus;
 
+import java.io.Serializable;
 import java.lang.Math;
 import java.util.ArrayList;
 
-public class Province {
+public class Province implements Serializable{
     private String name;
     private Faction faction;
     private ArrayList<Unit> units;

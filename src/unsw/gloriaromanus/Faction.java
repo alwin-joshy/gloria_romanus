@@ -1,8 +1,9 @@
 package unsw.gloriaromanus;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Faction {
+public class Faction implements Serializable{
     
     private ArrayList<Province> alliedProvinces;
     private int treasury;
@@ -59,6 +60,10 @@ public class Faction {
                 portBonus += pt.getBonus();
             }
         }
+    }
+
+    public String getName(){
+        return name;
     }
     
     public int getPortBonus() {
