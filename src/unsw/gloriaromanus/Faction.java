@@ -83,6 +83,10 @@ public class Faction implements Serializable{
         return marketMultiplier;
     }
 
+    public double getMineMultiplier() {
+        return mineMultiplier;
+    }
+
     public void setPlayer() {
         isPlayer = 1;
     }
@@ -108,6 +112,12 @@ public class Faction implements Serializable{
             if (!p.maxedInfrastructure()) return false; 
         }
         return true;
+    }
+
+    public boolean purchase(int cost) {
+        if (treasury - cost < 0) return false;
+        treasury -= cost;
+        return true; 
     }
 }
 
