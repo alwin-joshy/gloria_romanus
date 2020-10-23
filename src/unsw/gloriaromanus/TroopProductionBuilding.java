@@ -13,7 +13,7 @@ public class TroopProductionBuilding extends Infrastructure{
         this.f = f;
         uniqueUnits = new HashMap<Integer, ArrayList<Unit>>();
     }
-/*
+
     public static void populateGeneralUnits(){
        ArrayList<Unit> levelOne = new ArrayList<Unit>(new Peasant(), new SlingerMan());
         generalUnits.put(1, levelOne);
@@ -24,7 +24,7 @@ public class TroopProductionBuilding extends Infrastructure{
         ArrayList<Unit> levelFour = new ArrayList<Unit>(new Crossbowman(), new Cannon(), new Trebuchet(), new Knight());
         generalUnits.put(4, levelFour);
     }
-*/
+
     public void levelUp() {
         updateCosts();
     }
