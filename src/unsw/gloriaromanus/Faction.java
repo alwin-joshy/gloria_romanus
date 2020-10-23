@@ -21,6 +21,7 @@ public class Faction implements Serializable{
         alliedProvinces = new ArrayList<Province>();
         treasury = 100;
         totalProvinceWealth = 0;
+        isPlayer = 0;
     }
 
     public void addProvince(Province p) {
@@ -80,6 +81,33 @@ public class Faction implements Serializable{
 
     public double getMarketMultiplier() {
         return marketMultiplier;
+    }
+
+    public void setPlayer() {
+        isPlayer = 1;
+    }
+
+    public int getTreasury() {
+        return treasury;
+    }
+
+    public int getWealth() {
+        int wealth = 0;
+        for (Province p : alliedProvinces) {
+            wealth += p.getWealth();
+        }
+        return wealth;
+    }
+
+    public int getNumProvinces() {
+        return alliedProvinces.size();
+    }
+
+    public boolean checkMaxedInfrastructure() {
+        for (Province p : alliedProvinces) {
+            if (!p.maxedInfrastructure()) return false; 
+        }
+        return true;
     }
 }
 

@@ -11,7 +11,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Random;
 import java.util.HashMap;
+import java.math.Random;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -21,18 +23,61 @@ public class Game {
     private ArrayList<Faction> factions;
     private static Map<String, Map<String, Integer>> adjacentProvinces;
     private int currentYear;
+    private boolean isRunning;
+    private int currentFaction;
+    private ArrayList<VictoryCondition> victories = new ArrayList<VictoryCondition>(Arrays.asList (new ConquestGoal(), new InfrastructureGoal(), 
+                                                                                                   new WealthGoal(), new TreasuryGoal());
+    private VictoryCondition currentVictoryCondition;
 
     public Game() {
         factions = new ArrayList<Faction>();
         adjacentProvinces = new HashMap<String, Map<String, Integer>>();
         currentYear = -200;
+        currentVictoryCondition = victories.get(Math.random() % victories.size());
     }
 
-    public void initialiseFactions(JSONObject map, JSONArray landlocked) {
-        for (String key : map.keySet()) {
+    public void startGame(JSONObject initialOwnership, JSONArray landlocked, JSONObject adjacencyMap) {
+        initialiseFactions(initialOwnership, landlocked);
+        initialiseAdjacencyMatrix(adjacencyMap);
+        currentFaction = ((int) Math.random()) % factions.size();
+        isRunning = true;
+    } 
+
+    public void selectFaction(String name) {
+        for (Faction f : factions) {
+            if name.equals(f.getName()) {
+                f.setPlayer();
+            }
+        }
+    }
+
+    public void endTurn() {
+        if (currentVictoryCondition.check(factions.get(currentFaction))) {
+            isRunning = false; 
+        }
+        (currentFaction++) % factions.size();
+        currentYear++;
+    }
+
+    public void playAI() {
+        Faction curr = factions.get(currentFaction) 
+        while (! curr.isPlayer()) {
+            if (currentVictoryCondition.check(curr)) {
+                isRunning = false;
+            }
+            AI(curr);
+            endTurn();
+        }
+        if (currentVictoryCondition.check(curr)) {
+            isRunning = false; 
+        }
+    }
+
+    public void initialiseFactions(JSONObject initialOwnership, JSONArray landlocked) {
+        for (String key : initialOwnership.keySet()) {
             Faction f = new Faction(key);
             factions.add(f);
-            JSONArray provinces = map.getJSONArray(key);
+            JSONArray provinces = initialOwnership.getJSONArray(key);
             for (int i = 0; i < provinces.length(); i++) {
                 Province p = new Province(provinces.getString(i), f);
                 isLandlocked(landlocked, p);
