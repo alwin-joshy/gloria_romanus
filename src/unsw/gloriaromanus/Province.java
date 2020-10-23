@@ -57,12 +57,24 @@ public class Province implements Serializable{
     }
 
     public void build(Project project){
+        double cost = project.getBaseCost();
+
+        if (project instanceof Unit) {
+            cost *= faction.getMineMultiplier();
+        } else {
+            cost *= faction.getMarketMultiplier();
+        }
+        int integerCost = (int) Math.round(cost)
+
+        if (! faction.purchase(integerCost)) return;
+
         if (project instanceof Unit) {
             if (unitsInTraining == unitTrainingLimit) return;
             unitsInTraining++;
         } else if (buildingInfrastructure()) {
             return;
-        }
+        } 
+
         ProjectDetails p = new ProjectDetails(faction, project);
         projects.add(p);
     }
