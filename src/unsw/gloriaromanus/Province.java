@@ -1,8 +1,12 @@
 package unsw.gloriaromanus;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.io.Serializable;
 import java.lang.Math;
 import java.util.ArrayList;
+
+import org.junit.jupiter.params.shadow.com.univocity.parsers.common.fields.AllIndexesSelector;
 
 public class Province implements Serializable{
     private String name;
@@ -110,6 +114,29 @@ public class Province implements Serializable{
             if (i instanceof Mine) return (Mine) i;
         }
         return null;
+    }
+
+    public int getWealth() {
+        return wealth;
+    }
+
+    public boolean maxedInfrastructure() {
+        if (infrastructure.size() != 8) return false;
+        for (Infrastructure in : infrastructure) {
+            if (!checkMaxLevel(in)) {
+                return false; 
+            }
+        }
+        return true;
+    }
+
+    public boolean checkMaxLevel(Infrastructure in) {
+        if (! faction.getName().equals("Roman")) {
+            if (in instanceof Road && in.getLevel() != 3 ) return false; 
+        } else {
+            if (in.getLevel() != 4) return false; 
+        }
+        return true; 
     }
 
 }
