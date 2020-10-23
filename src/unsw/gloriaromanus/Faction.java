@@ -21,7 +21,7 @@ public class Faction implements Serializable{
         alliedProvinces = new ArrayList<Province>();
         treasury = 100;
         totalProvinceWealth = 0;
-        isPlayer = 0;
+        isPlayer = false;
     }
 
     public void addProvince(Province p) {
@@ -84,7 +84,7 @@ public class Faction implements Serializable{
     }
 
     public void setPlayer() {
-        isPlayer = 1;
+        isPlayer = true;
     }
 
     public int getTreasury() {
