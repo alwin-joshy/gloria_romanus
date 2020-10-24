@@ -12,7 +12,9 @@ import org.json.JSONObject;
  * 
  * current version represents a heavy infantry unit (almost no range, decent armour and morale)
  */
-public abstract class Unit implements Serializable{
+public class Unit implements Serializable {
+    private String name;
+    private String type;
     private int numTroops;  // the number of troops in this unit (should reduce based on depletion)
     private boolean ranged;  // range of the unit
     private int armour;  // armour defense
@@ -24,10 +26,13 @@ public abstract class Unit implements Serializable{
     private int baseCost;
     private int trainingTime;
     private int smithLevel;
+    private int movementPoints;
 
-    public Unit(String filename){
+
+    public Unit(String name) {
         // TODO = obtain these values from the file for the unit
-        JSONObject json = new JSONObject("units/" + filename + ".json");
+        this.name = name;
+        JSONObject json = new JSONObject("units/" + name + ".json");
         numTroops = json.getInt("numTroops");
         ranged = json.getBoolean("ranged");
         armour = json.getInt("armour");
@@ -37,6 +42,24 @@ public abstract class Unit implements Serializable{
         defenceSkill = json.getInt("defenceSkill");
         shieldDefence = json.getInt("shieldDefence");
         baseCost = json.getInt("baseCost");
+        trainingTime = json.getInt("trainingTime");
+    }
+
+    public int compareTo(Object obj) {
+        Unit u = (Unit) obj;
+        if (checkType("spearmen")) {
+            if (u.checkType("heavy infantry")) return 1;
+            if (u.checkType("missile infantry")) return 2;
+        }
+        return 0;
+    }
+
+    public boolean checkType(String type) {
+        return type.equals(this.type);
+    }
+
+    public String getType() {
+        return type;
     }
 
     public int getNumTroops(){
@@ -49,6 +72,10 @@ public abstract class Unit implements Serializable{
 
     public int getBaseCost() {
         return baseCost;
+    }
+
+    public void setMovementPoints(int movementPoints) {
+        this.movementPoints = movementPoints;
     }
 
     

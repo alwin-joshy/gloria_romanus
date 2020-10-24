@@ -1,27 +1,28 @@
 package unsw.gloriaromanus;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 public class TroopProductionBuilding extends Infrastructure{
     private Faction f;
-    private static Map<Integer, ArrayList<Unit>> generalUnits = new HashMap<Integer, ArrayList<Unit>>();
-    private Map<Integer, ArrayList<Unit>> uniqueUnits;
+    private static Map<Integer, ArrayList<String>> generalUnits = new HashMap<Integer, ArrayList<String>>();
+    private Map<Integer, ArrayList<String>> uniqueUnits;
 
     public TroopProductionBuilding(Faction f) {
         this.f = f;
-        uniqueUnits = new HashMap<Integer, ArrayList<Unit>>();
+        uniqueUnits = new HashMap<Integer, ArrayList<String>>();
     }
 
     public static void populateGeneralUnits(){
-       ArrayList<Unit> levelOne = new ArrayList<Unit>(new Peasant(), new SlingerMan());
+        ArrayList<String> levelOne = new ArrayList<String>(Arrays.asList("peasant", "slingerman", "horseman"));
         generalUnits.put(1, levelOne);
-        ArrayList<Unit> levelTwo = new ArrayList<Unit>(new Swordsman(), new Spearman(), new Archer(), new HorseArcher(), new SiegeTower());
+        ArrayList<String> levelTwo = new ArrayList<String>(Arrays.asList("swordsman", "spearman", "archer", "horsearcher", "catapult"));
         generalUnits.put(2, levelTwo);
-        ArrayList<Unit> levelThree = new ArrayList<Unit>(new Trebuchet(), new Pikeman(), new Catapult(), new Netman(), new AxeMan());
+        ArrayList<String> levelThree = new ArrayList<String>(Arrays.asList("trebuchet", "pikeman", "netman", "axeman"));
         generalUnits.put(3, levelThree);
-        ArrayList<Unit> levelFour = new ArrayList<Unit>(new Crossbowman(), new Cannon(), new Trebuchet(), new Knight());
+        ArrayList<String> levelFour = new ArrayList<String>(Arrays.asList("crossbowman", "cannon", "knight", "lancer"));
         generalUnits.put(4, levelFour);
     }
 

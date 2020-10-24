@@ -1,0 +1,14 @@
+{
+    "name": "cannon",
+    "type": "artillery",
+    "numTroops": 50,
+    "ranged": true,
+    "armour": 11,
+    "morale": 11,
+    "speed": 7,
+    "attack": 20,
+    "defenceSkill": 10,
+    "shieldDefence": 10,
+    "baseCost": 400,
+    "trainingTime": 4
+}

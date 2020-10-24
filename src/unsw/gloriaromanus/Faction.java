@@ -117,14 +117,14 @@ public class Faction implements Serializable{
     public boolean purchase(int cost) {
         if (treasury - cost < 0) return false;
         treasury -= cost;
-        return true; 
+        return true;
     }
 
     public void moveUnits(ArrayList<Unit> units, Province start, Province end) {
         for (Unit u : units) {
             if (! unitCanMove(u, shortestPathLength(start, end))) return;
         }
-        
+
         for (Unit u : units) {
             start.removeUnit(u);
             end.addUnit(end);

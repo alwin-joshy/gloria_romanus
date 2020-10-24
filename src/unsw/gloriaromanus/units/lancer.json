@@ -1,0 +1,14 @@
+{
+    "name": "lancer",
+    "type": "cavalry",
+    "numTroops": 50,
+    "ranged": false,
+    "armour": 12,
+    "morale": 11,
+    "speed": 12,
+    "attack": 18,
+    "defenceSkill": 9,
+    "shieldDefence": 9,
+    "baseCost": 400,
+    "trainingTime": 4
+}

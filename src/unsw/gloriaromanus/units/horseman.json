@@ -1,0 +1,14 @@
+{
+    "name": "horseman",
+    "type": "cavalry",
+    "numTroops": 20,
+    "ranged": false,
+    "armour": 2,
+    "morale": 3,
+    "speed": 4,
+    "attack": 3,
+    "defenceSkill": 2,
+    "shieldDefence": 3,
+    "baseCost": 35,
+    "trainingTime": 1
+}

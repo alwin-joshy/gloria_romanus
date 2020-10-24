@@ -1,0 +1,14 @@
+{
+    "name": "knight",
+    "type": "heavy infantry",
+    "numTroops": 50,
+    "ranged": false,
+    "armour": 12,
+    "morale": 11,
+    "speed": 9,
+    "attack": 18,
+    "defenceSkill": 11,
+    "shieldDefence": 12,
+    "baseCost": 400,
+    "trainingTime": 4
+}

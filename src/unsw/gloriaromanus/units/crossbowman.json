@@ -1,0 +1,14 @@
+{
+    "name": "crossbowman",
+    "type": "missile infantry",
+    "numTroops": 50,
+    "ranged": true,
+    "armour": 10,
+    "morale": 12,
+    "speed": 10,
+    "attack": 20,
+    "defenceSkill": 10,
+    "shieldDefence": 10,
+    "baseCost": 400,
+    "trainingTime": 4
+}
