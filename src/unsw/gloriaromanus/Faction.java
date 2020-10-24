@@ -119,5 +119,21 @@ public class Faction implements Serializable{
         treasury -= cost;
         return true; 
     }
+
+    public void moveUnits(ArrayList<Unit> units, Province start, Province end) {
+        for (Unit u : units) {
+            if (! unitCanMove(u, shortestPathLength(start, end))) return;
+        }
+        
+        for (Unit u : units) {
+            start.removeUnit(u);
+            end.addUnit(end);
+        }
+    }
+
+    public Boolean unitCanMove(Unit u, int shortestPathLength) {
+        return u.getMovementPoints() >= shortestPathLength;
+    }
+
 }
 

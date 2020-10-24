@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.params.shadow.com.univocity.parsers.common.fields.AllIndexesSelector;
 
-public class Province implements Serializable{
+public class Province implements Serializable {
     private String name;
     private Faction faction;
     private ArrayList<Unit> units;
@@ -64,7 +64,8 @@ public class Province implements Serializable{
         } else {
             cost *= faction.getMarketMultiplier();
         }
-        int integerCost = (int) Math.round(cost)
+
+        int integerCost = (int) Math.round(cost);
 
         if (! faction.purchase(integerCost)) return;
 
@@ -73,8 +74,8 @@ public class Province implements Serializable{
             unitsInTraining++;
         } else if (buildingInfrastructure()) {
             return;
-        } 
-
+        }
+ 
         ProjectDetails p = new ProjectDetails(faction, project);
         projects.add(p);
     }
@@ -85,6 +86,7 @@ public class Province implements Serializable{
                 Project p = project.getProject();
                 if (p instanceof Infrastructure) {
                     if (p instanceof Farm) unitTrainingLimit = ((Farm) p).getBonus();
+                    if (p instanceof Road) updateRoads(name);
                     Infrastructure inf = (Infrastructure) p;
                     inf.levelUp();
                     infrastructure.add(inf);
@@ -94,6 +96,10 @@ public class Province implements Serializable{
                 projects.remove(project);
             }
         }
+    }
+
+    public void updateRoads(String name) {
+        faction.updateRoads(name);
     }
 
     private boolean buildingInfrastructure(){
