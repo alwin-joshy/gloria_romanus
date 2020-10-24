@@ -135,5 +135,12 @@ public class Faction implements Serializable{
         }
     }
 
+    public boolean isAlliedProvince(Province p) {
+        for (Province ap : alliedProvinces) {
+            if (p == ap) return true;
+        }
+        return false;
+    }
+
 }
 

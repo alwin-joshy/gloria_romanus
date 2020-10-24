@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Random;
 
+import org.graalvm.compiler.hotspot.nodes.CurrentLockNode;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -23,6 +24,7 @@ public class Game {
 
     private ArrayList<Faction> factions;
     private static Map<String, Map<String, Integer>> adjacentProvinces;
+    private ArrayList<Province> provinces;
     private int currentYear;
     private boolean isRunning;
     private int currentFaction;
@@ -33,6 +35,7 @@ public class Game {
     public Game() {
         factions = new ArrayList<Faction>();
         adjacentProvinces = new HashMap<String, Map<String, Integer>>();
+        provinces = new ArrayList<Province>
         currentYear = -200;
         Random r = new Random();
         currentFaction = r.nextInt(victories.size());
@@ -104,9 +107,10 @@ public class Game {
             for (String key2 : connected.keySet()) {
                 if (connected.getBoolean(key2)) {
                     distance.put(key2, 4);
-                } else {
-                    distance.put(key2, 0);
                 }
+                // } else {
+                //     distance.put(key2, 0);
+                // }
             }
             adjacentProvinces.put(key1, distance);
         }
@@ -162,11 +166,101 @@ public class Game {
     }
 
     public int shortestPathLength(Province start, Province end) {
-        String startName = start.getName();
-        String endName = end.getName();
-        Map<String, Integer> dist = new HashMap<String, Integer>();
-        PriorityQueue<Province> provinces = new PriorityQueue<Province>(52);
+        Map<Province, Integer> dist = new HashMap<Province, Integer>();
+        ArrayList<Province> visited = new ArrayList<Province>();
 
+        for (Province p : dist.keySet()) {
+            dist.put(p, Integer.MAX_VALUE);
+        }
+        dist.replace(p, 0)
+        int prevSize;
+
+        while (!visited.contains(end) || prevSize != visited.size()) {
+            Province next = minVertex(dist, visited);
+            prevSize = visted.size();
+            visited.add(next);
+
+            if (! factions.get(currentFaction).isAlliedProvince(next)) continue
+            Map<Province, Integer> innerMap = adjacentProvinces.get(next);
+
+            for (Province neighbour : innerMap.keySet()) {
+                int d = dist.get(next) + innerMap.get(neighbour);
+
+                if (dist.get(neighbour) > d) {
+                    dist.replace(neighbour, d)
+                }
+            }
+        }
+
+        return dist.get(end);
+    }
+
+    public Province minVertex(Map<Province, Integer> dist, ArrayList<Province> visited) {
+        int x = Integer.MAX_VALUE;
+        Province p = null;
+        for (Province curr : dist.keySet) {
+            if (! visted.contains(p) && dist.get(p) < x) {
+                p = curr;
+                x = dist.get(p)
+            }
+        }
+        return p;
+    }
+
+
+    // public int shortestPathLength(Province start, Province end) {
+    //     String startName = start.getName();
+    //     String endName = end.getName();
+    //     Map<Province, Integer> dist = new HashMap<Province, Integer>();
+    //     ArrayList<Province> visted = new ArrayList<Province>();
+    //     PriorityQueue<ProvinceComparatror> pqueue = new PriorityQueue<ProvinceComparatror>(52, new ProvinceComparatror());
+    //     for (Province p : provinces) {
+    //         dist.put(p, Integer.MAX_VALUE)
+    //     }
+
+    //     pqueue.add(new ProvinceComparator(start, 0));
+    //     dist.replace(start, 0);
+
+    //     while (visited.size() != 52) {
+    //         Province p = pqueue.remove().getProvince();
+
+    //         visited.add(p);
+    //         graphAdjacentNodes(p, endName, pqueue, visted, dist);
+    //     }
+
+    //     return dist.get(end);
+    // }
+
+    // private void graphAdjacentNodes(Province p, Province end, PriorityQueue<ProvinceComparator> pq, ArrayList<Province> visited, Map<Province, Integer> dist) {
+    //     int edgeDistance = -1;
+    //     int newDistance = -1;
+        
+    //     Map<String, Integer> innerMap = adjacentProvinces.get(p.getName()) 
+    //     for (String innerProvinceName : innerMap.keySet()){
+    //         int curr = innerMap.get(innerProvince)
+    //         Province innerProvince = findProvince(innerProvinceName);
+    //         if curr <= 0 continue;
+    //         if (! innerProvince.equals(end) && ! factions.get(currentFaction).isAlliedProvince(innerProvince)) continue;
+        
+    //         if (! visited.contains(innerProvince)) {
+    //             edgeDistance = curr;
+    //             newDistance = dist.get(p) + edgeDistance;
+                
+    //             if (newDistance < dist.get(innerProvince)) {
+    //                 dist.replace(innerProvince, newDistance)
+    //             }
+    //         }
+
+    //         pq.add(new ProvinceComparator(innerProvince, dist.get(innerProvince)))
+
+    //     }
+    // }
+
+    public Provice findProvice(String provinceName) {
+        for (Province p : provinces) {
+            if provinceName.equals(p.getName()) return p;
+        }
+        return null;
     }
 
     public void moveUnits(ArrayList<Unit> units, Province start, Province end) {
