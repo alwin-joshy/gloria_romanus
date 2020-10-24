@@ -135,9 +135,9 @@ public class Faction implements Serializable{
         }
     }
 
-    public boolean isAlliedProvince(Province p) {
+    public boolean isAlliedProvince(String p) {
         for (Province ap : alliedProvinces) {
-            if (p == ap) return true;
+            if (ap.getName().equals(p)) return true;
         }
         return false;
     }
