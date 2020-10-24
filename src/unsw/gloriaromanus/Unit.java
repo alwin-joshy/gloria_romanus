@@ -4,14 +4,6 @@ import java.io.Serializable;
 
 import org.json.JSONObject;
 
-/**
- * Represents a basic unit of soldiers
- * 
- * incomplete - should have heavy infantry, skirmishers, spearmen, lancers, heavy cavalry, elephants, chariots, archers, slingers, horse-archers, onagers, ballista, etc...
- * higher classes include ranged infantry, cavalry, infantry, artillery
- * 
- * current version represents a heavy infantry unit (almost no range, decent armour and morale)
- */
 public class Unit implements Serializable {
     private String name;
     private String type;
@@ -31,7 +23,6 @@ public class Unit implements Serializable {
 
 
     public Unit(String name) {
-        // TODO = obtain these values from the file for the unit
         this.name = name;
         JSONObject json = new JSONObject("units/" + name + ".json");
         numTroops = json.getInt("numTroops");
