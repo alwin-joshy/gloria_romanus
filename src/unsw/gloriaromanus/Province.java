@@ -86,7 +86,6 @@ public class Province implements Serializable {
                 Project p = project.getProject();
                 if (p instanceof Infrastructure) {
                     if (p instanceof Farm) unitTrainingLimit = ((Farm) p).getBonus();
-                    if (p instanceof Road) updateRoads(name);
                     Infrastructure inf = (Infrastructure) p;
                     inf.levelUp();
                     infrastructure.add(inf);
@@ -96,10 +95,6 @@ public class Province implements Serializable {
                 projects.remove(project);
             }
         }
-    }
-
-    public void updateRoads(String name) {
-        faction.updateRoads(name);
     }
 
     private boolean buildingInfrastructure(){
