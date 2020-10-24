@@ -1,0 +1,14 @@
+{
+    "name": "netman",
+    "type": "heavy infantry",
+    "numTroops": 40,
+    "ranged": false,
+    "armour": 8,
+    "morale": 9,
+    "speed": 7,
+    "attack": 12,
+    "defenceSkill": 5,
+    "shieldDefence": 5,
+    "baseCost": 200,
+    "trainingTime": 3
+}

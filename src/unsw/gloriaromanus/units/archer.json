@@ -1,0 +1,14 @@
+{
+    "name": "archer",
+    "type": "missile infantry",
+    "numTroops": 20,
+    "ranged": true,
+    "armour": 3,
+    "morale": 5,
+    "speed": 5,
+    "attack": 5,
+    "defenceSkill": 3,
+    "shieldDefence": 3,
+    "baseCost": 50,
+    "trainingTime": 2
+}

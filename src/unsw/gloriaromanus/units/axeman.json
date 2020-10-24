@@ -1,0 +1,14 @@
+{
+    "name": "axeman",
+    "type": "heavy infantry",
+    "numTroops": 40,
+    "ranged": false,
+    "armour": 5,
+    "morale": 9,
+    "speed": 7,
+    "attack": 14,
+    "defenceSkill": 5,
+    "shieldDefence": 6,
+    "baseCost": 200,
+    "trainingTime": 3
+}
