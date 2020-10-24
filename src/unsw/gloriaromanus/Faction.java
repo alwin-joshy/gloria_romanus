@@ -120,19 +120,19 @@ public class Faction implements Serializable{
         return true;
     }
 
-    public void moveUnits(ArrayList<Unit> units, Province start, Province end) {
+    public boolean isPlayer() {
+        return isPlayer;
+    }
+
+    public void moveUnits(ArrayList<Unit> units, Province start, Province end, int distance) {
         for (Unit u : units) {
-            if (! unitCanMove(u, shortestPathLength(start, end))) return;
+            if (! u.canMove(distance)) return;
         }
 
         for (Unit u : units) {
             start.removeUnit(u);
-            end.addUnit(end);
+            end.addUnit(u);
         }
-    }
-
-    public Boolean unitCanMove(Unit u, int shortestPathLength) {
-        return u.getMovementPoints() >= shortestPathLength;
     }
 
 }

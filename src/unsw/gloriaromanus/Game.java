@@ -10,10 +10,11 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.Random;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.math.Random;
+import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Random;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -26,49 +27,51 @@ public class Game {
     private boolean isRunning;
     private int currentFaction;
     private ArrayList<VictoryCondition> victories = new ArrayList<VictoryCondition>(Arrays.asList (new ConquestGoal(), new InfrastructureGoal(), 
-                                                                                                   new WealthGoal(), new TreasuryGoal());
+                                                                                                   new WealthGoal(), new TreasuryGoal()));
     private VictoryCondition currentVictoryCondition;
 
     public Game() {
         factions = new ArrayList<Faction>();
         adjacentProvinces = new HashMap<String, Map<String, Integer>>();
         currentYear = -200;
-        currentVictoryCondition = victories.get(Math.random() % victories.size());
+        Random r = new Random();
+        currentFaction = r.nextInt(victories.size());
+        currentVictoryCondition = victories.get(r.nextInt(victories.size()));
+
     }
 
     public void startGame(JSONObject initialOwnership, JSONArray landlocked, JSONObject adjacencyMap) {
         initialiseFactions(initialOwnership, landlocked);
         initialiseAdjacencyMatrix(adjacencyMap);
-        currentFaction = ((int) Math.random()) % factions.size();
         isRunning = true;
     } 
 
     public void selectFaction(String name) {
         for (Faction f : factions) {
-            if name.equals(f.getName()) {
+            if (name.equals(f.getName())) {
                 f.setPlayer();
             }
         }
     }
 
     public void endTurn() {
-        if (currentVictoryCondition.check(factions.get(currentFaction))) {
+        if (currentVictoryCondition.checkCondition(factions.get(currentFaction))) {
             isRunning = false; 
         }
-        (currentFaction++) % factions.size();
+        currentFaction = (currentFaction++) % factions.size();
         currentYear++;
     }
 
     public void playAI() {
-        Faction curr = factions.get(currentFaction) 
+        Faction curr = factions.get(currentFaction); 
         while (! curr.isPlayer()) {
-            if (currentVictoryCondition.check(curr)) {
+            if (currentVictoryCondition.checkCondition(curr)) {
                 isRunning = false;
             }
             AI(curr);
             endTurn();
         }
-        if (currentVictoryCondition.check(curr)) {
+        if (currentVictoryCondition.checkCondition(curr)) {
             isRunning = false; 
         }
     }
@@ -156,6 +159,19 @@ public class Game {
         for (Faction f : factions) {
             System.out.println(f.getName());
         }
+    }
+
+    public int shortestPathLength(Province start, Province end) {
+        String startName = start.getName();
+        String endName = end.getName();
+        Map<String, Integer> dist = new HashMap<String, Integer>();
+        PriorityQueue<Province> provinces = new PriorityQueue<Province>(52);
+
+    }
+
+    public void moveUnits(ArrayList<Unit> units, Province start, Province end) {
+        int distance = shortestPathLength(start, end);
+        factions.get(currentFaction).moveUnits(units, start, end, distance);
     }
 
     public static void main(String[] args) {

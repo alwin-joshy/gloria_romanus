@@ -27,6 +27,7 @@ public class Unit implements Serializable {
     private int trainingTime;
     private int smithLevel;
     private int movementPoints;
+    private int movementPointsRemaining;
 
 
     public Unit(String name) {
@@ -76,6 +77,19 @@ public class Unit implements Serializable {
 
     public void setMovementPoints(int movementPoints) {
         this.movementPoints = movementPoints;
+        this.movementPointsRemaining = movementPoints;
+    }
+
+    public void reduceRemainingMovementPoints(int movementPoints) {
+        movementPointsRemaining -= movementPoints;
+    }
+
+	public int getMovementPointsRemaining() {
+		return movementPointsRemaining;
+    }
+    
+    public Boolean canMove(int distance) {
+        return movementPointsRemaining >= distance;
     }
 
     
