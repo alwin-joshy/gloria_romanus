@@ -95,5 +95,13 @@ public class Unit implements Serializable {
         numTroops -= num;
     }
 
+    public boolean isRanged() {
+        return ranged;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
     
 }
