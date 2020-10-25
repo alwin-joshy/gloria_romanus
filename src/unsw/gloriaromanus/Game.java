@@ -29,6 +29,8 @@ public class Game {
     private ArrayList<VictoryCondition> victories = new ArrayList<VictoryCondition>(Arrays.asList (new ConquestGoal(), new InfrastructureGoal(), 
                                                                                                    new WealthGoal(), new TreasuryGoal()));
     private VictoryCondition currentVictoryCondition;
+    BattleResolver br;
+    AI ai;
 
     public Game() {
         factions = new ArrayList<Faction>();
@@ -37,6 +39,8 @@ public class Game {
         Random r = new Random();
         currentFaction = r.nextInt(victories.size());
         currentVictoryCondition = victories.get(r.nextInt(victories.size()));
+        br = new standardBattleResolver();
+        ai = new standardAI();
     }
 
     public void startGame(JSONObject initialOwnership, JSONArray landlocked, JSONObject adjacencyMap) {
@@ -44,6 +48,14 @@ public class Game {
         initialiseAdjacencyMatrix(adjacencyMap);
         isRunning = true;
     } 
+
+    selectBattleResolver(BattleResolver br) {
+        this.br = br;
+    }
+
+    selectAI(AI ai) {
+        this.ai = ai;
+    }
 
     public void selectFaction(String name) {
         for (Faction f : factions) {

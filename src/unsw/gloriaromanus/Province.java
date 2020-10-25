@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.io.Serializable;
 import java.lang.Math;
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.junit.jupiter.params.shadow.com.univocity.parsers.common.fields.AllIndexesSelector;
 
@@ -158,6 +159,37 @@ public class Province implements Serializable {
 
     public void removeUnit(Unit u) {
         units.remove(u);
+    }
+
+    public void destroyAllUnits() {
+        units.clear();
+    }
+
+    public void destroyUnits(ArrayList<Unit> army, int numToDestroy) {
+        int numDestroyed = 0;
+        Random r = new Random();
+        while (numDestroyed < numToDestroy) {
+            int index = r.nextInt(units.size());
+            Unit toDelete = units.get(index);
+            if (! army.contains(toDelete)) continue;
+            if (numDestroyed + toDelete.getNumTroops() > numToDestroy) {
+                toDelete.removeNumTroops(numToDestroy - numDestroyed);
+                numDestroyed += numToDestroy - numDestroyed
+                continue;
+            }
+            numDestroyed += toDelete.getNumTroops();
+            units.remove(toDelete);
+            army.remove(toDelete)
+        }
+    }
+
+    public Faction getFaction() {
+        return faction;
+    }
+
+    public Faction setFaction(Faction f) {
+        projects.clear();
+        this.faction = f;
     }
 
 }

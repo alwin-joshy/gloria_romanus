@@ -28,6 +28,10 @@ public class Faction implements Serializable{
         alliedProvinces.add(p);
     }
 
+    public void removeProvince(Province p) {
+        alliedProvinces.remove(p);
+    }
+
     public void collectTax() {
         for (Province p : alliedProvinces) {
             treasury += p.applyTax();
