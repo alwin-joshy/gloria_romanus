@@ -83,5 +83,17 @@ public class Unit implements Serializable {
         return movementPointsRemaining >= distance;
     }
 
+    public int getAttack() {
+        return attack;
+    }
+
+    public int getDefense() {
+        return armour + defenceSkill + shieldDefence;
+    }
+
+    public void removeNumTroops(int numRemove) {
+        numTroops -= num;
+    }
+
     
 }

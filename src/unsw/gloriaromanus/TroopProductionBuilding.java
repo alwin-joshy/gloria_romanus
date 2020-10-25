@@ -22,7 +22,7 @@ public class TroopProductionBuilding extends Infrastructure {
             JSONArray jsonUnits = unitList.getJSONArray(level);
             ArrayList<String> unitsSubList = new ArrayList<String>();
             for (int i = 0; i < jsonUnits.length(); i++) {
-                unitsSubList.add((String) jsonUnits.get(i));
+                unitsSubList.add(jsonUnits.getString(i));
             }
             units.put(countLevel, unitsSubList);
             countLevel++;
