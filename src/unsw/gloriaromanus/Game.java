@@ -67,7 +67,17 @@ public class Game {
             if (currentVictoryCondition.checkCondition(curr)) {
                 isRunning = false;
             }
-            AI(curr);
+            
+            int startingBalance = curr.getTreasury();
+            // handle int to double
+            while (curr.getTreasury() >= 0.5 * startingBalance) {
+                AI.buildInfrastructure(curr);
+            }
+
+            while (curr.getTreasury() >= 0) {
+                AI.recruitUnit(curr);
+            }
+
             endTurn();
         }
         if (currentVictoryCondition.checkCondition(curr)) {
