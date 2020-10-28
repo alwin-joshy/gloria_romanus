@@ -152,6 +152,10 @@ public class Province implements Serializable {
         return true; 
     }
 
+    public ArrayList<Unit> getUnits() {
+        return units;
+    }
+
     public void addUnit(Unit u) {
         units.add(u);
     }

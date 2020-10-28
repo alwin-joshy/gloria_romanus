@@ -128,6 +128,11 @@ public class Faction implements Serializable{
         for (Unit u : units) {
             if (! u.canMove(distance)) return;
         }
+        // if the end province is an enemy province this should trigger the battle resolver before
+        // adding/removing since we want a list of defenders + we want routed units to return if the battle is lost
+        if (!isAlliedProvince(end.getName())) {
+            BattleResolver.battle(units, end.getUnits());
+        }
 
         for (Unit u : units) {
             start.removeUnit(u);
