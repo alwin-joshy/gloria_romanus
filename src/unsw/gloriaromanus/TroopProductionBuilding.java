@@ -11,19 +11,17 @@ import org.json.JSONObject;
 
 public class TroopProductionBuilding extends Infrastructure {
     private Faction f;
-    private static Map<Integer, ArrayList<String>> units = new HashMap<Integer, ArrayList<String>>();
+    private static Map<Integer, ArrayList<String>> units;
 
     public TroopProductionBuilding(Faction f) {
         this.f = f;
+        units = new HashMap<Integer, ArrayList<String>>();
         JSONObject unitList = new JSONObject("units/units");
         int countLevel = 1;
         // converts json file containing general units into a hashmap
         for (String level : unitList.keySet()) {
             JSONArray jsonUnits = unitList.getJSONArray(level);
-            ArrayList<String> unitsSubList = new ArrayList<String>();
-            for (int i = 0; i < jsonUnits.length(); i++) {
-                unitsSubList.add((String) jsonUnits.get(i));
-            }
+            ArrayList<String> unitsSubList = ArrayUtil.convert(jsonUnits);
             units.put(countLevel, unitsSubList);
             countLevel++;
         }

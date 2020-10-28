@@ -29,6 +29,8 @@ public class Game {
     private ArrayList<VictoryCondition> victories = new ArrayList<VictoryCondition>(Arrays.asList (new ConquestGoal(), new InfrastructureGoal(), 
                                                                                                    new WealthGoal(), new TreasuryGoal()));
     private VictoryCondition currentVictoryCondition;
+    private StandardBattleResolver br;
+    private StandardAI ai;
 
     public Game() {
         factions = new ArrayList<Faction>();
@@ -37,6 +39,8 @@ public class Game {
         Random r = new Random();
         currentFaction = r.nextInt(victories.size());
         currentVictoryCondition = victories.get(r.nextInt(victories.size()));
+        br = new StandardBattleResolver();
+        ai = new StandardAI();
     }
 
     public void startGame(JSONObject initialOwnership, JSONArray landlocked, JSONObject adjacencyMap) {
@@ -44,6 +48,10 @@ public class Game {
         initialiseAdjacencyMatrix(adjacencyMap);
         isRunning = true;
     } 
+
+    public void selectBattleResolver(StandardBattleResolver br) {
+        this.br = br;
+    }
 
     public void selectFaction(String name) {
         for (Faction f : factions) {
@@ -71,11 +79,11 @@ public class Game {
             int startingBalance = curr.getTreasury();
             // handle int to double
             while (curr.getTreasury() >= 0.5 * startingBalance) {
-                AI.buildInfrastructure(curr);
+                ai.buildInfrastructure(curr);
             }
 
             while (curr.getTreasury() >= 0) {
-                AI.recruitUnit(curr);
+                ai.recruitUnit(curr);
             }
 
             endTurn();
@@ -212,7 +220,15 @@ public class Game {
 
     public void moveUnits(ArrayList<Unit> units, Province start, Province end) {
         int distance = shortestPathLength(start.getName(), end.getName());
-        factions.get(currentFaction).moveUnits(units, start, end, distance);
+        for (Unit u : units) {
+            if (! u.canMove(distance)) return;
+        }
+        Faction curr = factions.get(currentFaction);
+        boolean validMove = true;
+        if (!curr.isAlliedProvince(end.getName())) {
+            validMove = br.battle(start, units, end, end.getUnits());
+        }
+        if (validMove) curr.moveUnits(units, start, end, distance);
     }
 
     public static void main(String[] args) {

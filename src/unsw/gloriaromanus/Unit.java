@@ -117,13 +117,13 @@ public class Unit implements Serializable {
     (such as formations such as phalanx formation, charge bonuses where applicable for cavalry/chariots/elephants).
     */
 
-    public int calculateDamage(Unit enemyUnit, boolean isMeleeEngagement) {
+    public int calculateDamage(Unit enemyUnit, boolean isRangedEngagement) {
         double damage;
         Random random = new Random();
-        if (isMeleeEngagement) {
-            damage = enemyUnit.getNumTroops() * 0.1 * (attack / (enemyUnit.getMeleeDefense())) * (random.nextGaussian() + 1);
-        } else {
+        if (isRangedEngagement) {
             damage = enemyUnit.getNumTroops() * 0.1 * (attack / (enemyUnit.getRangedDefense())) * (random.nextGaussian() + 1);
+        } else {
+            damage = enemyUnit.getNumTroops() * 0.1 * (attack / (enemyUnit.getMeleeDefense())) * (random.nextGaussian() + 1);
         }
         int roundedDamage = (int) Math.round(damage);
         return roundedDamage;
@@ -137,13 +137,13 @@ public class Unit implements Serializable {
     public void checkIfBroken(int casualties, int size, int enemyCasualties, int enemySize) {
         if (isBroken) return;
         Random random = new Random();
-        double breakChance = 100 - (morale * 10) + (casualties / size) / (enemyCasualties / enemySize) * 10;
-        if (breakChance < 5)
-            breakChance = 5;
-        else if (breakChance > 100)
-            breakChance = 100;
-        int b = random.nextInt();
-        if (b < breakChance - 1) isBroken = true;
+        double breakChance = 1.0 - (morale * 0.1) + (casualties / size) / (enemyCasualties / enemySize) * 0.1;
+        if (breakChance < 0.05)
+            breakChance = 0.05;
+        else if (breakChance > 1.0)
+            breakChance = 1.0;
+        double b = random.nextDouble();
+        if (b < breakChance) isBroken = true;
     }
 
     public boolean isBroken() {
@@ -158,8 +158,8 @@ public class Unit implements Serializable {
         return isRouted;
     }
 
-    public boolean isDefeatedOrRouted() {
-        return isRouted || (numTroops == 0);
+    public boolean isDefeated() {
+        return numTroops == 0;
     }
     
 }

@@ -4,7 +4,7 @@
     "numTroops": 50,
     "ranged": true,
     "armour": 11,
-    "morale": 11,
+    "morale": 9,
     "speed": 7,
     "attack": 20,
     "defenceSkill": 10,
