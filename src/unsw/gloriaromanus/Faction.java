@@ -133,7 +133,7 @@ public class Faction implements Serializable{
         if (!isAlliedProvince(end.getName())) {
             BattleResolver.battle(units, end.getUnits());
         }
-
+        // how to destroy units which were routed/defeated?
         for (Unit u : units) {
             start.removeUnit(u);
             end.addUnit(u);
