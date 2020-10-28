@@ -15,6 +15,7 @@ public class StandardBattleResolver implements BattleResolver {
 
     public boolean battle(Province invader, ArrayList<Unit> attackingArmy, Province invaded, ArrayList<Unit> defendingArmy) {
         engagementCounter = 0;
+        if (invader.isVeryHighTax())
         while (attackingArmy.size() > 0 && defendingArmy.size() > 0 && engagementCounter <= 200) {
             Random random = new Random();
             // randomly choose a unit from each
@@ -32,8 +33,15 @@ public class StandardBattleResolver implements BattleResolver {
             }
         }
 
-        if (attackingArmy.size() == 0) return true;
-        else return false;
+        if (defendingArmy.size() == 0) {
+            transferProvinceOwnership(invaded.getFaction(), invader.getFaction(), invaded);
+            for (Unit u : routedAttackers) {
+                invaded.addUnit(u);
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public int skirmish(Province invaded, Unit attackingUnit, Unit defendingUnit) {
@@ -114,5 +122,11 @@ public class StandardBattleResolver implements BattleResolver {
             rangedEngagement = r.nextDouble() <= rangedThreshold ? true : false;
         }
         return rangedEngagement;
+    }
+
+    public void transferProvinceOwnership(Faction from, Faction to, Province p) {
+        from.removeProvince(p);
+        to.addProvince(p);
+        p.setFaction(to);
     }
 }

@@ -43,6 +43,10 @@ public class Unit implements Serializable {
         trainingTime = json.getInt("trainingTime");
     }
 
+    public String getName() {
+        return name;
+    }
+
     public int compareTo(Object obj) {
         Unit u = (Unit) obj;
         if (checkType("spearmen")) {
@@ -57,6 +61,7 @@ public class Unit implements Serializable {
     }
 
     public int getSpeed() {
+        if (name.equals("pikemen") || name.equals("hoplite")) return speed / 2;
         return speed;
     }
 
@@ -97,34 +102,48 @@ public class Unit implements Serializable {
         return movementPointsRemaining >= distance;
     }
 
-    public int getMeleeDefense() {
-        return defenceSkill + shieldDefence + armour;
+    public int getMeleeDefence() {
+        int meleeDefence = defenceSkill + shieldDefence + armour;
+        if (name.equals("pikemen") || name.equals("hoplite")) meleeDefence *= 2;
+        return meleeDefence;
     }
 
-    public int getRangedDefense() {
+    public int getRangedDefence() {
         return armour + shieldDefence;
     }
 
     /*
     You should ensure the ranged attack damage above incorporates the effect of any bonuses/penalties 
     (e.g. the 10% loss of missile attack damage from fire arrows).
+
     NOTE: in the above formula, the Berserker special ability will result in a Zero Division Error. 
+
     Handle this by capping the following to 10 (rather than the infinity implied by zero division error):
     Missile attack damage of unit/(effective armor of enemy unit + effective shield of enemy unit)
+
     Melee cavalry/chariots/elephants will have an attack damage value in all engagements equal to 
     their melee attack damage + charge value. Infantry and artillery do not receive a charge statistic (only cavalry/chariots/elephants do).
+    
     Note that all effective attributes in the formula should incorporate the effect of any bonuses/penalties 
     (such as formations such as phalanx formation, charge bonuses where applicable for cavalry/chariots/elephants).
     */
 
+    public int getAttack() {
+        int adjustedAttack = attack;
+        if (name.equals("beserker")) adjustedAttack *= 2;
+        return adjustedAttack;
+    }
+
     public int calculateDamage(Unit enemyUnit, boolean isRangedEngagement) {
         double damage;
         Random random = new Random();
+        double damageQuotient = enemyUnit.getName().equals("beserker") ? 10 : attack / (enemyUnit.getRangedDefence());
         if (isRangedEngagement) {
-            damage = enemyUnit.getNumTroops() * 0.1 * (attack / (enemyUnit.getRangedDefense())) * (random.nextGaussian() + 1);
+            damage = enemyUnit.getNumTroops() * 0.1 * damageQuotient;
         } else {
-            damage = enemyUnit.getNumTroops() * 0.1 * (attack / (enemyUnit.getMeleeDefense())) * (random.nextGaussian() + 1);
+            damage = enemyUnit.getNumTroops() * 0.1 * (attack / (enemyUnit.getMeleeDefence()));
         }
+        damage *= random.nextGaussian() + 1;
         int roundedDamage = (int) Math.round(damage);
         return roundedDamage;
     }
