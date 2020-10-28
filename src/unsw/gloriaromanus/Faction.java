@@ -129,7 +129,6 @@ public class Faction implements Serializable{
     }
 
     public void moveUnits(ArrayList<Unit> units, Province start, Province end, int distance) {
-        // how to destroy units which were routed/defeated?
         for (Unit u : units) {
             start.removeUnit(u);
             end.addUnit(u);

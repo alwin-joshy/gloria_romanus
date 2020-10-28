@@ -28,7 +28,7 @@ public class Game {
     private int currentFaction;
     private ArrayList<VictoryCondition> victories = new ArrayList<VictoryCondition>(Arrays.asList (new ConquestGoal(), new InfrastructureGoal(), 
                                                                                                    new WealthGoal(), new TreasuryGoal()));
-    private VictoryCondition currentVictoryCondition;
+    private Component currentVictoryCondition;
     private StandardBattleResolver br;
     private StandardAI ai;
 
@@ -229,6 +229,71 @@ public class Game {
             validMove = br.battle(start, units, end, end.getUnits());
         }
         if (validMove) curr.moveUnits(units, start, end, distance);
+    }
+
+    public VictoryCondition getRandomGoal() {
+        Random random = new Random();
+        VictoryCondition goal = victories.get(random.nextInt(victories.size()));
+        victories.remove(goal);
+        return goal;
+    }
+
+    public void generateVictoryCondition() {
+        Random random = new Random();
+        VictoryCondition goal = getRandomGoal();
+        int x = random.nextInt(3);
+        if (x == 0) {
+            Component l = Leaf("goal", goal);
+            currentVictoryCondition = l;
+        } else {
+            if (x == 1) Component l = Composite("AND");
+            else if (x == 2) Component l = Composite("OR");
+            l.add(goal);
+            goal = getRandomGoal();
+            l.add(goal);
+            int y = random.nextInt(3);
+            if (y == x) {
+                l.add(getRandomGoal());
+                int z = random.nextInt(3);
+                if (z == y) {
+                    l.add(getRandomGoal());
+                } else if (z != 0) {
+                    if (z == 1) {
+                        Component m = ("AND");
+                    } else {
+                        Component m = ("OR");
+                    }
+                    m.add(getRandomGoal());
+                    m.add(l);
+                    currentVictoryCondition = m;
+                }
+            } else if (y != 0) {
+                if (y == 1) {
+                    Component m = Composite("AND");
+                } else {
+                    Component m = Composite("OR");
+                }
+                m.add(l);
+                goal = generateVictoryCondition();
+                int a = random.nextInt(3);
+                if (a == 0) m.add(new Leaf(goal));
+                else if (a == 1) {
+                    m.add(new Leaf(goal));
+                    goal = generateVictoryCondition();
+                    m.add(new Leaf(goal));
+                } else {
+                    int b = random.nextInt(2);
+                    if (b == 0) Component n = new Composite("AND");
+                    else Component n = new Composite("OR");
+                    n.add(goal);
+                    n.add(generateVictoryCondition());
+                    m.add(n);
+                }
+                currentVictoryCondition = m;
+            } else {
+                currentVictoryCondition = l;
+            }
+        }
     }
 
     public static void main(String[] args) {

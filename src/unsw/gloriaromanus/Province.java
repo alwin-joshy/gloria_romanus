@@ -1,13 +1,9 @@
 package unsw.gloriaromanus;
 
-import static org.junit.jupiter.api.Assertions.fail;
-
 import java.io.Serializable;
 import java.lang.Math;
 import java.util.ArrayList;
 import java.util.Random;
-
-import org.junit.jupiter.params.shadow.com.univocity.parsers.common.fields.AllIndexesSelector;
 
 public class Province implements Serializable {
     private String name;
@@ -51,6 +47,10 @@ public class Province implements Serializable {
         int taxedAmount = (int) Math.round(wealth * tax.getRate());
         wealth -= taxedAmount;
         return (int) taxedAmount;
+    }
+
+    public boolean isVeryHighTax() {
+        return tax.isVeryHighTax();
     }
 
     public void setLandlocked() {
@@ -184,7 +184,7 @@ public class Province implements Serializable {
             Unit toDelete = units.get(index);
             if (! army.contains(toDelete)) continue;
             if (numDestroyed + toDelete.getNumTroops() > numToDestroy) {
-                toDelete.removeNumTroops(numToDestroy - numDestroyed);
+                toDelete.takeDamage(numToDestroy - numDestroyed);
                 numDestroyed += numToDestroy - numDestroyed;
                 continue;
             }
@@ -198,7 +198,7 @@ public class Province implements Serializable {
         return faction;
     }
 
-    public Faction setFaction(Faction f) {
+    public void setFaction(Faction f) {
         projects.clear();
         this.faction = f;
     }
