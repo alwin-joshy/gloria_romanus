@@ -28,6 +28,10 @@ public class Faction implements Serializable{
         alliedProvinces.add(p);
     }
 
+    public void removeProvince(Province p) {
+        alliedProvinces.remove(p);
+    }
+
     public void collectTax() {
         for (Province p : alliedProvinces) {
             treasury += p.applyTax();
@@ -125,14 +129,6 @@ public class Faction implements Serializable{
     }
 
     public void moveUnits(ArrayList<Unit> units, Province start, Province end, int distance) {
-        for (Unit u : units) {
-            if (! u.canMove(distance)) return;
-        }
-        // if the end province is an enemy province this should trigger the battle resolver before
-        // adding/removing since we want a list of defenders + we want routed units to return if the battle is lost
-        if (!isAlliedProvince(end.getName())) {
-            BattleResolver.battle(units, end.getUnits());
-        }
         // how to destroy units which were routed/defeated?
         for (Unit u : units) {
             start.removeUnit(u);
