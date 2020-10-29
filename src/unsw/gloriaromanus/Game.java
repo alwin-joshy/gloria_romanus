@@ -28,7 +28,7 @@ public class Game {
     private int currentFaction;
     private ArrayList<VictoryCondition> victories = new ArrayList<VictoryCondition>(Arrays.asList (new ConquestGoal(), new InfrastructureGoal(), 
                                                                                                    new WealthGoal(), new TreasuryGoal()));
-    private Component currentVictoryCondition;
+    private Goal currentVictoryCondition;
     private StandardBattleResolver br;
     private StandardAI ai;
 
@@ -38,7 +38,7 @@ public class Game {
         currentYear = -200;
         Random r = new Random();
         currentFaction = r.nextInt(victories.size());
-        currentVictoryCondition = victories.get(r.nextInt(victories.size()));
+        currentVictoryCondition = gvc();
         br = new StandardBattleResolver();
         ai = new StandardAI();
     }
@@ -62,7 +62,7 @@ public class Game {
     }
 
     public void endTurn() {
-        if (currentVictoryCondition.checkCondition(factions.get(currentFaction))) {
+        if (currentVictoryCondition.checkVictory(factions.get(currentFaction))) {
             isRunning = false; 
         }
         currentFaction = (currentFaction++) % factions.size();
@@ -72,7 +72,7 @@ public class Game {
     public void playAI() {
         Faction curr = factions.get(currentFaction); 
         while (! curr.isPlayer()) {
-            if (currentVictoryCondition.checkCondition(curr)) {
+            if (currentVictoryCondition.checkVictory(curr)) {
                 isRunning = false;
             }
             
@@ -88,7 +88,7 @@ public class Game {
 
             endTurn();
         }
-        if (currentVictoryCondition.checkCondition(curr)) {
+        if (currentVictoryCondition.checkVictory(curr)) {
             isRunning = false; 
         }
     }
@@ -143,6 +143,7 @@ public class Game {
             os.writeObject(adjacentProvinces);
             os.writeObject(currentYear);
             os.writeObject(factions);
+            os.writeObject(currentVictoryCondition);
             os.flush();
             os.close();
         } catch (IOException e) {
@@ -159,6 +160,7 @@ public class Game {
             adjacentProvinces = (Map<String, Map<String, Integer>>) ins.readObject();
             currentYear = (int) ins.readObject();
             factions = (ArrayList<Faction>) ins.readObject();
+            currentVictoryCondition = (Goal) ins.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -238,55 +240,91 @@ public class Game {
         return goal;
     }
 
+    public Goal gvc() {
+        if (victories.size() == 0) return null;
+        Random random = new Random();
+        int x = random.nextInt(3);
+        if (x != 0) {
+            int y = random.nextInt(victories.size());
+            Goal g;
+            if (x == 1)
+                g = new Subgoal(true);
+            else
+                g = new Subgoal(false);
+            for (int i = 0; i < y; i++) {
+                Goal z = gvc();
+                if (z != null) g.add(gvc());
+                else return g;
+            }
+            return g;
+        } else {
+            VictoryCondition goal = getRandomGoal();
+            return new Condition(goal);
+        }
+    }
+
     public void generateVictoryCondition() {
         Random random = new Random();
         VictoryCondition goal = getRandomGoal();
         int x = random.nextInt(3);
         if (x == 0) {
-            Component l = Leaf("goal", goal);
+            Goal l = new Condition(goal);
             currentVictoryCondition = l;
         } else {
-            if (x == 1) Component l = Composite("AND");
-            else if (x == 2) Component l = Composite("OR");
-            l.add(goal);
+            Goal l = null;
+            if (x == 1) 
+                l = new Subgoal(true);
+            else if (x == 2) 
+                l = new Subgoal(false);
+            l.add(new Condition(goal));
             goal = getRandomGoal();
-            l.add(goal);
+            l.add(new Condition(goal));
             int y = random.nextInt(3);
             if (y == x) {
-                l.add(getRandomGoal());
+                goal = getRandomGoal();
+                l.add(new Condition(goal));
                 int z = random.nextInt(3);
                 if (z == y) {
-                    l.add(getRandomGoal());
+                    goal = getRandomGoal();
+                    l.add(new Condition(goal));
+                    currentVictoryCondition = l;
                 } else if (z != 0) {
+                    Goal m;
                     if (z == 1) {
-                        Component m = ("AND");
+                        m = new Subgoal(true);
                     } else {
-                        Component m = ("OR");
+                        m = new Subgoal(false);
                     }
-                    m.add(getRandomGoal());
+                    goal = getRandomGoal();
+                    m.add(new Condition(goal));
                     m.add(l);
                     currentVictoryCondition = m;
                 }
             } else if (y != 0) {
+                Goal m;
                 if (y == 1) {
-                    Component m = Composite("AND");
+                    m = new Subgoal(true);
                 } else {
-                    Component m = Composite("OR");
+                    m = new Subgoal(false);
                 }
                 m.add(l);
-                goal = generateVictoryCondition();
+                goal = getRandomGoal();
                 int a = random.nextInt(3);
-                if (a == 0) m.add(new Leaf(goal));
+                if (a == 0) m.add(new Condition(goal));
                 else if (a == 1) {
-                    m.add(new Leaf(goal));
-                    goal = generateVictoryCondition();
-                    m.add(new Leaf(goal));
+                    m.add(new Condition(goal));
+                    goal = getRandomGoal();
+                    m.add(new Condition(goal));
                 } else {
                     int b = random.nextInt(2);
-                    if (b == 0) Component n = new Composite("AND");
-                    else Component n = new Composite("OR");
-                    n.add(goal);
-                    n.add(generateVictoryCondition());
+                    Goal n;
+                    if (b == 0) 
+                        n = new Subgoal(true);
+                    else 
+                        n = new Subgoal(false);
+                    n.add(new Condition(goal));
+                    goal = getRandomGoal();
+                    n.add(new Condition(goal));
                     m.add(n);
                 }
                 currentVictoryCondition = m;
@@ -294,6 +332,10 @@ public class Game {
                 currentVictoryCondition = l;
             }
         }
+    }
+
+    public Goal getVictoryCondition() {
+        return currentVictoryCondition;
     }
 
     public static void main(String[] args) {
@@ -307,13 +349,18 @@ public class Game {
             JSONObject a = new JSONObject(content);
             game.initialiseAdjacencyMatrix(a);
             game.initialiseFactions(map, landlocked);
+            game.getVictoryCondition().showGoal();
             game.saveGame("xD");
             game.clear();
             game.loadGame("xD");
             game.printFactions();
+            game.getVictoryCondition().showGoal();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
+
         
     }
 

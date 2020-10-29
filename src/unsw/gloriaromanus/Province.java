@@ -89,6 +89,10 @@ public class Province implements Serializable {
                     if (p instanceof Farm) unitTrainingLimit = ((Farm) p).getBonus();
                     Infrastructure inf = (Infrastructure) p;
                     inf.levelUp();
+                    if (inf instanceof WealthGenerationBuilding) {
+                        wealth += 150 * inf.getLevel();
+                        wealthGrowth += 50 * inf.getLevel();
+                    }
                     infrastructure.add(inf);
                 } else {
                     units.add((Unit) p);

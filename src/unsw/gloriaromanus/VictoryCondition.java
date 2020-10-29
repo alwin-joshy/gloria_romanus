@@ -1,5 +1,7 @@
 package unsw.gloriaromanus;
 
-public interface VictoryCondition {
+import java.io.Serializable;
+
+public interface VictoryCondition extends Serializable {
     public boolean checkCondition(Faction f);
 }
