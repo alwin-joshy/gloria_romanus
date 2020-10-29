@@ -27,6 +27,7 @@ public class Unit implements Serializable {
     private int movementPointsRemaining;
     private boolean isBroken;
     private boolean isRouted;
+    private int taxDebuff;
 
     public Unit(String name) {
         this.name = name;
@@ -156,7 +157,7 @@ public class Unit implements Serializable {
     public void checkIfBroken(int casualties, int size, int enemyCasualties, int enemySize) {
         if (isBroken) return;
         Random random = new Random();
-        double breakChance = 1.0 - (morale * 0.1) + (casualties / size) / (enemyCasualties / enemySize) * 0.1;
+        double breakChance = 1.0 - (morale - taxDebuff) * 0.1 + (casualties / size) / (enemyCasualties / enemySize) * 0.1;
         if (breakChance < 0.05)
             breakChance = 0.05;
         else if (breakChance > 1.0)
@@ -179,6 +180,10 @@ public class Unit implements Serializable {
 
     public boolean isDefeated() {
         return numTroops == 0;
+    }
+
+    public void setTaxDebuff(int isHighTax) {
+        taxDebuff = isHighTax;
     }
     
 }

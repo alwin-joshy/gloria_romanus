@@ -7,36 +7,72 @@ public class StandardBattleResolver implements BattleResolver {
     private boolean rangedEngagement;
     private ArrayList<Unit> routedAttackers;
     private int engagementCounter;
+    private int attackingDruids;
+    private int defendingDruids;
 
     public StandardBattleResolver() {
         routedAttackers = new ArrayList<Unit>();
         engagementCounter = 0;
     }
 
-    public boolean battle(Province invader, ArrayList<Unit> attackingArmy, Province invaded, ArrayList<Unit> defendingArmy) {
+    public void setTaxDebuff(Province p, ArrayList<Unit> army) {
+        int isVeryHighTax = p.isVeryHighTax();
+        for (Unit u : army) {
+            u.setTaxDebuff(isVeryHighTax);
+        }
+    }
+
+    public int countDruids(Province p, ArrayList<Unit> army) {
+        int totalDruids = 0;
+        if (!p.getFaction().getName().equals("Spanish")) return totalDruids;
+        for (Unit u : army) {
+            if (u.getName().equals("druid")) totalDruids++;
+        }
+        return totalDruids;
+    }
+
+    public double getDruidMultiplier(boolean isAttacker) {
+        double multiplier = 1.0;
+        if (isAttacker) {
+            multiplier += attackingDruids * 0.1;
+            multiplier -= defendingDruids * 0.05;
+        } else {
+            multiplier += defendingDruids * 0.1;
+            multiplier -= attackingDruids * 0.05;
+        }
+        if (multiplier > 1.5) multiplier = 1.5;
+        if (multiplier < 0.75) multiplier = 0.75;
+        return multiplier;
+    }
+
+    public boolean battle(Province attacking, ArrayList<Unit> attackingArmy, Province defending, ArrayList<Unit> defendingArmy) {
+        attackingDruids = countDruids(attacking, attackingArmy);
+        defendingDruids = countDruids(defending, defendingArmy);
         engagementCounter = 0;
-        if (invader.isVeryHighTax())
+        setTaxDebuff(attacking, attackingArmy);
+        setTaxDebuff(defending, defendingArmy);
+
         while (attackingArmy.size() > 0 && defendingArmy.size() > 0 && engagementCounter <= 200) {
             Random random = new Random();
             // randomly choose a unit from each
             Unit attackingUnit = attackingArmy.get(random.nextInt(attackingArmy.size()));
             Unit defendingUnit = defendingArmy.get(random.nextInt(defendingArmy.size()));
             // removes the loser from its army
-            int result = skirmish(invaded, attackingUnit, defendingUnit);
+            int result = skirmish(defending, attackingUnit, defendingUnit);
             if (result == 1 || result == 0) {
                 defendingArmy.remove(defendingUnit);
-                invaded.removeUnit(defendingUnit);
+                defending.removeUnit(defendingUnit);
             }
             if (result == -1 || result == 0) {
                 attackingArmy.remove(attackingUnit);
-                invader.removeUnit(attackingUnit);
+                attacking.removeUnit(attackingUnit);
             }
         }
 
         if (defendingArmy.size() == 0) {
-            transferProvinceOwnership(invaded.getFaction(), invader.getFaction(), invaded);
+            transferProvinceOwnership(defending.getFaction(), attacking.getFaction(), defending);
             for (Unit u : routedAttackers) {
-                invaded.addUnit(u);
+                defending.addUnit(u);
             }
             return true;
         } else {
@@ -44,10 +80,10 @@ public class StandardBattleResolver implements BattleResolver {
         }
     }
 
-    public int skirmish(Province invaded, Unit attackingUnit, Unit defendingUnit) {
+    public int skirmish(Province defending, Unit attackingUnit, Unit defendingUnit) {
         int result = 0;
         while (result == 0) {
-            result = engage(invaded, attackingUnit, defendingUnit);
+            result = engage(defending, attackingUnit, defendingUnit);
             if (attackingUnit.isBroken() && defendingUnit.isBroken()) {
                 if (!routedAttackers.contains(attackingUnit)) {
                     routedAttackers.add(attackingUnit);
@@ -59,8 +95,8 @@ public class StandardBattleResolver implements BattleResolver {
         return result;
     }
 
-    public int engage(Province invaded, Unit attackingUnit, Unit defendingUnit) {
-        boolean isRangedEngagement = decideEngagementType(invaded, attackingUnit, defendingUnit);
+    public int engage(Province defending, Unit attackingUnit, Unit defendingUnit) {
+        boolean isRangedEngagement = decideEngagementType(defending, attackingUnit, defendingUnit);
         int attackerSize = attackingUnit.getNumTroops();
         int defenderSize = defendingUnit.getNumTroops();
 
@@ -103,7 +139,7 @@ public class StandardBattleResolver implements BattleResolver {
 
     }
 
-    public boolean decideEngagementType(Province invaded, Unit attackingUnit, Unit defendingUnit) {
+    public boolean decideEngagementType(Province defending, Unit attackingUnit, Unit defendingUnit) {
         if (defendingUnit.checkType("tower")) {
             rangedEngagement = true;
         }
@@ -115,7 +151,7 @@ public class StandardBattleResolver implements BattleResolver {
             Unit melee = attackingUnit.isRanged() ? defendingUnit : attackingUnit;
             Unit ranged = melee == attackingUnit ? defendingUnit : attackingUnit;
             Random r = new Random();
-            double rangedThreshold = invaded.hasWalls() ? 0.9 : 0.5;
+            double rangedThreshold = defending.hasWalls() ? 0.9 : 0.5;
             rangedThreshold -= 0.1 * (melee.getSpeed() - ranged.getSpeed());
             if (rangedThreshold > 0.95) rangedThreshold = 0.95;
             if (rangedThreshold < 0.05) rangedThreshold = 0.05;
