@@ -1,0 +1,14 @@
+{
+    "name": "eliteHorseArcher",
+    "type": "cavalry",
+    "numTroops": 20,
+    "ranged": true,
+    "armour": 6,
+    "morale": 7,
+    "speed": 9,
+    "attack": 9,
+    "defenceSkill": 4,
+    "shieldDefence": 5,
+    "baseCost": 85,
+    "trainingTime": 2
+}

@@ -1,0 +1,14 @@
+{
+    "name": "immortal",
+    "type": "heavy infantry",
+    "numTroops": 50,
+    "ranged": false,
+    "armour": 13,
+    "morale": 9,
+    "speed": 13,
+    "attack": 20,
+    "defenceSkill": 13,
+    "shieldDefence": 13,
+    "baseCost": 320,
+    "trainingTime": 3
+}
