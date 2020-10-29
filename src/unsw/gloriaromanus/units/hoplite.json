@@ -1,0 +1,14 @@
+{
+    "name": "hoplite",
+    "type": "heavy infantry",
+    "numTroops": 40,
+    "ranged": false,
+    "armour": 11,
+    "morale": 8,
+    "speed": 10,
+    "attack": 15,
+    "defenceSkill": 9,
+    "shieldDefence": 9,
+    "baseCost": 360,
+    "trainingTime": 3
+}
