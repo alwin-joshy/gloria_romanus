@@ -15,8 +15,8 @@ public class Tax implements Serializable{
         return rate;
     }
 
-    public boolean isVeryHighTax() {
-        if (rate == 0.25) return true;
-        return false;
+    public int isVeryHighTax() {
+        if (rate == 0.25) return 1;
+        return 0;
     }
 }
