@@ -16,7 +16,7 @@ public class TroopProductionBuilding extends Infrastructure {
     public TroopProductionBuilding(Faction f) {
         this.f = f;
         units = new HashMap<Integer, ArrayList<String>>();
-        JSONObject unitList = new JSONObject("units/units");
+        JSONObject unitList = new JSONObject("units/units.json");
         int countLevel = 1;
         // converts json file containing general units into a hashmap
         for (String level : unitList.keySet()) {
@@ -25,6 +25,11 @@ public class TroopProductionBuilding extends Infrastructure {
             units.put(countLevel, unitsSubList);
             countLevel++;
         }
+        JSONObject uniqueUnits = new JSONObject("units/uniqueUnits.json");
+        JSONObject unit = uniqueUnits.getJSONObject(f.getName());
+        // adds the unique unit to the list
+        units.get(unit.getInt("level")).add(unit.getString("name"));
+
     }
 
     public void levelUp() {
