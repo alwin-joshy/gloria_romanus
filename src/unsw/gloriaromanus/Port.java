@@ -20,5 +20,4 @@ public class Port extends WealthGenerationBuilding {
         return bonus;
     }
 
-
 }

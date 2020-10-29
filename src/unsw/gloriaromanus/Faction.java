@@ -3,7 +3,7 @@ package unsw.gloriaromanus;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Faction implements Serializable{
+public class Faction implements Serializable {
     
     private ArrayList<Province> alliedProvinces;
     private int treasury;
