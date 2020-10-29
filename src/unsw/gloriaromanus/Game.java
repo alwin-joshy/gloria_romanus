@@ -38,7 +38,7 @@ public class Game {
         currentYear = -200;
         Random r = new Random();
         currentFaction = r.nextInt(victories.size());
-        currentVictoryCondition = gvc();
+        currentVictoryCondition = generateVictoryCondition();
         br = new StandardBattleResolver();
         ai = new StandardAI();
     }
@@ -240,97 +240,34 @@ public class Game {
         return goal;
     }
 
-    public Goal gvc() {
+    public Goal generateVictoryCondition() {
+        return recGenerateVictoryCondition(0, victories.size());
+    }
+
+    public Goal recGenerateVictoryCondition(int previous, int maxSubgoals) {
         if (victories.size() == 0) return null;
         Random random = new Random();
-        int x = random.nextInt(3);
-        if (x != 0) {
-            int y = random.nextInt(victories.size());
+        int x = (int) Math.round(random.nextGaussian());
+        if (x > 0.7 || x < -0.7) {
+            int y = random.nextInt(maxSubgoals);
+            if (y == 0 || x > 0.7 && previous > 0.7 || x < -0.7 && previous < -0.7) {
+                VictoryCondition goal = getRandomGoal();
+                return new Condition(goal);
+            }
             Goal g;
-            if (x == 1)
+            if (x > 0.7)
                 g = new Subgoal(true);
             else
                 g = new Subgoal(false);
-            for (int i = 0; i < y; i++) {
-                Goal z = gvc();
-                if (z != null) g.add(gvc());
+            for (int i = 0; i <= y; i++) {
+                Goal z = recGenerateVictoryCondition(x, y);
+                if (z != null) g.add(z);
                 else return g;
             }
             return g;
         } else {
             VictoryCondition goal = getRandomGoal();
             return new Condition(goal);
-        }
-    }
-
-    public void generateVictoryCondition() {
-        Random random = new Random();
-        VictoryCondition goal = getRandomGoal();
-        int x = random.nextInt(3);
-        if (x == 0) {
-            Goal l = new Condition(goal);
-            currentVictoryCondition = l;
-        } else {
-            Goal l = null;
-            if (x == 1) 
-                l = new Subgoal(true);
-            else if (x == 2) 
-                l = new Subgoal(false);
-            l.add(new Condition(goal));
-            goal = getRandomGoal();
-            l.add(new Condition(goal));
-            int y = random.nextInt(3);
-            if (y == x) {
-                goal = getRandomGoal();
-                l.add(new Condition(goal));
-                int z = random.nextInt(3);
-                if (z == y) {
-                    goal = getRandomGoal();
-                    l.add(new Condition(goal));
-                    currentVictoryCondition = l;
-                } else if (z != 0) {
-                    Goal m;
-                    if (z == 1) {
-                        m = new Subgoal(true);
-                    } else {
-                        m = new Subgoal(false);
-                    }
-                    goal = getRandomGoal();
-                    m.add(new Condition(goal));
-                    m.add(l);
-                    currentVictoryCondition = m;
-                }
-            } else if (y != 0) {
-                Goal m;
-                if (y == 1) {
-                    m = new Subgoal(true);
-                } else {
-                    m = new Subgoal(false);
-                }
-                m.add(l);
-                goal = getRandomGoal();
-                int a = random.nextInt(3);
-                if (a == 0) m.add(new Condition(goal));
-                else if (a == 1) {
-                    m.add(new Condition(goal));
-                    goal = getRandomGoal();
-                    m.add(new Condition(goal));
-                } else {
-                    int b = random.nextInt(2);
-                    Goal n;
-                    if (b == 0) 
-                        n = new Subgoal(true);
-                    else 
-                        n = new Subgoal(false);
-                    n.add(new Condition(goal));
-                    goal = getRandomGoal();
-                    n.add(new Condition(goal));
-                    m.add(n);
-                }
-                currentVictoryCondition = m;
-            } else {
-                currentVictoryCondition = l;
-            }
         }
     }
 
@@ -358,10 +295,5 @@ public class Game {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-
-        
     }
-
 }

@@ -1,0 +1,18 @@
+{
+    "Romans": { "level": 3, "name": "legionaire" },
+    "Carthaginians" : { "3": "elephant" },
+    "Gauls" : { "2": "berserker" },
+    "Celtic Britons" : { "2" : "berserker" },
+    "Spanish" : { "3": "druid" },
+    "Numidians" : { "1" : "eliteCavalry" },
+    "Egyptians" : { "2" : "eliteHorseArcher" },
+    "Seleucid Empire" : { "3" : "immortals" }, 
+    "Pontus" : { "3" : "hoplites" },
+    "Amenians" : { "1" : "eliteCavalry"},
+    "Parthians" : { "2" : "eliteHorseArcher" },
+    "Germanics" : { "2" : "berserker" },
+    "Greek City States" : { "3" : "hoplites" },
+    "Macedonians" : { "3" : "hoplites" },
+    "Thracians" : { "3" : "javelinist" },
+    "Dacians" : { "3" : "javenlinist" }
+}

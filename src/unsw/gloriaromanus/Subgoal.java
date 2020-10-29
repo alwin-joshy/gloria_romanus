@@ -30,13 +30,13 @@ public class Subgoal implements Goal {
 
     public void showGoal() {
         if (isAnd)
-            System.out.print("AND");
+            System.out.println("AND:");
         else
-            System.out.print("OR");
-        System.out.print(" ( ");
+            System.out.println("OR:");
+        System.out.println(" ( ");
         for (Goal g : conditions) {
             g.showGoal();
         }
-        System.out.print(") ");
+        System.out.println("\n) ");
     }
 }
