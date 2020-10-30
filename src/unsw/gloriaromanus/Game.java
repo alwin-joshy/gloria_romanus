@@ -29,8 +29,8 @@ public class Game {
     private ArrayList<VictoryCondition> victories = new ArrayList<VictoryCondition>(Arrays.asList (new ConquestGoal(), new InfrastructureGoal(), 
                                                                                                    new WealthGoal(), new TreasuryGoal()));
     private Goal currentVictoryCondition;
-    private StandardBattleResolver br;
-    private StandardAI ai;
+    private BattleResolver br;
+    private AI ai;
 
     public Game(BattleResolver br, AI ai) {
         factions = new ArrayList<Faction>();
@@ -286,7 +286,7 @@ public class Game {
         return currentVictoryCondition;
     }
 
-    public ArrayList<Unit> getFactions() {
+    public ArrayList<Faction> getFactions() {
         return factions;
     }
 

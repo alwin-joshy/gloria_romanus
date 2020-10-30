@@ -118,8 +118,8 @@ public class StandardBattleResolver implements BattleResolver {
 
         if (attackingUnit.isDefeated()) result = -1;
 
-        defendingUnit.checkIfBroken(defenderDamage, defenderSize, attackerDamage, attackerSize);
-        attackingUnit.checkIfBroken(attackerDamage, attackerSize, defenderDamage, defenderSize);
+        defendingUnit.checkIfBroken(defenderDamage, defenderSize, attackerDamage, attackerSize, getDruidMultiplier(false));
+        attackingUnit.checkIfBroken(attackerDamage, attackerSize, defenderDamage, defenderSize, getDruidMultiplier(true));
 
         Random random = new Random();
         double r = random.nextDouble();

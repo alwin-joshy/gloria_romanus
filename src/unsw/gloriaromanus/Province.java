@@ -42,7 +42,7 @@ public class Province implements Serializable {
     }
 
     public int applyTax() {
-        wealth += wealthGrowth;
+        wealth += wealthGrowth + tax.getWealthGrowthDelta();
         if (isSeaProvince) wealth += faction.getPortBonus();
         int taxedAmount = (int) Math.round(wealth * tax.getRate());
         wealth -= taxedAmount;
