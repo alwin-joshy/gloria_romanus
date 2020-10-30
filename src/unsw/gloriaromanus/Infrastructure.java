@@ -49,4 +49,16 @@ public abstract class Infrastructure implements Project, Serializable{
     public int getBaseConstructionTime(){
         return baseConstructionTime;
     }
+
+    public Faction getFaction() {
+        return f;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        Infrastructure i = (Infrastructure) obj;
+        return baseCost == i.getBaseCost() && baseConstructionTime == i.getBaseConstructionTime() &&
+               level == i.getLevel() && f.getName().equals(i.getFaction().getName());
+    }
 }   

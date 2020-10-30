@@ -20,4 +20,12 @@ public class Market extends WealthGenerationBuilding {
         return multiplier;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (this.getClass() != obj.getClass()) return false;
+        Market m = (Market) obj;
+        return super.equals(obj) && f.getName().equals(m.getFaction().getName()) && multiplier == m.getMultiplier();
+    }
+
 }
