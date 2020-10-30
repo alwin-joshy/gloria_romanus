@@ -36,4 +36,11 @@ public class TroopProductionBuilding extends Infrastructure {
         updateCosts();
     }
 
+    // TODO Change this in iteration 3
+    @Override
+    public boolean equals(Object obj) {
+        if (this.getClass() == obj.getClass()) return true;
+        return false;
+    }
+
 }

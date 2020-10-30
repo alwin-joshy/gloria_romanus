@@ -17,5 +17,13 @@ public class Farm extends WealthGenerationBuilding {
     public int getBonus() {
         return farmBonus;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (this.getClass() != obj.getClass()) return false;
+        Farm f = (Farm) obj;
+        return super.equals(obj) && p.getName().equals(f.getFaction().getName()) && farmBonus == f.getBonus();
+    }
     
 }

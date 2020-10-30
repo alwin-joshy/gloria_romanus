@@ -9,7 +9,7 @@ public class SimpleBattleResolver implements BattleResolver {
     int totalInvadingTroops;
     int totalDefendingTroops;
 
-    public boolean invade(Province invader, Province invaded, ArrayList<Unit> invArmy, ArrayList<Unit> defArmy) {
+    public boolean battle(Province invader, ArrayList<Unit> invArmy, Province invaded, ArrayList<Unit> defArmy) {
         totalInvadingTroops = 0;
         totalDefendingTroops = 0;
         attackingSum = calculateStrength(invArmy, true);
