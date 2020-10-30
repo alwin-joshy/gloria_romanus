@@ -12,17 +12,17 @@ import javafx.geometry.Side;
 public class Unit implements Serializable {
     private String name;
     private String type;
-    private int numTroops;  // the number of troops in this unit (should reduce based on depletion)
-    private boolean ranged;  // range of the unit
-    private int armour;  // armour defense
-    private int morale;  // resistance to fleeing
-    private int speed;  // ability to disengage from disadvantageous battle
-    private int attack;  // can be either missile or melee attack to simplify. Could improve implementation by differentiating!
-    private int defenceSkill;  // skill to defend in battle. Does not protect from arrows!
+    private int numTroops; // the number of troops in this unit (should reduce based on depletion)
+    private boolean ranged; // range of the unit
+    private int armour; // armour defense
+    private double morale; // resistance to fleeing
+    private int speed; // ability to disengage from disadvantageous battle
+    private int attack; // can be either missile or melee attack to simplify. Could improve
+                        // implementation by differentiating!
+    private int defenceSkill; // skill to defend in battle. Does not protect from arrows!
     private int shieldDefence; // a shield
     private int baseCost;
     private int trainingTime;
-    private int smithLevel;
     private int movementPoints;
     private int movementPointsRemaining;
     private boolean isBroken;
@@ -51,8 +51,10 @@ public class Unit implements Serializable {
     public int compareTo(Object obj) {
         Unit u = (Unit) obj;
         if (checkType("spearmen")) {
-            if (u.checkType("heavy infantry")) return 1;
-            if (u.checkType("missile infantry")) return 2;
+            if (u.checkType("heavy infantry"))
+                return 1;
+            if (u.checkType("missile infantry"))
+                return 2;
         }
         return 0;
     }
@@ -62,7 +64,8 @@ public class Unit implements Serializable {
     }
 
     public int getSpeed() {
-        if (name.equals("pikemen") || name.equals("hoplite")) return speed / 2;
+        if (name.equals("pikemen") || name.equals("hoplite"))
+            return speed / 2;
         return speed;
     }
 
@@ -74,7 +77,7 @@ public class Unit implements Serializable {
         return type;
     }
 
-    public int getNumTroops(){
+    public int getNumTroops() {
         return numTroops;
     }
 
@@ -95,17 +98,18 @@ public class Unit implements Serializable {
         movementPointsRemaining -= movementPoints;
     }
 
-	public int getMovementPointsRemaining() {
-		return movementPointsRemaining;
+    public int getMovementPointsRemaining() {
+        return movementPointsRemaining;
     }
-    
+
     public Boolean canMove(int distance) {
         return movementPointsRemaining >= distance;
     }
 
     public int getMeleeDefence() {
         int meleeDefence = defenceSkill + shieldDefence + armour;
-        if (name.equals("pikemen") || name.equals("hoplite")) meleeDefence *= 2;
+        if (name.equals("pikemen") || name.equals("hoplite"))
+            meleeDefence *= 2;
         return meleeDefence;
     }
 
@@ -114,24 +118,31 @@ public class Unit implements Serializable {
     }
 
     /*
-    You should ensure the ranged attack damage above incorporates the effect of any bonuses/penalties 
-    (e.g. the 10% loss of missile attack damage from fire arrows).
-
-    NOTE: in the above formula, the Berserker special ability will result in a Zero Division Error. 
-
-    Handle this by capping the following to 10 (rather than the infinity implied by zero division error):
-    Missile attack damage of unit/(effective armor of enemy unit + effective shield of enemy unit)
-
-    Melee cavalry/chariots/elephants will have an attack damage value in all engagements equal to 
-    their melee attack damage + charge value. Infantry and artillery do not receive a charge statistic (only cavalry/chariots/elephants do).
-    
-    Note that all effective attributes in the formula should incorporate the effect of any bonuses/penalties 
-    (such as formations such as phalanx formation, charge bonuses where applicable for cavalry/chariots/elephants).
-    */
+     * You should ensure the ranged attack damage above incorporates the effect of
+     * any bonuses/penalties (e.g. the 10% loss of missile attack damage from fire
+     * arrows).
+     * 
+     * NOTE: in the above formula, the Berserker special ability will result in a
+     * Zero Division Error.
+     * 
+     * Handle this by capping the following to 10 (rather than the infinity implied
+     * by zero division error): Missile attack damage of unit/(effective armor of
+     * enemy unit + effective shield of enemy unit)
+     * 
+     * Melee cavalry/chariots/elephants will have an attack damage value in all
+     * engagements equal to their melee attack damage + charge value. Infantry and
+     * artillery do not receive a charge statistic (only cavalry/chariots/elephants
+     * do).
+     * 
+     * Note that all effective attributes in the formula should incorporate the
+     * effect of any bonuses/penalties (such as formations such as phalanx
+     * formation, charge bonuses where applicable for cavalry/chariots/elephants).
+     */
 
     public int getAttack() {
         int adjustedAttack = attack;
-        if (name.equals("beserker")) adjustedAttack *= 2;
+        if (name.equals("beserker"))
+            adjustedAttack *= 2;
         return adjustedAttack;
     }
 
@@ -151,19 +162,23 @@ public class Unit implements Serializable {
 
     public void takeDamage(int damage) {
         numTroops -= damage;
-        if (numTroops < 0) numTroops = 0;
+        if (numTroops < 0)
+            numTroops = 0;
     }
 
-    public void checkIfBroken(int casualties, int size, int enemyCasualties, int enemySize) {
-        if (isBroken) return;
+    public void checkIfBroken(int casualties, int size, int enemyCasualties, int enemySize, double druidMultiplier) {
+        if (isBroken)
+            return;
         Random random = new Random();
-        double breakChance = 1.0 - (morale - taxDebuff) * 0.1 + (casualties / size) / (enemyCasualties / enemySize) * 0.1;
+        double breakChance = 1.0 - (morale - taxDebuff) * druidMultiplier * 0.1
+                + (casualties / size) / (enemyCasualties / enemySize) * 0.1;
         if (breakChance < 0.05)
             breakChance = 0.05;
         else if (breakChance > 1.0)
             breakChance = 1.0;
         double b = random.nextDouble();
-        if (b < breakChance) isBroken = true;
+        if (b < breakChance)
+            isBroken = true;
     }
 
     public boolean isBroken() {
@@ -185,5 +200,46 @@ public class Unit implements Serializable {
     public void setTaxDebuff(int isHighTax) {
         taxDebuff = isHighTax;
     }
-    
+
+    public int getArmour() {
+        return armour;
+    }
+
+    public double getMorale() {
+        return morale;
+    }
+
+    public int getDefenceSkill() {
+        return defenceSkill;
+    }
+
+    public int getShieldDefence() {
+        return shieldDefence;
+    }
+
+    public int getTrainingTime() {
+        return trainingTime;
+    }
+
+    public int getMovementPoints() {
+        return movementPoints;
+    }
+
+    public int getTaxDebuff() {
+        return taxDebuff;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (this.getClass() != obj.getClass()) return false;
+        Unit u = (Unit) obj;
+        if (name.equals(u.getName()) && numTroops == u.getNumTroops() && ranged == u.isRanged() && armour == u.getArmour() &&
+            morale == u.getMorale() && speed = u.getSpeed() && attack == u.getAttack() && defenceSkill = u.getDefenceSkill() &&
+            shieldDefence == u.getShieldDefence() && baseCost == u.getBaseCost() && trainingTime == u.getTrainingTime() &&
+            movementPoints == u.getMovementPoints() && movementPointsRemaining == u.getMovementPointsRemaining() &&
+            isBroken == u.isBroken() && isRouted == u.isRouted() && taxDebuff == u.getTaxDebuff())
+            return true;
+        return false;
+    }
 }
