@@ -316,9 +316,11 @@ public class Game {
             game.initialiseFactions(map, landlocked);
             game.getVictoryCondition().showGoal();
             game.saveGame("xD");
-            game.clear();
-            game.loadGame("xD");
-            game.printFactions();
+            Game g2 = new Game();
+            g2.loadGame("xD");
+            g2.printFactions();
+            System.out.println(game.getCurrentFaction().equals(g2.getCurrentFaction()));
+            System.out.println(g2.getCurrentFaction().getNthProvince(1).getTax().getRate());
             game.getVictoryCondition().showGoal();
         } catch (IOException e) {
             e.printStackTrace();
@@ -326,4 +328,5 @@ public class Game {
 
 
     }
+
 }

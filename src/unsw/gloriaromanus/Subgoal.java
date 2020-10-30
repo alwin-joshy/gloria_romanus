@@ -39,4 +39,23 @@ public class Subgoal implements Goal {
         }
         System.out.println("\n) ");
     }
+
+    public Goal getNthGoal(int n) {
+        return conditions.get(n);    
+    }
+
+    public boolean isAnd() {
+        return isAnd;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (this.getClass() != obj.getClass()) return false; 
+        Subgoal s = (Subgoal) obj;
+        for (int i = 0 ; i < conditions.size() ; i++) {
+            if (! conditions.get(i).equals(s.getNthGoal(i))) return false; 
+        }
+        return isAnd == s.isAnd();
+    }
 }
