@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-
 import unsw.gloriaromanus.*;
 
 public class UnitTest{
@@ -17,7 +16,7 @@ public class UnitTest{
     
     @Test
     public void blahTest2(){
-        Unit u = new Unit();
+        Unit u = new Unit("peasant");
         assertEquals(u.getNumTroops(), 50);
     }
 }

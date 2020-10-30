@@ -142,5 +142,24 @@ public class Faction implements Serializable {
         return false;
     }
 
+    public Province getNthProvince(int n){
+        return alliedProvinces.get(n);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (this.getClass() != obj.getClass()) return false;
+        Faction f = (Faction) obj;
+        if (f.getNumProvinces() != alliedProvinces.size()) return false;
+        for (int i = 0; i < alliedProvinces.size(); i++) {
+            if (!alliedProvinces.get(i).equals(f.getNthProvince(i))) return false; 
+        }
+        return (treasury == f.getTreasury() && name.equals(f.getName()) && totalProvinceWealth == f.getWealth()
+                && isPlayer == f.isPlayer() && mineMultiplier == f.getMineMultiplier() && 
+                mineTurnReduction == f.getMineTurnReduction() && marketMultiplier == f.getMarketMultiplier()
+                && portBonus == f.getPortBonus());
+    }
+
 }
 

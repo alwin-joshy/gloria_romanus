@@ -207,4 +207,55 @@ public class Province implements Serializable {
         this.faction = f;
     }
 
+    public Infrastructure getNthInfrastructure(int n) {
+        return infrastructure.get(n);
+    }
+
+    public Unit getNthUnit(int n) {
+        return units.get(n);
+    }
+
+    public Unit getNthProject(int n) {
+        return units.get(n);
+    }
+
+    public int getWealthGrowth() {
+        return wealthGrowth;
+    }
+
+    public Tax getTax() {
+        return tax;
+    }
+
+    public int getUnitsInTraining() {
+        return unitsInTraining;
+    }
+
+    public int getUnitTrainingLimit() {
+        return unitTrainingLimit;
+    }
+
+    public boolean isSeaProvince() {
+        return isSeaProvince;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (this.getClass() != obj.getClass()) return false;
+        Province p = (Province) obj;
+        for (int i = 0; i < infrastructure.size(); i++) {
+            if (!infrastructure.get(i).equals(p.getNthInfrastructure(i))) return false; 
+        }
+        for (int i = 0; i < units.size(); i++) {
+            if (!units.get(i).equals(p.getNthUnit(i))) return false; 
+        }
+        for (int i = 0; i < projects.size(); i++) {
+            if (!projects.get(i).equals(p.getNthProject(i))) return false; 
+        }
+        return name.equals(p.getName()) && faction.getName().equals(p.getFaction().getName()) && wealth == p.getWealth()
+               && wealthGrowth == p.getWealthGrowth() && tax.equals(p.getTax()) && unitsInTraining == p.getUnitsInTraining()
+               && unitTrainingLimit == p.getUnitTrainingLimit() && isSeaProvince == p.isSeaProvince();
+    }
+
 }

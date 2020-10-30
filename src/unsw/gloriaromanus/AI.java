@@ -1,6 +1,6 @@
 package unsw.gloriaromanus;
 
-public class AI {
+public interface AI {
     /* buys the cheapest building possible - if multiple buildings of the same price then it goes in order of
     Ports (if on a sea province)
     Markets
@@ -12,9 +12,7 @@ public class AI {
     Walls
 
     */
-    public static void buildInfrastructure(Faction f) {
-
-    }
+    public void buildInfrastructure(Faction f);
 
     /* 
     not sure how to choose which faction to recruit from
@@ -34,9 +32,7 @@ public class AI {
     if this is equal, it will randomly choose a unit
 
     */
-    public static boolean recruitUnit(Faction f) {
-        return true;
-    }
+    public boolean recruitUnit(Faction f);
 
     /* moves all troops not currently at a border province to the border province with the fewest soldiers
     if there are multiple, the province with the most enemy soldiers in the adjacent regions is prioritised
@@ -53,9 +49,7 @@ public class AI {
 
 
     */
-    public static void moveUnits(Faction f) {
-
-    }
+    public void moveUnits(Faction f);
 
     /*
     attacks a neigbouring province with the fewest units
@@ -63,7 +57,5 @@ public class AI {
     if this is equal, it will attack from a randomly chosen province
     */
 
-    public static void attack(Faction f) {
-
-    }
+    public void attack(Faction f);
 }
