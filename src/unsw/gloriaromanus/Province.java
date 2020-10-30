@@ -215,8 +215,8 @@ public class Province implements Serializable {
         return units.get(n);
     }
 
-    public Unit getNthProject(int n) {
-        return units.get(n);
+    public ProjectDetails getNthProject(int n) {
+        return projects.get(n);
     }
 
     public int getWealthGrowth() {
@@ -241,6 +241,7 @@ public class Province implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
+        System.out.println("Province");
         if (this == obj) return true;
         if (this.getClass() != obj.getClass()) return false;
         Province p = (Province) obj;
