@@ -20,6 +20,10 @@ public class Mine extends WealthGenerationBuilding {
         return multiplier;
     }
 
+    public Faction getFaction() {
+        return f;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;

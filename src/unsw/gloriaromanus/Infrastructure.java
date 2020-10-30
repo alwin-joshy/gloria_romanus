@@ -3,10 +3,10 @@ package unsw.gloriaromanus;
 import java.io.Serializable;
 
 public abstract class Infrastructure implements Project, Serializable{
+    private Faction f;
     private int baseCost;
     private int baseConstructionTime;
     private int level;
-    private Faction f;
 
     public Infrastructure() {
         level = 0;
@@ -50,15 +50,11 @@ public abstract class Infrastructure implements Project, Serializable{
         return baseConstructionTime;
     }
 
-    public Faction getFaction() {
-        return f;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         Infrastructure i = (Infrastructure) obj;
         return baseCost == i.getBaseCost() && baseConstructionTime == i.getBaseConstructionTime() &&
-               level == i.getLevel() && f.getName().equals(i.getFaction().getName());
+               level == i.getLevel();
     }
 }   
