@@ -1,6 +1,6 @@
 {
     "name": "javelinist",
-    "type": "heavy infantry",
+    "type": "missile infantry",
     "numTroops": 40,
     "ranged": true,
     "armour": 11,
