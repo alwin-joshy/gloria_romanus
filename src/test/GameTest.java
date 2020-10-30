@@ -1,5 +1,7 @@
 package test;
 
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
@@ -75,9 +77,9 @@ public class GameTest {
         Game g2 = new Game();
         g2.loadGame("testSave");
         assertEquals(g2.getCurrentYear(), -200);
-        assertArrayEquals(g.getFactions(), g2.getCurrentFaction())
+        assertArrayEquals(g.getFactions(), g2.getFactions());
         assertEquals(g.getCurrentFaction(), g2.getCurrentFaction());
-        assert(g2.getFactions().get(0).isPlayer(), true);
+        assertEquals(g2.getFactions().get(0).isPlayer(), true);
         assertEquals(g.getAdjacencyMatrix(), g2.getAdjacencyMatrix());
     }
 
