@@ -1,10 +1,6 @@
 package unsw.gloriaromanus;
 
-<<<<<<< HEAD
-public class StandardAI implements AI{
-=======
 public class StandardAI implements AI {
->>>>>>> b2a88603864968f5dad4faee9c5ac36d22207ed7
     /* buys the cheapest building possible - if multiple buildings of the same price then it goes in order of
     Ports (if on a sea province)
     Markets
