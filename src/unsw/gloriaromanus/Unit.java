@@ -235,7 +235,7 @@ public class Unit implements Serializable {
         if (this.getClass() != obj.getClass()) return false;
         Unit u = (Unit) obj;
         if (name.equals(u.getName()) && numTroops == u.getNumTroops() && ranged == u.isRanged() && armour == u.getArmour() &&
-            morale == u.getMorale() && speed = u.getSpeed() && attack == u.getAttack() && defenceSkill = u.getDefenceSkill() &&
+            morale == u.getMorale() && speed == u.getSpeed() && attack == u.getAttack() && defenceSkill == u.getDefenceSkill() &&
             shieldDefence == u.getShieldDefence() && baseCost == u.getBaseCost() && trainingTime == u.getTrainingTime() &&
             movementPoints == u.getMovementPoints() && movementPointsRemaining == u.getMovementPointsRemaining() &&
             isBroken == u.isBroken() && isRouted == u.isRouted() && taxDebuff == u.getTaxDebuff())
