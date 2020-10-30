@@ -90,7 +90,7 @@ public class GameTest {
         Game g2 = new Game();
         g2.loadGame("testSave");
         assertEquals(g2.getCurrentYear(), -200);
-        assertEquals(g.getFactions(), g2.getFactions());
+        assertTrue(g.getFactions().equals(g2.getFactions()));
         assertEquals(g.getCurrentFaction(), g2.getCurrentFaction());
         assertEquals(g2.getFactions().get(0).isPlayer(), true);
         assertEquals(g.getAdjacencyMatrix(), g2.getAdjacencyMatrix());
