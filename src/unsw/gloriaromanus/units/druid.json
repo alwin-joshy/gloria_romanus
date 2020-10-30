@@ -1,0 +1,14 @@
+{
+    "name": "druid",
+    "type": "heavy infantry",
+    "numTroops": 3,
+    "ranged": true,
+    "armour": 8,
+    "morale": 7,
+    "speed": 11,
+    "attack": 9,
+    "defenceSkill": 6,
+    "shieldDefence": 5,
+    "baseCost": 220,
+    "trainingTime": 3
+}

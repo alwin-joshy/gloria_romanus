@@ -32,15 +32,19 @@ public class Game {
     private StandardBattleResolver br;
     private StandardAI ai;
 
-    public Game() {
+    public Game(BattleResolver br, AI ai) {
         factions = new ArrayList<Faction>();
         adjacentProvinces = new HashMap<String, Map<String, Integer>>();
         currentYear = -200;
         Random r = new Random();
-        currentFaction = r.nextInt(victories.size());
+        currentFaction = r.nextInt(factions.size());
         currentVictoryCondition = generateVictoryCondition();
-        br = new StandardBattleResolver();
-        ai = new StandardAI();
+        this.br = br;
+        this.ai = ai;
+    }
+
+    public Game() {
+        this(new StandardBattleResolver(), new StandardAI());
     }
 
     public void startGame(JSONObject initialOwnership, JSONArray landlocked, JSONObject adjacencyMap) {
@@ -49,6 +53,7 @@ public class Game {
         isRunning = true;
     } 
 
+    // Not sure if this is necessary
     public void selectBattleResolver(StandardBattleResolver br) {
         this.br = br;
     }
@@ -134,6 +139,8 @@ public class Game {
         }
     }
 
+    // Might also need to save AI and BattleResolver
+
     public void saveGame(String filename) {
         FileOutputStream out;
         try {
@@ -144,6 +151,8 @@ public class Game {
             os.writeObject(currentYear);
             os.writeObject(factions);
             os.writeObject(currentVictoryCondition);
+            os.writeInt(currentFaction);
+            os.writeBoolean(isRunning);
             os.flush();
             os.close();
         } catch (IOException e) {
@@ -161,6 +170,8 @@ public class Game {
             currentYear = (int) ins.readObject();
             factions = (ArrayList<Faction>) ins.readObject();
             currentVictoryCondition = (Goal) ins.readObject();
+            currentFaction = ins.readInt();
+            isRunning = ins.readBoolean();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -273,6 +284,22 @@ public class Game {
 
     public Goal getVictoryCondition() {
         return currentVictoryCondition;
+    }
+
+    public ArrayList<Unit> getFactions() {
+        return factions;
+    }
+
+    public Faction getCurrentFaction() {
+        return factions.get(currentFaction);
+    }
+
+    public int getCurrentYear() {
+        return currentYear;
+    }
+
+    public Map<String, Map<String, Integer>> getAdjacencyMatrix() {
+        return adjacentProvinces;
     }
 
     public static void main(String[] args) {
