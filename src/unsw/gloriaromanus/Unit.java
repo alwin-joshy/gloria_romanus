@@ -231,6 +231,7 @@ public class Unit implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
+        System.out.println("Unit");
         if (this == obj) return true;
         if (this.getClass() != obj.getClass()) return false;
         Unit u = (Unit) obj;

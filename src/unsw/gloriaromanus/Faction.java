@@ -8,7 +8,6 @@ public class Faction implements Serializable {
     private ArrayList<Province> alliedProvinces;
     private int treasury;
     private String name;
-    private int totalProvinceWealth;
     private Boolean isPlayer;
     private Double mineMultiplier;
     private int mineTurnReduction;
@@ -20,8 +19,11 @@ public class Faction implements Serializable {
         this.name = name;
         alliedProvinces = new ArrayList<Province>();
         treasury = 100;
-        totalProvinceWealth = 0;
         isPlayer = false;
+        mineMultiplier = 1.0;
+        marketMultiplier = 1.0;
+        mineTurnReduction = 0;
+        portBonus = 0;
     }
 
     public void addProvince(Province p) {
@@ -148,6 +150,7 @@ public class Faction implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
+        System.out.println("Faction");
         if (this == obj) return true;
         if (this.getClass() != obj.getClass()) return false;
         Faction f = (Faction) obj;
@@ -155,7 +158,8 @@ public class Faction implements Serializable {
         for (int i = 0; i < alliedProvinces.size(); i++) {
             if (!alliedProvinces.get(i).equals(f.getNthProvince(i))) return false; 
         }
-        return (treasury == f.getTreasury() && name.equals(f.getName()) && totalProvinceWealth == f.getWealth()
+        System.out.println("Provinces passed");
+        return (treasury == f.getTreasury() &&  name.equals(f.getName()) && getWealth() == f.getWealth()
                 && isPlayer == f.isPlayer() && mineMultiplier == f.getMineMultiplier() && 
                 mineTurnReduction == f.getMineTurnReduction() && marketMultiplier == f.getMarketMultiplier()
                 && portBonus == f.getPortBonus());
