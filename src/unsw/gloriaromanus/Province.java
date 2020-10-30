@@ -14,6 +14,7 @@ public class Province implements Serializable {
     private int wealthGrowth;
     private Tax tax;
     private ArrayList<ProjectDetails> projects;
+    private int numLegionaryDeaths;
     private int unitsInTraining;
     private int unitTrainingLimit;
     private Boolean isSeaProvince;
@@ -28,6 +29,7 @@ public class Province implements Serializable {
         wealthGrowth = 15;
         tax = new Tax(0.15, 0);
         projects = new ArrayList<ProjectDetails>();
+        numLegionaryDeaths = 0;
         unitsInTraining = 0;
         unitTrainingLimit = 1;
         isSeaProvince = true;
@@ -237,6 +239,20 @@ public class Province implements Serializable {
 
     public boolean isSeaProvince() {
         return isSeaProvince;
+    }
+
+    public double getLegionaryDebuff() {
+        return faction.getLegionaryDebuff();
+    }
+
+    public void incrementNumLegionaryDeaths() {
+        numLegionaryDeaths++;
+        faction.incrementLegionaryDebuff();
+    }
+
+    public void resetLegionaryDeaths() {
+        faction.decreaseLegionaryDebuff(numLegionaryDeaths);
+        numLegionaryDeaths = 0;
     }
 
     @Override

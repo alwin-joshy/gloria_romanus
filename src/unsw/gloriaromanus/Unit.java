@@ -3,6 +3,7 @@ package unsw.gloriaromanus;
 import java.io.Serializable;
 
 import java.lang.Math;
+import java.util.Arrays;
 import java.util.Random;
 
 import org.json.JSONObject;
@@ -19,6 +20,7 @@ public class Unit implements Serializable {
     private int speed; // ability to disengage from disadvantageous battle
     private int attack; // can be either missile or melee attack to simplify. Could improve
                         // implementation by differentiating!
+    private int chargeValue;
     private int defenceSkill; // skill to defend in battle. Does not protect from arrows!
     private int shieldDefence; // a shield
     private int baseCost;
@@ -28,10 +30,15 @@ public class Unit implements Serializable {
     private boolean isBroken;
     private boolean isRouted;
     private int taxDebuff;
+    private int engagementCount;
 
     public Unit(String name) {
         this.name = name;
         JSONObject json = new JSONObject("units/" + name + ".json");
+        if (Arrays.asList("elephant", "horseman", "elite cavalry", "lancer").contains(name))
+            chargeValue = json.getInt("chargeValue");
+        else 
+            chargeValue = 0;
         numTroops = json.getInt("numTroops");
         ranged = json.getBoolean("ranged");
         armour = json.getInt("armour");
@@ -113,8 +120,10 @@ public class Unit implements Serializable {
         return meleeDefence;
     }
 
-    public int getRangedDefence() {
-        return armour + shieldDefence;
+    public double getRangedDefence(boolean vsJavelinist) {
+        double adjustedArmour = (double) armour;
+        if (vsJavelinist) adjustedArmour /= 2;
+        return adjustedArmour + shieldDefence;
     }
 
     /*
@@ -139,21 +148,16 @@ public class Unit implements Serializable {
      * formation, charge bonuses where applicable for cavalry/chariots/elephants).
      */
 
-    public int getAttack() {
-        int adjustedAttack = attack;
-        if (name.equals("beserker"))
-            adjustedAttack *= 2;
-        return adjustedAttack;
-    }
-
-    public int calculateDamage(Unit enemyUnit, boolean isRangedEngagement) {
+    public int calculateDamage(Unit enemyUnit, boolean isRangedEngagement, boolean heroicCharge) {
         double damage;
         Random random = new Random();
-        double damageQuotient = enemyUnit.getName().equals("beserker") ? 10 : attack / (enemyUnit.getRangedDefence());
+        double damageQuotient = enemyUnit.getName().equals("beserker") ? 10 : attack / (enemyUnit.getRangedDefence(name.equals("javelinist")));
         if (isRangedEngagement) {
+            if (!ranged) return 0;
+            if (name.equals("horsearcher") || name.equals("elitehorsearcher")) damageQuotient /= 2;
             damage = enemyUnit.getNumTroops() * 0.1 * damageQuotient;
         } else {
-            damage = enemyUnit.getNumTroops() * 0.1 * (attack / (enemyUnit.getMeleeDefence()));
+            damage = enemyUnit.getNumTroops() * 0.1 * ((getAttack() + getChargeValue(heroicCharge)) / (enemyUnit.getMeleeDefence()));
         }
         damage *= random.nextGaussian() + 1;
         int roundedDamage = (int) Math.round(damage);
@@ -166,12 +170,15 @@ public class Unit implements Serializable {
             numTroops = 0;
     }
 
-    public void checkIfBroken(int casualties, int size, int enemyCasualties, int enemySize, double druidMultiplier) {
+    public void checkIfBroken(int casualties, int size, int enemyCasualties, int enemySize, double druidMultiplier, boolean heroicCharge, int legionaryCount, double legionaryDebuff) {
         if (isBroken)
             return;
+        double heroicChargeMultiplier = 1.0;
+        if (heroicCharge && type.equals("cavalry") && !ranged) heroicChargeMultiplier = 1.5;
         Random random = new Random();
-        double breakChance = 1.0 - (morale - taxDebuff) * druidMultiplier * 0.1
-                + (casualties / size) / (enemyCasualties / enemySize) * 0.1;
+        double finalMorale = (morale + legionaryCount - taxDebuff - legionaryDebuff) * druidMultiplier;
+        if (finalMorale < 1) finalMorale = 1;
+        double breakChance = 1.0 - finalMorale * heroicChargeMultiplier * 0.1 + (casualties / size) / (enemyCasualties / enemySize) * 0.1;
         if (breakChance < 0.05)
             breakChance = 0.05;
         else if (breakChance > 1.0)
@@ -229,9 +236,29 @@ public class Unit implements Serializable {
         return taxDebuff;
     }
 
+    public int getAttack() {
+        int countShieldCharge = engagementCount % 4;
+        if (countShieldCharge == 0 && type.equals("heavy infantry")) return attack + shieldDefence;
+        return attack;
+    }
+
+    public int getChargeValue(boolean heroicCharge) {
+        int adjustedChargeValue = chargeValue;
+        if (heroicCharge) adjustedChargeValue *= 2;
+        return adjustedChargeValue;
+    }
+
+    public void incrementEngagementCount() {
+        engagementCount++;
+    }
+
+    public void resetEngagementCount() {
+        engagementCount = 0;
+    }
+    
+
     @Override
     public boolean equals(Object obj) {
-        System.out.println("Unit");
         if (this == obj) return true;
         if (this.getClass() != obj.getClass()) return false;
         Unit u = (Unit) obj;
@@ -239,6 +266,6 @@ public class Unit implements Serializable {
             morale == u.getMorale() && speed == u.getSpeed() && attack == u.getAttack() && defenceSkill == u.getDefenceSkill() &&
             shieldDefence == u.getShieldDefence() && baseCost == u.getBaseCost() && trainingTime == u.getTrainingTime() &&
             movementPoints == u.getMovementPoints() && movementPointsRemaining == u.getMovementPointsRemaining() &&
-            isBroken == u.isBroken() && isRouted == u.isRouted() && taxDebuff == u.getTaxDebuff();
+            isBroken == u.isBroken() && isRouted == u.isRouted() && taxDebuff == u.getTaxDebuff() && chargeValue == u.getChargeValue(false);
     }
 }
