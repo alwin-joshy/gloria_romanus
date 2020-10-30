@@ -42,8 +42,8 @@ public class GameTest {
         Game g = new Game();
         initialSetup(g);
         ArrayList<Faction> factions = g.getFactions();
-        assertEquals(factions.get(1).getNumProvinces(), 25);
         assertEquals(factions.get(0).getNumProvinces(), 28);
+        assertEquals(factions.get(1).getNumProvinces(), 25);
     }
 
     @Test
@@ -52,8 +52,8 @@ public class GameTest {
         initialSetup(g);
         ArrayList<Faction> factions = g.getFactions();
         g.selectFaction("Rome");
-        assertEquals(factions.get(1).isPlayer(), true);
         assertEquals(factions.get(0).isPlayer(), false);
+        assertEquals(factions.get(1).isPlayer(), true);
     }
 
     @Test 
@@ -90,9 +90,9 @@ public class GameTest {
         Game g2 = new Game();
         g2.loadGame("testSave");
         assertEquals(g2.getCurrentYear(), -200);
-        assertTrue(g.getFactions().equals(g2.getFactions()));
+        assertEquals(g.getFactions(), g2.getFactions());
         assertEquals(g.getCurrentFaction(), g2.getCurrentFaction());
-        assertEquals(g2.getFactions().get(0).isPlayer(), true);
+        assertEquals(g2.getFactions().get(1).isPlayer(), true);
         assertEquals(g.getAdjacencyMatrix(), g2.getAdjacencyMatrix());
         assertEquals(g2.getVictoryCondition(), prevGoal);
     }

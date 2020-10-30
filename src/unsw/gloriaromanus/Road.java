@@ -20,6 +20,7 @@ public class Road extends Infrastructure {
 
     @Override
     public boolean equals(Object obj) {
+        System.out.println("Road");
         if (this == obj) return true;
         if (this.getClass() != obj.getClass()) return false;
         Road r = (Road) obj;
