@@ -304,6 +304,7 @@ public class Game {
 
     public static void main(String[] args) {
         Game game = new Game();
+        Game g = new Game();
         try {
             String content = Files.readString(Paths.get("src/unsw/gloriaromanus/initial_province_ownership.json"));
             JSONObject map = new JSONObject(content);
@@ -322,5 +323,7 @@ public class Game {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
     }
 }
