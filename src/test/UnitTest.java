@@ -14,10 +14,10 @@ public class UnitTest{
         assertEquals("a", "a");
     }
     
-    @Test
-    public void blahTest2(){
-        Unit u = new Unit("peasant");
-        assertEquals(u.getNumTroops(), 50);
-    }
+    // @Test
+    // public void blahTest2(){
+    //     Unit u = new Unit("peasant");
+    //     assertEquals(u.getNumTroops(), 50);
+    // }
 }
 
