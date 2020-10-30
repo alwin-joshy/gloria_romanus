@@ -36,20 +36,20 @@ public class Game {
         factions = new ArrayList<Faction>();
         adjacentProvinces = new HashMap<String, Map<String, Integer>>();
         currentYear = -200;
-        Random r = new Random();
-        currentFaction = r.nextInt(factions.size());
         currentVictoryCondition = generateVictoryCondition();
         this.br = br;
         this.ai = ai;
     }
 
     public Game() {
-        this(new StandardBattleResolver(), new StandardAI());
+        this((BattleResolver) new StandardBattleResolver(), (AI) new StandardAI());
     }
 
     public void startGame(JSONObject initialOwnership, JSONArray landlocked, JSONObject adjacencyMap) {
         initialiseFactions(initialOwnership, landlocked);
         initialiseAdjacencyMatrix(adjacencyMap);
+        Random r = new Random();
+        currentFaction = r.nextInt(factions.size());
         isRunning = true;
     } 
 
@@ -70,7 +70,7 @@ public class Game {
         if (currentVictoryCondition.checkVictory(factions.get(currentFaction))) {
             isRunning = false; 
         }
-        currentFaction = (currentFaction++) % factions.size();
+        currentFaction = (currentFaction + 1) % factions.size();
         currentYear++;
     }
 

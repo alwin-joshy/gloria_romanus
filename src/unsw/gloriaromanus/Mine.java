@@ -19,4 +19,12 @@ public class Mine extends WealthGenerationBuilding {
     public double getMultiplier() {
         return multiplier;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (this.getClass() != obj.getClass()) return false;
+        Mine m = (Mine) obj;
+        return super.equals(obj) && f.getName().equals(m.getFaction().getName()) && multiplier == m.getMultiplier();
+    }
 }
