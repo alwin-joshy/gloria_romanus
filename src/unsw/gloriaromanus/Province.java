@@ -23,7 +23,7 @@ public class Province implements Serializable {
         this.faction = faction;
         units = new ArrayList<Unit>();
         infrastructure = new ArrayList<Infrastructure>();
-        infrastructure.add(new Road(this));
+        infrastructure.add(new Road(this, faction.getMineTurnReduction()));
         wealth = 100;
         wealthGrowth = 15;
         tax = new Tax(0.15, 0);
@@ -82,6 +82,7 @@ public class Province implements Serializable {
     }
 
     public void updateProjects() {
+        ArrayList<ProjectDetails> toRemove = new ArrayList<ProjectDetails>();
         for (ProjectDetails project : projects) {
             if (project.decrementTurnsRemaining()){
                 Project p = project.getProject();
@@ -97,9 +98,11 @@ public class Province implements Serializable {
                 } else {
                     units.add((Unit) p);
                 }
-                projects.remove(project);
+                toRemove.add(project);
             }
         }
+
+        projects.remove(toRemove);
     }
 
     private boolean buildingInfrastructure(){
@@ -237,6 +240,13 @@ public class Province implements Serializable {
 
     public boolean isSeaProvince() {
         return isSeaProvince;
+    }
+
+    public TroopProductionBuilding getTroopProductionBuilding(){
+        for (Infrastructure i : infrastructure) {
+            if (i instanceof TroopProductionBuilding) return (TroopProductionBuilding) i;
+        }
+        return null;
     }
 
     @Override

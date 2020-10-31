@@ -5,6 +5,7 @@ public class Port extends WealthGenerationBuilding {
     private int bonus;
     
     public Port(Faction f) {
+        super(f.getMineTurnReduction());
         this.f = f;
         bonus = 10;
         setBaseContructionTime(2);

@@ -5,6 +5,7 @@ public class Mine extends WealthGenerationBuilding {
     private double multiplier;
 
     public Mine(Faction f) {
+        super(f.getMineTurnReduction());
         this.f = f;
         multiplier = 0.99;
         setBaseCost(40);

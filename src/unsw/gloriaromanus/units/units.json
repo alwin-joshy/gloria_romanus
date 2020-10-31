@@ -1,3 +1,6 @@
-{
-    "levelOne": [""]
-}
+[
+	["peasant", "horseman", "slingerman"],
+  	["archer", "catapult", "horsearcher", "spearman", "swordsman"],
+  	["axeman", "netman", "pikeman", "trebuchet"],
+  	["cannon", "crossbowman", "knight", "lancer"]
+]

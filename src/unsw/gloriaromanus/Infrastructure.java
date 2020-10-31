@@ -3,13 +3,14 @@ package unsw.gloriaromanus;
 import java.io.Serializable;
 
 public abstract class Infrastructure implements Project, Serializable{
-    private Faction f;
+    private int factionBonus;
     private int baseCost;
     private int baseConstructionTime;
     private int level;
 
-    public Infrastructure() {
+    public Infrastructure(int factionBonus) {
         level = 0;
+        this.factionBonus = factionBonus;
     }
     
     public abstract void levelUp();
@@ -42,7 +43,7 @@ public abstract class Infrastructure implements Project, Serializable{
     }
 
     public int getConstructionTime() {
-        int constructionTime = baseConstructionTime - f.getMineTurnReduction();
+        int constructionTime = baseConstructionTime - factionBonus;
         return constructionTime >= 1 ? constructionTime : 1;
     }
 
