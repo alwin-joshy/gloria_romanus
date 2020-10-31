@@ -39,14 +39,34 @@ public class Province implements Serializable {
         return name;
     }
 
-    public void setTax(double rate, int growthDelta) {
-        tax = new Tax(rate, growthDelta);
+    public void setTax(String type) {
+        switch (type) {
+            case "low" :
+                tax.setRate(0.10);
+                tax.setWealthGrowthDelta(10);
+                break;
+            case "normal" :
+                tax.setRate(0.15);
+                tax.setWealthGrowthDelta(0);
+                break;
+            case "high" :
+                tax.setRate(0.20);
+                tax.setWealthGrowthDelta(-10);
+                break;
+            case "very high" :
+                tax.setRate(0.25);
+                tax.setWealthGrowthDelta(-30);
+                break;
+            default:
+                System.out.println("Fatal error. Exiting...");
+                System.exit(1);
+        }
     }
 
     public int applyTax() {
-        wealth += wealthGrowth + tax.getWealthGrowthDelta();
+        wealth += (wealthGrowth + tax.getWealthGrowthDelta());
         if (isSeaProvince) wealth += faction.getPortBonus();
-        int taxedAmount = (int) Math.round(wealth * tax.getRate());
+        double taxedAmount = Math.round(wealth * tax.getRate());
         wealth -= taxedAmount;
         return (int) taxedAmount;
     }
