@@ -1,11 +1,13 @@
 package test;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.json.JSONObject;
 import org.json.JSONArray;
@@ -30,7 +32,7 @@ public class MovementTest {
         gaul.getNthProvince(4).build(new TroopProductionBuilding(gaul));
         g.endTurn();
         gaul.getNthProvince(4).build(gaul.getNthProvince(4).getTroopProductionBuilding());
-
+        g.endTurn();
         g.endTurn();
     }
 
@@ -38,5 +40,23 @@ public class MovementTest {
     public void cavalryMovementTest() {
         Game g = new Game();
         initialSetup(g);
+        Faction gaul = g.getFactions().get(0);
+        Unit horseman = new Unit("horseman");
+        Province A = gaul.getNthProvince(0);
+        Province B = gaul.getNthProvince(1);
+        Province C = gaul.getNthProvince(2);
+        Province D = gaul.getNthProvince(3);
+        Province E = gaul.getNthProvince(4);
+        
+        E.build(new Unit("horseman"));
+        g.endTurn();
+        ArrayList<Unit> army = new ArrayList(Arrays.asList(horseman));
+        assertFalse(g.moveUnits(army, E, A));
+        assertTrue(g.moveUnits(army, E, B));
+
+        assertFalse(A.getUnits().contains(horseman));
+        assertTrue(B.getUnits().contains(horseman));
+
+
     }
 }
