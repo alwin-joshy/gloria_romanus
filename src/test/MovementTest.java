@@ -59,6 +59,8 @@ public class MovementTest {
         assertFalse(A.getUnits().contains(horseman));
         assertTrue(B.getUnits().contains(horseman));
 
+        assertFalse(g.moveUnits(army, B, A));
+
 
     }
 
