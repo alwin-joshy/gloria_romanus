@@ -64,4 +64,8 @@ public class SimpleBattleResolver implements BattleResolver, Serializable {
         }
         return sum;
     }
+
+    public ArrayList<BattleObserver> getObservers() {return null;}
+
+    public void notify(Faction f) {}
 }
