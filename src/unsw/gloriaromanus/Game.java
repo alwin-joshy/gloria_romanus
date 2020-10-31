@@ -31,6 +31,7 @@ public class Game {
     private Goal currentVictoryCondition;
     private BattleResolver br;
     private AI ai;
+    private ArrayList<Unit> movedUnits;
 
     public Game(BattleResolver br, AI ai) {
         factions = new ArrayList<Faction>();
@@ -39,6 +40,7 @@ public class Game {
         currentVictoryCondition = generateVictoryCondition();
         this.br = br;
         this.ai = ai;
+        movedUnits = new ArrayList<Unit>();
     }
 
     public Game() {
@@ -77,6 +79,10 @@ public class Game {
         if (currentVictoryCondition.checkVictory(factions.get(currentFaction))) {
             isRunning = false; 
         }
+        for (Unit u : movedUnits) {
+            u.resetMovementPoints();
+        }
+        movedUnits.clear();
         currentFaction = (currentFaction + 1) % factions.size();
         currentYear++;
         factions.get(currentFaction).updateAllProjects();
@@ -249,10 +255,10 @@ public class Game {
         return p;
     }
 
-    public void moveUnits(ArrayList<Unit> units, Province start, Province end) {
+    public boolean moveUnits(ArrayList<Unit> units, Province start, Province end) {
         int distance = shortestPathLength(start.getName(), end.getName());
         for (Unit u : units) {
-            if (! u.canMove(distance)) return;
+            if (! u.canMove(distance)) return false;
         }
         Faction curr = factions.get(currentFaction);
         boolean validMove = true;
@@ -260,6 +266,9 @@ public class Game {
             validMove = br.battle(start, units, end, end.getUnits());
         }
         if (validMove) curr.moveUnits(units, start, end, distance);
+        if (validMove) movedUnits.addAll(units);
+
+        return validMove;
     }
 
     public VictoryCondition getRandomGoal() {
