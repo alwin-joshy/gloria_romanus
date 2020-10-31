@@ -221,10 +221,11 @@ public class Game {
             movementPoints = adjacentProvinces.get(start).get(p);
         }
         dist.replace(start, movementPoints);
+        visited.add(start);
         int prevSize = -1;
 
         while (! visited.contains(end) || prevSize != visited.size()) {
-            String next = minVertex(dist, visited);
+            String next = minVertex(adjacentProvinces.get(start), visited);
             prevSize = visited.size();
             visited.add(next);
 
@@ -247,7 +248,7 @@ public class Game {
         int x = Integer.MAX_VALUE;
         String p = null;
         for (String curr : dist.keySet()) {
-            if (! visited.contains(p) && dist.get(p) < x) {
+            if (! visited.contains(curr) && dist.get(curr) < x) {
                 p = curr;
                 x = dist.get(p);
             }
@@ -265,8 +266,10 @@ public class Game {
         if (!curr.isAlliedProvince(end.getName())) {
             validMove = br.battle(start, units, end, end.getUnits());
         }
-        if (validMove) curr.moveUnits(units, start, end, distance);
-        if (validMove) movedUnits.addAll(units);
+        if (validMove) {
+            curr.moveUnits(units, start, end, distance);
+            movedUnits.addAll(units);
+        }
 
         return validMove;
     }
