@@ -287,13 +287,14 @@ public class Game implements Serializable{
         boolean validMove = true;
         if (!curr.isAlliedProvince(end.getName())) {
             validMove = br.battle(start, units, end, end.getUnits());
+            distance = 15;
         }
         if (validMove) {
             curr.moveUnits(units, start, end, distance);
             movedUnits.addAll(units);
         } else {
             for (Unit u : units) {
-                u.reduceRemainingMovementPoints(15);
+                u.reduceRemainingMovementPoints(distance);
                 movedUnits.add(u);
             }
         }
@@ -345,6 +346,13 @@ public class Game implements Serializable{
 
     public ArrayList<Faction> getFactions() {
         return factions;
+    }
+
+    public Faction getFaction(String name) {
+        for (Faction f : factions) {
+            if (f.getName().equals(name)) return f;
+        }
+        return null;
     }
 
     public Faction getCurrentFaction() {
