@@ -1,5 +1,6 @@
 package test;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -41,6 +42,26 @@ public class MovementTest {
     public void cavalryMovementTest() {
         Game g = new Game();
         initialSetup(g);
+        Faction gaul = g.getFactions().get(0);
+        Unit horseman = new Unit("horseman");
+        Province A = gaul.getNthProvince(0);
+        Province B = gaul.getNthProvince(1);
+        Province C = gaul.getNthProvince(2);
+        Province D = gaul.getNthProvince(3);
+        Province E = gaul.getNthProvince(4);
+        
+        E.build(new Unit("horseman"));
+        g.endTurn();
+        ArrayList<Unit> army = new ArrayList(Arrays.asList(horseman));
+        assertFalse(g.moveUnits(army, E, A));
+        assertTrue(g.moveUnits(army, E, B));
+
+        assertFalse(A.getUnits().contains(horseman));
+        assertTrue(B.getUnits().contains(horseman));
+
+        assertFalse(g.moveUnits(army, B, A));
+
+
     }
 
     @Test public void artilleryMovementTest(){
