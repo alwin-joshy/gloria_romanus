@@ -264,6 +264,10 @@ public class Unit implements Serializable, Project {
     public void resetEngagementCount() {
         engagementCount = 0;
     }
+
+    public void resetMovementPoints() {
+        movementPointsRemaining = movementPoints;
+    }
     
 
     @Override
