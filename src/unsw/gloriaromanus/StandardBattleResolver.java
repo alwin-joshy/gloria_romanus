@@ -131,7 +131,6 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
         }
 
         if (defendingArmy.size() == 0) {
-            System.out.println("xd");
             transferProvinceOwnership(defending.getFaction(), attacking.getFaction(), defending);
             for (Unit u : routedAttackers) {
                 defending.addUnit(u);
