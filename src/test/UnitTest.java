@@ -1,5 +1,6 @@
 package test;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -54,16 +55,23 @@ public class UnitTest{
         try {
             currentFaction.getNthProvince(0).build(new TroopProductionBuilding(currentFaction));
             g.endTurn();
-            assertEquals(currentFaction.getNthProvince(0).build(new Unit("peasant")), true);
+            assertTrue(currentFaction.getNthProvince(0).build(new Unit("peasant")));
             g.endTurn();
-            assertEquals(currentFaction.getNthProvince(0).build(new Unit("peasant")), true);
+            assertTrue(currentFaction.getNthProvince(0).build(new Unit("peasant")));
             g.endTurn();
-            assertEquals(currentFaction.getNthProvince(0).build(new Unit("peasant")), true);
+            assertTrue(currentFaction.getNthProvince(0).build(new Unit("peasant")));
             g.endTurn();
-            assertEquals(currentFaction.getNthProvince(0).build(new Unit("peasant")), false);
+            assertTrue(currentFaction.getNthProvince(0).build(new Unit("peasant")));
             g.endTurn();
-            assertEquals(currentFaction.getNthProvince(0).build(new Unit("peasant")), true);
+            assertFalse(currentFaction.getNthProvince(0).build(new Unit("peasant")));
             g.endTurn();
+            assertTrue(currentFaction.getNthProvince(0).build(new Unit("peasant")));
+            g.endTurn();
+            assertFalse(currentFaction.getNthProvince(0).build(new Unit("peasant")));
+            g.endTurn();
+            assertFalse(currentFaction.getNthProvince(0).build(new Unit("peasant")));
+            g.endTurn();
+            assertTrue(currentFaction.getNthProvince(0).build(new Unit("peasant")));
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(1);
