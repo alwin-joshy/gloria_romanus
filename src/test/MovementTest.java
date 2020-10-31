@@ -107,9 +107,7 @@ public class MovementTest {
 
         assertFalse(g.moveUnits(new ArrayList<Unit>(Arrays.asList(peasant)),C, D));
         g.endTurn();
-        assertTrue(g.moveUnits(new ArrayList<Unit>(Arrays.asList(catapult)),C, E));
-
-
+        assertTrue(g.moveUnits(new ArrayList<Unit>(Arrays.asList(peasant)),C, E));
 
     }
 
