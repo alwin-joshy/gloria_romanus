@@ -1,9 +1,10 @@
 package unsw.gloriaromanus;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class SimpleBattleResolver implements BattleResolver {
+public class SimpleBattleResolver implements BattleResolver, Serializable {
     int attackingSum;
     int defendingSum;
     int totalInvadingTroops;

@@ -156,6 +156,7 @@ public class Game {
             os.writeObject(currentYear);
             os.writeObject(factions);
             os.writeObject(currentVictoryCondition);
+            os.writeObject(br);
             os.writeInt(currentFaction);
             os.writeBoolean(isRunning);
             os.flush();
@@ -175,6 +176,7 @@ public class Game {
             currentYear = (int) ins.readObject();
             factions = (ArrayList<Faction>) ins.readObject();
             currentVictoryCondition = (Goal) ins.readObject();
+            br = (BattleResolver) ins.readObject();
             currentFaction = ins.readInt();
             isRunning = ins.readBoolean();
         } catch (IOException | ClassNotFoundException e) {
@@ -309,6 +311,7 @@ public class Game {
 
     public static void main(String[] args) {
         Game game = new Game();
+        Game g = new Game();
         try {
             String content = Files.readString(Paths.get("src/unsw/gloriaromanus/initial_province_ownership.json"));
             JSONObject map = new JSONObject(content);
@@ -320,15 +323,14 @@ public class Game {
             game.initialiseFactions(map, landlocked);
             game.getVictoryCondition().showGoal();
             game.saveGame("xD");
-            Game g2 = new Game();
-            g2.loadGame("xD");
-            g2.printFactions();
-            System.out.println(game.getCurrentFaction().equals(g2.getCurrentFaction()));
-            System.out.println(g2.getCurrentFaction().getNthProvince(1).getTax().getRate());
+            game.clear();
+            game.loadGame("xD");
+            game.printFactions();
             game.getVictoryCondition().showGoal();
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
 
+
+    }
 }
