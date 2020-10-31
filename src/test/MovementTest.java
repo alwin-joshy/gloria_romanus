@@ -93,5 +93,7 @@ public class MovementTest {
     public void enemyProvinceTest() {
         Game g = new Game();
         initialSetup(g);
+        
+
     }
 }
