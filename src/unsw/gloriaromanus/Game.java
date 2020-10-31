@@ -45,12 +45,19 @@ public class Game {
         this((BattleResolver) new StandardBattleResolver(), (AI) new StandardAI());
     }
 
-    public void startGame(JSONObject initialOwnership, JSONArray landlocked, JSONObject adjacencyMap) {
+    public void initialiseGame(JSONObject initialOwnership, JSONArray landlocked, JSONObject adjacencyMap) {
         initialiseFactions(initialOwnership, landlocked);
         initialiseAdjacencyMatrix(adjacencyMap);
         Random r = new Random();
         currentFaction = r.nextInt(factions.size());
+    }
+
+    public void startGame() {
+        factions.get(currentFaction).collectTax();
         isRunning = true;
+        if (!factions.get(currentFaction).isPlayer()) {
+            endTurn();
+        }
     } 
 
     // Not sure if this is necessary
@@ -203,7 +210,11 @@ public class Game {
         for (String p : dist.keySet()) {
             dist.put(p, Integer.MAX_VALUE);
         }
-        dist.replace(start, 0);
+        int movementPoints = 4;
+        for (String p : adjacentProvinces.get(start).keySet()) {
+            movementPoints = adjacentProvinces.get(start).get(p);
+        }
+        dist.replace(start, movementPoints);
         int prevSize = -1;
 
         while (! visited.contains(end) || prevSize != visited.size()) {

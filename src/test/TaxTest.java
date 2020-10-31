@@ -5,8 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
-
 import org.json.JSONObject;
 import org.json.JSONArray;
 import org.junit.jupiter.api.Test;
@@ -24,7 +22,6 @@ public class TaxTest {
         initialSetup(g);
         Faction currentFaction = g.getCurrentFaction();
         Province p = currentFaction.getNthProvince(0);
-        g.selectFaction(currentFaction.getName());
         int startingWealth = p.getWealth();
         int startingWealthGrowth = p.getWealthGrowth();
         int startingTreasury = currentFaction.getTreasury();
@@ -39,7 +36,6 @@ public class TaxTest {
         initialSetup(g);
         Faction currentFaction = g.getCurrentFaction();
         Province p = currentFaction.getNthProvince(0);
-        g.selectFaction(currentFaction.getName());
         int startingWealth = p.getWealth();
         int startingWealthGrowth = p.getWealthGrowth();
         int startingTreasury = currentFaction.getTreasury();
@@ -55,7 +51,6 @@ public class TaxTest {
         initialSetup(g);
         Faction currentFaction = g.getCurrentFaction();
         Province p = currentFaction.getNthProvince(0);
-        g.selectFaction(currentFaction.getName());
         int startingWealth = p.getWealth();
         int startingWealthGrowth = p.getWealthGrowth();
         int startingTreasury = currentFaction.getTreasury();
@@ -71,7 +66,6 @@ public class TaxTest {
         initialSetup(g);
         Faction currentFaction = g.getCurrentFaction();
         Province p = currentFaction.getNthProvince(0);
-        g.selectFaction(currentFaction.getName());
         int startingWealth = p.getWealth();
         int startingWealthGrowth = p.getWealthGrowth();
         int startingTreasury = currentFaction.getTreasury();
@@ -85,6 +79,9 @@ public class TaxTest {
         JSONObject ownership = new JSONObject(initialOwnership);
         JSONArray landlocked = new JSONArray(landlockedString);
         JSONObject adjacencyMap = new JSONObject(adjacencyString);
-        g.startGame(ownership, landlocked, adjacencyMap);
+        g.initialiseGame(ownership, landlocked, adjacencyMap);
+        Faction currentFaction = g.getCurrentFaction();
+        g.selectFaction(currentFaction.getName());
+        g.startGame();
     }
 }
