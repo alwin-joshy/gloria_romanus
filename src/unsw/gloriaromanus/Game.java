@@ -27,8 +27,7 @@ public class Game {
     private int currentYear;
     private boolean isRunning;
     private int currentFaction;
-    private ArrayList<VictoryCondition> victories = new ArrayList<VictoryCondition>(Arrays.asList (new ConquestGoal(), new InfrastructureGoal(), 
-                                                                                                   new WealthGoal(), new TreasuryGoal()));
+    private ArrayList<VictoryCondition> victories;
     private Goal currentVictoryCondition;
     private BattleResolver br;
     private AI ai;
@@ -38,7 +37,6 @@ public class Game {
         factions = new ArrayList<Faction>();
         adjacentProvinces = new HashMap<String, Map<String, Integer>>();
         currentYear = -200;
-        currentVictoryCondition = generateVictoryCondition();
         this.br = br;
         this.ai = ai;
         movedUnits = new HashSet<Unit>();
@@ -56,6 +54,9 @@ public class Game {
         for (BattleObserver bo : br.getObservers()) {
             bo.setGame(this);
         }
+        victories = new ArrayList<VictoryCondition>(Arrays.asList (new ConquestGoal(getNumProvinces()), new InfrastructureGoal(), 
+                                                                    new WealthGoal(), new TreasuryGoal()));
+        currentVictoryCondition = generateVictoryCondition();
     }
 
     public void startGame() {
@@ -77,6 +78,10 @@ public class Game {
                 f.setPlayer();
             }
         }
+    }
+
+    public int getNumProvinces() {
+        return adjacentProvinces.keySet().size();
     }
 
     public void endTurn() {
