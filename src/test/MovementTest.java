@@ -1,11 +1,14 @@
 package test;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.json.JSONObject;
 import org.json.JSONArray;
@@ -30,7 +33,7 @@ public class MovementTest {
         gaul.getNthProvince(4).build(new TroopProductionBuilding(gaul));
         g.endTurn();
         gaul.getNthProvince(4).build(gaul.getNthProvince(4).getTroopProductionBuilding());
-
+        g.endTurn();
         g.endTurn();
     }
 
@@ -38,5 +41,34 @@ public class MovementTest {
     public void cavalryMovementTest() {
         Game g = new Game();
         initialSetup(g);
+    }
+
+    @Test public void artilleryMovementTest(){
+        Game g = new Game();
+        initialSetup(g);
+        Unit catapult = new Unit("catapult");
+        Province E = g.getCurrentFaction().getNthProvince(4);
+        Province D = g.getCurrentFaction().getNthProvince(3);
+        Province C = g.getCurrentFaction().getNthProvince(2);
+        Province B = g.getCurrentFaction().getNthProvince(1);
+        Province A = g.getCurrentFaction().getNthProvince(1);
+        g.getCurrentFaction().getNthProvince(4).build(catapult);
+        g.endTurn();
+        g.endTurn();
+        assertFalse(g.moveUnits(new ArrayList<Unit>(Arrays.asList(catapult)),E, C));
+        assertTrue(g.moveUnits(new ArrayList<Unit>(Arrays.asList(catapult)),E, D));
+
+        assertFalse(E.getUnits().contains(catapult));
+        assertTrue(D.getUnits().contains(catapult));
+
+        assertFalse(g.moveUnits(new ArrayList<Unit>(Arrays.asList(catapult)),D, C));
+
+        g.endTurn();
+
+        assertTrue(g.moveUnits(new ArrayList<Unit>(Arrays.asList(catapult)),D, C));
+
+
+
+        assertEquals(expected, actual);
     }
 }
