@@ -1,8 +1,11 @@
 package unsw.gloriaromanus;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 import java.lang.Math;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -10,7 +13,7 @@ import org.json.JSONObject;
 
 import javafx.geometry.Side;
 
-public class Unit implements Serializable {
+public class Unit implements Serializable, Project {
     private String name;
     private String type;
     private int numTroops; // the number of troops in this unit (should reduce based on depletion)
@@ -32,9 +35,11 @@ public class Unit implements Serializable {
     private int taxDebuff;
     private int engagementCount;
 
-    public Unit(String name) {
+    public Unit(String name) throws IOException{
         this.name = name;
-        JSONObject json = new JSONObject("units/" + name + ".json");
+        String content = "{\r\n    \"name\": \"peasant\",\r\n    \"type\": \"heavy infantry\",\r\n    \"numTroops\": 20,\r\n    \"ranged\": false,\r\n    \"armour\": 3,\r\n    \"morale\": 3,\r\n    \"speed\": 2,\r\n    \"attack\": 3,\r\n    \"defenceSkill\": 2,\r\n    \"shieldDefence\": 4,\r\n    \"baseCost\": 35,\r\n    \"trainingTime\": 1\r\n}";
+        //String content = Files.readString(Paths.get("src/unsw/gloriaromanus/units/", name, ".json"));
+        JSONObject json = new JSONObject(content);
         if (Arrays.asList("elephant", "horseman", "elite cavalry", "lancer").contains(name))
             chargeValue = json.getInt("chargeValue");
         else 

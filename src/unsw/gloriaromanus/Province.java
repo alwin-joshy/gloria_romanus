@@ -59,7 +59,7 @@ public class Province implements Serializable {
         isSeaProvince = false;
     }
 
-    public void build(Project project){
+    public boolean build(Project project){
         double cost = project.getBaseCost();
 
         if (project instanceof Unit) {
@@ -68,19 +68,26 @@ public class Province implements Serializable {
             cost *= faction.getMarketMultiplier();
         }
 
+        if (project instanceof Unit) {
+            if (unitsInTraining == unitTrainingLimit) return false;
+            TroopProductionBuilding tb = getTroopProductionBuilding();
+            if (tb == null || ! tb.isAvailable((Unit) project)) return false; 
+        } else if (buildingInfrastructure()) {
+            return false;
+        }
+
         int integerCost = (int) Math.round(cost);
 
-        if (! faction.purchase(integerCost)) return;
-
+        if (! faction.purchase(integerCost)) return false;
+        
         if (project instanceof Unit) {
-            if (unitsInTraining == unitTrainingLimit) return;
             unitsInTraining++;
-        } else if (buildingInfrastructure()) {
-            return;
         }
- 
+
         ProjectDetails p = new ProjectDetails(faction, project);
         projects.add(p);
+
+        return true;
     }
 
     public void updateProjects() {
@@ -99,6 +106,7 @@ public class Province implements Serializable {
                     infrastructure.add(inf);
                 } else {
                     units.add((Unit) p);
+                    unitsInTraining--;
                 }
                 toRemove.add(project);
             }
@@ -250,7 +258,7 @@ public class Province implements Serializable {
         }
         return null;
     }
-    
+
     public double getLegionaryDebuff() {
         return faction.getLegionaryDebuff();
     }
