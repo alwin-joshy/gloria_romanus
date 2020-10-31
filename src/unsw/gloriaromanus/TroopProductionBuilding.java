@@ -56,6 +56,13 @@ public class TroopProductionBuilding extends Infrastructure {
         updateCosts();
     }
 
+    public boolean isAvailable(Unit u) {
+        for (int i = 1; i <= getLevel(); i++) {
+            if (units.get(i).contains(u.getName())) return true;
+        }
+        return false;
+    }
+
     // TODO Change this in iteration 3
     @Override
     public boolean equals(Object obj) {
