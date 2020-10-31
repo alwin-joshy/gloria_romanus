@@ -67,4 +67,41 @@ public class VictoryTest {
         g.moveUnits(new ArrayList<Unit>(Arrays.asList(peasant)), E, I);
         assertTrue(g.isFinished());
     }
+
+    @Test
+    public void conquestVictoryInvadeTest() throws IOException {
+        Game g = new Game();
+        initialSetup(g);
+        Goal vg = new Condition(new ConquestGoal(g.getNumProvinces()));
+        g.setVictoryCondition(vg);
+        Faction gaul = g.getFactions().get(0);
+        Province E = gaul.getNthProvince(4);
+        Province I = g.getFactions().get(1).getNthProvince(0);
+        Unit peasant = new Unit("peasant");
+        E.build(peasant);
+        g.endTurn();
+        g.moveUnits(new ArrayList<Unit>(Arrays.asList(peasant)), E, I);
+        assertTrue(g.isFinished());
+    }
+
+    @Test
+    public void conjunctionVictoryTest() throws IOException {
+        Game g = new Game();
+        initialSetup(g);
+        Goal vg1 = new Condition(new ConquestGoal(g.getNumProvinces()));
+        Goal vg2 = new Condition(new WealthGoal());
+        Goal vg3 = new Subgoal(true);
+        vg3.add(vg1);
+        vg3.add(vg2);
+        g.setVictoryCondition(vg3);
+        Faction gaul = g.getFactions().get(0);
+        Province E = gaul.getNthProvince(4);
+        Province I = g.getFactions().get(1).getNthProvince(0);
+        Unit peasant = new Unit("peasant");
+        E.build(peasant);
+        g.endTurn();
+        E.setWealth(400000);
+        g.moveUnits(new ArrayList<Unit>(Arrays.asList(peasant)), E, I);
+        assertTrue(g.isFinished());
+    }
 }
