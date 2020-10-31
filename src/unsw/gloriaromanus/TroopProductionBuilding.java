@@ -57,7 +57,10 @@ public class TroopProductionBuilding extends Infrastructure {
     }
 
     public boolean isAvailable(Unit u) {
+        System.out.println(u.getName());
+        System.out.println(getLevel());
         for (int i = 1; i <= getLevel(); i++) {
+            System.out.println(units.get(i));
             if (units.get(i).contains(u.getName())) return true;
         }
         return false;

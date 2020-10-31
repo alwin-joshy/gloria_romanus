@@ -71,10 +71,12 @@ public class Province implements Serializable {
         if (project instanceof Unit) {
             if (unitsInTraining == unitTrainingLimit) return false;
             TroopProductionBuilding tb = getTroopProductionBuilding();
+            System.out.println(tb.isAvailable((Unit) project));
             if (tb == null || ! tb.isAvailable((Unit) project)) return false; 
         } else if (buildingInfrastructure()) {
             return false;
         }
+        System.out.println("xd");
 
         int integerCost = (int) Math.round(cost);
 
@@ -98,12 +100,14 @@ public class Province implements Serializable {
                 if (p instanceof Infrastructure) {
                     if (p instanceof Farm) unitTrainingLimit = ((Farm) p).getBonus();
                     Infrastructure inf = (Infrastructure) p;
+                    if (inf.getLevel() == 0) infrastructure.add(inf);
                     inf.levelUp();
+                    System.out.println(project.getProject());
+                    System.out.println("upgraded");
                     if (inf instanceof WealthGenerationBuilding) {
                         wealth += 150 * inf.getLevel();
                         wealthGrowth += 50 * inf.getLevel();
                     }
-                    infrastructure.add(inf);
                 } else {
                     units.add((Unit) p);
                     unitsInTraining--;
@@ -111,8 +115,9 @@ public class Province implements Serializable {
                 toRemove.add(project);
             }
         }
-
-        projects.remove(toRemove);
+        for (ProjectDetails p : toRemove) {
+            projects.remove(p);
+        }
     }
 
     private boolean buildingInfrastructure(){

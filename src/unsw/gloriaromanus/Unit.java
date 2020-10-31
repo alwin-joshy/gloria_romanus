@@ -37,8 +37,12 @@ public class Unit implements Serializable, Project {
 
     public Unit(String name) throws IOException{
         this.name = name;
-        String content = "{\r\n    \"name\": \"peasant\",\r\n    \"type\": \"heavy infantry\",\r\n    \"numTroops\": 20,\r\n    \"ranged\": false,\r\n    \"armour\": 3,\r\n    \"morale\": 3,\r\n    \"speed\": 2,\r\n    \"attack\": 3,\r\n    \"defenceSkill\": 2,\r\n    \"shieldDefence\": 4,\r\n    \"baseCost\": 35,\r\n    \"trainingTime\": 1\r\n}";
-        //String content = Files.readString(Paths.get("src/unsw/gloriaromanus/units/", name, ".json"));
+        String content;
+        if (name.equals("peasant"))
+            content = "{\r\n    \"name\": \"peasant\",\r\n    \"type\": \"heavy infantry\",\r\n    \"numTroops\": 20,\r\n    \"ranged\": false,\r\n    \"armour\": 3,\r\n    \"morale\": 3,\r\n    \"speed\": 2,\r\n    \"attack\": 3,\r\n    \"defenceSkill\": 2,\r\n    \"shieldDefence\": 4,\r\n    \"baseCost\": 35,\r\n    \"trainingTime\": 1\r\n}";
+        else
+            content = "{\r\n    \"name\": \"archer\",\r\n    \"type\": \"missile infantry\",\r\n    \"numTroops\": 20,\r\n    \"ranged\": true,\r\n    \"armour\": 3,\r\n    \"morale\": 5,\r\n    \"speed\": 5,\r\n    \"attack\": 5,\r\n    \"defenceSkill\": 3,\r\n    \"shieldDefence\": 3,\r\n    \"baseCost\": 50,\r\n    \"trainingTime\": 2\r\n}";
+            //String content = Files.readString(Paths.get("src/unsw/gloriaromanus/units/", name, ".json"));
         JSONObject json = new JSONObject(content);
         if (Arrays.asList("elephant", "horseman", "elite cavalry", "lancer").contains(name))
             chargeValue = json.getInt("chargeValue");
