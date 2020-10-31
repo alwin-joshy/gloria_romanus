@@ -61,19 +61,16 @@ public class MovementTest {
         g.endTurn();
 
         assertTrue(g.moveUnits(army, B, A));
-
-
     }
 
-    @Test public void artilleryMovementTest() throws IOException{
+    @Test 
+    public void artilleryMovementTest() throws IOException{
         Game g = new Game();
         initialSetup(g);
         Unit catapult = new Unit("catapult");
         Province E = g.getCurrentFaction().getNthProvince(4);
         Province D = g.getCurrentFaction().getNthProvince(3);
         Province C = g.getCurrentFaction().getNthProvince(2);
-        Province B = g.getCurrentFaction().getNthProvince(1);
-        Province A = g.getCurrentFaction().getNthProvince(1);
         g.getCurrentFaction().getNthProvince(4).build(catapult);
         g.endTurn();
         g.endTurn();
@@ -87,8 +84,34 @@ public class MovementTest {
         assertFalse(g.moveUnits(new ArrayList<Unit>(Arrays.asList(catapult)),D, C));
 
         g.endTurn();
-        
-
         assertTrue(g.moveUnits(new ArrayList<Unit>(Arrays.asList(catapult)),D, C));
     }
+
+    @Test 
+    public void infantryMovementTest() throws IOException{
+        Game g = new Game();
+        initialSetup(g);
+        Unit peasant = new Unit("peasant");
+        Province E = g.getCurrentFaction().getNthProvince(4);
+        Province D = g.getCurrentFaction().getNthProvince(3);
+        Province C = g.getCurrentFaction().getNthProvince(2);
+        Province B = g.getCurrentFaction().getNthProvince(1);
+        g.getCurrentFaction().getNthProvince(4).build(peasant);
+        g.endTurn();
+
+        assertFalse(g.moveUnits(new ArrayList<Unit>(Arrays.asList(peasant)),E, B));
+        assertTrue(g.moveUnits(new ArrayList<Unit>(Arrays.asList(peasant)),E, C));
+
+        assertFalse(E.getUnits().contains(peasant));
+        assertTrue(C.getUnits().contains(peasant));
+
+        assertFalse(g.moveUnits(new ArrayList<Unit>(Arrays.asList(peasant)),C, D));
+        g.endTurn();
+        assertTrue(g.moveUnits(new ArrayList<Unit>(Arrays.asList(catapult)),C, E));
+
+
+
+    }
+
+
 }
