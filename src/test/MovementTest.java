@@ -45,13 +45,11 @@ public class MovementTest {
         Unit horseman = new Unit("horseman");
         Province A = gaul.getNthProvince(0);
         Province B = gaul.getNthProvince(1);
-        Province C = gaul.getNthProvince(2);
-        Province D = gaul.getNthProvince(3);
         Province E = gaul.getNthProvince(4);
         
         E.build(horseman);
         g.endTurn();
-        ArrayList<Unit> army = new ArrayList(Arrays.asList(horseman));
+        ArrayList<Unit> army = new ArrayList<Unit>(Arrays.asList(horseman));
         assertFalse(g.moveUnits(army, E, A));
         assertTrue(g.moveUnits(army, E, B));
 
@@ -63,7 +61,7 @@ public class MovementTest {
 
     }
 
-    @Test public void artilleryMovementTest(){
+    @Test public void artilleryMovementTest() throws IOException{
         Game g = new Game();
         initialSetup(g);
         Unit catapult = new Unit("catapult");
@@ -86,9 +84,5 @@ public class MovementTest {
         g.endTurn();
 
         assertTrue(g.moveUnits(new ArrayList<Unit>(Arrays.asList(catapult)),D, C));
-
-
-
-        assertEquals(expected, actual);
     }
 }
