@@ -53,6 +53,9 @@ public class Game {
         initialiseAdjacencyMatrix(adjacencyMap);
         Random r = new Random();
         currentFaction = r.nextInt(factions.size());
+        for (BattleObserver bo : br.getObservers()) {
+            bo.setGame(this);
+        }
     }
 
     public void startGame() {
@@ -78,7 +81,7 @@ public class Game {
 
     public void endTurn() {
         if (currentVictoryCondition.checkVictory(factions.get(currentFaction))) {
-            isRunning = false; 
+            endGame();
         }
         for (Unit u : movedUnits) {
             u.resetMovementPoints();
@@ -88,6 +91,9 @@ public class Game {
         currentYear++;
         factions.get(currentFaction).updateAllProjects();
         factions.get(currentFaction).collectTax();
+        if (currentVictoryCondition.checkVictory(factions.get(currentFaction))) {
+            endGame();
+        }
         if (! factions.get(currentFaction).isPlayer()) {
             endTurn();
         }
@@ -97,7 +103,7 @@ public class Game {
         Faction curr = factions.get(currentFaction); 
         while (! curr.isPlayer()) {
             if (currentVictoryCondition.checkVictory(curr)) {
-                isRunning = false;
+                endGame();
             }
             
             int startingBalance = curr.getTreasury();
@@ -113,7 +119,7 @@ public class Game {
             endTurn();
         }
         if (currentVictoryCondition.checkVictory(curr)) {
-            isRunning = false; 
+            endGame(); 
         }
     }
 
@@ -196,6 +202,10 @@ public class Game {
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public void endGame() {
+        isRunning = false;
     }
 
     public void clear() {
@@ -339,6 +349,14 @@ public class Game {
 
     public Map<String, Map<String, Integer>> getAdjacencyMatrix() {
         return adjacentProvinces;
+    }
+
+    public boolean isFinished() {
+        return !isRunning;
+    }
+
+    public void setVictoryCondition(Goal g) {
+        currentVictoryCondition = g;
     }
 
     public static void main(String[] args) {

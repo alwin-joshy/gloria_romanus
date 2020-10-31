@@ -17,7 +17,9 @@
     "E": {
         "I": true,
         "F": true,
-        "D": true
+        "D": true,
+        "J": true,
+        "K": true
     },
     "F": {
         "E": true,
@@ -33,6 +35,18 @@
     },
     "I": {
         "H": true,
+        "E": true,
+        "L": true
+    },
+    "J" : {
+        "E": true,
+        "K": true
+    }, 
+    "K" : {
+        "J": true,
         "E": true
+    },
+    "L" : {
+        "I": true
     }
 }

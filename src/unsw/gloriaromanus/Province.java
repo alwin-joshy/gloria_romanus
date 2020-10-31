@@ -294,6 +294,10 @@ public class Province implements Serializable {
         numLegionaryDeaths = 0;
     }
 
+    public void setWealth(int gold) {
+        wealth = gold;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;

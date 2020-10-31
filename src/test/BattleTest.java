@@ -17,5 +17,5 @@ import org.junit.jupiter.api.Test;
 import unsw.gloriaromanus.*;
 
 public class BattleTest {
-    
+    private String initialOwnership = "{\r\n    \"Gaul\": [\r\n        \"A\",\r\n        \"B\"\r\n    ],\r\n    \"Rome\": [\r\n        \"C\",\r\n        \"D\"\r\n    ]\r\n}";
 }

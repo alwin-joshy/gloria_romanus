@@ -2,6 +2,7 @@ package unsw.gloriaromanus;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class StandardBattleResolver implements BattleResolver, Serializable {
@@ -20,10 +21,18 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
     private boolean defendingHeroicCharge;
     private double attackingDruidMultiplier;
     private double defendingDruidMultiplier;
+    private ArrayList<BattleObserver> observers;
 
     public StandardBattleResolver() {
         routedAttackers = new ArrayList<Unit>();
         engagementCounter = 0;
+        observers = new ArrayList<BattleObserver>(Arrays.asList(new VictoryObserver(), new DefeatObserver()));
+    }
+
+    public void notify(Faction f) {
+        for (BattleObserver bo : observers) {
+            bo.update(f);
+        }
     }
 
     public void setTaxDebuff(Province p, ArrayList<Unit> army) {
@@ -122,6 +131,7 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
         }
 
         if (defendingArmy.size() == 0) {
+            System.out.println("xd");
             transferProvinceOwnership(defending.getFaction(), attacking.getFaction(), defending);
             for (Unit u : routedAttackers) {
                 defending.addUnit(u);
@@ -129,6 +139,7 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
             if (attacking.getFaction().getName().equals("Roman")) {
                 defending.resetLegionaryDeaths();
             }
+            notify(attacking.getFaction());
             return true;
         } else {
             defending.resetLegionaryDeaths();
@@ -253,5 +264,9 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
         from.removeProvince(p);
         to.addProvince(p);
         p.setFaction(to);
+    }
+
+    public ArrayList<BattleObserver> getObservers() {
+        return observers;
     }
 }
