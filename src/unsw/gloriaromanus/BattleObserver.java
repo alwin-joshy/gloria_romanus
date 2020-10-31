@@ -1,6 +1,8 @@
 package unsw.gloriaromanus;
 
-public interface BattleObserver {
+import java.io.Serializable;
+
+public interface BattleObserver extends Serializable {
     public void update(Faction f);
     public void setGame(Game g);
 }

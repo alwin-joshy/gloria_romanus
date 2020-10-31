@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -20,7 +21,7 @@ import java.util.Random;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class Game {
+public class Game implements Serializable{
 
     private ArrayList<Faction> factions;
     private static Map<String, Map<String, Integer>> adjacentProvinces;
