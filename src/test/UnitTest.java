@@ -84,10 +84,42 @@ public class UnitTest{
         }
     }
 
+    @Test
     public void recruitMultipleConcurrentUnitTest() {
         
     }
 
+    @Test
+    public void recruitLevel2UnitTest() {
+        Game g = new Game();
+        initialSetup(g);
+        Faction currentFaction = g.getCurrentFaction();
+        g.selectFaction(currentFaction.getName());
+        try {
+            currentFaction.getNthProvince(0).build(new TroopProductionBuilding(currentFaction));
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+        g.endTurn();
+        TroopProductionBuilding tb = currentFaction.getNthProvince(0).getTroopProductionBuilding();
+        g.endTurn();
+        g.endTurn();
+        assertEquals(currentFaction.getNthProvince(0).build(tb), true);
+        g.endTurn();
+        g.endTurn();
+        try {
+            assertEquals(currentFaction.getNthProvince(0).build(new Unit("archer")), true);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+        g.endTurn();
+        assertEquals(currentFaction.getNthProvince(0).getUnits().size(), 0);
+        g.endTurn();
+        assertEquals(currentFaction.getNthProvince(0).getUnits().size(), 1);
+        assertTrue(currentFaction.getNthProvince(0).getNthUnit(0).getName().equals("archer"));
+    }
 
     public void initialSetup(Game g) {
         JSONObject ownership = new JSONObject(initialOwnership);
