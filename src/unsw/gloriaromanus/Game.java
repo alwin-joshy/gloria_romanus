@@ -179,6 +179,7 @@ public class Game {
             os.writeObject(br);
             os.writeInt(currentFaction);
             os.writeBoolean(isRunning);
+            os.writeObject(movedUnits);
             os.flush();
             os.close();
         } catch (IOException e) {
@@ -199,6 +200,7 @@ public class Game {
             br = (BattleResolver) ins.readObject();
             currentFaction = ins.readInt();
             isRunning = ins.readBoolean();
+            movedUnits = (HashSet<Unit>) ins.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -345,6 +347,10 @@ public class Game {
 
     public int getCurrentYear() {
         return currentYear;
+    }
+
+    public HashSet<Unit> getMovedUnits() {
+        return movedUnits;
     }
 
     public Map<String, Map<String, Integer>> getAdjacencyMatrix() {

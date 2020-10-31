@@ -41,9 +41,9 @@ public class VictoryTest {
     @Test
     public void wealthVictoryNaturalTest() throws IOException {
         Game g = new Game();
+        initialSetup(g);
         Goal vg = new Condition(new WealthGoal());
         g.setVictoryCondition(vg);
-        initialSetup(g);
         Faction gaul = g.getFactions().get(0);
         Province A = gaul.getNthProvince(0);
         A.setWealth(399999);
@@ -54,9 +54,9 @@ public class VictoryTest {
     @Test
     public void wealthVictoryInvadeTest() throws IOException {
         Game g = new Game();
+        initialSetup(g);
         Goal vg = new Condition(new WealthGoal());
         g.setVictoryCondition(vg);
-        initialSetup(g);
         Faction gaul = g.getFactions().get(0);
         Province E = gaul.getNthProvince(4);
         Province I = g.getFactions().get(1).getNthProvince(0);
@@ -67,4 +67,51 @@ public class VictoryTest {
         g.moveUnits(new ArrayList<Unit>(Arrays.asList(peasant)), E, I);
         assertTrue(g.isFinished());
     }
+
+    @Test 
+    public void treasuryVictoryTest() throws IOException {
+        Game g = new Game();
+        initialSetup(g);
+        Goal vg = new Condition(new TreasuryGoal());
+        g.setVictoryCondition(vg);
+        Faction gaul = g.getFactions().get(0);
+        gaul.setTreasury(99999);
+        g.endTurn();
+        assertTrue(g.isFinished());
+    }
+
+    @Test
+    public void disjunctionVictoryTreasuryTest() throws IOException{
+        Game g = new Game();
+        initialSetup(g);
+        Goal tg = new Condition(new TreasuryGoal());
+        Goal wg = new Condition(new WealthGoal());
+        Goal vg = new Subgoal(false);
+        vg.add(tg);
+        vg.add(wg);
+        g.setVictoryCondition(vg);
+        Faction gaul = g.getFactions().get(0);
+        gaul.setTreasury(99999);
+        g.endTurn();
+        assertTrue(g.isFinished());
+    }
+
+    @Test
+    public void disjunctionVictoryWealthTest() throws IOException {
+        Game g = new Game();
+        initialSetup(g);
+        Goal tg = new Condition(new TreasuryGoal());
+        Goal wg = new Condition(new WealthGoal());
+        Goal vg = new Subgoal(false);
+        vg.add(tg);
+        vg.add(wg);
+        g.setVictoryCondition(vg);
+        Faction gaul = g.getFactions().get(0);
+        Province A = gaul.getNthProvince(0);
+        A.setWealth(399999);
+        g.endTurn();
+        assertTrue(g.isFinished());
+    }
+
+
 }

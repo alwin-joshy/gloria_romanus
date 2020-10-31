@@ -94,6 +94,7 @@ public class GameTest {
         assertEquals(g2.getFactions().get(1).isPlayer(), true);
         assertEquals(g.getAdjacencyMatrix(), g2.getAdjacencyMatrix());
         assertEquals(g2.getVictoryCondition(), prevGoal);
+        assertEquals(g.getMovedUnits(), g2.getMovedUnits());
     }
 
 
