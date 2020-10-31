@@ -72,6 +72,11 @@ public class Game {
         }
         currentFaction = (currentFaction + 1) % factions.size();
         currentYear++;
+        factions.get(currentFaction).updateAllProjects();
+        factions.get(currentFaction).collectTax();
+        if (! factions.get(currentFaction).isPlayer()) {
+            endTurn();
+        }
     }
 
     public void playAI() {

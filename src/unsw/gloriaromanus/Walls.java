@@ -5,6 +5,11 @@ public class Walls extends Infrastructure {
     // Walls double the melee defence of all troops defending a settlement (except when fighting artillery), 
     // reduce the missile attack damage of 
     // attacking archers by 50% (to a minimum of 1), and reduce the missile attack damage of attacking horse archers to 1.
+    
+    public Walls(int factionBonus){
+        super(factionBonus);
+    }
+
 
     public void levelUp() {
         updateCosts();

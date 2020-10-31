@@ -34,6 +34,12 @@ public class Faction implements Serializable {
         alliedProvinces.remove(p);
     }
 
+    public void updateAllProjects() {
+        for (Province p : alliedProvinces) {
+            p.updateProjects();
+        }
+    }
+
     public void collectTax() {
         for (Province p : alliedProvinces) {
             treasury += p.applyTax();
@@ -150,7 +156,6 @@ public class Faction implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        System.out.println("Faction");
         if (this == obj) return true;
         if (this.getClass() != obj.getClass()) return false;
         Faction f = (Faction) obj;
@@ -158,7 +163,6 @@ public class Faction implements Serializable {
         for (int i = 0; i < alliedProvinces.size(); i++) {
             if (!alliedProvinces.get(i).equals(f.getNthProvince(i))) return false; 
         }
-        System.out.println("Provinces passed");
         return (treasury == f.getTreasury() &&  name.equals(f.getName()) && getWealth() == f.getWealth()
                 && isPlayer == f.isPlayer() && mineMultiplier == f.getMineMultiplier() && 
                 mineTurnReduction == f.getMineTurnReduction() && marketMultiplier == f.getMarketMultiplier()

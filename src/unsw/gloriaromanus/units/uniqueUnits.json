@@ -1,7 +1,7 @@
 {
-    "Romans": { "level": 3, "name": "legionaire" },
+    "Rome": { "level": 3, "name": "legionaire" },
     "Carthaginians" : { "level": 3, "name": "elephant" },
-    "Gauls" : { "level": 2, "name": "berserker" },
+    "Gaul" : { "level": 2, "name": "berserker" },
     "Celtic Britons" : { "level": 2, "name": "berserker" },
     "Spanish" : { "level": 3, "name": "druid" },
     "Numidians" : { "level": 1, "name": "eliteCavalry" },

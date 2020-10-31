@@ -7,6 +7,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - TroopProductionBuilding",
+            "request": "launch",
+            "mainClass": "unsw.gloriaromanus.TroopProductionBuilding",
+            "projectName": "h09a-boring_grp_name_d26eea89"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - Game",
             "request": "launch",
             "mainClass": "unsw.gloriaromanus.Game",

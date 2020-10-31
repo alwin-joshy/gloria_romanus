@@ -1,11 +1,10 @@
 package unsw.gloriaromanus;
 
 public class Farm extends WealthGenerationBuilding {
-    private Province p;
     private int farmBonus;
 
-    public Farm(Province p) {
-        this.p = p;
+    public Farm(Faction f) {
+        super(f.getMineTurnReduction());
         farmBonus = 1;
     }
 
@@ -18,16 +17,12 @@ public class Farm extends WealthGenerationBuilding {
         return farmBonus;
     }
 
-    public Province getProvince() {
-        return p;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (this.getClass() != obj.getClass()) return false;
         Farm f = (Farm) obj;
-        return super.equals(obj) && p.getName().equals(f.getProvince().getName()) && farmBonus == f.getBonus();
+        return super.equals(obj) && farmBonus == f.getBonus();
     }
     
 }
