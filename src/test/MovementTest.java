@@ -89,17 +89,8 @@ public class MovementTest {
         assertTrue(g.moveUnits(new ArrayList<Unit>(Arrays.asList(catapult)),D, C));
     }
 
-    @Test
-    public void enemyProvinceTest() {
-        Game g = new Game();
-        initialSetup(g);
-        
-        
-
-    }
-
     @Test 
-    public void infantryMovementTest() throws IOException{
+    public void infantryMovementTest() throws IOException {
         Game g = new Game();
         initialSetup(g);
         Unit peasant = new Unit("peasant");
@@ -122,5 +113,69 @@ public class MovementTest {
 
     }
 
+    @Test
+    public void enemyProvinceTest() throws IOException {
+        Game g = new Game();
+        initialSetup(g);
+        Faction gaul = g.getFactions().get(0);
+        Unit horseman = new Unit("horseman");
+        Province H = gaul.getNthProvince(7);
+        Province E = gaul.getNthProvince(4);
+        
+        E.build(horseman);
+        g.endTurn();
+        ArrayList<Unit> army = new ArrayList<Unit>(Arrays.asList(horseman));
+        assertTrue(g.moveUnits(army, E, H));
+        assertEquals(horseman.getMovementPointsRemaining(), 3);
+        assertTrue(H.getUnits().contains(horseman));
+    }
+
+    @Test
+    public void moveMultipleUnitsTestFail() throws IOException {
+        Game g = new Game();
+        initialSetup(g);
+        Faction gaul = g.getFactions().get(0);
+        Unit horseman = new Unit("horseman");
+        Unit catapult = new Unit("catapult");
+        Unit peasant = new Unit("peasant");
+        Province H = gaul.getNthProvince(7);
+        Province E = gaul.getNthProvince(4);
+        
+        E.build(horseman);
+        g.endTurn();
+        E.build(catapult);
+        g.endTurn();
+        g.endTurn();
+        E.build(peasant);
+        g.endTurn();
+        ArrayList<Unit> army = new ArrayList<Unit>(Arrays.asList(horseman, catapult, peasant));
+        assertFalse(g.moveUnits(army, E, H));
+        assertTrue(E.getUnits().containsAll(army));
+
+    }
+
+
+    @Test
+    public void moveMultipleUnitsTestSuccess() throws IOException {
+        Game g = new Game();
+        initialSetup(g);
+        Faction gaul = g.getFactions().get(0);
+        Unit horseman = new Unit("horseman");
+        Unit catapult = new Unit("catapult");
+        Unit peasant = new Unit("peasant");
+        Province D = gaul.getNthProvince(3);
+        Province E = gaul.getNthProvince(4);
+        
+        E.build(horseman);
+        g.endTurn();
+        E.build(catapult);
+        g.endTurn();
+        g.endTurn();
+        E.build(peasant);
+        g.endTurn();
+        ArrayList<Unit> army = new ArrayList<Unit>(Arrays.asList(horseman, catapult, peasant));
+        assertTrue(g.moveUnits(army, E, D));
+        assertTrue(D.getUnits().containsAll(army));
+    }
 
 }
