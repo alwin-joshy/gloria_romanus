@@ -259,6 +259,7 @@ public class Game {
     }
 
     public boolean moveUnits(ArrayList<Unit> units, Province start, Province end) {
+        if (!start.getUnits().containsAll(units)) return false;
         int distance = shortestPathLength(start.getName(), end.getName());
         for (Unit u : units) {
             if (! u.canMove(distance)) return false;
