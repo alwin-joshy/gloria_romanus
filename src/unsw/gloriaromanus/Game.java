@@ -267,10 +267,9 @@ public class Game {
         boolean validMove = true;
         if (!curr.isAlliedProvince(end.getName())) {
             validMove = br.battle(start, units, end, end.getUnits());
-        
         }
         if (validMove) {
-            curr.moveUnits(units, start, end, distance, distance);
+            curr.moveUnits(units, start, end, distance);
             movedUnits.addAll(units);
         }
 

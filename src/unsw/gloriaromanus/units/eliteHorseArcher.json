@@ -1,6 +1,6 @@
 {
     "name": "eliteHorseArcher",
-    "type": "cavalry",
+    "type": "horse archer",
     "numTroops": 20,
     "ranged": true,
     "armour": 6,

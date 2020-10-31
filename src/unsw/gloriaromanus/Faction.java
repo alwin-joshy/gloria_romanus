@@ -149,11 +149,11 @@ public class Faction implements Serializable {
         return isPlayer;
     }
 
-    public void moveUnits(ArrayList<Unit> units, Province start, Province end, int distance, int movementPoints) {
+    public void moveUnits(ArrayList<Unit> units, Province start, Province end, int distance) {
         for (Unit u : units) {
             start.removeUnit(u);
             end.addUnit(u);
-            u.reduceRemainingMovementPoints(movementPoints);
+            u.reduceRemainingMovementPoints(distance);
         }
     }
 
