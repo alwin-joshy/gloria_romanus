@@ -213,7 +213,7 @@ public class Game {
         Map<String, Integer> dist = new HashMap<String, Integer>();
         ArrayList<String> visited = new ArrayList<String>();
 
-        for (String p : dist.keySet()) {
+        for (String p : adjacentProvinces.keySet()) {
             dist.put(p, Integer.MAX_VALUE);
         }
         int movementPoints = 4;
@@ -225,6 +225,7 @@ public class Game {
 
         while (! visited.contains(end) || prevSize != visited.size()) {
             String next = minVertex(dist, visited);
+            if (next == null) break;
             prevSize = visited.size();
             visited.add(next);
 
@@ -233,8 +234,9 @@ public class Game {
 
             for (String neighbour : innerMap.keySet()) {
 
-                int d = dist.get(next) + innerMap.get(neighbour);
-
+                int d = dist.get(next); 
+                
+                if (!neighbour.equals(end)) d+= innerMap.get(neighbour);
                 if (dist.get(neighbour) > d) {
                     dist.replace(neighbour, d);
                 }
@@ -247,7 +249,7 @@ public class Game {
         int x = Integer.MAX_VALUE;
         String p = null;
         for (String curr : dist.keySet()) {
-            if (! visited.contains(p) && dist.get(p) < x) {
+            if (! visited.contains(curr) && dist.get(curr) < x) {
                 p = curr;
                 x = dist.get(p);
             }
@@ -257,13 +259,17 @@ public class Game {
 
     public boolean moveUnits(ArrayList<Unit> units, Province start, Province end) {
         int distance = shortestPathLength(start.getName(), end.getName());
+        System.out.println(distance);
         for (Unit u : units) {
+            System.out.println(u.getMovementPointsRemaining());
             if (! u.canMove(distance)) return false;
         }
+        
         Faction curr = factions.get(currentFaction);
         boolean validMove = true;
         if (!curr.isAlliedProvince(end.getName())) {
             validMove = br.battle(start, units, end, end.getUnits());
+        
         }
         if (validMove) curr.moveUnits(units, start, end, distance);
         if (validMove) movedUnits.addAll(units);
