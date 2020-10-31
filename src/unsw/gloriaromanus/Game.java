@@ -12,6 +12,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Random;
@@ -31,7 +32,7 @@ public class Game {
     private Goal currentVictoryCondition;
     private BattleResolver br;
     private AI ai;
-    private ArrayList<Unit> movedUnits;
+    private HashSet<Unit> movedUnits;
 
     public Game(BattleResolver br, AI ai) {
         factions = new ArrayList<Faction>();
@@ -40,7 +41,7 @@ public class Game {
         currentVictoryCondition = generateVictoryCondition();
         this.br = br;
         this.ai = ai;
-        movedUnits = new ArrayList<Unit>();
+        movedUnits = new HashSet<Unit>();
     }
 
     public Game() {
@@ -272,6 +273,11 @@ public class Game {
         if (validMove) {
             curr.moveUnits(units, start, end, distance, distance);
             movedUnits.addAll(units);
+        } else {
+            for (Unit u : units) {
+                u.reduceRemainingMovementPoints(15);
+                movedUnits.add(u);
+            }
         }
 
         return validMove;
