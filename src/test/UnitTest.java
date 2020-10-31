@@ -61,12 +61,7 @@ public class UnitTest{
         g.selectFaction(currentFaction.getName());
         try {
             currentFaction.getNthProvince(0).build(new TroopProductionBuilding(currentFaction));
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.exit(1);
-        }
-        g.endTurn();
-        try {
+            g.endTurn();
             assertEquals(currentFaction.getNthProvince(0).build(new Unit("peasant")), true);
             g.endTurn();
             assertEquals(currentFaction.getNthProvince(0).build(new Unit("peasant")), true);
@@ -77,7 +72,6 @@ public class UnitTest{
             g.endTurn();
             assertEquals(currentFaction.getNthProvince(0).build(new Unit("peasant")), true);
             g.endTurn();
-            //assertEquals(currentFaction.getNthProvince(0).build(new Unit("peasant")), true);
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(1);
@@ -86,7 +80,19 @@ public class UnitTest{
 
     @Test
     public void recruitMultipleConcurrentUnitTest() {
-        
+        Game g = new Game();
+        initialSetup(g);
+        Faction currentFaction = g.getCurrentFaction();
+        g.selectFaction(currentFaction.getName());
+        try {
+            currentFaction.getNthProvince(0).build(new TroopProductionBuilding(currentFaction));
+            g.endTurn();
+            assertEquals(currentFaction.getNthProvince(0).build(new Unit("peasant")), true);
+            assertEquals(currentFaction.getNthProvince(0).build(new Unit("peasant")), false);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
     }
 
     @Test

@@ -15,8 +15,16 @@ public class Tax implements Serializable {
         return rate;
     }
 
+    public void setRate(double rate) {
+        this.rate = rate;
+    }
+
     public int getWealthGrowthDelta() {
         return wealthGrowthDelta;
+    }
+
+    public void setWealthGrowthDelta(int change) {
+        this.wealthGrowthDelta = change;
     }
 
     public int isVeryHighTax() {
