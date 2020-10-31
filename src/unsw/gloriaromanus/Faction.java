@@ -167,6 +167,10 @@ public class Faction implements Serializable {
         return alliedProvinces.get(n);
     }
 
+    public void setTreasury(int gold) {
+        treasury = gold;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;

@@ -53,8 +53,6 @@ public class GameTest {
         Game g = new Game();
         initialSetup(g);
         ArrayList<Faction> factions = g.getFactions();
-        g.selectFaction("Rome");
-        assertEquals(factions.get(0).isPlayer(), false);
         assertEquals(factions.get(1).isPlayer(), true);
     }
 
@@ -82,12 +80,11 @@ public class GameTest {
         // TODO
     }
 
-    @Test 
+    @Test
     public void testSaveLoad(){
         Game g = new Game();
         initialSetup(g);
         Goal prevGoal = g.getVictoryCondition();
-        g.selectFaction("Rome");
         g.saveGame("testSave");
         Game g2 = new Game();
         g2.loadGame("testSave");
@@ -104,9 +101,10 @@ public class GameTest {
         JSONObject ownership = new JSONObject(initialOwnership);
         JSONArray landlocked = new JSONArray(landlockedString);
         JSONObject adjacencyMap = new JSONObject(adjacencyString);
-        g.startGame(ownership, landlocked, adjacencyMap);
+        g.initialiseGame(ownership, landlocked, adjacencyMap);
+        g.selectFaction("Rome");
+        g.selectFaction("Gaul");
+        g.startGame();
     }
-
-
 
 }
