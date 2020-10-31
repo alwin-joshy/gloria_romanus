@@ -66,9 +66,5 @@ public class MovementTest {
         g.endTurn();
 
         assertTrue(g.moveUnits(new ArrayList<Unit>(Arrays.asList(catapult)),D, C));
-
-
-
-        assertEquals(expected, actual);
     }
 }
