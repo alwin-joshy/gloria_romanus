@@ -2,7 +2,6 @@ package test;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -39,7 +38,7 @@ public class MovementTest {
     }
 
     @Test
-    public void cavalryMovementTest() {
+    public void cavalryMovementTest() throws IOException {
         Game g = new Game();
         initialSetup(g);
         Faction gaul = g.getFactions().get(0);
@@ -50,7 +49,7 @@ public class MovementTest {
         Province D = gaul.getNthProvince(3);
         Province E = gaul.getNthProvince(4);
         
-        E.build(new Unit("horseman"));
+        E.build(horseman);
         g.endTurn();
         ArrayList<Unit> army = new ArrayList(Arrays.asList(horseman));
         assertFalse(g.moveUnits(army, E, A));
