@@ -1,6 +1,8 @@
 package unsw.gloriaromanus;
 
-public interface AI {
+import java.io.Serializable;
+
+public interface AI extends Serializable{
     /* buys the cheapest building possible - if multiple buildings of the same price then it goes in order of
     Ports (if on a sea province)
     Markets

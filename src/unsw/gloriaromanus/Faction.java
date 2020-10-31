@@ -181,6 +181,7 @@ public class Faction implements Serializable {
         for (int i = 0; i < alliedProvinces.size(); i++) {
             if (!alliedProvinces.get(i).equals(f.getNthProvince(i))) return false; 
         }
+        System.out.println("here");
         return (treasury == f.getTreasury() &&  name.equals(f.getName()) && getWealth() == f.getWealth()
                 && isPlayer == f.isPlayer() && mineMultiplier == f.getMineMultiplier() && 
                 mineTurnReduction == f.getMineTurnReduction() && marketMultiplier == f.getMarketMultiplier()
