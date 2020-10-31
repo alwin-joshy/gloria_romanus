@@ -17,9 +17,9 @@ import org.junit.jupiter.api.Test;
 import unsw.gloriaromanus.*;
 
 public class MovementTest {
-    private String initialOwnership = "{\r\n    \"Rome\": [\r\n        \"I\"\r\n    ],\r\n    \"Gaul\": [\r\n        \"A\",\r\n        \"B\",\r\n        \"C\",\r\n        \"D\",\r\n        \"E\",\r\n        \"F\",\r\n        \"G\",\r\n        \"H\"\r\n    ]\r\n}";
+    private String initialOwnership = "{\r\n    \"Rome\": [\r\n        \"I\"\r\n    ],\r\n    \"Gaul\": [\r\n        \"A\",\r\n        \"B\",\r\n        \"C\",\r\n        \"D\",\r\n        \"E\",\r\n        \"F\",\r\n        \"G\",\r\n        \"H\",\r\n        \"J\",\r\n        \"K\"\r\n    ]\r\n}";
     private String landlockedString = "[]";
-    private String adjacencyString = "{\r\n    \"A\": {\r\n        \"B\": true\r\n    },\r\n    \"B\": {\r\n        \"A\": true,\r\n        \"C\": true\r\n    },\r\n    \"C\": {\r\n        \"B\": true,\r\n        \"D\": true\r\n    },\r\n    \"D\": {\r\n        \"E\": true,\r\n        \"C\": true\r\n    },\r\n    \"E\": {\r\n        \"I\": true,\r\n        \"F\": true,\r\n        \"D\": true\r\n    },\r\n    \"F\": {\r\n        \"E\": true,\r\n        \"G\": true\r\n    },\r\n    \"G\": {\r\n        \"F\": true,\r\n        \"H\": true\r\n    },\r\n    \"H\": {\r\n        \"G\": true,\r\n        \"I\": true\r\n    },\r\n    \"I\": {\r\n        \"H\": true,\r\n        \"E\": true\r\n    }\r\n}";
+    private String adjacencyString = "{\r\n    \"A\": {\r\n        \"B\": true\r\n    },\r\n    \"B\": {\r\n        \"A\": true,\r\n        \"C\": true\r\n    },\r\n    \"C\": {\r\n        \"B\": true,\r\n        \"D\": true\r\n    },\r\n    \"D\": {\r\n        \"E\": true,\r\n        \"C\": true\r\n    },\r\n    \"E\": {\r\n        \"I\": true,\r\n        \"F\": true,\r\n        \"D\": true,\r\n        \"J\": true,\r\n        \"K\": true\r\n    },\r\n    \"F\": {\r\n        \"E\": true,\r\n        \"G\": true\r\n    },\r\n    \"G\": {\r\n        \"F\": true,\r\n        \"H\": true\r\n    },\r\n    \"H\": {\r\n        \"G\": true,\r\n        \"I\": true\r\n    },\r\n    \"I\": {\r\n        \"H\": true,\r\n        \"E\": true\r\n    },\r\n    \"J\" : {\r\n        \"E\": true,\r\n        \"K\": true\r\n    }, \r\n    \"K\" : {\r\n        \"J\": true,\r\n        \"E\": true\r\n    }\r\n}";
  
     public void initialSetup(Game g) throws IOException {
         JSONObject ownership = new JSONObject(initialOwnership);
@@ -90,7 +90,23 @@ public class MovementTest {
     }
 
     @Test
-    public void enemyProvinceTest() {
+    public void shortestPathTest() throws IOException {
+        Game g = new Game();
+        initialSetup(g);
+        Faction gaul = g.getCurrentFaction();
+        Province D = g.getCurrentFaction().getNthProvince(3);
+        Province K = g.getCurrentFaction().getNthProvince(9);
+        D.build(new TroopProductionBuilding(gaul));
+        g.endTurn();
+        Unit hman = new Unit("horseman");
+        gaul.getNthProvince(3).build(hman);
+        g.endTurn();
+        assertTrue(g.moveUnits(new ArrayList<Unit>(Arrays.asList(hman)), D, K));
+        assertEquals(hman.getMovementPointsRemaining(), 7);
+    }
+
+    @Test
+    public void enemyProvinceTest() throws IOException {
         Game g = new Game();
         initialSetup(g);
         
