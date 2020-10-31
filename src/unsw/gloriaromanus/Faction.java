@@ -13,7 +13,7 @@ public class Faction implements Serializable {
     private int mineTurnReduction;
     private Double marketMultiplier;
     private int portBonus;
-
+    private double legionaryDebuff;
 
     public Faction(String name) {
         this.name = name;
@@ -24,6 +24,19 @@ public class Faction implements Serializable {
         marketMultiplier = 1.0;
         mineTurnReduction = 0;
         portBonus = 0;
+        legionaryDebuff = 0;
+    }
+
+    public double getLegionaryDebuff() {
+        return legionaryDebuff;
+    }
+
+    public void incrementLegionaryDebuff() {
+        legionaryDebuff += 0.2;
+    }
+
+    public void decreaseLegionaryDebuff(int legionariesAvenged) {
+        legionaryDebuff -= legionariesAvenged * 0.2;
     }
 
     public void addProvince(Province p) {
