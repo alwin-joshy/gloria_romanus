@@ -236,7 +236,7 @@ public class Game {
 
                 int d = dist.get(next); 
                 
-                if (!neighbour.equals(end)) d+= innerMap.get(neighbour);
+                if (!neighbour.equals(end)) d += innerMap.get(neighbour);
                 if (dist.get(neighbour) > d) {
                     dist.replace(neighbour, d);
                 }
@@ -259,9 +259,7 @@ public class Game {
 
     public boolean moveUnits(ArrayList<Unit> units, Province start, Province end) {
         int distance = shortestPathLength(start.getName(), end.getName());
-        System.out.println(distance);
         for (Unit u : units) {
-            System.out.println(u.getMovementPointsRemaining());
             if (! u.canMove(distance)) return false;
         }
         
@@ -272,7 +270,7 @@ public class Game {
         
         }
         if (validMove) {
-            curr.moveUnits(units, start, end, distance);
+            curr.moveUnits(units, start, end, distance, distance);
             movedUnits.addAll(units);
         }
 

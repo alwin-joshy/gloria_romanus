@@ -91,12 +91,10 @@ public class Province implements Serializable {
         if (project instanceof Unit) {
             if (unitsInTraining == unitTrainingLimit) return false;
             TroopProductionBuilding tb = getTroopProductionBuilding();
-            System.out.println(tb.isAvailable((Unit) project));
             if (tb == null || ! tb.isAvailable((Unit) project)) return false; 
         } else if (buildingInfrastructure()) {
             return false;
         }
-        System.out.println("xd");
 
         int integerCost = (int) Math.round(cost);
 
@@ -122,8 +120,6 @@ public class Province implements Serializable {
                     Infrastructure inf = (Infrastructure) p;
                     if (inf.getLevel() == 0) infrastructure.add(inf);
                     inf.levelUp();
-                    System.out.println(project.getProject());
-                    System.out.println("upgraded");
                     if (inf instanceof WealthGenerationBuilding) {
                         wealth += 150 * inf.getLevel();
                         wealthGrowth += 50 * inf.getLevel();
@@ -300,7 +296,6 @@ public class Province implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        System.out.println("Province");
         if (this == obj) return true;
         if (this.getClass() != obj.getClass()) return false;
         Province p = (Province) obj;

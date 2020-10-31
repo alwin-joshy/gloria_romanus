@@ -39,7 +39,6 @@ public class ProjectDetails implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        System.out.println("PDs");
         if (this == obj) return true;
         if (this.getClass() != obj.getClass()) return false;
         ProjectDetails pd = (ProjectDetails) obj;

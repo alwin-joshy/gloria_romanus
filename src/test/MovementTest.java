@@ -58,6 +58,10 @@ public class MovementTest {
 
         assertFalse(g.moveUnits(army, B, A));
 
+        g.endTurn();
+
+        assertTrue(g.moveUnits(army, B, A));
+
 
     }
 
