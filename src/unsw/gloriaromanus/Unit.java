@@ -116,7 +116,7 @@ public class Unit implements Serializable, Project {
     }
 
     public Boolean canMove(int distance) {
-        return movementPointsRemaining >= distance;
+        return (movementPointsRemaining >= distance);
     }
 
     public int getMeleeDefence() {
