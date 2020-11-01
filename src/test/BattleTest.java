@@ -70,11 +70,11 @@ public class BattleTest {
         g.moveUnits(new ArrayList<Unit>(Arrays.asList(peasant)), B, C);
         assertFalse(g.moveUnits(new ArrayList<Unit>(Arrays.asList(peasant)), C, B));
         assertFalse(g.moveUnits(new ArrayList<Unit>(Arrays.asList(peasant)), C, D));
-        
         g.endTurn();
-        assertTrue(g.getFactions().size() == 2);
+        System.out.println(g.getFactions().size());
+        assertTrue(g.getFactions().size() == 3);
         assertTrue(g.moveUnits(new ArrayList<Unit>(Arrays.asList(peasant)), C, D));
-        assertTrue(g.getFactions().size() == 1);
+        assertTrue(g.getFactions().size() == 2);
     }
 
     @Test 
@@ -234,15 +234,12 @@ public class BattleTest {
     public void horseArchersReducedMissileTest() throws IOException {
         Game g = new Game();
         initialSetup(g);
-        Faction gaul = g.getCurrentFaction();
-        Faction rome = g.getFaction("Rome");
-        Province B = gaul.getNthProvince(1);
-        Province C = rome.getNthProvince(0);
-        Unit h1 = new Unit("horsearcher");
-        Unit a1 = new Unit("archer");
-        B.addUnit(h1);
-        C.addUnit(a1);
-        assertTrue(g.moveUnits(new ArrayList<Unit>(Arrays.asList(h1)), B, C));
+        Unit ha = new Unit("horsearcher");
+        Unit a = new Unit("archer");
+        Random r = new Random(1);
+        double haExpectedDmg = (r.nextGaussian() + 1) * ha.getNumTroops() * 0.1 * ((double) a.getAttack()/2 / ((double) (ha.getArmour() + ha.getShieldDefence())));
+        r.setSeed(1);
+        assertEquals(a.calculateDamage(ha, true, false, r), Math.round(haExpectedDmg));
     }
 
     @Test
@@ -294,7 +291,6 @@ public class BattleTest {
         Unit j = new Unit("javelinist");
         Unit k = new Unit("knight");
         Random r = new Random(1);
-        r.setSeed(1);
         double knightExpectedDmg = (r.nextGaussian() + 1) * k.getNumTroops() * 0.1 * ((double) j.getAttack() / ((double) (k.getArmour()/2 + k.getShieldDefence())));
         r.setSeed(1);
         assertEquals(j.calculateDamage(k, true, false, r), Math.round(knightExpectedDmg));
