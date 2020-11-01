@@ -18,13 +18,15 @@ public class Province implements Serializable {
     private int unitsInTraining;
     private int unitTrainingLimit;
     private Boolean isSeaProvince;
+    private BuildingObserver buildingObserver;
 
-    public Province(String name, Faction faction) {
+    public Province(String name, Faction faction, BuildingObserver buildingObserver) {
         this.name = name;
         this.faction = faction;
+        this.buildingObserver = buildingObserver;
         units = new ArrayList<Unit>();
         infrastructure = new ArrayList<Infrastructure>();
-        infrastructure.add(new Road(this, faction.getMineTurnReduction()));
+        infrastructure.add(new Road(this));
         wealth = 100;
         wealthGrowth = 15;
         tax = new Tax(0.15, 0);
@@ -81,7 +83,6 @@ public class Province implements Serializable {
 
     public boolean build(Project project){
         double cost = project.getBaseCost();
-
         if (project instanceof Unit) {
             cost *= faction.getMineMultiplier();
         } else {
@@ -104,7 +105,7 @@ public class Province implements Serializable {
             unitsInTraining++;
         }
 
-        ProjectDetails p = new ProjectDetails(faction, project);
+        ProjectDetails p = new ProjectDetails(faction.getMineTurnReduction(), project);
         projects.add(p);
 
         return true;
@@ -123,6 +124,7 @@ public class Province implements Serializable {
                     if (inf instanceof WealthGenerationBuilding) {
                         wealth += 150 * inf.getLevel();
                         wealthGrowth += 50 * inf.getLevel();
+                        buildingObserver.update(faction);
                     }
                 } else {
                     units.add((Unit) p);

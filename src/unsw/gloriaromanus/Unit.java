@@ -70,17 +70,6 @@ public class Unit implements Serializable, Project {
         return name;
     }
 
-    public int compareTo(Object obj) {
-        Unit u = (Unit) obj;
-        if (checkType("spearmen")) {
-            if (u.checkType("heavy infantry"))
-                return 1;
-            if (u.checkType("missile infantry"))
-                return 2;
-        }
-        return 0;
-    }
-
     public boolean checkType(String type) {
         return type.equals(this.type);
     }
@@ -103,7 +92,7 @@ public class Unit implements Serializable, Project {
         return numTroops;
     }
 
-    public int getConstructionTime() {
+    public int getBaseConstructionTime() {
         return trainingTime;
     }
 
@@ -267,12 +256,14 @@ public class Unit implements Serializable, Project {
         engagementCount++;
     }
 
-    public void resetEngagementCount() {
-        engagementCount = 0;
-    }
-
     public void resetMovementPoints() {
         movementPointsRemaining = movementPoints;
+    }
+
+    public void resetUnit() {
+        isRouted = false;
+        isBroken = false;
+        engagementCount = 0;
     }
     
 

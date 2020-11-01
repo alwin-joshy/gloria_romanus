@@ -16,8 +16,7 @@ public class TroopProductionBuilding extends Infrastructure {
     Faction f;
     private static Map<Integer, ArrayList<String>> units;
 
-    public TroopProductionBuilding(Faction f) throws IOException{
-        super(f.getMineTurnReduction());
+    public TroopProductionBuilding(Faction f) throws IOException {
         this.f = f;
         this.setBaseContructionTime(1);
         this.setBaseCost(40);

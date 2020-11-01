@@ -1,10 +1,7 @@
 package unsw.gloriaromanus;
 
 public abstract class WealthGenerationBuilding extends Infrastructure {
-    public WealthGenerationBuilding(int factionBonus) {
-        super(factionBonus);
-    }
-
-    int wealthIncrease;
-    int wealthgrowthIncrease;
+    // need to set and apply this FOR MILESTONE 3
+    private int wealthIncrease;
+    private int wealthGrowthIncrease;
 }

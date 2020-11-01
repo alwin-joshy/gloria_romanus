@@ -3,9 +3,10 @@ package unsw.gloriaromanus;
 public class Farm extends WealthGenerationBuilding {
     private int farmBonus;
 
-    public Farm(Faction f) {
-        super(f.getMineTurnReduction());
+    public Farm() {
         farmBonus = 1;
+        setBaseCost(40);
+        setBaseContructionTime(2);
     }
 
     public void levelUp() {
