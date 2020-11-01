@@ -1,6 +1,7 @@
 {
     "A": {
-        "B": true
+        "B": true,
+        "E": true
     },
     "B": {
         "A": true,
@@ -12,5 +13,8 @@
     },
     "D": {
         "C": true
+    },
+    "E": {
+        "A": true
     }
 }

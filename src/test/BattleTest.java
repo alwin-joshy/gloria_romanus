@@ -18,8 +18,8 @@ import org.junit.jupiter.api.Test;
 import unsw.gloriaromanus.*;
 
 public class BattleTest {
-    private String initialOwnership = "{\r\n    \"Gaul\": [\r\n        \"A\",\r\n        \"B\"\r\n    ],\r\n    \"Rome\": [\r\n        \"C\",\r\n        \"D\"\r\n    ]\r\n}";
-    private String adjacencyString = "{\r\n    \"A\": {\r\n        \"B\": true\r\n    },\r\n    \"B\": {\r\n        \"A\": true,\r\n        \"C\": true\r\n    },\r\n    \"C\": {\r\n        \"B\": true,\r\n        \"D\": true\r\n    },\r\n    \"D\": {\r\n        \"C\": true\r\n    }\r\n}";
+    private String initialOwnership = "{\r\n    \"Gaul\": [\r\n        \"A\",\r\n        \"B\"\r\n    ],\r\n    \"Rome\": [\r\n        \"C\",\r\n        \"D\"\r\n    ],\r\n    \"Spain\": [\r\n        \"E\"\r\n    ]\r\n}";
+    private String adjacencyString = "{\r\n    \"A\": {\r\n        \"B\": true,\r\n        \"E\": true\r\n    },\r\n    \"B\": {\r\n        \"A\": true,\r\n        \"C\": true\r\n    },\r\n    \"C\": {\r\n        \"B\": true,\r\n        \"D\": true\r\n    },\r\n    \"D\": {\r\n        \"C\": true\r\n    },\r\n    \"E\": {\r\n        \"A\": true\r\n    }\r\n}";
     private String landlockedString = "[]";
 
 
@@ -223,16 +223,132 @@ public class BattleTest {
         Province B = gaul.getNthProvince(1);
         Faction rome = g.getFaction("Rome");
         Province C = rome.getNthProvince(0);
+        ArrayList<Unit> army = new ArrayList<Unit>();
+        g.setBRSeed(7);
+        // both armies should never entirely route
         for (int i = 0; i < 1000; i++) {
-            B.getUnits().add(new Unit("pikeman"));
-            C.getUnits().add(new Unit("pikeman"));
+            B.addUnit(new Unit("knight"));
+            army.add(new Unit("knight"));
+            C.addUnit(new Unit("knight"));
         }
-        assertTrue(g.moveUnits(B.getUnits(), B, C));
+        assertFalse(g.moveUnits(army, B, C));
         assertTrue(C.getUnits().size() > 0 && B.getUnits().size() > 0);
     }
 
+    // unit cant route
+    @Test
+    public void failedRouteTest() throws IOException {
+        Game g = new Game();
+        initialSetup(g);
+        Faction gaul = g.getCurrentFaction();
+        Province B = gaul.getNthProvince(1);
+        Faction rome = g.getFaction("Rome");
+        Province C = rome.getNthProvince(0);
+        Unit lancer = new Unit("lancer");
+        g.setBRSeed(7);
+        B.addUnit(lancer);
+        C.addUnit(new Unit("peasant"));
+        g.moveUnits(new ArrayList<Unit>(Arrays.asList(lancer)), B, C);
+    }
 
-    public void initialSetup(Game g) throws IOException{
+    // when an attacking army loses at battle, all routed units return
+    // to the original province
+    @Test
+    public void routedAttackersReturnTest() throws IOException {
+        Game g = new Game();
+        initialSetup(g);
+        Faction gaul = g.getCurrentFaction();
+        Province B = gaul.getNthProvince(1);
+        Faction rome = g.getFaction("Rome");
+        Province C = rome.getNthProvince(0);
+        g.setBRSeed(1);
+        ArrayList<Unit> army = new ArrayList<Unit>();
+        for (int i = 0; i < 10; i++) {
+            Unit catapult = new Unit("catapult");
+            B.addUnit(catapult);
+            army.add(catapult);
+            C.addUnit(new Unit("lancer"));
+        }
+        assertFalse(g.moveUnits(army, B, C));
+        assertTrue(B.getUnits().size() > 0);
+    }
+
+    @Test
+    public void routedDefendersDestroyedTest() throws IOException {
+        Game g = new Game();
+        initialSetup(g);
+        Faction gaul = g.getCurrentFaction();
+        Province B = gaul.getNthProvince(1);
+        Faction rome = g.getFaction("Rome");
+        Province C = rome.getNthProvince(0);
+        g.setBRSeed(23);
+        ArrayList<Unit> army = new ArrayList<Unit>();
+        army.add(new Unit("lancer"));
+        army.add(new Unit("lancer"));
+        B.addUnit(new Unit("lancer"));
+        B.addUnit(new Unit("lancer"));
+        C.addUnit(new Unit("lancer"));
+        C.addUnit(new Unit("lancer"));
+        C.addUnit(new Unit("lancer"));
+        assertFalse(g.moveUnits(army, B, C));
+        assertTrue(C.getUnits().size() == 2);
+    }
+
+    @Test
+    public void druidTest() throws IOException {
+        Game g = new Game();
+        JSONObject ownership = new JSONObject(initialOwnership);
+        JSONArray landlocked = new JSONArray(landlockedString);
+        JSONObject adjacencyMap = new JSONObject(adjacencyString);
+        g.initialiseGame(ownership, landlocked, adjacencyMap);
+        g.selectFaction("Spain");
+        g.setBRSeed(1);
+        g.startGame();
+        Faction spain = g.getCurrentFaction();
+        Province M = spain.getNthProvince(0);
+        ArrayList<Unit> army = new ArrayList<Unit>();
+        for (int i = 0; i < 6; i++) {
+            Unit druid = new Unit("druid");
+            M.addUnit(druid);
+            army.add(druid);
+        }
+        Faction gaul = g.getFaction("Gaul");
+        Province A = gaul.getNthProvince(0);
+        A.addUnit(new Unit("peasant"));
+        assertTrue(g.moveUnits(army, M, A));
+    }
+
+    @Test
+    public void legionaryTest() throws IOException {
+        Game g = new Game();
+        JSONObject ownership = new JSONObject(initialOwnership);
+        JSONArray landlocked = new JSONArray(landlockedString);
+        JSONObject adjacencyMap = new JSONObject(adjacencyString);
+        g.initialiseGame(ownership, landlocked, adjacencyMap);
+        g.selectFaction("Gaul");
+        g.setBRSeed(1);
+        g.startGame();
+        Faction gaul = g.getCurrentFaction();
+        Province B = gaul.getNthProvince(1);
+        ArrayList<Unit> army = new ArrayList<Unit>();
+        
+        for (int i = 0; i < 20; i++) {
+            Unit lancer = new Unit("lancer");
+            army.add(lancer);
+            B.addUnit(lancer);
+        }
+
+        Faction rome = g.getFaction("Rome");
+        Province C = rome.getNthProvince(0);
+        for (int i = 0; i < 5; i++) {
+            Unit legionary = new Unit("legionary");
+            C.addUnit(legionary);
+        }
+        assertTrue(g.moveUnits(army, B, C));
+    }
+
+
+    public void initialSetup(Game g) throws IOException {
         JSONObject ownership = new JSONObject(initialOwnership);
         JSONArray landlocked = new JSONArray(landlockedString);
         JSONObject adjacencyMap = new JSONObject(adjacencyString);

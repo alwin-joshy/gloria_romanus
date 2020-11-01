@@ -305,7 +305,7 @@ public class Game implements Serializable{
         for (Unit u : units) {
             if (! u.canMove(distance)) return false;
         }
-        
+
         Faction curr = factions.get(currentFaction);
         boolean validMove = true;
         if (!curr.isAlliedProvince(end.getName())) {

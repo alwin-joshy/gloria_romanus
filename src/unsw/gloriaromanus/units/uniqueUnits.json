@@ -3,7 +3,7 @@
     "Carthaginians" : { "level": 3, "name": "elephant" },
     "Gaul" : { "level": 2, "name": "berserker" },
     "Celtic Britons" : { "level": 2, "name": "berserker" },
-    "Spanish" : { "level": 3, "name": "druid" },
+    "Spain" : { "level": 3, "name": "druid" },
     "Numidians" : { "level": 1, "name": "eliteCavalry" },
     "Egyptians" : { "level": 2, "name": "eliteHorseArcher" },
     "Seleucid Empire" : { "level": 3, "name": "immortals" }, 
