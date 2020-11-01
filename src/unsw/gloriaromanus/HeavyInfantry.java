@@ -7,6 +7,5 @@ public class HeavyInfantry extends Unit {
 
     public HeavyInfantry(String name) throws IOException {
         super(name);
-        setMovementPoints(10);
     }
 }
