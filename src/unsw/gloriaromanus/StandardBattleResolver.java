@@ -88,15 +88,15 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
         this.defending = defending;
         this.defendingArmy = defendingArmy;
 
-        attackingDruids = countUnit(attacking, attackingArmy, "druid", "Spanish");
+        attackingDruids = countUnit(attacking, attackingArmy, "druid", "Spain");
         defendingDruids = 0;
         if (attackingDruids == 0)
-            defendingDruids = countUnit(defending, defendingArmy, "druid", "Spanish");
+            defendingDruids = countUnit(defending, defendingArmy, "druid", "Spain");
 
-        attackingLegionaryCount = countUnit(attacking, attackingArmy, "legionary", "Roman");
+        attackingLegionaryCount = countUnit(attacking, attackingArmy, "legionary", "Rome");
         defendingLegionaryCount = 0;
         if (attackingLegionaryCount == 0)
-            defendingLegionaryCount = countUnit(defending, defendingArmy, "legionary", "Roman");
+            defendingLegionaryCount = countUnit(defending, defendingArmy, "legionary", "Rome");
 
         attackingDruidMultiplier = getDruidMultiplier(true);
         defendingDruidMultiplier = getDruidMultiplier(false);
@@ -136,7 +136,6 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
                 attacking.removeUnit(attackingUnit);
             }
         }
-
         if (defendingArmy.size() == 0 && attackingArmy.size() == 0) {
             defending.resetLegionaryDeaths();
             for (Unit u : routedAttackers) {
@@ -212,7 +211,6 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
                 }
             }
             attackerDamage = attackingUnit.calculateDamage(defendingUnit, isRangedEngagement, attackingHeroicCharge, r);
-            System.out.println("atk-dmg " + attackerDamage);
             defendingUnit.takeDamage(attackerDamage);
             if (temp != null) defendingUnit = temp;
         }
@@ -230,7 +228,6 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
                 }
             }
             defenderDamage = defendingUnit.calculateDamage(attackingUnit, isRangedEngagement, defendingHeroicCharge, r);
-            System.out.println("defdmg " + defenderDamage);
             attackingUnit.takeDamage(defenderDamage);
             if (temp != null) defendingUnit = temp;
         }
@@ -242,12 +239,14 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
 
         if (attackingUnit.isBroken()) {
             routeChance = 0.5 + 0.1 * (attackingUnit.getSpeed() - defendingUnit.getSpeed());
+            if (routeChance < 0.1) routeChance = 0.1;
             if (route < routeChance) {
                 routedAttackers.add(attackingUnit);
                 result = -1;
             }
         } else if (defendingUnit.isBroken()) {
             routeChance = 0.5 + 0.1 * (defendingUnit.getSpeed() - attackingUnit.getSpeed());
+            if (routeChance < 0.1) routeChance = 0.1;
             if (route < routeChance) result = 1;
         }
 
