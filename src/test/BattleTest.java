@@ -22,7 +22,7 @@ public class BattleTest {
     private String landlockedString = "[]";
 
     @Test
-    public void invadeNoEnemiesTest() throws IOException{
+    public void invadeNoEnemiesTest() throws IOException {
         Game g = new Game();
         initialSetup(g);
         Faction gaul = g.getCurrentFaction();
@@ -38,7 +38,7 @@ public class BattleTest {
     }
 
     @Test
-    public void invadeThroughEnemyTest() throws IOException{
+    public void invadeThroughEnemyTest() throws IOException {
         Game g = new Game();
         initialSetup(g);
         Faction gaul = g.getCurrentFaction();
@@ -54,7 +54,7 @@ public class BattleTest {
     }
 
     @Test
-    public void invasionTwiceTest() throws IOException{
+    public void invasionTwiceTest() throws IOException {
         Game g = new Game();
         initialSetup(g);
         Faction gaul = g.getCurrentFaction();
@@ -73,7 +73,6 @@ public class BattleTest {
         assertTrue(g.getFactions().size() == 2);
         assertTrue(g.moveUnits(new ArrayList<Unit>(Arrays.asList(peasant)), C, D));
         assertTrue(g.getFactions().size() == 1);
-        
     }
 
 
