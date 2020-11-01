@@ -245,7 +245,7 @@ public class BattleTest {
         Faction rome = g.getFaction("Rome");
         Province C = rome.getNthProvince(0);
         Unit lancer = new Unit("lancer");
-        g.setBRSeed(7);
+        g.setBRSeed(7);elephan
         B.addUnit(lancer);
         C.addUnit(new Unit("peasant"));
         g.moveUnits(new ArrayList<Unit>(Arrays.asList(lancer)), B, C);
