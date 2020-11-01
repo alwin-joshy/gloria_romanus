@@ -169,6 +169,22 @@ public class BattleTest {
         assertFalse(g.moveUnits(new ArrayList<Unit>(Arrays.asList(peasant2)), C, B));
     }
 
+    @Test
+    public void battleDraw200EngagementsTest() throws IOException {
+        Game g = new Game();
+        initialSetup(g);
+        Faction gaul = g.getCurrentFaction();
+        Province B = gaul.getNthProvince(1);
+        Faction rome = g.getFaction("Rome");
+        Province C = rome.getNthProvince(0);
+        for (int i = 0; i < 1000; i++) {
+            B.getUnits().add(new Unit("pikeman"));
+            C.getUnits().add(new Unit("pikeman"));
+        }
+        assertTrue(g.moveUnits(B.getUnits(), B, C));
+        assertTrue(C.getUnits().size() > 0 && B.getUnits().size() > 0);
+    }
+
 
     public void initialSetup(Game g) throws IOException{
         JSONObject ownership = new JSONObject(initialOwnership);
