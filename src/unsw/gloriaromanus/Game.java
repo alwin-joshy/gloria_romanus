@@ -237,12 +237,6 @@ public class Game implements Serializable{
         isRunning = false;
     }
 
-    public void clear() {
-        factions.clear();
-        adjacentProvinces.clear();
-        currentYear = 0;
-    }
-
     public void printFactions() {
         for (Faction f : factions) {
             System.out.println(f.getName());
@@ -305,9 +299,9 @@ public class Game implements Serializable{
         for (Unit u : units) {
             if (! u.canMove(distance)) return false;
         }
-
         Faction curr = factions.get(currentFaction);
         boolean validMove = true;
+        ArrayList<Unit> unitsCopy= (ArrayList<Unit>) units.clone();
         if (!curr.isAlliedProvince(end.getName())) {
             validMove = br.battle(start, units, end, end.getUnits());
             distance = 15;
@@ -320,7 +314,7 @@ public class Game implements Serializable{
             curr.moveUnits(units, start, end, distance);
             movedUnits.addAll(units);
         } else {
-            for (Unit u : units) {
+            for (Unit u : unitsCopy) {
                 u.reduceRemainingMovementPoints(distance);
                 movedUnits.add(u);
             }
@@ -418,28 +412,26 @@ public class Game implements Serializable{
         br.setSeed(seed);
     }
 
-    public static void main(String[] args) {
-        Game game = new Game();
-        Game g = new Game();
-        try {
-            String content = Files.readString(Paths.get("src/unsw/gloriaromanus/initial_province_ownership.json"));
-            JSONObject map = new JSONObject(content);
-            content = Files.readString(Paths.get("src/unsw/gloriaromanus/landlocked_provinces.json"));
-            JSONArray landlocked = new JSONArray(content);
-            content = Files.readString(Paths.get("src/unsw/gloriaromanus/province_adjacency_matrix_fully_connected.json"));
-            JSONObject a = new JSONObject(content);
-            game.initialiseAdjacencyMatrix(a);
-            game.initialiseFactions(map, landlocked, new BuildingObserver());
-            game.getVictoryCondition().showGoal();
-            game.saveGame("xD");
-            game.clear();
-            game.loadGame("xD");
-            game.printFactions();
-            game.getVictoryCondition().showGoal();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-    }
+    // public static void main(String[] args) {
+    //     Game game = new Game();
+    //     Game g = new Game();
+    //     try {
+    //         String content = Files.readString(Paths.get("src/unsw/gloriaromanus/initial_province_ownership.json"));
+    //         JSONObject map = new JSONObject(content);
+    //         content = Files.readString(Paths.get("src/unsw/gloriaromanus/landlocked_provinces.json"));
+    //         JSONArray landlocked = new JSONArray(content);
+    //         content = Files.readString(Paths.get("src/unsw/gloriaromanus/province_adjacency_matrix_fully_connected.json"));
+    //         JSONObject a = new JSONObject(content);
+    //         game.initialiseAdjacencyMatrix(a);
+    //         game.initialiseFactions(map, landlocked, new BuildingObserver());
+    //         game.getVictoryCondition().showGoal();
+    //         game.saveGame("xD");
+    //         game.clear();
+    //         game.loadGame("xD");
+    //         game.printFactions();
+    //         game.getVictoryCondition().showGoal();
+    //     } catch (IOException e) {
+    //         e.printStackTrace();
+    //     }
+    // }
 }

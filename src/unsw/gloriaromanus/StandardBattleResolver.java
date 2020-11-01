@@ -88,6 +88,8 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
         this.defending = defending;
         this.defendingArmy = defendingArmy;
 
+        resetEngagementCount();
+
         attackingDruids = countUnit(attacking, attackingArmy, "druid", "Spain");
         defendingDruids = 0;
         if (attackingDruids == 0)
@@ -117,7 +119,7 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
                     defendingDruids--;
                     attackingDruidMultiplier = getDruidMultiplier(true);
                     defendingDruidMultiplier = getDruidMultiplier(false);
-                } else if (attackingUnit.getName().equals("legionary")) {
+                } else if (defendingUnit.getName().equals("legionary")) {
                     defendingLegionaryCount--;
                     defending.incrementNumLegionaryDeaths();
                 }
@@ -166,7 +168,7 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
 
     public int skirmish(Unit attackingUnit, Unit defendingUnit) {
         int result = 0;
-        if (attackingArmy.size() < defendingArmy.size() / 2) {
+        if ( attackingArmy.size() * 2 < defendingArmy.size() ) {
             attackingHeroicCharge = true;
             defendingHeroicCharge = false;
         } else if (attackingArmy.size() > defendingArmy.size() * 2) {
@@ -203,11 +205,15 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
         if (!attackingUnit.isBroken()) {
     
             Unit temp = null;
-            if (attackingUnit.getName().equals("elephant")) {
+            if (attackingUnit.getName().equals("elephant") && attackingArmy.size() > 1) {
                 int x = r.nextInt(10);
                 if (x == 0) {
-                    temp = defendingUnit;
-                    defendingUnit = attackingArmy.get(r.nextInt(attackingArmy.size()));
+                    int flag = 0;
+                    while (flag == 0) {
+                        temp = defendingUnit;
+                        defendingUnit = attackingArmy.get(r.nextInt(attackingArmy.size()));
+                        if (defendingUnit != attackingUnit) flag = 1;
+                    }
                 }
             }
             attackerDamage = attackingUnit.calculateDamage(defendingUnit, isRangedEngagement, attackingHeroicCharge, r);
@@ -220,11 +226,15 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
 
         if (!defendingUnit.isBroken()) {
             Unit temp = null;
-            if (defendingUnit.getName().equals("elephant")) {
+            if (defendingUnit.getName().equals("elephant") && defendingArmy.size() > 1) {
                 int x = r.nextInt(10);
                 if (x == 0) {
-                    temp = attackingUnit;
-                    attackingUnit = defendingArmy.get(r.nextInt(defendingArmy.size()));
+                    int flag = 0;
+                    while (flag == 0) {
+                        temp = attackingUnit;
+                        attackingUnit = defendingArmy.get(r.nextInt(defendingArmy.size()));
+                        if (attackingUnit != defendingUnit) flag = 1;
+                    }
                 }
             }
             defenderDamage = defendingUnit.calculateDamage(attackingUnit, isRangedEngagement, defendingHeroicCharge, r);

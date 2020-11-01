@@ -6,6 +6,5 @@ public class Cavalry extends Unit {
     
     public Cavalry(String name) throws IOException{
         super(name);
-        setMovementPoints(15);
     }
 }
