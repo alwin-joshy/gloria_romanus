@@ -70,8 +70,12 @@ public class BattleTest {
         g.moveUnits(new ArrayList<Unit>(Arrays.asList(peasant)), B, C);
         assertFalse(g.moveUnits(new ArrayList<Unit>(Arrays.asList(peasant)), C, B));
         assertFalse(g.moveUnits(new ArrayList<Unit>(Arrays.asList(peasant)), C, D));
+        
         g.endTurn();
+        assertTrue(g.getFactions().size() == 2);
         assertTrue(g.moveUnits(new ArrayList<Unit>(Arrays.asList(peasant)), C, D));
+        assertTrue(g.getFactions().size() == 1);
+        
     }
 
     @Test 
