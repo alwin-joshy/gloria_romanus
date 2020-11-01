@@ -23,12 +23,18 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
     private double defendingDruidMultiplier;
     private ArrayList<BattleObserver> battleObservers;
     private BuildingObserver buildingObserver;
+    private Random r;
 
-    public StandardBattleResolver() {
+    public StandardBattleResolver(int seed) {
         routedAttackers = new ArrayList<Unit>();
         engagementCounter = 0;
         battleObservers = new ArrayList<BattleObserver>(Arrays.asList(new VictoryObserver(), new DefeatObserver()));
         buildingObserver = new BuildingObserver();
+        if (seed != 0) {
+            r = new Random(seed);
+        } else {
+            r = new Random();
+        }
     }
 
     public void notifyBattleObservers(Faction f) {
@@ -101,10 +107,9 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
         setTaxDebuff(defending, defendingArmy);
 
         while (attackingArmy.size() > 0 && defendingArmy.size() > 0 && engagementCounter <= 200) {
-            Random random = new Random();
             // randomly choose a unit from each
-            Unit attackingUnit = attackingArmy.get(random.nextInt(attackingArmy.size()));
-            Unit defendingUnit = defendingArmy.get(random.nextInt(defendingArmy.size()));
+            Unit attackingUnit = attackingArmy.get(r.nextInt(attackingArmy.size()));
+            Unit defendingUnit = defendingArmy.get(r.nextInt(defendingArmy.size()));
             // removes the loser from its army
             int result = skirmish(attackingUnit, defendingUnit);
             if (result == 1 || result == 0) {
@@ -132,7 +137,13 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
             }
         }
 
-        if (defendingArmy.size() == 0) {
+        if (defendingArmy.size() == 0 && attackingArmy.size() == 0) {
+            defending.resetLegionaryDeaths();
+            for (Unit u : routedAttackers) {
+                attacking.addUnit(u);
+            }
+            return false;
+        } else if (defendingArmy.size() == 0) {
             Faction defendingTemp = defending.getFaction();
             transferProvinceOwnership(defending.getFaction(), attacking.getFaction(), defending);
             for (Unit u : routedAttackers) {
@@ -147,6 +158,9 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
             return true;
         } else {
             defending.resetLegionaryDeaths();
+            for (Unit u : routedAttackers) {
+                attacking.addUnit(u);
+            }
             return false;
         }
     }
@@ -188,16 +202,17 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
         int defenderDamage = 0;
 
         if (!attackingUnit.isBroken()) {
+    
             Unit temp = null;
             if (attackingUnit.getName().equals("elephant")) {
-                Random random = new Random();
-                int x = random.nextInt(10);
+                int x = r.nextInt(10);
                 if (x == 0) {
                     temp = defendingUnit;
-                    defendingUnit = attackingArmy.get(random.nextInt(attackingArmy.size()));
+                    defendingUnit = attackingArmy.get(r.nextInt(attackingArmy.size()));
                 }
             }
-            attackerDamage = attackingUnit.calculateDamage(defendingUnit, isRangedEngagement, attackingHeroicCharge);
+            attackerDamage = attackingUnit.calculateDamage(defendingUnit, isRangedEngagement, attackingHeroicCharge, r);
+            System.out.println("atk-dmg " + attackerDamage);
             defendingUnit.takeDamage(attackerDamage);
             if (temp != null) defendingUnit = temp;
         }
@@ -208,37 +223,37 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
         if (!defendingUnit.isBroken()) {
             Unit temp = null;
             if (defendingUnit.getName().equals("elephant")) {
-                Random random = new Random();
-                int x = random.nextInt(10);
+                int x = r.nextInt(10);
                 if (x == 0) {
                     temp = attackingUnit;
-                    attackingUnit = defendingArmy.get(random.nextInt(defendingArmy.size()));
+                    attackingUnit = defendingArmy.get(r.nextInt(defendingArmy.size()));
                 }
             }
-            defenderDamage = defendingUnit.calculateDamage(attackingUnit, isRangedEngagement, defendingHeroicCharge);
+            defenderDamage = defendingUnit.calculateDamage(attackingUnit, isRangedEngagement, defendingHeroicCharge, r);
+            System.out.println("defdmg " + defenderDamage);
             attackingUnit.takeDamage(defenderDamage);
             if (temp != null) defendingUnit = temp;
         }
 
         if (attackingUnit.isDefeated()) result = -1;
 
-        defendingUnit.checkIfBroken(defenderDamage, defenderSize, attackerDamage, attackerSize, defendingDruidMultiplier, attackingHeroicCharge, attackingLegionaryCount, defending.getLegionaryDebuff());
-        attackingUnit.checkIfBroken(attackerDamage, attackerSize, defenderDamage, defenderSize, attackingDruidMultiplier, defendingHeroicCharge, defendingLegionaryCount, attacking.getLegionaryDebuff());
-
-        Random random = new Random();
-        double r = random.nextDouble();
+        double route = r.nextDouble();
         double routeChance;
 
         if (attackingUnit.isBroken()) {
             routeChance = 0.5 + 0.1 * (attackingUnit.getSpeed() - defendingUnit.getSpeed());
-            if (r < routeChance) {
+            if (route < routeChance) {
                 routedAttackers.add(attackingUnit);
                 result = -1;
             }
         } else if (defendingUnit.isBroken()) {
             routeChance = 0.5 + 0.1 * (defendingUnit.getSpeed() - attackingUnit.getSpeed());
-            if (r < routeChance) result = 1;
+            if (route < routeChance) result = 1;
         }
+
+        defendingUnit.checkIfBroken(defenderDamage, defenderSize, attackerDamage, attackerSize, defendingDruidMultiplier, attackingHeroicCharge, attackingLegionaryCount, defending.getLegionaryDebuff(), r);
+        attackingUnit.checkIfBroken(attackerDamage, attackerSize, defenderDamage, defenderSize, attackingDruidMultiplier, defendingHeroicCharge, defendingLegionaryCount, attacking.getLegionaryDebuff(), r);
+
         return result;
 
     }
@@ -254,7 +269,6 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
         } else {
             Unit melee = attackingUnit.isRanged() ? defendingUnit : attackingUnit;
             Unit ranged = melee == attackingUnit ? defendingUnit : attackingUnit;
-            Random r = new Random();
             double rangedThreshold = defending.hasWalls() ? 0.9 : 0.5;
             rangedThreshold -= 0.1 * (melee.getSpeed() - ranged.getSpeed());
             if (rangedThreshold > 0.95) rangedThreshold = 0.95;

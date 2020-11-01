@@ -187,5 +187,37 @@ public class MovementTest {
         assertTrue(F.getUnits().containsAll(army));
 
     }
+    @Test
+    public void moveSomeUnitsMoreTest() throws IOException {
+        Game g = new Game();
+        initialSetup(g);
+        Faction gaul = g.getFactions().get(0);
+        Unit catapult = new Unit("catapult");
+        Unit peasant = new Unit("peasant");
+        Province E = gaul.getNthProvince(4);
+        Province G = gaul.getNthProvince(6);
+        Province F = gaul.getNthProvince(5);
+        E.build(catapult);
+        g.endTurn();
+        g.endTurn();
+        E.build(peasant);
+        g.endTurn();
+        ArrayList<Unit> army = new ArrayList<Unit>(Arrays.asList(catapult, peasant));
+        assertTrue(g.moveUnits(army, E, F));
+        assertFalse(g.moveUnits(army, F, G));
+        assertTrue(g.moveUnits(new ArrayList<Unit>(Arrays.asList(peasant)), F, G));
+    }
+
+    @Test
+    public void moveToSelfTest() throws IOException {
+        Game g = new Game();
+        initialSetup(g);
+        Faction gaul = g.getFactions().get(0);
+        Province E = gaul.getNthProvince(4);
+        Unit peasant = new Unit("peasant");
+        E.build(peasant);
+        g.endTurn();
+        assertFalse(g.moveUnits(new ArrayList<Unit>(Arrays.asList(peasant)), E, E));
+    }
 
 }

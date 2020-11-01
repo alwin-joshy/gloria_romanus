@@ -97,6 +97,7 @@ public class GameTest {
         assertEquals(g2.getVictoryCondition(), prevGoal);
         assertEquals(g.getMovedUnits(), g2.getMovedUnits());
         assertEquals(g.getToRecalculateBonuses(), g2.getToRecalculateBonuses());
+        assertEquals(g.getProvincesInvadedThisTurn(), g2.getProvincesInvadedThisTurn());
     }
 
 
