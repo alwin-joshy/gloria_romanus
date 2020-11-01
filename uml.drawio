@@ -1,6 +1,6 @@
-<mxfile host="65bd71144e" modified="2020-11-01T02:53:55.927Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.50.1 Chrome/83.0.4103.122 Electron/9.2.1 Safari/537.36" etag="PCsnh8KchxEMgM0p2dst" version="13.6.5">
+<mxfile host="65bd71144e" modified="2020-11-01T12:58:58.805Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.50.0 Chrome/83.0.4103.122 Electron/9.2.1 Safari/537.36" etag="5zt_XnpD5I_8itGU46Ln" version="13.6.5">
     <diagram id="9PjJHHfhZJV7RTY0kCFV" name="Page-1">
-        <mxGraphModel dx="1724" dy="1582" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1655" dy="1419" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -31,8 +31,16 @@
                 <mxCell id="151" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;BattleResolver&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;&lt;span&gt;+ battle(Province, ArrayList&amp;lt;Unit&amp;gt;, Province, ArrayList&amp;lt;Unit&amp;gt;, Province ): Boolean&lt;/span&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ getObservers(): ArrayList&amp;lt;BattleObserver&amp;gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ notify(Faction f): void&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" vertex="1" parent="1">
                     <mxGeometry x="1530" y="430" width="490" height="110" as="geometry"/>
                 </mxCell>
+<<<<<<< HEAD
                 <mxCell id="152" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;b&gt;StandardBattleResolver&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- rangedEngagement: boolean&amp;nbsp;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- attacking: Province&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- defending: Province&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- routedAttackers: Arraylist&amp;lt;Unit&amp;gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- attackingArmy: Arraylist&amp;lt;Unit&amp;gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- defendingArmy: Arraylist&amp;lt;Unit&amp;gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- engagementCounter: int&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- attackingDruids; int&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- defendingDruids; int&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- attackingLegionaryCount: int&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- defendingLegionaryCount: int&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- attackingHeroicCharge: boolean&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- defendingHeroicCharge: boolean&amp;nbsp;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- attackingDruidMultiplier: double&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- defendingDruidMultiplier: double&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- observers: ArrayList&amp;lt;BattleObserver&amp;gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ StandardBattleResolver()&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ resetEngagementCount()&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ countUnit(Province, ArrayList&amp;lt;Unit&amp;gt;, String, Faction): int&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ getDruidMultiplier():&amp;nbsp; double&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ skirmish(Unit, Unit): int&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ engage(Unit, Unit): int&amp;nbsp;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ decideEngagementType(): boolean&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ transferProvinceOwnership(Faction, Province, Province) void&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" vertex="1" parent="1">
                     <mxGeometry x="1869" y="620" width="322" height="400" as="geometry"/>
+=======
+                <mxCell id="151" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;BattleResolver&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;&lt;span&gt;+ battle(Province, ArrayList&amp;lt;Unit&amp;gt;, Province, ArrayList&amp;lt;Unit&amp;gt;, Province ): Boolean&lt;/span&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ getObservers(): ArrayList&amp;lt;BattleObserver&amp;gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ notify(Faction f): void&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="110" y="270" width="490" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="152" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center&quot;&gt;&lt;b&gt;StandardBattleResolver&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- rangedEngagement: boolean&amp;nbsp;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- attacking: Province&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- defending: Province&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- routedAttackers: Arraylist&amp;lt;Unit&amp;gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- attackingArmy: Arraylist&amp;lt;Unit&amp;gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- defendingArmy: Arraylist&amp;lt;Unit&amp;gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- engagementCounter: int&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- attackingDruids: int&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- defendingDruids: int&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- attackingLegionaryCount: int&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- defendingLegionaryCount: int&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- attackingHeroicCharge: int&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- defendingHeroicCharge: int&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- attackingDruidMultiplier: int&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- defendingDruidMultiplier: double&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- battleObservers: ArrayList&amp;lt;BattleObserver&amp;gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- buildingObserver: BuildingObserver&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- r: Random&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;+ &amp;lt;&amp;lt;Create&amp;gt;&amp;gt; StandardBattleResolver()&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- resetEngagementCount()&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- countUnit(Province, ArrayList&amp;lt;Unit&amp;gt;, String, Faction): int&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- getDruidMultiplier():&amp;nbsp; double&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- skirmish(Unit, Unit): int&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- engage(Unit, Unit): int&amp;nbsp;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- decideEngagementType(): boolean&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- transferProvinceOwnership(Faction, Province, Province): void&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;- notifyBattleObservers(): void&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 4px&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="130" y="440" width="350" height="440" as="geometry"/>
+>>>>>>> dd72809bd658bb5a641685ae6d5e919c79433f0d
                 </mxCell>
                 <mxCell id="81" value="Game" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
                     <mxGeometry x="1100" y="-168" width="340" height="448" as="geometry"/>
@@ -95,8 +103,13 @@
                         <mxPoint as="offset"/>
                     </mxGeometry>
                 </mxCell>
+<<<<<<< HEAD
                 <mxCell id="178" value="0..*" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" vertex="1" parent="1">
                     <mxGeometry x="945" y="1520" width="30" height="20" as="geometry"/>
+=======
+                <mxCell id="178" value="0..*" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
+                    <mxGeometry x="910" y="1520" width="30" height="20" as="geometry"/>
+>>>>>>> dd72809bd658bb5a641685ae6d5e919c79433f0d
                 </mxCell>
                 <mxCell id="179" value="" style="html=1;verticalAlign=bottom;endArrow=blockThin;dashed=1;endSize=8;exitX=0.999;exitY=0.092;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitPerimeter=0;endFill=1;" edge="1" parent="1" source="15" target="153">
                     <mxGeometry relative="1" as="geometry">
@@ -147,6 +160,7 @@
                 <mxCell id="184" value="1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" vertex="1" parent="1">
                     <mxGeometry x="1275" y="1246" width="20" height="20" as="geometry"/>
                 </mxCell>
+<<<<<<< HEAD
                 <mxCell id="14" value="Unit" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
                     <mxGeometry x="760" y="1540" width="360" height="480" as="geometry"/>
                 </mxCell>
@@ -160,6 +174,9 @@
                     <mxGeometry y="318" width="360" height="162" as="geometry"/>
                 </mxCell>
                 <mxCell id="185" value="" style="html=1;verticalAlign=bottom;endArrow=blockThin;dashed=1;endSize=8;exitX=0;exitY=0.5;exitDx=0;exitDy=0;endFill=1;" edge="1" parent="1" source="191" target="153">
+=======
+                <mxCell id="185" value="" style="html=1;verticalAlign=bottom;endArrow=blockThin;dashed=1;endSize=8;exitX=0;exitY=0.5;exitDx=0;exitDy=0;endFill=1;" parent="1" source="191" target="153" edge="1">
+>>>>>>> dd72809bd658bb5a641685ae6d5e919c79433f0d
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="1129.6399999999999" y="1602.1280000000002" as="sourcePoint"/>
                         <mxPoint x="1185" y="1602.5" as="targetPoint"/>
@@ -570,7 +587,11 @@
                 <mxCell id="235" value="1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" vertex="1" parent="1">
                     <mxGeometry x="1100" y="820" width="20" height="20" as="geometry"/>
                 </mxCell>
+<<<<<<< HEAD
                 <mxCell id="236" value="1" style="endArrow=none;html=1;endSize=12;startArrow=diamondThin;startSize=14;startFill=0;edgeStyle=orthogonalEdgeStyle;align=left;verticalAlign=bottom;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endFill=0;" edge="1" parent="1" source="152" target="233">
+=======
+                <mxCell id="236" value="1" style="endArrow=none;html=1;endSize=12;startArrow=diamondThin;startSize=14;startFill=0;edgeStyle=orthogonalEdgeStyle;align=left;verticalAlign=bottom;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endFill=0;" parent="1" source="152" target="233" edge="1">
+>>>>>>> dd72809bd658bb5a641685ae6d5e919c79433f0d
                     <mxGeometry x="0.9371" y="5" relative="1" as="geometry">
                         <mxPoint x="1129.9999999999995" y="820.0000000000005" as="sourcePoint"/>
                         <mxPoint x="881.6000000000004" y="619.7999999999997" as="targetPoint"/>
@@ -593,6 +614,18 @@
                 </mxCell>
                 <mxCell id="239" value="1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" vertex="1" parent="1">
                     <mxGeometry x="1080" y="250" width="20" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="Unit" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
+                    <mxGeometry x="700" y="1540" width="410" height="480" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="- name: String&#10;- type: String&#10;- numTroops: int&#10;- ranged: boolean&#10;- armour: int&#10;- morale: double&#10;- speed: int&#10;- attack: int&#10;- chargeValue: int&#10;- defenceSkill: int&#10;- shieldDefence: int&#10;- baseCost: int&#10;- trainingTime: int&#10;- movementPoints: int&#10;- movementPointsRemaining: int&#10;- isBroken: boolean&#10;- isRouted: boolean&#10;- taxDebuff: int&#10;- engagementCount: int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="14" vertex="1">
+                    <mxGeometry y="26" width="410" height="284" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" parent="14" vertex="1">
+                    <mxGeometry y="310" width="410" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" value="+ &lt;&lt;Create&gt;&gt; Unit(String)&#10;+ checkType(String): boolean&#10;+ reduceRemainingMovementPoints(int): void&#10;+ canMove(int): boolean&#10;+ takeDamage(int): void&#10;+ calculateDamage(Unit, boolean, boolean, Random): int&#10;+ checkIfBroken(int, int, int, int, double, boolean, int, double, Random): void&#10;+ getAttack(): int&#10;+ getChargeValue(): int&#10;+ resetUnit(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="14" vertex="1">
+                    <mxGeometry y="318" width="410" height="162" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
