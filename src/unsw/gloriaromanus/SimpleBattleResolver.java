@@ -70,4 +70,6 @@ public class SimpleBattleResolver implements BattleResolver, Serializable {
     public ArrayList<BattleObserver> getBattleObservers() { return null; }
 
     public void notifyBattleObservers(Faction f) {}
+
+    public void setSeed(int seed) {}
 }

@@ -48,7 +48,7 @@ public class Game implements Serializable{
     }
 
     public Game() {
-        this((BattleResolver) new StandardBattleResolver(1), (AI) new StandardAI());
+        this((BattleResolver) new StandardBattleResolver(0), (AI) new StandardAI());
     }
 
     public void initialiseGame(JSONObject initialOwnership, JSONArray landlocked, JSONObject adjacencyMap) {
@@ -412,6 +412,10 @@ public class Game implements Serializable{
 
     public ArrayList<String> getProvincesInvadedThisTurn() {
         return provincesInvadedThisTurn;
+    }
+
+    public void setBRSeed(int seed) {
+        br.setSeed(seed);
     }
 
     public static void main(String[] args) {
