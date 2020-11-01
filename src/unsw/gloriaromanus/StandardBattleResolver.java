@@ -88,6 +88,8 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
         this.defending = defending;
         this.defendingArmy = defendingArmy;
 
+        resetEngagementCount();
+
         attackingDruids = countUnit(attacking, attackingArmy, "druid", "Spain");
         defendingDruids = 0;
         if (attackingDruids == 0)
@@ -117,7 +119,7 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
                     defendingDruids--;
                     attackingDruidMultiplier = getDruidMultiplier(true);
                     defendingDruidMultiplier = getDruidMultiplier(false);
-                } else if (attackingUnit.getName().equals("legionary")) {
+                } else if (defendingUnit.getName().equals("legionary")) {
                     defendingLegionaryCount--;
                     defending.incrementNumLegionaryDeaths();
                 }
@@ -203,7 +205,7 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
         if (!attackingUnit.isBroken()) {
     
             Unit temp = null;
-            if (attackingUnit.getName().equals("elephant")) {
+            if (attackingUnit.getName().equals("elephant") && attackingArmy.size() > 1) {
                 int x = r.nextInt(10);
                 if (x == 0) {
                     int flag = 0;
@@ -224,7 +226,7 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
 
         if (!defendingUnit.isBroken()) {
             Unit temp = null;
-            if (defendingUnit.getName().equals("elephant")) {
+            if (defendingUnit.getName().equals("elephant") && defendingArmy.size() > 1) {
                 int x = r.nextInt(10);
                 if (x == 0) {
                     int flag = 0;

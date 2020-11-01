@@ -6,6 +6,5 @@ public class Spearmen extends Unit {
     
     public Spearmen(String name) throws IOException{
         super(name);
-        setMovementPoints(10);
     }
 }
