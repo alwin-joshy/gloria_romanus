@@ -1,6 +1,6 @@
-<mxfile host="65bd71144e" modified="2020-11-01T12:58:58.805Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.50.0 Chrome/83.0.4103.122 Electron/9.2.1 Safari/537.36" etag="5zt_XnpD5I_8itGU46Ln" version="13.6.5">
+<mxfile host="65bd71144e" modified="2020-11-01T13:40:02.709Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.50.0 Chrome/83.0.4103.122 Electron/9.2.1 Safari/537.36" etag="lERHf5SFgMPsJnbYCeVH" version="13.6.5">
     <diagram id="9PjJHHfhZJV7RTY0kCFV" name="Page-1">
-        <mxGraphModel dx="1655" dy="1419" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1429" dy="1528" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -583,16 +583,16 @@
                     <mxGeometry x="1080" y="250" width="20" height="20" as="geometry"/>
                 </mxCell>
                 <mxCell id="14" value="Unit" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
-                    <mxGeometry x="700" y="1540" width="410" height="480" as="geometry"/>
+                    <mxGeometry x="700" y="1540" width="410" height="460" as="geometry"/>
                 </mxCell>
-                <mxCell id="15" value="- name: String&#10;- type: String&#10;- numTroops: int&#10;- ranged: boolean&#10;- armour: int&#10;- morale: double&#10;- speed: int&#10;- attack: int&#10;- chargeValue: int&#10;- defenceSkill: int&#10;- shieldDefence: int&#10;- baseCost: int&#10;- trainingTime: int&#10;- movementPoints: int&#10;- movementPointsRemaining: int&#10;- isBroken: boolean&#10;- isRouted: boolean&#10;- taxDebuff: int&#10;- engagementCount: int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="14" vertex="1">
-                    <mxGeometry y="26" width="410" height="284" as="geometry"/>
+                <mxCell id="15" value="- name: String&#10;- type: String&#10;- numTroops: int&#10;- ranged: boolean&#10;- armour: int&#10;- morale: double&#10;- speed: int&#10;- attack: int&#10;- chargeValue: int&#10;- defenceSkill: int&#10;- shieldDefence: int&#10;- baseCost: int&#10;- trainingTime: int&#10;- movementPoints: int&#10;- movementPointsRemaining: int&#10;- isBroken: boolean&#10;- taxDebuff: int&#10;- engagementCount: int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="14" vertex="1">
+                    <mxGeometry y="26" width="410" height="264" as="geometry"/>
                 </mxCell>
                 <mxCell id="16" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" parent="14" vertex="1">
-                    <mxGeometry y="310" width="410" height="8" as="geometry"/>
+                    <mxGeometry y="290" width="410" height="8" as="geometry"/>
                 </mxCell>
                 <mxCell id="17" value="+ &lt;&lt;Create&gt;&gt; Unit(String)&#10;+ checkType(String): boolean&#10;+ reduceRemainingMovementPoints(int): void&#10;+ canMove(int): boolean&#10;+ takeDamage(int): void&#10;+ calculateDamage(Unit, boolean, boolean, Random): int&#10;+ checkIfBroken(int, int, int, int, double, boolean, int, double, Random): void&#10;+ getAttack(): int&#10;+ getChargeValue(): int&#10;+ resetUnit(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="14" vertex="1">
-                    <mxGeometry y="318" width="410" height="162" as="geometry"/>
+                    <mxGeometry y="298" width="410" height="162" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
