@@ -186,6 +186,7 @@ public class Game implements Serializable{
             os.writeInt(currentFaction);
             os.writeBoolean(isRunning);
             os.writeObject(movedUnits);
+            os.writeObject(toRecalculateBonuses);
             os.flush();
             os.close();
         } catch (IOException e) {
@@ -207,6 +208,7 @@ public class Game implements Serializable{
             currentFaction = ins.readInt();
             isRunning = ins.readBoolean();
             movedUnits = (HashSet<Unit>) ins.readObject();
+            toRecalculateBonuses = (HashMap<String, Boolean>) ins.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -377,6 +379,10 @@ public class Game implements Serializable{
 
     public void setVictoryCondition(Goal g) {
         currentVictoryCondition = g;
+    }
+
+    public Map<String, Integer> getToRecalculateBonuses() {
+        return toRecalculateBonuses;
     }
 
     public static void main(String[] args) {
