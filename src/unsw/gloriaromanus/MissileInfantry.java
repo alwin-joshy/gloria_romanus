@@ -6,6 +6,5 @@ public class MissileInfantry extends Unit {
 
     public MissileInfantry(String name) throws IOException{
         super(name);
-        setMovementPoints(10);
     }
 }

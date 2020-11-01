@@ -473,6 +473,32 @@ public class BattleTest {
         assertTrue(g.moveUnits(army, B, C));
     }
 
+    @Test
+    public void elephantTest() throws IOException{
+        Game g = new Game();
+        JSONObject ownership = new JSONObject(initialOwnership);
+        JSONArray landlocked = new JSONArray(landlockedString);
+        JSONObject adjacencyMap = new JSONObject(adjacencyString);
+        g.initialiseGame(ownership, landlocked, adjacencyMap);
+        g.selectFaction("Gaul");
+        g.setBRSeed(2);
+        g.startGame();
+        Faction gaul = g.getCurrentFaction();
+        Province B = gaul.getNthProvince(1);
+        
+        Unit elephant = new Unit("elephant");
+        Unit peasant = new Unit("peasant");
+        B.addUnit(elephant);
+        B.addUnit(peasant);
+
+        Faction rome = g.getFaction("Rome");
+        Province C = rome.getNthProvince(0);
+        
+        Unit lancer = new Unit("lancer");
+        C.addUnit(lancer);
+        assertTrue(g.moveUnits(new ArrayList<Unit>(Arrays.asList(peasant, elephant)), B, C));        
+    }
+
 
     public void initialSetup(Game g) throws IOException {
         JSONObject ownership = new JSONObject(initialOwnership);
