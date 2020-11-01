@@ -50,7 +50,7 @@ public class Game implements Serializable{
     }
 
     public void initialiseGame(JSONObject initialOwnership, JSONArray landlocked, JSONObject adjacencyMap) {
-        initialiseFactions(initialOwnership, landlocked, new BuildingObserver(this));
+        initialiseFactions(initialOwnership, landlocked, new BuildingObserver());
         initialiseAdjacencyMatrix(adjacencyMap);
         Random r = new Random();
         currentFaction = r.nextInt(factions.size());
@@ -103,7 +103,7 @@ public class Game implements Serializable{
         currentFaction = (currentFaction + 1) % factions.size();
         currentYear++;
         Faction curr = factions.get(currentFaction);
-        if (toRecalculateBonuses.contains(curr.getName()) && toRecalculateBonuses.get(curr.getName()) == true) {
+        if (toRecalculateBonuses.keySet().contains(curr.getName()) && toRecalculateBonuses.get(curr.getName()) == true) {
             curr.calculateMarketMultiplier();
             curr.calculateMineMultiplier();
             curr.calculatePortBonus();
@@ -200,6 +200,7 @@ public class Game implements Serializable{
             os.writeInt(currentFaction);
             os.writeBoolean(isRunning);
             os.writeObject(movedUnits);
+            os.writeObject(toRecalculateBonuses);
             os.flush();
             os.close();
         } catch (IOException e) {
@@ -221,6 +222,7 @@ public class Game implements Serializable{
             currentFaction = ins.readInt();
             isRunning = ins.readBoolean();
             movedUnits = (HashSet<Unit>) ins.readObject();
+            toRecalculateBonuses = (HashMap<String, Boolean>) ins.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -393,6 +395,10 @@ public class Game implements Serializable{
         currentVictoryCondition = g;
     }
 
+    public Map<String, Boolean> getToRecalculateBonuses() {
+        return toRecalculateBonuses;
+    }
+
     public static void main(String[] args) {
         Game game = new Game();
         Game g = new Game();
@@ -404,7 +410,7 @@ public class Game implements Serializable{
             content = Files.readString(Paths.get("src/unsw/gloriaromanus/province_adjacency_matrix_fully_connected.json"));
             JSONObject a = new JSONObject(content);
             game.initialiseAdjacencyMatrix(a);
-            game.initialiseFactions(map, landlocked);
+            game.initialiseFactions(map, landlocked, new BuildingObserver());
             game.getVictoryCondition().showGoal();
             game.saveGame("xD");
             game.clear();

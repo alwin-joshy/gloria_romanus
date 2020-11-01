@@ -21,16 +21,18 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
     private boolean defendingHeroicCharge;
     private double attackingDruidMultiplier;
     private double defendingDruidMultiplier;
-    private ArrayList<BattleObserver> observers;
+    private ArrayList<BattleObserver> battleObservers;
+    private BuildingObserver buildingObserver;
 
     public StandardBattleResolver() {
         routedAttackers = new ArrayList<Unit>();
         engagementCounter = 0;
-        observers = new ArrayList<BattleObserver>(Arrays.asList(new VictoryObserver(), new DefeatObserver()));
+        battleObservers = new ArrayList<BattleObserver>(Arrays.asList(new VictoryObserver(), new DefeatObserver()));
+        buildingObserver = new BuildingObserver();
     }
 
-    public void notify(Faction f) {
-        for (BattleObserver bo : observers) {
+    public void notifyBattleObservers(Faction f) {
+        for (BattleObserver bo : battleObservers) {
             bo.update(f);
         }
     }
@@ -44,10 +46,10 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
 
     public void resetEngagementCount() {
         for (Unit u : attackingArmy) {
-            u.resetEngagementCount();
+            u.resetUnit();
         }
         for (Unit u : defendingArmy) {
-            u.resetEngagementCount();
+            u.resetUnit();
         }
     }
 
@@ -138,7 +140,8 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
             if (attacking.getFaction().getName().equals("Roman")) {
                 defending.resetLegionaryDeaths();
             }
-            notify(attacking.getFaction());
+            notifyBattleObservers(attacking.getFaction());
+            buildingObserver.update(attacking.getFaction(), defending.getFaction());
             return true;
         } else {
             defending.resetLegionaryDeaths();
@@ -265,7 +268,11 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
         p.setFaction(to);
     }
 
-    public ArrayList<BattleObserver> getObservers() {
-        return observers;
+    public ArrayList<BattleObserver> getBattleObservers() {
+        return battleObservers;
+    }
+
+    public BuildingObserver getBuildingObserver() {
+        return buildingObserver;
     }
 }

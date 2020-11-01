@@ -18,12 +18,6 @@ import unsw.gloriaromanus.*;
 
 public class BattleTest {
     private String initialOwnership = "{\r\n    \"Gaul\": [\r\n        \"A\",\r\n        \"B\"\r\n    ],\r\n    \"Rome\": [\r\n        \"C\",\r\n        \"D\"\r\n    ]\r\n}";
-<<<<<<< HEAD
-    private String landlockedString = "[]";
-    private String adjacencyString = "{\r\n    \"A\": {\r\n        \"B\": true\r\n    },\r\n    \"B\": {\r\n        \"A\": true,\r\n        \"C\": true\r\n    },\r\n    \"C\": {\r\n        \"B\": true,\r\n        \"D\": true\r\n    },\r\n    \"D\": {\r\n        \"C\": true\r\n    }\r\n}";
-
-    public void initialSetup(Game g) throws IOException {
-=======
     private String adjacencyString = "{\r\n    \"A\": {\r\n        \"B\": true\r\n    },\r\n    \"B\": {\r\n        \"A\": true,\r\n        \"C\": true\r\n    },\r\n    \"C\": {\r\n        \"B\": true,\r\n        \"D\": true\r\n    },\r\n    \"D\": {\r\n        \"C\": true\r\n    }\r\n}";
     private String landlockedString = "[]";
 
@@ -80,27 +74,14 @@ public class BattleTest {
 
 
     public void initialSetup(Game g) throws IOException{
->>>>>>> 53fc6c928595173006e10d2065adc22ec86ab817
         JSONObject ownership = new JSONObject(initialOwnership);
         JSONArray landlocked = new JSONArray(landlockedString);
         JSONObject adjacencyMap = new JSONObject(adjacencyString);
         g.initialiseGame(ownership, landlocked, adjacencyMap);
         g.selectFaction("Gaul");
         g.startGame();
-<<<<<<< HEAD
-        Faction gaul = g.getFactions().get(0);
-        gaul.setTreasury(10000);
-        gaul.getNthProvince(4).build(new TroopProductionBuilding(gaul));
-        g.endTurn();
-        gaul.getNthProvince(4).build(gaul.getNthProvince(4).getTroopProductionBuilding());
-        g.endTurn();
-        g.endTurn();
-    }
-
-=======
         Faction gaul = g.getCurrentFaction();
         gaul.getNthProvince(1).build(new TroopProductionBuilding(gaul));
         g.endTurn();
     }
->>>>>>> 53fc6c928595173006e10d2065adc22ec86ab817
 }

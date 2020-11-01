@@ -1,12 +1,9 @@
 package unsw.gloriaromanus;
 
 public class Mine extends WealthGenerationBuilding {
-    private Faction f;
     private double multiplier;
 
-    public Mine(Faction f) {
-        super(f.getMineTurnReduction());
-        this.f = f;
+    public Mine() {
         multiplier = 0.99;
         setBaseCost(40);
         setBaseContructionTime(2);
@@ -21,15 +18,11 @@ public class Mine extends WealthGenerationBuilding {
         return multiplier;
     }
 
-    public Faction getFaction() {
-        return f;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (this.getClass() != obj.getClass()) return false;
         Mine m = (Mine) obj;
-        return super.equals(obj) && f.getName().equals(m.getFaction().getName()) && multiplier == m.getMultiplier();
+        return super.equals(obj) && multiplier == m.getMultiplier();
     }
 }

@@ -3,8 +3,7 @@ package unsw.gloriaromanus;
 public class Road extends Infrastructure {
     private Province p;
 
-    public Road(Province p, int factionBonus) {
-        super(factionBonus);
+    public Road(Province p) {
         this.p = p;
         setBaseCost(85);
         setBaseContructionTime(3);

@@ -65,8 +65,11 @@ public class Faction implements Serializable {
             Mine m = p.getMine();
             if (m != null){
                 mineMultiplier *= m.getMultiplier();
+                if (m.getLevel() == 4) {
+                    mineTurnReduction++;
+                }
             }
-        } 
+        }
     }
 
     public void calculateMarketMultiplier() {
@@ -75,9 +78,6 @@ public class Faction implements Serializable {
             Market m = p.getMarket();
             if (m != null) {
                 marketMultiplier *= m.getMultiplier();
-                if (m.getLevel() == 4) {
-                    mineTurnReduction++;
-                }
             }
         }
     }
