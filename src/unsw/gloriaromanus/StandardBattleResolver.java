@@ -133,6 +133,7 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
         }
 
         if (defendingArmy.size() == 0) {
+            Faction defendingTemp = defending.getFaction();
             transferProvinceOwnership(defending.getFaction(), attacking.getFaction(), defending);
             for (Unit u : routedAttackers) {
                 defending.addUnit(u);
@@ -141,7 +142,8 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
                 defending.resetLegionaryDeaths();
             }
             notifyBattleObservers(attacking.getFaction());
-            buildingObserver.update(attacking.getFaction(), defending.getFaction());
+            notifyBattleObservers(defendingTemp);
+            buildingObserver.update(attacking.getFaction(), defendingTemp);
             return true;
         } else {
             defending.resetLegionaryDeaths();
