@@ -299,6 +299,7 @@ public class Game implements Serializable{
     }
 
     public boolean moveUnits(ArrayList<Unit> units, Province start, Province end) {
+        if (start.equals(end)) return false; 
         if (!start.getUnits().containsAll(units)) return false;
         int distance = shortestPathLength(start.getName(), end.getName());
         for (Unit u : units) {
