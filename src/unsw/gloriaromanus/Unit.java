@@ -37,7 +37,7 @@ public class Unit implements Serializable, Project {
 
     public Unit(String name) throws IOException{
         this.name = name;
-        String content = "{\r\n    \"archer\": {\r\n        \"type\": \"missile infantry\",\r\n        \"numTroops\": 20,\r\n        \"ranged\": true,\r\n        \"armour\": 3,\r\n        \"morale\": 5,\r\n        \"speed\": 5,\r\n        \"attack\": 5,\r\n        \"defenceSkill\": 3,\r\n        \"shieldDefence\": 3,\r\n        \"baseCost\": 50,\r\n        \"trainingTime\": 2,\r\n        \"movementPoints\": 10\r\n    },\r\n    \"horseman\": {\r\n        \"type\": \"cavalry\",\r\n        \"numTroops\": 20,\r\n        \"ranged\": false,\r\n        \"armour\": 2,\r\n        \"morale\": 3,\r\n        \"speed\": 4,\r\n        \"attack\": 2,\r\n        \"chargeValue\": 2,\r\n        \"defenceSkill\": 2,\r\n        \"shieldDefence\": 3,\r\n        \"baseCost\": 35,\r\n        \"trainingTime\": 1,\r\n        \"movementPoints\": 15\r\n    },\r\n    \"catapult\": {\r\n        \"type\": \"artillery\",\r\n        \"numTroops\": 30,\r\n        \"ranged\": true,\r\n        \"armour\": 4,\r\n        \"morale\": 6,\r\n        \"speed\": 3,\r\n        \"attack\": 11,\r\n        \"defenceSkill\": 4,\r\n        \"shieldDefence\": 5,\r\n        \"baseCost\": 50,\r\n        \"trainingTime\": 2,\r\n        \"movementPoints\": 4\r\n    },\r\n    \"peasant\": {\r\n        \"type\": \"heavy infantry\",\r\n        \"numTroops\": 20,\r\n        \"ranged\": false,\r\n        \"armour\": 3,\r\n        \"morale\": 3,\r\n        \"speed\": 2,\r\n        \"attack\": 3,\r\n        \"defenceSkill\": 2,\r\n        \"shieldDefence\": 4,\r\n        \"baseCost\": 35,\r\n        \"trainingTime\": 1,\r\n        \"movementPoints\": 10\r\n    }\r\n}";
+        String content = "{\r\n    \"archer\": {\r\n        \"type\": \"missile infantry\",\r\n        \"numTroops\": 20,\r\n        \"ranged\": true,\r\n        \"armour\": 3,\r\n        \"morale\": 5,\r\n        \"speed\": 5,\r\n        \"attack\": 5,\r\n        \"defenceSkill\": 3,\r\n        \"shieldDefence\": 3,\r\n        \"baseCost\": 50,\r\n        \"trainingTime\": 2,\r\n        \"movementPoints\": 10\r\n    },\r\n    \"horseman\": {\r\n        \"type\": \"cavalry\",\r\n        \"numTroops\": 20,\r\n        \"ranged\": false,\r\n        \"armour\": 2,\r\n        \"morale\": 3,\r\n        \"speed\": 4,\r\n        \"attack\": 2,\r\n        \"chargeValue\": 2,\r\n        \"defenceSkill\": 2,\r\n        \"shieldDefence\": 3,\r\n        \"baseCost\": 35,\r\n        \"trainingTime\": 1,\r\n        \"movementPoints\": 15\r\n    },\r\n    \"catapult\": {\r\n        \"type\": \"artillery\",\r\n        \"numTroops\": 30,\r\n        \"ranged\": true,\r\n        \"armour\": 4,\r\n        \"morale\": 6,\r\n        \"speed\": 3,\r\n        \"attack\": 11,\r\n        \"defenceSkill\": 4,\r\n        \"shieldDefence\": 5,\r\n        \"baseCost\": 50,\r\n        \"trainingTime\": 2,\r\n        \"movementPoints\": 4\r\n    },\r\n    \"peasant\": {\r\n        \"type\": \"heavy infantry\",\r\n        \"numTroops\": 20,\r\n        \"ranged\": false,\r\n        \"armour\": 2,\r\n        \"morale\": 3,\r\n        \"speed\": 2,\r\n        \"attack\": 5,\r\n        \"defenceSkill\": 1,\r\n        \"shieldDefence\": 2,\r\n        \"baseCost\": 35,\r\n        \"trainingTime\": 1,\r\n        \"movementPoints\": 10\r\n    }\r\n}";
         // String content = Files.readString(Paths.get("src/unsw/gloriaromanus/units/", name, ".json"));
         JSONObject units = new JSONObject(content);
         JSONObject json = units.getJSONObject(name);
@@ -152,19 +152,21 @@ public class Unit implements Serializable, Project {
      * formation, charge bonuses where applicable for cavalry/chariots/elephants).
      */
 
-    public int calculateDamage(Unit enemyUnit, boolean isRangedEngagement, boolean heroicCharge) {
+    public int calculateDamage(Unit enemyUnit, boolean isRangedEngagement, boolean heroicCharge, Random random) {
         double damage;
-        Random random = new Random();
         double damageQuotient = enemyUnit.getName().equals("beserker") ? 10 : attack / (enemyUnit.getRangedDefence(name.equals("javelinist")));
         if (isRangedEngagement) {
             if (!ranged) return 0;
             if (name.equals("horsearcher") || name.equals("elitehorsearcher")) damageQuotient /= 2;
             damage = enemyUnit.getNumTroops() * 0.1 * damageQuotient;
         } else {
-            damage = enemyUnit.getNumTroops() * 0.1 * ((getAttack() + getChargeValue(heroicCharge)) / (enemyUnit.getMeleeDefence()));
+            System.out.println();
+            damage = enemyUnit.getNumTroops() * 0.1 * (((double) getAttack() + (double) getChargeValue(heroicCharge)) / ((double) enemyUnit.getMeleeDefence()));
         }
-        damage *= random.nextGaussian() + 1;
+        damage *= (random.nextGaussian() + 1);
         int roundedDamage = (int) Math.round(damage);
+        if (roundedDamage < 0) roundedDamage = 0;
+        if (roundedDamage > enemyUnit.getNumTroops()) roundedDamage = enemyUnit.numTroops;
         return roundedDamage;
     }
 
@@ -174,22 +176,26 @@ public class Unit implements Serializable, Project {
             numTroops = 0;
     }
 
-    public void checkIfBroken(int casualties, int size, int enemyCasualties, int enemySize, double druidMultiplier, boolean heroicCharge, int legionaryCount, double legionaryDebuff) {
+    public void checkIfBroken(int casualties, int size, int enemyCasualties, int enemySize, double druidMultiplier, boolean heroicCharge, int legionaryCount, double legionaryDebuff, Random random) {
         if (isBroken)
             return;
         double heroicChargeMultiplier = 1.0;
         if (heroicCharge && type.equals("cavalry") && !ranged) heroicChargeMultiplier = 1.5;
-        Random random = new Random();
-        double finalMorale = (morale + legionaryCount - taxDebuff - legionaryDebuff) * druidMultiplier;
+        double finalMorale = (morale + (double) legionaryCount - (double) taxDebuff - legionaryDebuff) * druidMultiplier;
         if (finalMorale < 1) finalMorale = 1;
-        double breakChance = 1.0 - finalMorale * heroicChargeMultiplier * 0.1 + (casualties / size) / (enemyCasualties / enemySize) * 0.1;
+        double breakChance = 1.0 - finalMorale * heroicChargeMultiplier * 0.1;
+        if (enemyCasualties != 0) {
+            breakChance += (((double) casualties / (double) size) / ((double) enemyCasualties / (double) enemySize)) * 0.1;
+        }
         if (breakChance < 0.05)
             breakChance = 0.05;
         else if (breakChance > 1.0)
             breakChance = 1.0;
         double b = random.nextDouble();
-        if (b < breakChance)
+        if (b < breakChance) {
             isBroken = true;
+            System.out.println("broken");
+        }
     }
 
     public boolean isBroken() {

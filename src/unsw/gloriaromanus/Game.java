@@ -34,6 +34,7 @@ public class Game implements Serializable{
     private AI ai;
     private HashSet<Unit> movedUnits;
     private Map<String, Boolean> toRecalculateBonuses;
+    private ArrayList<String> provincesInvadedThisTurn;
 
     public Game(BattleResolver br, AI ai) {
         factions = new ArrayList<Faction>();
@@ -43,10 +44,11 @@ public class Game implements Serializable{
         this.br = br;
         this.ai = ai;
         movedUnits = new HashSet<Unit>();
+        provincesInvadedThisTurn = new ArrayList<String>();
     }
 
     public Game() {
-        this((BattleResolver) new StandardBattleResolver(), (AI) new StandardAI());
+        this((BattleResolver) new StandardBattleResolver(1), (AI) new StandardAI());
     }
 
     public void initialiseGame(JSONObject initialOwnership, JSONArray landlocked, JSONObject adjacencyMap) {
@@ -100,6 +102,7 @@ public class Game implements Serializable{
             u.resetMovementPoints();
         }
         movedUnits.clear();
+        provincesInvadedThisTurn.clear();
         currentFaction = (currentFaction + 1) % factions.size();
         currentYear++;
         Faction curr = factions.get(currentFaction);
@@ -201,6 +204,7 @@ public class Game implements Serializable{
             os.writeBoolean(isRunning);
             os.writeObject(movedUnits);
             os.writeObject(toRecalculateBonuses);
+            os.writeObject(provincesInvadedThisTurn);
             os.flush();
             os.close();
         } catch (IOException e) {
@@ -223,6 +227,7 @@ public class Game implements Serializable{
             isRunning = ins.readBoolean();
             movedUnits = (HashSet<Unit>) ins.readObject();
             toRecalculateBonuses = (HashMap<String, Boolean>) ins.readObject();
+            provincesInvadedThisTurn = (ArrayList<String>) ins.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -265,6 +270,7 @@ public class Game implements Serializable{
             visited.add(next);
 
             if (! factions.get(currentFaction).isAlliedProvince(next)) continue;
+            if (provincesInvadedThisTurn.contains(next)) continue;
             Map<String, Integer> innerMap = adjacentProvinces.get(next);
 
             for (String neighbour : innerMap.keySet()) {
@@ -303,6 +309,10 @@ public class Game implements Serializable{
         boolean validMove = true;
         if (!curr.isAlliedProvince(end.getName())) {
             validMove = br.battle(start, units, end, end.getUnits());
+            distance = 15;
+            if (validMove)
+                provincesInvadedThisTurn.add(end.getName());
+        } else if (provincesInvadedThisTurn.contains(end.getName())) {
             distance = 15;
         }
         if (validMove) {
@@ -397,6 +407,10 @@ public class Game implements Serializable{
 
     public Map<String, Boolean> getToRecalculateBonuses() {
         return toRecalculateBonuses;
+    }
+
+    public ArrayList<String> getProvincesInvadedThisTurn() {
+        return provincesInvadedThisTurn;
     }
 
     public static void main(String[] args) {
