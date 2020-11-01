@@ -167,7 +167,7 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
 
     public int skirmish(Unit attackingUnit, Unit defendingUnit) {
         int result = 0;
-        if (attackingArmy.size() < defendingArmy.size() / 2) {
+        if ( attackingArmy.size() * 2 < defendingArmy.size() ) {
             attackingHeroicCharge = true;
             defendingHeroicCharge = false;
         } else if (attackingArmy.size() > defendingArmy.size() * 2) {
@@ -207,12 +207,15 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
             if (attackingUnit.getName().equals("elephant")) {
                 int x = r.nextInt(10);
                 if (x == 0) {
-                    temp = defendingUnit;
-                    defendingUnit = attackingArmy.get(r.nextInt(attackingArmy.size()));
+                    int flag = 0;
+                    while (flag == 0) {
+                        temp = defendingUnit;
+                        defendingUnit = attackingArmy.get(r.nextInt(attackingArmy.size()));
+                        if (defendingUnit != attackingUnit) flag = 1;
+                    }
                 }
             }
             attackerDamage = attackingUnit.calculateDamage(defendingUnit, isRangedEngagement, attackingHeroicCharge, r);
-            System.out.println("atk-dmg " + attackerDamage);
             defendingUnit.takeDamage(attackerDamage);
             if (temp != null) defendingUnit = temp;
         }
@@ -225,12 +228,15 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
             if (defendingUnit.getName().equals("elephant")) {
                 int x = r.nextInt(10);
                 if (x == 0) {
-                    temp = attackingUnit;
-                    attackingUnit = defendingArmy.get(r.nextInt(defendingArmy.size()));
+                    int flag = 0;
+                    while (flag == 0) {
+                        temp = attackingUnit;
+                        attackingUnit = defendingArmy.get(r.nextInt(defendingArmy.size()));
+                        if (attackingUnit != defendingUnit) flag = 1;
+                    }
                 }
             }
             defenderDamage = defendingUnit.calculateDamage(attackingUnit, isRangedEngagement, defendingHeroicCharge, r);
-            System.out.println("defdmg " + defenderDamage);
             attackingUnit.takeDamage(defenderDamage);
             if (temp != null) defendingUnit = temp;
         }
