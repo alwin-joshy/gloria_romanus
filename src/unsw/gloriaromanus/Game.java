@@ -33,10 +33,12 @@ public class Game implements Serializable{
     private BattleResolver br;
     private AI ai;
     private HashSet<Unit> movedUnits;
+    private Map<String, Boolean> toRecalculateBonuses;
 
     public Game(BattleResolver br, AI ai) {
         factions = new ArrayList<Faction>();
         adjacentProvinces = new HashMap<String, Map<String, Integer>>();
+        toRecalculateBonuses = new HashMap<String, Boolean>();
         currentYear = -200;
         this.br = br;
         this.ai = ai;
@@ -48,13 +50,14 @@ public class Game implements Serializable{
     }
 
     public void initialiseGame(JSONObject initialOwnership, JSONArray landlocked, JSONObject adjacencyMap) {
-        initialiseFactions(initialOwnership, landlocked);
+        initialiseFactions(initialOwnership, landlocked, new BuildingObserver(this));
         initialiseAdjacencyMatrix(adjacencyMap);
         Random r = new Random();
         currentFaction = r.nextInt(factions.size());
-        for (BattleObserver bo : br.getObservers()) {
+        for (BattleObserver bo : br.getBattleObservers()) {
             bo.setGame(this);
         }
+        br.getBuildingObserver().setGame(this);
         victories = new ArrayList<VictoryCondition>(Arrays.asList (new ConquestGoal(getNumProvinces()), new InfrastructureGoal(), 
                                                                     new WealthGoal(), new TreasuryGoal()));
         currentVictoryCondition = generateVictoryCondition();
@@ -71,6 +74,10 @@ public class Game implements Serializable{
     // Not sure if this is necessary
     public void selectBattleResolver(StandardBattleResolver br) {
         this.br = br;
+    }
+
+    public void setFactionToRecalculateBonus(String factionName) {
+        toRecalculateBonuses.put(factionName, true);
     }
 
     public void selectFaction(String name) {
@@ -95,12 +102,19 @@ public class Game implements Serializable{
         movedUnits.clear();
         currentFaction = (currentFaction + 1) % factions.size();
         currentYear++;
-        factions.get(currentFaction).updateAllProjects();
-        factions.get(currentFaction).collectTax();
-        if (currentVictoryCondition.checkVictory(factions.get(currentFaction))) {
+        Faction curr = factions.get(currentFaction);
+        if (toRecalculateBonuses.contains(curr.getName()) && toRecalculateBonuses.get(curr.getName()) == true) {
+            curr.calculateMarketMultiplier();
+            curr.calculateMineMultiplier();
+            curr.calculatePortBonus();
+            toRecalculateBonuses.put(curr.getName(), false);
+        }
+        curr.updateAllProjects();
+        curr.collectTax();
+        if (currentVictoryCondition.checkVictory(curr)) {
             endGame();
         }
-        if (! factions.get(currentFaction).isPlayer()) {
+        if (! curr.isPlayer()) {
             endTurn();
         }
     }
@@ -129,13 +143,13 @@ public class Game implements Serializable{
         }
     }
 
-    public void initialiseFactions(JSONObject initialOwnership, JSONArray landlocked) {
+    public void initialiseFactions(JSONObject initialOwnership, JSONArray landlocked, BuildingObserver bo) {
         for (String key : initialOwnership.keySet()) {
             Faction f = new Faction(key);
             factions.add(f);
             JSONArray provinces = initialOwnership.getJSONArray(key);
             for (int i = 0; i < provinces.length(); i++) {
-                Province p = new Province(provinces.getString(i), f);
+                Province p = new Province(provinces.getString(i), f, bo);
                 isLandlocked(landlocked, p);
                 f.addProvince(p);
             }
