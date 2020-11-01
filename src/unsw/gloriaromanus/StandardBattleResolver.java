@@ -291,4 +291,8 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
     public BuildingObserver getBuildingObserver() {
         return buildingObserver;
     }
+
+    public void setSeed(int seed) {
+        r.setSeed(seed);
+    }
 }

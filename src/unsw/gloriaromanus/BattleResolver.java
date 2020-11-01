@@ -7,4 +7,5 @@ public interface BattleResolver {
     public ArrayList<BattleObserver> getBattleObservers();
     public void notifyBattleObservers(Faction f);
     public BuildingObserver getBuildingObserver();
+    public void setSeed(int seed); 
 }
