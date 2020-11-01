@@ -78,7 +78,7 @@ public class BattleTest {
     }
 
     @Test 
-    public void twoPeasants() throws IOException {
+    public void twoPeasantsAttackerBreaksTest() throws IOException {
         Game g = new Game();
         initialSetup(g);
         Faction gaul = g.getCurrentFaction();
@@ -93,11 +93,57 @@ public class BattleTest {
         assertTrue(C.build(peasant2));
         g.endTurn();
         assertEquals(B.getUnits().size(), C.getUnits().size());
+        g.setBRSeed(1);
         g.moveUnits(new ArrayList<Unit>(Arrays.asList(peasant1)), B, C);
         assertTrue(B.getUnits().contains(peasant1));
         assertFalse(C.getUnits().contains(peasant2));
-        //System.out.println(peasant1.getNumTroops());
     }
+
+    @Test
+    public void twoPeasantsDrawTest() throws IOException {
+        Game g = new Game();
+        initialSetup(g);
+        Faction gaul = g.getCurrentFaction();
+        Unit peasant1 = new Unit("peasant");
+        Unit peasant2 = new Unit("peasant");
+        Province B = gaul.getNthProvince(1);
+        Faction rome = g.getFaction("Rome");
+        Province C = rome.getNthProvince(0);
+        assertTrue(B.build(peasant1));
+        assertTrue(C.build(new TroopProductionBuilding(rome)));
+        g.endTurn();
+        assertTrue(C.build(peasant2));
+        g.endTurn();
+        assertEquals(B.getUnits().size(), C.getUnits().size());
+        g.setBRSeed(2);
+        g.moveUnits(new ArrayList<Unit>(Arrays.asList(peasant1)), B, C);
+        assertTrue(B.getUnits().contains(peasant1));
+        assertFalse(C.getUnits().contains(peasant2));
+    }
+
+    @Test
+    public void twoPeasantsDefenderBreaksTest() throws IOException {
+        Game g = new Game();
+        initialSetup(g);
+        Faction gaul = g.getCurrentFaction();
+        Unit peasant1 = new Unit("peasant");
+        Unit peasant2 = new Unit("peasant");
+        Province B = gaul.getNthProvince(1);
+        Faction rome = g.getFaction("Rome");
+        Province C = rome.getNthProvince(0);
+        assertTrue(B.build(peasant1));
+        assertTrue(C.build(new TroopProductionBuilding(rome)));
+        g.endTurn();
+        assertTrue(C.build(peasant2));
+        g.endTurn();
+        assertEquals(B.getUnits().size(), C.getUnits().size());
+        g.setBRSeed(8);
+        g.moveUnits(new ArrayList<Unit>(Arrays.asList(peasant1)), B, C);
+        assertTrue(C.getUnits().contains(peasant1));
+        assertFalse(C.getUnits().contains(peasant2));
+        assertFalse(B.getUnits().contains(peasant1));
+    }
+
 
     @Test
     public void twoArchers() throws IOException {
