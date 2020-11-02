@@ -1,0 +1,15 @@
+{
+    "name":"eliteCavalry",
+    "type":"cavalry",
+    "numTroops": 20,
+    "ranged": false,
+    "armour": 4,
+    "morale": 7,
+    "speed": 6,
+    "attack": 4,
+    "chargeValue": 3,
+    "defenceSkill": 4,
+    "shieldDefence": 3,
+    "baseCost": 70,
+    "trainingTime": 1
+}

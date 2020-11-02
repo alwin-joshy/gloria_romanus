@@ -1,0 +1,20 @@
+{
+    "A": {
+        "B": true,
+        "E": true
+    },
+    "B": {
+        "A": true,
+        "C": true
+    },
+    "C": {
+        "B": true,
+        "D": true
+    },
+    "D": {
+        "C": true
+    },
+    "E": {
+        "A": true
+    }
+}
