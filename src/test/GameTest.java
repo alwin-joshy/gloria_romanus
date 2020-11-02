@@ -69,8 +69,6 @@ public class GameTest {
         } else {
             assertEquals(g.getCurrentFaction().getName(), "Rome");
         }
-        System.out.println(g.getCurrentFaction().getName());
-        //assertNotSame(g.getCurrentFaction(), prev);
     }
 
     @Test 
@@ -90,7 +88,6 @@ public class GameTest {
         g2.loadGame("testSave");
         assertEquals(g2.getCurrentYear(), -200);
         assertEquals(g.getFactions(), g2.getFactions());
-        System.out.println(g.getCurrentFaction().getName() + " " + g2.getCurrentFaction().getName());
         assertEquals(g.getCurrentFaction(), g2.getCurrentFaction());
         assertEquals(g2.getFactions().get(1).isPlayer(), true);
         assertEquals(g.getAdjacencyMatrix(), g2.getAdjacencyMatrix());

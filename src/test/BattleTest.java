@@ -71,7 +71,6 @@ public class BattleTest {
         assertFalse(g.moveUnits(new ArrayList<Unit>(Arrays.asList(peasant)), C, B));
         assertFalse(g.moveUnits(new ArrayList<Unit>(Arrays.asList(peasant)), C, D));
         g.endTurn();
-        System.out.println(g.getFactions().size());
         assertTrue(g.getFactions().size() == 3);
         assertTrue(g.moveUnits(new ArrayList<Unit>(Arrays.asList(peasant)), C, D));
         assertTrue(g.getFactions().size() == 2);
@@ -280,8 +279,6 @@ public class BattleTest {
         r.setSeed(1);
         h.incrementEngagementCount();
         assertEquals(h.calculateDamage(k, false, false, r), 9);
-        //assertEquals(, );
-        System.out.println(r.nextInt(10));
     }
 
     @Test
