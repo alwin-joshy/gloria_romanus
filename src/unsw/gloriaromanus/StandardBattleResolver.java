@@ -43,14 +43,14 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
         }
     }
 
-    public void setTaxDebuff(Province p, ArrayList<Unit> army) {
+    private void setTaxDebuff(Province p, ArrayList<Unit> army) {
         int isVeryHighTax = p.isVeryHighTax();
         for (Unit u : army) {
             u.setTaxDebuff(isVeryHighTax);
         }
     }
 
-    public void resetEngagementCount() {
+    private void resetEngagementCount() {
         for (Unit u : attackingArmy) {
             u.resetUnit();
         }
@@ -59,7 +59,7 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
         }
     }
 
-    public int countUnit(Province p, ArrayList<Unit> army, String name, String faction) {
+    private int countUnit(Province p, ArrayList<Unit> army, String name, String faction) {
         int count = 0;
         if (!p.getFaction().getName().equals(faction)) return count;
         for (Unit u : army) {
@@ -68,7 +68,7 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
         return count;
     }
 
-    public double getDruidMultiplier(boolean isAttacker) {
+    private double getDruidMultiplier(boolean isAttacker) {
         double multiplier = 1.0;
         if (isAttacker) {
             multiplier += attackingDruids * 0.1;
@@ -166,7 +166,7 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
         }
     }
 
-    public int skirmish(Unit attackingUnit, Unit defendingUnit) {
+    private int skirmish(Unit attackingUnit, Unit defendingUnit) {
         int result = 0;
         if ( attackingArmy.size() * 2 < defendingArmy.size() ) {
             attackingHeroicCharge = true;
@@ -191,7 +191,7 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
         return result;
     }
 
-    public int engage(Unit attackingUnit, Unit defendingUnit) {
+    private int engage(Unit attackingUnit, Unit defendingUnit) {
         boolean isRangedEngagement = decideEngagementType(defending, attackingUnit, defendingUnit);
         int attackerSize = attackingUnit.getNumTroops();
         int defenderSize = defendingUnit.getNumTroops();
@@ -267,7 +267,7 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
 
     }
 
-    public boolean decideEngagementType(Province defending, Unit attackingUnit, Unit defendingUnit) {
+    private boolean decideEngagementType(Province defending, Unit attackingUnit, Unit defendingUnit) {
         if (defendingUnit.checkType("tower")) {
             rangedEngagement = true;
         }
@@ -287,7 +287,7 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
         return rangedEngagement;
     }
 
-    public void transferProvinceOwnership(Faction from, Faction to, Province p) {
+    private void transferProvinceOwnership(Faction from, Faction to, Province p) {
         from.removeProvince(p);
         to.addProvince(p);
         p.setFaction(to);
