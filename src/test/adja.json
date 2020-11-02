@@ -1,0 +1,52 @@
+{
+    "A": {
+        "B": true
+    },
+    "B": {
+        "A": true,
+        "C": true
+    },
+    "C": {
+        "B": true,
+        "D": true
+    },
+    "D": {
+        "E": true,
+        "C": true
+    },
+    "E": {
+        "I": true,
+        "F": true,
+        "D": true,
+        "J": true,
+        "K": true
+    },
+    "F": {
+        "E": true,
+        "G": true
+    },
+    "G": {
+        "F": true,
+        "H": true
+    },
+    "H": {
+        "G": true,
+        "I": true
+    },
+    "I": {
+        "H": true,
+        "E": true,
+        "L": true
+    },
+    "J" : {
+        "E": true,
+        "K": true
+    }, 
+    "K" : {
+        "J": true,
+        "E": true
+    },
+    "L" : {
+        "I": true
+    }
+}
