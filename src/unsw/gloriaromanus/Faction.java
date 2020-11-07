@@ -27,6 +27,10 @@ public class Faction implements Serializable {
         legionaryDebuff = 0;
     }
 
+    public void increaseTreasury(int gold) {
+        treasury += gold;
+    }
+
     public double getLegionaryDebuff() {
         return legionaryDebuff;
     }

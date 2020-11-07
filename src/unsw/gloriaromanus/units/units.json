@@ -176,7 +176,6 @@
         "trainingTime": 3
     },
     "horsearcher": {
-        "name": "horsearcher",
         "type": "horse archer",
         "numTroops": 20,
         "ranged": true,
@@ -282,7 +281,6 @@
         "trainingTime": 3
     },
     "slingerman": {
-        "name": "slingerman",
         "type": "missile infantry",
         "numTroops": 20,
         "ranged": true,

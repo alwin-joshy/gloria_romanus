@@ -138,6 +138,16 @@ public class Province implements Serializable {
         }
     }
 
+    private void cancelOrder(ProjectDetails pd) {
+        Project project = pd.getProject();
+        double baseCost = (double) project.getBaseCost();
+        if (project instanceof Unit)
+            faction.increaseTreasury((int) Math.round(0.2 * baseCost * pd.getTurnsRemaining()));
+        else
+            faction.increaseTreasury((int) Math.round(0.05 * baseCost * pd.getTurnsRemaining()));
+        projects.remove(pd);
+    }
+
     private boolean buildingInfrastructure(){
         for (ProjectDetails project : projects) {
             if (project.getProject() instanceof Infrastructure) return true; 
@@ -185,7 +195,7 @@ public class Province implements Serializable {
     }
 
     public boolean checkMaxLevel(Infrastructure in) {
-        if (! faction.getName().equals("Roman")) {
+        if (! faction.getName().equals("Rome")) {
             if (in instanceof Road && in.getLevel() != 3 ) return false; 
         } else {
             if (in.getLevel() != 4) return false; 
