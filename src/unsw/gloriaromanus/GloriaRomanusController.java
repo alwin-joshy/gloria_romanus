@@ -53,7 +53,7 @@ import org.geojson.LngLatAlt;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class GloriaRomanusController{
+public class GloriaRomanusController {
 
   @FXML
   private MapView mapView;
@@ -107,7 +107,7 @@ public class GloriaRomanusController{
         // TODO = have better battle resolution than 50% chance of winning
         Random r = new Random();
         int choice = r.nextInt(2);
-        if (choice == 0){
+        if (choice == 0) {
           // human won. Transfer 40% of troops of human over. No casualties by human, but enemy loses all troops
           int numTroopsToTransfer = provinceToNumberTroopsMap.get(humanProvince)*2/5;
           provinceToNumberTroopsMap.put(enemyProvince, numTroopsToTransfer);

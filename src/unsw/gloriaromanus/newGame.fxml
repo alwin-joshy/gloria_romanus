@@ -23,11 +23,11 @@
             <Font name="Roman SD" size="70.0" />
          </font>
       </Label>
-      <Button layoutX="14.0" layoutY="638.0" mnemonicParsing="false" text="Main Menu">
+      <Button fx:id="mainMenuButton" layoutX="14.0" layoutY="638.0" mnemonicParsing="false" onAction="#handleMainMenuButton" text="Main Menu">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font></Button>
-      <Button layoutX="235.0" layoutY="460.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="331.0" text="SELECT FACTIONS">
+      <Button fx:id="selectFactionsButton" layoutX="235.0" layoutY="460.0" mnemonicParsing="false" onAction="#handleSelectFactionsButton" prefHeight="48.0" prefWidth="331.0" text="SELECT FACTIONS">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font></Button>
