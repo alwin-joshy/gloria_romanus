@@ -83,13 +83,7 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
                 attacking.removeUnit(attackingUnit);
             }
         }
-        if (defendingArmy.size() == 0 && attackingArmy.size() == 0) {
-            defending.resetLegionaryDeaths();
-            for (Unit u : routedAttackers) {
-                attacking.addUnit(u);
-            }
-            return false;
-        } else if (defendingArmy.size() == 0) {
+        if (defendingArmy.size() == 0 && attackingArmy.size() != 0) {
             Faction defendingTemp = defending.getFaction();
             transferProvinceOwnership(defending.getFaction(), attacking.getFaction(), defending);
             for (Unit u : routedAttackers) {
