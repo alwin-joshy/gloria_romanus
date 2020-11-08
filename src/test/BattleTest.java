@@ -115,12 +115,12 @@ public class BattleTest {
     }
 
     @Test
-    public void twoPeasantsDefenderBreaksTest() throws IOException {
+    public void twoUnitsDefenderBreaksTest() throws IOException {
         Game g = new Game();
         initialSetup(g);
         Faction gaul = g.getCurrentFaction();
-        Unit peasant1 = new Unit("peasant");
-        Unit peasant2 = new Unit("peasant");
+        Unit peasant1 = new Unit("immortal");
+        Unit peasant2 = new Unit("immortal");
         Province B = gaul.getNthProvince(1);
         Faction rome = g.getFaction("Rome");
         Province C = rome.getNthProvince(0);
@@ -128,7 +128,7 @@ public class BattleTest {
         C.addUnit(peasant2);
         assertEquals(B.getUnits().size(), C.getUnits().size());
         g.setBRSeed(8);
-        g.moveUnits(new ArrayList<Unit>(Arrays.asList(peasant1)), B, C);
+        assertTrue(g.moveUnits(new ArrayList<Unit>(Arrays.asList(peasant1)), B, C));
         assertTrue(C.getUnits().contains(peasant1));
         assertFalse(C.getUnits().contains(peasant2));
         assertFalse(B.getUnits().contains(peasant1));
@@ -147,7 +147,7 @@ public class BattleTest {
         B.addUnit(archer1);
         C.addUnit(archer2);
         assertEquals(B.getUnits().size(), C.getUnits().size());
-        g.setBRSeed(1);
+        g.setBRSeed(4);
         g.moveUnits(new ArrayList<Unit>(Arrays.asList(archer1)), B, C);
         assertTrue(B.getUnits().contains(archer1));
         assertTrue(C.getUnits().contains(archer2));
@@ -185,7 +185,7 @@ public class BattleTest {
         C.addUnit(archer);
         g.setBRSeed(6);
         assertFalse(g.moveUnits(new ArrayList<Unit>(Arrays.asList(peasant)), B, C));
-        assertEquals(peasant.getNumTroops(), 17);
+        assertEquals(peasant.getNumTroops(), 18);
         assertEquals(archer.getNumTroops(), 20);
     }
 
@@ -414,7 +414,7 @@ public class BattleTest {
         C.addUnit(new Unit("lancer"));
         C.addUnit(new Unit("lancer"));
         assertFalse(g.moveUnits(army, B, C));
-        assertTrue(C.getUnits().size() == 2);
+        assertTrue(C.getUnits().size() == 1);
     }
 
     @Test
