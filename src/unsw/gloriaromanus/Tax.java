@@ -27,10 +27,10 @@ public class Tax implements Serializable {
         this.wealthGrowthDelta = change;
     }
 
-    public int isVeryHighTax() {
+    public boolean isVeryHighTax() {
         if (rate == 0.25)
-            return 1;
-        return 0;
+            return true;
+        return false;
     }
 
     @Override

@@ -73,7 +73,7 @@ public class Province implements Serializable {
         return (int) taxedAmount;
     }
 
-    public int isVeryHighTax() {
+    public boolean isVeryHighTax() {
         return tax.isVeryHighTax();
     }
 
