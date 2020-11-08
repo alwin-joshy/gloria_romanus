@@ -9,7 +9,7 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ListView layoutX="70.0" layoutY="113.0" prefHeight="439.0" prefWidth="661.0" />
-      <Button layoutX="337.0" layoutY="570.0" mnemonicParsing="false" text="Load">
+      <Button fx:id="loadButton" layoutX="337.0" layoutY="570.0" mnemonicParsing="false" onAction="#handleLoadButton" text="Load">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font></Button>
@@ -18,7 +18,7 @@
             <Font name="Roman SD" size="70.0" />
          </font>
       </Label>
-      <Button layoutX="14.0" layoutY="638.0" mnemonicParsing="false" text="main menu">
+      <Button fx:id="mainMenuButton" layoutX="14.0" layoutY="638.0" mnemonicParsing="false" onAction="#handleMainMenuButton" text="main menu">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font>

@@ -7,11 +7,11 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button layoutX="282.0" layoutY="280.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="235.0" text="New Game">
+      <Button fx:id="newGameButton" layoutX="282.0" layoutY="280.0" mnemonicParsing="false" onAction="#handleNewGameButton" prefHeight="48.0" prefWidth="235.0" text="NEW GAME">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font></Button>
-      <Label layoutX="26.0" layoutY="53.0" text="Gloria Romanus" textFill="#cd9630">
+      <Label layoutX="26.0" layoutY="53.0" text="GLORIA ROMANUS" textFill="#cd9630">
          <font>
             <Font name="Roman SD" size="70.0" />
          </font>
@@ -20,17 +20,17 @@
          <font>
             <Font name="Roman SD" size="24.0" />
          </font></Label>
-      <Button layoutX="283.0" layoutY="360.0" mnemonicParsing="false" text="LOAD GAME">
+      <Button fx:id="loadGameButton" layoutX="283.0" layoutY="360.0" mnemonicParsing="false" onAction="#handleLoadGameButton" text="LOAD GAME">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font>
       </Button>
-      <Button layoutX="283.0" layoutY="440.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="235.0" text="CONTINUE">
+      <Button fx:id="continueButton" layoutX="283.0" layoutY="440.0" mnemonicParsing="false" onAction="#handleContinueButton" prefHeight="48.0" prefWidth="235.0" text="CONTINUE">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font>
       </Button>
-      <Button layoutX="283.0" layoutY="520.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="235.0" text="Exit game">
+      <Button fx:id="exitGameButton" layoutX="283.0" layoutY="520.0" mnemonicParsing="false" onAction="#handleExitGameButton" prefHeight="48.0" prefWidth="235.0" text="EXIT GAME">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font>

@@ -10,23 +10,33 @@ import javafx.stage.Stage;
 
 public class GloriaRomanusApplication extends Application {
 
-  private static GloriaRomanusController controller;
+  private MainMenuController mainMenuController;
+  private GloriaRomanusController controller;
 
   @Override
   public void start(Stage stage) throws IOException {
-    // set up the scene
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
-    Parent root = loader.load();
-    controller = loader.getController();
-    Scene scene = new Scene(root);
+    MainMenuScreen mainMenuScreen = new MainMenuScreen(stage);
+    NewGameScreen newGameScreen = new NewGameScreen(stage);
+    LoadGameScreen loadGameScreen = new LoadGameScreen(stage);
+    SelectFactionsScreen selectFactionsScreen = new SelectFactionsScreen(stage);
+    GloriaRomanusScreen gloriaRomanusScreen = new GloriaRomanusScreen(stage);
 
-    // set up the stage
-    stage.setTitle("Gloria Romanus");
-    stage.setWidth(800);
-    stage.setHeight(700);
-    stage.setScene(scene);
-    stage.show();
+    mainMenuController = mainMenuScreen.getController();
+    controller = gloriaRomanusScreen.getController();
 
+    mainMenuController.setLoadGameScreen(loadGameScreen);
+    mainMenuController.setNewGameScreen(newGameScreen);
+    mainMenuController.setGloriaRomanusScreen(gloriaRomanusScreen);
+
+    newGameScreen.getController().setMainMenuScreen(mainMenuScreen);
+    newGameScreen.getController().setSelectFactionsScreen(selectFactionsScreen);
+
+    loadGameScreen.getController().setMainMenuScreen(mainMenuScreen);
+
+    selectFactionsScreen.getController().setMainMenuScreen(mainMenuScreen);
+    selectFactionsScreen.getController().setGloriaRomanusScreen(gloriaRomanusScreen);
+
+    mainMenuScreen.start();
   }
 
   /**
