@@ -166,21 +166,29 @@ public class Unit implements Serializable, Project {
             numTroops = 0;
     }
 
-    public void checkIfBroken(int casualties, int size, int enemyCasualties, int enemySize, double druidMultiplier, boolean heroicCharge, int legionaryCount, double legionaryDebuff, Random random) {
+    public void checkIfBroken(int casualties, int size, int enemyCasualties, int enemySize, ArmyBuff allyBuff, double legionaryDebuff, Random random) {
         if (isBroken)
             return;
+
         double heroicChargeMultiplier = 1.0;
-        if (heroicCharge && type.equals("cavalry") && !ranged) heroicChargeMultiplier = 1.5;
-        double finalMorale = (morale + (double) legionaryCount - (double) taxDebuff - legionaryDebuff) * druidMultiplier;
-        if (finalMorale < 1) finalMorale = 1;
+        if (allyBuff.getHeroicCharge() && type.equals("cavalry") && !ranged) 
+            heroicChargeMultiplier = 1.5;
+
+        
+        double finalMorale = (morale + (double) allyBuff.getLegionaryBuff() - (double) taxDebuff - legionaryDebuff) * allyBuff.getDruidMultiplier();
+        if (finalMorale < 1) 
+            finalMorale = 1;
+
         double breakChance = 1.0 - finalMorale * heroicChargeMultiplier * 0.1;
         if (enemyCasualties != 0) {
             breakChance += (((double) casualties / (double) size) / ((double) enemyCasualties / (double) enemySize)) * 0.1;
         }
+
         if (breakChance < 0.05)
             breakChance = 0.05;
         else if (breakChance > 1.0)
             breakChance = 1.0;
+
         double b = random.nextDouble();
         if (b < breakChance) {
             isBroken = true;
@@ -195,8 +203,8 @@ public class Unit implements Serializable, Project {
         return numTroops == 0;
     }
 
-    public void setTaxDebuff(int isHighTax) {
-        taxDebuff = isHighTax;
+    public void setTaxDebuff(boolean isVeryHighTax) {
+        taxDebuff = isVeryHighTax ? 1 : 0;
     }
 
     public int getArmour() {
