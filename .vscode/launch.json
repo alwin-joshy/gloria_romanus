@@ -7,6 +7,14 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - GloriaRomanusApplication",
+            "request": "launch",
+            "mainClass": "unsw.gloriaromanus.GloriaRomanusApplication",
+            "projectName": "h09a-boring_grp_name_d26eea89",
+            "vmArgs": "--module-path \"./lib\" --add-modules javafx.controls,javafx.fxml"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - TroopProductionBuilding",
             "request": "launch",
             "mainClass": "unsw.gloriaromanus.TroopProductionBuilding",
