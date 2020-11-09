@@ -7,6 +7,14 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - GloriaRomanusApplication",
+            "request": "launch",
+            "mainClass": "unsw.gloriaromanus.GloriaRomanusApplication",
+            "projectName": "h09a-boring_grp_name_d26eea89",
+            "vmArgs": "--module-path \"./lib\" --add-modules javafx.controls,javafx.fxml"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - MainMenuApplication",
             "request": "launch",
             "mainClass": "unsw.gloriaromanus.MainMenuApplication",
@@ -33,14 +41,6 @@
             "request": "launch",
             "mainClass": "unsw.gloriaromanus.Game",
             "projectName": "h09a-boring_grp_name_85d25427"
-        },
-        {
-            "type": "java",
-            "name": "CodeLens (Launch) - GloriaRomanusApplication",
-            "request": "launch",
-            "mainClass": "unsw.gloriaromanus.GloriaRomanusApplication",
-            "projectName": "h09a-boring_grp_name_85d25427",
-            "vmArgs": "--module-path \"./lib\" --add-modules javafx.controls,javafx.fxml"
         },
         {
             "type": "java",
