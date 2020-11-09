@@ -1,0 +1,14 @@
+{
+    "name": "legionary",
+    "type": "heavy infantry",
+    "numTroops": 50,
+    "ranged": false,
+    "armour": 13,
+    "morale": 9,
+    "speed": 9,
+    "attack": 15,
+    "defenceSkill": 12,
+    "shieldDefence": 14,
+    "baseCost": 400,
+    "trainingTime": 3
+}

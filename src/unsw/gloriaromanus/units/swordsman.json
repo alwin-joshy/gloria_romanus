@@ -1,0 +1,14 @@
+{
+    "name": "swordsman",
+    "type": "heavy infantry",
+    "numTroops": 30,
+    "ranged": false,
+    "armour": 5,
+    "morale": 5,
+    "speed": 5,
+    "attack": 6,
+    "defenceSkill": 4,
+    "shieldDefence": 5,
+    "baseCost": 50,
+    "trainingTime": 2
+}

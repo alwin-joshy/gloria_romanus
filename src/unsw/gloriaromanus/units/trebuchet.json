@@ -1,0 +1,14 @@
+{
+    "name": "trebuchet",
+    "type": "artillery",
+    "numTroops": 40,
+    "ranged": true,
+    "armour": 7,
+    "morale": 7,
+    "speed": 5,
+    "attack": 15,
+    "defenceSkill": 8,
+    "shieldDefence": 8,
+    "baseCost": 200,
+    "trainingTime": 3
+}
