@@ -100,12 +100,13 @@ public class Province implements Serializable {
         int integerCost = (int) Math.round(cost);
 
         if (! faction.purchase(integerCost)) return false;
+
         
         if (project instanceof Unit) {
             unitsInTraining++;
         }
 
-        ProjectDetails p = new ProjectDetails(faction.getMineTurnReduction(), project);
+        ProjectDetails p = new ProjectDetails(faction.getMineTurnReduction(), project, integerCost);
         projects.add(p);
 
         return true;
@@ -121,7 +122,9 @@ public class Province implements Serializable {
                     Infrastructure inf = (Infrastructure) p;
                     if (inf.getLevel() == 0) infrastructure.add(inf);
                     inf.levelUp();
-                    if (inf instanceof WealthGenerationBuilding) {
+                    if (inf instanceof Walls) 
+                        ((Walls) inf).levelUpTowers(this);
+                    else if (inf instanceof WealthGenerationBuilding) {
                         wealth += 150 * inf.getLevel();
                         wealthGrowth += 50 * inf.getLevel();
                         buildingObserver.update(faction);
@@ -140,11 +143,11 @@ public class Province implements Serializable {
 
     private void cancelOrder(ProjectDetails pd) {
         Project project = pd.getProject();
-        double baseCost = (double) project.getBaseCost();
+        double cost = (double) pd.getPricePaid();
         if (project instanceof Unit)
-            faction.increaseTreasury((int) Math.round(0.2 * baseCost * pd.getTurnsRemaining()));
+            faction.increaseTreasury((int) Math.round(0.2 * cost * pd.getTurnsRemaining()));
         else
-            faction.increaseTreasury((int) Math.round(0.05 * baseCost * pd.getTurnsRemaining()));
+            faction.increaseTreasury((int) Math.round(0.05 * cost * pd.getTurnsRemaining()));
         projects.remove(pd);
     }
 
@@ -213,6 +216,17 @@ public class Province implements Serializable {
 
     public void removeUnit(Unit u) {
         units.remove(u);
+    }
+
+    public void replaceArcherTowers() {
+        ArrayList<Unit> toRemove = new ArrayList<Unit>();
+        for (Unit u : units) {
+            if (u.getName().equals(name)) {
+                toRemove.add(u);
+                units.add(new Unit("ballistatower"));
+            }
+        }
+        units.removeAll(toRemove);
     }
 
     public boolean hasWalls() {

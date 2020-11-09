@@ -5,9 +5,11 @@ import java.io.Serializable;
 public class ProjectDetails implements Serializable {
     private Project project;
     private int turnsRemaining;
+    private int pricePaid;
 
-    public ProjectDetails(int mineTurnReduction, Project project) {
+    public ProjectDetails(int mineTurnReduction, Project project, int pricePaid) {
         this.project = project;
+        this.pricePaid = pricePaid;
         turnsRemaining = project.getBaseConstructionTime();
         if (project instanceof Infrastructure) {
             turnsRemaining -= mineTurnReduction;
@@ -32,12 +34,17 @@ public class ProjectDetails implements Serializable {
         return turnsRemaining;
     }
 
+
+    public int getPricePaid() {
+        return pricePaid;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (this.getClass() != obj.getClass()) return false;
         ProjectDetails pd = (ProjectDetails) obj;
-        return project.equals(pd.getProject()) && turnsRemaining == pd.getTurnsRemaining();
+        return project.equals(pd.getProject()) && turnsRemaining == pd.getTurnsRemaining() && pricePaid == pd.getPricePaid();
     }
 
     
