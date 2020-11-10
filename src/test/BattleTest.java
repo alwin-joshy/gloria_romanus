@@ -410,7 +410,6 @@ public class BattleTest {
         C.addUnit(new Unit("lancer"));
         C.addUnit(new Unit("lancer"));
         assertFalse(g.moveUnits(army, B, C));
-        System.out.println(C.getUnits().size());
         assertTrue(C.getUnits().size() == 2);
     }
 

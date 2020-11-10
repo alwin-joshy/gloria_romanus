@@ -14,6 +14,7 @@ public class Faction implements Serializable {
     private Double marketMultiplier;
     private int portBonus;
     private double legionaryDebuff;
+    private ArrayList<Province> mightRevolt;
 
     public Faction(String name) {
         this.name = name;
@@ -25,6 +26,7 @@ public class Faction implements Serializable {
         mineTurnReduction = 0;
         portBonus = 0;
         legionaryDebuff = 0;
+        mightRevolt = new ArrayList<Province>();
     }
 
     public void increaseTreasury(int gold) {
@@ -175,6 +177,20 @@ public class Faction implements Serializable {
     public void setTreasury(int gold) {
         treasury = gold;
     }
+
+    public boolean couldRevolt(Province p) {
+        return mightRevolt.contains(p);
+    }
+
+    public void addPossibleRevolt(Province p) {
+        mightRevolt.add(p);
+    }
+
+    public void removePossibleRevolt(Province p) {
+        mightRevolt.remove(p);
+    }
+
+
 
     @Override
     public boolean equals(Object obj) {

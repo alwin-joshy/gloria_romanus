@@ -297,7 +297,6 @@ public class Game implements Serializable{
         }
         Faction curr = factions.get(currentFaction);
         boolean validMove = true;
-        ArrayList<Unit> unitsCopy= (ArrayList<Unit>) units.clone();
         if (!curr.isAlliedProvince(end.getName())) {
             validMove = br.battle(start, units, end, end.getUnits());
             distance = 15;
@@ -310,11 +309,13 @@ public class Game implements Serializable{
             curr.moveUnits(units, start, end, distance);
             movedUnits.addAll(units);
         } else {
-            for (Unit u : unitsCopy) {
+            for (Unit u : units) {
                 u.reduceRemainingMovementPoints(distance);
                 movedUnits.add(u);
             }
         }
+        start.checkRevoltStatus();
+        end.checkRevoltStatus();
 
         return validMove;
     }
