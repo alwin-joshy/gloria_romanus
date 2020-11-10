@@ -36,12 +36,7 @@ public class UnitTest{
         g.endTurn();
         assertNotNull(currentFaction.getNthProvince(0).getTroopProductionBuilding());
         int prevTreasury = currentFaction.getTreasury();
-        try {
-            currentFaction.getNthProvince(0).build(new Unit("peasant"));
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.exit(1);
-        }
+        currentFaction.getNthProvince(0).build(new Unit("peasant"));
         assertEquals(prevTreasury, currentFaction.getTreasury() + 35);
         g.endTurn();
         assertTrue(currentFaction.getNthProvince(0).getNthUnit(0).getName().equals("peasant"));
@@ -112,12 +107,7 @@ public class UnitTest{
         assertEquals(currentFaction.getNthProvince(0).build(tb), true);
         g.endTurn();
         g.endTurn();
-        try {
-            assertEquals(currentFaction.getNthProvince(0).build(new Unit("archer")), true);
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.exit(1);
-        }
+        assertEquals(currentFaction.getNthProvince(0).build(new Unit("archer")), true);
         g.endTurn();
         assertEquals(currentFaction.getNthProvince(0).getUnits().size(), 0);
         g.endTurn();
