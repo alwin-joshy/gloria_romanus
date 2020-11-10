@@ -34,6 +34,7 @@ public class Unit implements Serializable, Project {
     private boolean isBroken;
     private int taxDebuff;
     private int engagementCount;
+    private SmithLevel smithBuff;
 
     public Unit(String name) {
         this.name = name;
@@ -58,7 +59,7 @@ public class Unit implements Serializable, Project {
         if (type.equals("artillery"))
             towerDamage = json.getInt("towerDamage");
         else
-        towerDamage = 0;
+            towerDamage = 0;
 
 
         numTroops = json.getInt("numTroops");
@@ -78,6 +79,7 @@ public class Unit implements Serializable, Project {
         isBroken = false;
         taxDebuff = 0;
         engagementCount = 0;
+        smithBuff = new SmithLevelZero();
     }
 
     public String getName() {
@@ -88,8 +90,12 @@ public class Unit implements Serializable, Project {
         return type.equals(this.type);
     }
 
-    public int getSpeed() {
-        return speed;
+    public void setSmithLevel(SmithLevel smithBuff) {
+        this.smithBuff = smithBuff;
+    }
+
+    public double getSpeed() {
+        return smithBuff.applySpeedDebuff(speed);
     }
 
     public boolean isRanged() {
@@ -161,9 +167,10 @@ public class Unit implements Serializable, Project {
 
     public int calculateDamage(Unit enemyUnit, boolean isRangedEngagement, boolean heroicCharge, boolean wallsDebuff, Random random) {
         double damage;
-        double damageQuotient = enemyUnit.getName().equals("beserker") ? 10 : (double) attack / (double) (enemyUnit.getRangedDefence(name.equals("javelinist")));
         if (isRangedEngagement) {
             if (!ranged) return 0;
+
+            double damageQuotient = enemyUnit.getName().equals("beserker") ? 10 : enemyUnit.getSmithReducedDamage(getAttack()) / (double) (enemyUnit.getRangedDefence(name.equals("javelinist")));
             if (wallsDebuff && name.equals("horsearcher")) {
                 damageQuotient /= attack; // reduce the missile attack damage of attacking horse archers to 1.
             }
@@ -178,8 +185,8 @@ public class Unit implements Serializable, Project {
             
             damage = enemyUnit.getNumTroops() * 0.1 * damageQuotient;
         } else {
-            damage = enemyUnit.getNumTroops() * 0.1 * (((double) getAttack() + (double) getChargeValue(heroicCharge, wallsDebuff)) / ((double) enemyUnit.getMeleeDefence()));
-            if (wallsDebuff && ! enemyUnit.getType().equals("artillery")) damageQuotient *= 0.5; // Walls double the melee defence of all troops defending a settlement (except when fighting artillery),
+            damage = enemyUnit.getNumTroops() * 0.1 * ((enemyUnit.getSmithReducedDamage(getAttack()) + (double) getChargeValue(heroicCharge, wallsDebuff)) / ((double) enemyUnit.getMeleeDefence()));
+            if (wallsDebuff && ! enemyUnit.getType().equals("artillery")) damage *= 0.5; // Walls double the melee defence of all troops defending a settlement (except when fighting artillery),
         }
         damage = damage * (random.nextGaussian() + 1);
         int roundedDamage = (int) Math.round(damage);
@@ -194,7 +201,7 @@ public class Unit implements Serializable, Project {
             numTroops = 0;
     }
 
-    public void checkIfBroken(int casualties, int size, int enemyCasualties, int enemySize, ArmyBuff allyBuff, double legionaryDebuff, Random random) {
+    public void checkIfBroken(int casualties, int size, int enemyCasualties, int enemySize, ArmyBuff allyBuff, double legionaryDebuff, double smithDebuff, Random random) {
         if (isBroken)
             return;
 
@@ -203,7 +210,7 @@ public class Unit implements Serializable, Project {
             heroicChargeMultiplier = 1.5;
 
         
-        double finalMorale = (morale + (double) allyBuff.getLegionaryBuff() - (double) taxDebuff - legionaryDebuff) * allyBuff.getDruidMultiplier();
+        double finalMorale = (morale + (double) allyBuff.getLegionaryBuff() - (double) taxDebuff - legionaryDebuff) * allyBuff.getDruidMultiplier() * smithDebuff;
         if (finalMorale < 1) 
             finalMorale = 1;
 
@@ -263,10 +270,22 @@ public class Unit implements Serializable, Project {
         return taxDebuff;
     }
 
-    public int getAttack() {
+    public double getSmithReducedDamage(double damage) {
+        return smithBuff.applyEnemyAttackDebuff(damage);
+    }
+
+    public double getSmithMoraleDebuff() {
+        if (name.equals("archer")) return smithBuff.getEnemyMoraleDebuff();
+        return 1.0;
+    }
+
+    public double getAttack() {
         int countShieldCharge = engagementCount % 4;
-        if (countShieldCharge == 0 && type.equals("heavy infantry")) return attack + shieldDefence;
-        return attack;
+        double adjustedAttack = attack;
+        if (countShieldCharge == 0 && type.equals("heavy infantry")) adjustedAttack += shieldDefence;
+        adjustedAttack = smithBuff.applyAttackBuff(adjustedAttack);
+        if (name.equals("archer")) adjustedAttack = smithBuff.applyMissileDamageDebuff(adjustedAttack);
+        return adjustedAttack;
     }
 
     public int getChargeValue(boolean heroicCharge, boolean wallsDebuff) {

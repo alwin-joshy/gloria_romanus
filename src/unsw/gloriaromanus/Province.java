@@ -19,6 +19,7 @@ public class Province implements Serializable {
     private int unitTrainingLimit;
     private Boolean isSeaProvince;
     private BuildingObserver buildingObserver;
+    private SmithLevel currentSmithLevel;
 
     public Province(String name, Faction faction, BuildingObserver buildingObserver) {
         this.name = name;
@@ -35,6 +36,7 @@ public class Province implements Serializable {
         unitsInTraining = 0;
         unitTrainingLimit = 1;
         isSeaProvince = true;
+        currentSmithLevel = new SmithLevelZero();
     }
 
     public String getName() {
@@ -128,9 +130,12 @@ public class Province implements Serializable {
                         wealth += 150 * inf.getLevel();
                         wealthGrowth += 50 * inf.getLevel();
                         buildingObserver.update(faction);
+                    } else if (inf instanceof Smith) {
+                        currentSmithLevel.nextLevel(this);
                     }
                 } else {
                     units.add((Unit) p);
+                    ((Unit) p).setSmithLevel(currentSmithLevel);
                     unitsInTraining--;
                 }
                 toRemove.add(project);
@@ -260,6 +265,10 @@ public class Province implements Serializable {
 
     public Faction getFaction() {
         return faction;
+    }
+
+    public void setSmithLevel(SmithLevel sl) {
+        currentSmithLevel = sl;
     }
 
     public void setFaction(Faction f) {

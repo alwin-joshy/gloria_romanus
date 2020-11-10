@@ -110,6 +110,9 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
                     break;
                 }
                 engagementCounter++;
+                if (engagementCounter > 200) {
+                    return;
+                }
             }
         }
 
@@ -249,8 +252,8 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
             }
         }
 
-        defendingUnit.checkIfBroken(defenderDamage, defenderSize, attackerDamage, attackerSize, attackingBuffs, defending.getLegionaryDebuff(), r);
-        attackingUnit.checkIfBroken(attackerDamage, attackerSize, defenderDamage, defenderSize, defendingBuffs, attacking.getLegionaryDebuff(), r);
+        defendingUnit.checkIfBroken(defenderDamage, defenderSize, attackerDamage, attackerSize, attackingBuffs, defending.getLegionaryDebuff(), attackingUnit.getSmithMoraleDebuff(), r);
+        attackingUnit.checkIfBroken(attackerDamage, attackerSize, defenderDamage, defenderSize, defendingBuffs, attacking.getLegionaryDebuff(), defendingUnit.getSmithMoraleDebuff(), r);
 
         return result;
 
