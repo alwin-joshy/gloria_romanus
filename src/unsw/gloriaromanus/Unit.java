@@ -25,25 +25,38 @@ public class Unit implements Serializable, Project {
     private int trainingTime;
     private int movementPoints;
     private int movementPointsRemaining;
+    private int towerDamage; 
     private boolean isBroken;
     private int taxDebuff;
     private int engagementCount;
+    private SmithLevel smithBuff;
 
     public Unit(String name) {
         this.name = name;
-        String content = "{\r\n    \"archer\": {\r\n        \"type\": \"missile infantry\",\r\n        \"numTroops\": 20,\r\n        \"ranged\": true,\r\n        \"armour\": 3,\r\n        \"morale\": 5,\r\n        \"speed\": 3,\r\n        \"attack\": 5,\r\n        \"defenceSkill\": 3,\r\n        \"shieldDefence\": 3,\r\n        \"baseCost\": 50,\r\n        \"trainingTime\": 2,\r\n        \"movementPoints\": 10\r\n    },\r\n    \"horseman\": {\r\n        \"type\": \"cavalry\",\r\n        \"numTroops\": 20,\r\n        \"ranged\": false,\r\n        \"armour\": 2,\r\n        \"morale\": 3,\r\n        \"speed\": 4,\r\n        \"attack\": 2,\r\n        \"chargeValue\": 2,\r\n        \"defenceSkill\": 2,\r\n        \"shieldDefence\": 3,\r\n        \"baseCost\": 35,\r\n        \"trainingTime\": 1,\r\n        \"movementPoints\": 15\r\n    },\r\n    \"catapult\": {\r\n        \"type\": \"artillery\",\r\n        \"numTroops\": 30,\r\n        \"ranged\": true,\r\n        \"armour\": 4,\r\n        \"morale\": 6,\r\n        \"speed\": 3,\r\n        \"attack\": 11,\r\n        \"defenceSkill\": 4,\r\n        \"shieldDefence\": 5,\r\n        \"baseCost\": 50,\r\n        \"trainingTime\": 2,\r\n        \"movementPoints\": 4\r\n    },\r\n    \"peasant\": {\r\n        \"type\": \"heavy infantry\",\r\n        \"numTroops\": 20,\r\n        \"ranged\": false,\r\n        \"armour\": 3,\r\n        \"morale\": 3,\r\n        \"speed\": 2,\r\n        \"attack\": 3,\r\n        \"defenceSkill\": 2,\r\n        \"shieldDefence\": 4,\r\n        \"baseCost\": 35,\r\n        \"trainingTime\": 1,\r\n        \"movementPoints\": 10\r\n    },\r\n    \"axeman\": {\r\n        \"type\": \"heavy infantry\",\r\n        \"numTroops\": 40,\r\n        \"ranged\": false,\r\n        \"armour\": 5,\r\n        \"morale\": 9,\r\n        \"speed\": 7,\r\n        \"attack\": 14,\r\n        \"defenceSkill\": 5,\r\n        \"shieldDefence\": 6,\r\n        \"baseCost\": 200,\r\n        \"trainingTime\": 3\r\n    },\r\n    \"beserker\": {\r\n        \"type\": \"infantry\",\r\n        \"numTroops\": 25,\r\n        \"ranged\": false,\r\n        \"armour\": 0,\r\n        \"morale\": 30,\r\n        \"speed\": 8,\r\n        \"attack\": 22,\r\n        \"defenceSkill\": 0,\r\n        \"shieldDefence\": 0,\r\n        \"baseCost\": 190,\r\n        \"trainingTime\": 3\r\n    },\r\n    \"cannon\": {\r\n        \"type\": \"artillery\",\r\n        \"numTroops\": 50,\r\n        \"ranged\": true,\r\n        \"armour\": 11,\r\n        \"morale\": 9,\r\n        \"speed\": 7,\r\n        \"attack\": 20,\r\n        \"defenceSkill\": 10,\r\n        \"shieldDefence\": 10,\r\n        \"baseCost\": 400,\r\n        \"trainingTime\": 4\r\n    },\r\n    \"crossbowman\": {\r\n        \"type\": \"missile infantry\",\r\n        \"numTroops\": 50,\r\n        \"ranged\": true,\r\n        \"armour\": 10,\r\n        \"morale\": 9,\r\n        \"speed\": 10,\r\n        \"attack\": 20,\r\n        \"defenceSkill\": 10,\r\n        \"shieldDefence\": 10,\r\n        \"baseCost\": 400,\r\n        \"trainingTime\": 4\r\n    },\r\n    \"druid\": {\r\n        \"type\": \"heavy infantry\",\r\n        \"numTroops\": 3,\r\n        \"ranged\": true,\r\n        \"armour\": 8,\r\n        \"morale\": 7,\r\n        \"speed\": 11,\r\n        \"attack\": 9,\r\n        \"defenceSkill\": 6,\r\n        \"shieldDefence\": 5,\r\n        \"baseCost\": 220,\r\n        \"trainingTime\": 3\r\n    },\r\n    \"elephant\": {\r\n        \"type\": \"cavalry\",\r\n        \"numTroops\": 8,\r\n        \"ranged\": false,\r\n        \"armour\": 19,\r\n        \"morale\": 7,\r\n        \"speed\": 13,\r\n        \"attack\": 13,\r\n        \"chargeValue\": 10,\r\n        \"defenceSkill\": 18,\r\n        \"shieldDefence\": 18,\r\n        \"baseCost\": 410,\r\n        \"trainingTime\": 3\r\n    },\r\n    \"elitecavalry\": {\r\n        \"type\":\"cavalry\",\r\n        \"numTroops\": 20,\r\n        \"ranged\": false,\r\n        \"armour\": 4,\r\n        \"morale\": 7,\r\n        \"speed\": 6,\r\n        \"attack\": 4,\r\n        \"chargeValue\": 3,\r\n        \"defenceSkill\": 4,\r\n        \"shieldDefence\": 3,\r\n        \"baseCost\": 70,\r\n        \"trainingTime\": 1\r\n    },\r\n    \"elitehorsearcher\": {\r\n        \"type\": \"horse archer\",\r\n        \"numTroops\": 20,\r\n        \"ranged\": true,\r\n        \"armour\": 6,\r\n        \"morale\": 7,\r\n        \"speed\": 9,\r\n        \"attack\": 9,\r\n        \"defenceSkill\": 4,\r\n        \"shieldDefence\": 5,\r\n        \"baseCost\": 85,\r\n        \"trainingTime\": 2\r\n    },\r\n    \"hoplite\": {\r\n        \"type\": \"heavy infantry\",\r\n        \"numTroops\": 40,\r\n        \"ranged\": false,\r\n        \"armour\": 11,\r\n        \"morale\": 8,\r\n        \"speed\": 10,\r\n        \"attack\": 15,\r\n        \"defenceSkill\": 9,\r\n        \"shieldDefence\": 9,\r\n        \"baseCost\": 360,\r\n        \"trainingTime\": 3\r\n    },\r\n    \"horsearcher\": {\r\n        \"name\": \"horsearcher\",\r\n        \"type\": \"horse archer\",\r\n        \"numTroops\": 20,\r\n        \"ranged\": true,\r\n        \"armour\": 4,\r\n        \"morale\": 5,\r\n        \"speed\": 6,\r\n        \"attack\": 5,\r\n        \"defenceSkill\": 2,\r\n        \"shieldDefence\": 4,\r\n        \"baseCost\": 50,\r\n        \"trainingTime\": 2\r\n    },\r\n    \"immortal\": {\r\n        \"type\": \"heavy infantry\",\r\n        \"numTroops\": 50,\r\n        \"ranged\": false,\r\n        \"armour\": 13,\r\n        \"morale\": 10,\r\n        \"speed\": 13,\r\n        \"attack\": 18,\r\n        \"defenceSkill\": 13,\r\n        \"shieldDefence\": 13,\r\n        \"baseCost\": 320,\r\n        \"trainingTime\": 3\r\n    },\r\n    \"javelinist\": {\r\n        \"type\": \"missile infantry\",\r\n        \"numTroops\": 40,\r\n        \"ranged\": true,\r\n        \"armour\": 11,\r\n        \"morale\": 8,\r\n        \"speed\": 12,\r\n        \"attack\": 18,\r\n        \"defenceSkill\": 11,\r\n        \"shieldDefence\": 9,\r\n        \"baseCost\": 385,\r\n        \"trainingTime\": 3\r\n    },\r\n    \"knight\": {\r\n        \"type\": \"heavy infantry\",\r\n        \"numTroops\": 50,\r\n        \"ranged\": false,\r\n        \"armour\": 12,\r\n        \"morale\": 9,\r\n        \"speed\": 9,\r\n        \"attack\": 18,\r\n        \"defenceSkill\": 11,\r\n        \"shieldDefence\": 12,\r\n        \"baseCost\": 400,\r\n        \"trainingTime\": 4\r\n    },\r\n    \"lancer\": {\r\n        \"type\": \"cavalry\",\r\n        \"numTroops\": 50,\r\n        \"ranged\": false,\r\n        \"armour\": 12,\r\n        \"morale\": 9,\r\n        \"speed\": 12,\r\n        \"attack\": 15,\r\n        \"chargeValue\": 10,\r\n        \"defenceSkill\": 9,\r\n        \"shieldDefence\": 9,\r\n        \"baseCost\": 400,\r\n        \"trainingTime\": 4\r\n    },\r\n    \"legionary\": {\r\n        \"type\": \"heavy infantry\",\r\n        \"numTroops\": 50,\r\n        \"ranged\": false,\r\n        \"armour\": 13,\r\n        \"morale\": 9,\r\n        \"speed\": 9,\r\n        \"attack\": 15,\r\n        \"defenceSkill\": 12,\r\n        \"shieldDefence\": 14,\r\n        \"baseCost\": 400,\r\n        \"trainingTime\": 3\r\n    },\r\n    \"netman\": {\r\n        \"type\": \"heavy infantry\",\r\n        \"numTroops\": 15,\r\n        \"ranged\": false,\r\n        \"armour\": 8,\r\n        \"morale\": 7,\r\n        \"speed\": 7,\r\n        \"attack\": 12,\r\n        \"defenceSkill\": 5,\r\n        \"shieldDefence\": 5,\r\n        \"baseCost\": 200,\r\n        \"trainingTime\": 3\r\n    },\r\n    \"pikeman\": {\r\n        \"type\": \"heavy infantry\",\r\n        \"numTroops\": 40,\r\n        \"ranged\": false,\r\n        \"armour\": 8,\r\n        \"morale\": 7,\r\n        \"speed\": 7,\r\n        \"attack\": 11,\r\n        \"defenceSkill\": 7,\r\n        \"shieldDefence\": 6,\r\n        \"baseCost\": 200,\r\n        \"trainingTime\": 3\r\n    },\r\n    \"slingerman\": {\r\n        \"name\": \"slingerman\",\r\n        \"type\": \"missile infantry\",\r\n        \"numTroops\": 20,\r\n        \"ranged\": true,\r\n        \"armour\": 2,\r\n        \"morale\": 3,\r\n        \"speed\": 4,\r\n        \"attack\": 3,\r\n        \"defenceSkill\": 1,\r\n        \"shieldDefence\": 3,\r\n        \"baseCost\": 35,\r\n        \"trainingTime\": 1\r\n    },\r\n    \"spearman\": {\r\n        \"type\": \"spearman\",\r\n        \"numTroops\": 20,\r\n        \"ranged\": false,\r\n        \"armour\": 5,\r\n        \"morale\": 5,\r\n        \"speed\": 4,\r\n        \"attack\": 5,\r\n        \"defenceSkill\": 5,\r\n        \"shieldDefence\": 6,\r\n        \"baseCost\": 50,\r\n        \"trainingTime\": 2\r\n    },\r\n    \"swordsman\": {\r\n        \"type\": \"heavy infantry\",\r\n        \"numTroops\": 30,\r\n        \"ranged\": false,\r\n        \"armour\": 5,\r\n        \"morale\": 5,\r\n        \"speed\": 5,\r\n        \"attack\": 6,\r\n        \"defenceSkill\": 4,\r\n        \"shieldDefence\": 5,\r\n        \"baseCost\": 50,\r\n        \"trainingTime\": 2\r\n    },\r\n    \"trebuchet\": {\r\n        \"type\": \"artillery\",\r\n        \"numTroops\": 40,\r\n        \"ranged\": true,\r\n        \"armour\": 7,\r\n        \"morale\": 7,\r\n        \"speed\": 5,\r\n        \"attack\": 15,\r\n        \"defenceSkill\": 8,\r\n        \"shieldDefence\": 8,\r\n        \"baseCost\": 200,\r\n        \"trainingTime\": 3\r\n    }\r\n}\r\n";
+        String content = "{\r\n    \"archer\": {\r\n        \"type\": \"missile infantry\",\r\n        \"numTroops\": 20,\r\n        \"ranged\": true,\r\n        \"armour\": 3,\r\n        \"morale\": 5,\r\n        \"speed\": 3,\r\n        \"attack\": 5,\r\n        \"defenceSkill\": 3,\r\n        \"shieldDefence\": 3,\r\n        \"baseCost\": 50,\r\n        \"trainingTime\": 2,\r\n        \"movementPoints\": 10\r\n    },\r\n    \"horseman\": {\r\n        \"type\": \"cavalry\",\r\n        \"numTroops\": 20,\r\n        \"ranged\": false,\r\n        \"armour\": 2,\r\n        \"morale\": 3,\r\n        \"speed\": 4,\r\n        \"attack\": 2,\r\n        \"chargeValue\": 2,\r\n        \"defenceSkill\": 2,\r\n        \"shieldDefence\": 3,\r\n        \"baseCost\": 35,\r\n        \"trainingTime\": 1,\r\n        \"movementPoints\": 15\r\n    },\r\n    \"catapult\": {\r\n        \"type\": \"artillery\",\r\n   \"towerDamage\":10,\r\n     \"numTroops\": 30,\r\n        \"ranged\": true,\r\n        \"armour\": 4,\r\n        \"morale\": 6,\r\n        \"speed\": 3,\r\n        \"attack\": 11,\r\n        \"defenceSkill\": 4,\r\n        \"shieldDefence\": 5,\r\n        \"baseCost\": 50,\r\n        \"trainingTime\": 2,\r\n        \"movementPoints\": 4\r\n    },\r\n    \"peasant\": {\r\n        \"type\": \"heavy infantry\",\r\n        \"numTroops\": 20,\r\n        \"ranged\": false,\r\n        \"armour\": 3,\r\n        \"morale\": 3,\r\n        \"speed\": 2,\r\n        \"attack\": 3,\r\n        \"defenceSkill\": 2,\r\n        \"shieldDefence\": 4,\r\n        \"baseCost\": 35,\r\n        \"trainingTime\": 1,\r\n        \"movementPoints\": 10\r\n    },\r\n    \"axeman\": {\r\n        \"type\": \"heavy infantry\",\r\n        \"numTroops\": 40,\r\n        \"ranged\": false,\r\n        \"armour\": 5,\r\n        \"morale\": 9,\r\n        \"speed\": 7,\r\n        \"attack\": 14,\r\n        \"defenceSkill\": 5,\r\n        \"shieldDefence\": 6,\r\n        \"baseCost\": 200,\r\n        \"trainingTime\": 3\r\n    },\r\n    \"beserker\": {\r\n        \"type\": \"infantry\",\r\n        \"numTroops\": 25,\r\n        \"ranged\": false,\r\n        \"armour\": 0,\r\n        \"morale\": 30,\r\n        \"speed\": 8,\r\n        \"attack\": 22,\r\n        \"defenceSkill\": 0,\r\n        \"shieldDefence\": 0,\r\n        \"baseCost\": 190,\r\n        \"trainingTime\": 3\r\n    },\r\n    \"cannon\": {\r\n        \"type\": \"artillery\",\r\n        \"numTroops\": 50,\r\n    \"towerDamage\":20,\r\n    \"ranged\": true,\r\n        \"armour\": 11,\r\n        \"morale\": 9,\r\n        \"speed\": 7,\r\n        \"attack\": 20,\r\n        \"defenceSkill\": 10,\r\n        \"shieldDefence\": 10,\r\n        \"baseCost\": 400,\r\n        \"trainingTime\": 4\r\n    },\r\n    \"crossbowman\": {\r\n        \"type\": \"missile infantry\",\r\n        \"numTroops\": 50,\r\n        \"ranged\": true,\r\n        \"armour\": 10,\r\n        \"morale\": 9,\r\n        \"speed\": 10,\r\n        \"attack\": 20,\r\n        \"defenceSkill\": 10,\r\n        \"shieldDefence\": 10,\r\n        \"baseCost\": 400,\r\n        \"trainingTime\": 4\r\n    },\r\n    \"druid\": {\r\n        \"type\": \"heavy infantry\",\r\n        \"numTroops\": 3,\r\n        \"ranged\": true,\r\n        \"armour\": 8,\r\n        \"morale\": 7,\r\n        \"speed\": 11,\r\n        \"attack\": 9,\r\n        \"defenceSkill\": 6,\r\n        \"shieldDefence\": 5,\r\n        \"baseCost\": 220,\r\n        \"trainingTime\": 3\r\n    },\r\n    \"elephant\": {\r\n        \"type\": \"cavalry\",\r\n        \"numTroops\": 8,\r\n        \"ranged\": false,\r\n        \"armour\": 19,\r\n        \"morale\": 7,\r\n        \"speed\": 13,\r\n        \"attack\": 13,\r\n        \"chargeValue\": 10,\r\n        \"defenceSkill\": 18,\r\n        \"shieldDefence\": 18,\r\n        \"baseCost\": 410,\r\n        \"trainingTime\": 3\r\n    },\r\n    \"elitecavalry\": {\r\n        \"type\":\"cavalry\",\r\n        \"numTroops\": 20,\r\n        \"ranged\": false,\r\n        \"armour\": 4,\r\n        \"morale\": 7,\r\n        \"speed\": 6,\r\n        \"attack\": 4,\r\n        \"chargeValue\": 3,\r\n        \"defenceSkill\": 4,\r\n        \"shieldDefence\": 3,\r\n        \"baseCost\": 70,\r\n        \"trainingTime\": 1\r\n    },\r\n    \"elitehorsearcher\": {\r\n        \"type\": \"horse archer\",\r\n        \"numTroops\": 20,\r\n        \"ranged\": true,\r\n        \"armour\": 6,\r\n        \"morale\": 7,\r\n        \"speed\": 9,\r\n        \"attack\": 9,\r\n        \"defenceSkill\": 4,\r\n        \"shieldDefence\": 5,\r\n        \"baseCost\": 85,\r\n        \"trainingTime\": 2\r\n    },\r\n    \"hoplite\": {\r\n        \"type\": \"heavy infantry\",\r\n        \"numTroops\": 40,\r\n        \"ranged\": false,\r\n        \"armour\": 11,\r\n        \"morale\": 8,\r\n        \"speed\": 10,\r\n        \"attack\": 15,\r\n        \"defenceSkill\": 9,\r\n        \"shieldDefence\": 9,\r\n        \"baseCost\": 360,\r\n        \"trainingTime\": 3\r\n    },\r\n    \"horsearcher\": {\r\n        \"name\": \"horsearcher\",\r\n        \"type\": \"horse archer\",\r\n        \"numTroops\": 20,\r\n        \"ranged\": true,\r\n        \"armour\": 4,\r\n        \"morale\": 5,\r\n        \"speed\": 6,\r\n        \"attack\": 5,\r\n        \"defenceSkill\": 2,\r\n        \"shieldDefence\": 4,\r\n        \"baseCost\": 50,\r\n        \"trainingTime\": 2\r\n    },\r\n    \"immortal\": {\r\n        \"type\": \"heavy infantry\",\r\n        \"numTroops\": 50,\r\n        \"ranged\": false,\r\n        \"armour\": 13,\r\n        \"morale\": 10,\r\n        \"speed\": 13,\r\n        \"attack\": 18,\r\n        \"defenceSkill\": 13,\r\n        \"shieldDefence\": 13,\r\n        \"baseCost\": 320,\r\n        \"trainingTime\": 3\r\n    },\r\n    \"javelinist\": {\r\n        \"type\": \"missile infantry\",\r\n        \"numTroops\": 40,\r\n        \"ranged\": true,\r\n        \"armour\": 11,\r\n        \"morale\": 8,\r\n        \"speed\": 12,\r\n        \"attack\": 18,\r\n        \"defenceSkill\": 11,\r\n        \"shieldDefence\": 9,\r\n        \"baseCost\": 385,\r\n        \"trainingTime\": 3\r\n    },\r\n    \"knight\": {\r\n        \"type\": \"heavy infantry\",\r\n        \"numTroops\": 50,\r\n        \"ranged\": false,\r\n        \"armour\": 12,\r\n        \"morale\": 9,\r\n        \"speed\": 9,\r\n        \"attack\": 18,\r\n        \"defenceSkill\": 11,\r\n        \"shieldDefence\": 12,\r\n        \"baseCost\": 400,\r\n        \"trainingTime\": 4\r\n    },\r\n    \"lancer\": {\r\n        \"type\": \"cavalry\",\r\n        \"numTroops\": 50,\r\n        \"ranged\": false,\r\n        \"armour\": 12,\r\n        \"morale\": 9,\r\n        \"speed\": 12,\r\n        \"attack\": 15,\r\n        \"chargeValue\": 10,\r\n        \"defenceSkill\": 9,\r\n        \"shieldDefence\": 9,\r\n        \"baseCost\": 400,\r\n        \"trainingTime\": 4\r\n    },\r\n    \"legionary\": {\r\n        \"type\": \"heavy infantry\",\r\n        \"numTroops\": 50,\r\n        \"ranged\": false,\r\n        \"armour\": 13,\r\n        \"morale\": 9,\r\n        \"speed\": 9,\r\n        \"attack\": 15,\r\n        \"defenceSkill\": 12,\r\n        \"shieldDefence\": 14,\r\n        \"baseCost\": 400,\r\n        \"trainingTime\": 3\r\n    },\r\n    \"netman\": {\r\n        \"type\": \"heavy infantry\",\r\n        \"numTroops\": 15,\r\n        \"ranged\": false,\r\n        \"armour\": 8,\r\n        \"morale\": 7,\r\n        \"speed\": 7,\r\n        \"attack\": 12,\r\n        \"defenceSkill\": 5,\r\n        \"shieldDefence\": 5,\r\n        \"baseCost\": 200,\r\n        \"trainingTime\": 3\r\n    },\r\n    \"pikeman\": {\r\n        \"type\": \"heavy infantry\",\r\n        \"numTroops\": 40,\r\n        \"ranged\": false,\r\n        \"armour\": 8,\r\n        \"morale\": 7,\r\n        \"speed\": 7,\r\n        \"attack\": 11,\r\n        \"defenceSkill\": 7,\r\n        \"shieldDefence\": 6,\r\n        \"baseCost\": 200,\r\n        \"trainingTime\": 3\r\n    },\r\n    \"slingerman\": {\r\n        \"name\": \"slingerman\",\r\n        \"type\": \"missile infantry\",\r\n        \"numTroops\": 20,\r\n        \"ranged\": true,\r\n        \"armour\": 2,\r\n        \"morale\": 3,\r\n        \"speed\": 4,\r\n        \"attack\": 3,\r\n        \"defenceSkill\": 1,\r\n        \"shieldDefence\": 3,\r\n        \"baseCost\": 35,\r\n        \"trainingTime\": 1\r\n    },\r\n    \"spearman\": {\r\n        \"type\": \"spearman\",\r\n        \"numTroops\": 20,\r\n        \"ranged\": false,\r\n        \"armour\": 5,\r\n        \"morale\": 5,\r\n        \"speed\": 4,\r\n        \"attack\": 5,\r\n        \"defenceSkill\": 5,\r\n        \"shieldDefence\": 6,\r\n        \"baseCost\": 50,\r\n        \"trainingTime\": 2\r\n    },\r\n    \"swordsman\": {\r\n        \"type\": \"heavy infantry\",\r\n        \"numTroops\": 30,\r\n        \"ranged\": false,\r\n        \"armour\": 5,\r\n        \"morale\": 5,\r\n        \"speed\": 5,\r\n        \"attack\": 6,\r\n        \"defenceSkill\": 4,\r\n        \"shieldDefence\": 5,\r\n        \"baseCost\": 50,\r\n        \"trainingTime\": 2\r\n    },\r\n    \"trebuchet\": {\r\n        \"type\": \"artillery\",\r\n        \"numTroops\": 40,\r\n    \"towerDamage\":15,\r\n    \"ranged\": true,\r\n        \"armour\": 7,\r\n        \"morale\": 7,\r\n        \"speed\": 5,\r\n        \"attack\": 15,\r\n        \"defenceSkill\": 8,\r\n        \"shieldDefence\": 8,\r\n        \"baseCost\": 200,\r\n        \"trainingTime\": 3\r\n    }\r\n}\r\n";
         // try {
         //     content = Files.readString(Paths.get("src/unsw/gloriaromanus/units/units.json"));
         // } catch (IOException e) {
         //     System.out.println("Units config file not found!!");
+            // e.printStackTrace();
         // }
         JSONObject units = new JSONObject(content);
         JSONObject json = units.getJSONObject(name);
+
         if (Arrays.asList("elephant", "horseman", "elite cavalry", "lancer").contains(name))
             chargeValue = json.getInt("chargeValue");
         else 
             chargeValue = 0;
+            
         type = json.getString("type");
+
+
+        if (type.equals("artillery"))
+            towerDamage = json.getInt("towerDamage");
+        else
+            towerDamage = 0;
+
+
         numTroops = json.getInt("numTroops");
         ranged = json.getBoolean("ranged");
         armour = json.getInt("armour");
@@ -61,6 +74,7 @@ public class Unit implements Serializable, Project {
         isBroken = false;
         taxDebuff = 0;
         engagementCount = 0;
+        smithBuff = new SmithLevelZero();
     }
 
     public String getName() {
@@ -71,8 +85,12 @@ public class Unit implements Serializable, Project {
         return type.equals(this.type);
     }
 
-    public int getSpeed() {
-        return speed;
+    public void setSmithLevel(SmithLevel smithBuff) {
+        this.smithBuff = smithBuff;
+    }
+
+    public double getSpeed() {
+        return smithBuff.applySpeedDebuff(speed);
     }
 
     public boolean isRanged() {
@@ -142,15 +160,28 @@ public class Unit implements Serializable, Project {
      * formation, charge bonuses where applicable for cavalry/chariots/elephants).
      */
 
-    public int calculateDamage(Unit enemyUnit, boolean isRangedEngagement, boolean heroicCharge, Random random) {
+    public int calculateDamage(Unit enemyUnit, boolean isRangedEngagement, boolean heroicCharge, boolean wallsDebuff, Random random) {
         double damage;
-        double damageQuotient = enemyUnit.getName().equals("beserker") ? 10 : (double) attack / (double) (enemyUnit.getRangedDefence(name.equals("javelinist")));
         if (isRangedEngagement) {
             if (!ranged) return 0;
+
+            double damageQuotient = enemyUnit.getName().equals("beserker") ? 10 : enemyUnit.getSmithReducedDamage(getAttack()) / (double) (enemyUnit.getRangedDefence(name.equals("javelinist")));
+            if (wallsDebuff && name.equals("horsearcher")) {
+                damageQuotient /= attack; // reduce the missile attack damage of attacking horse archers to 1.
+            }
+            else if (wallsDebuff && name.equals("elitehorsearcher")) {
+                damageQuotient /= attack;
+                damageQuotient *= 2;
+            } else if (wallsDebuff && name.equals("archer")) {
+                damageQuotient /= 2; //reduce the missile attack damage of attacking archers by 50% (to a minimum of 1),
+            }
+
             if (enemyUnit.getType().equals("horse archer")) damageQuotient /= 2;
+            
             damage = enemyUnit.getNumTroops() * 0.1 * damageQuotient;
         } else {
-            damage = enemyUnit.getNumTroops() * 0.1 * (((double) getAttack() + (double) getChargeValue(heroicCharge)) / ((double) enemyUnit.getMeleeDefence()));
+            damage = enemyUnit.getNumTroops() * 0.1 * ((enemyUnit.getSmithReducedDamage(getAttack()) + (double) getChargeValue(heroicCharge, wallsDebuff)) / ((double) enemyUnit.getMeleeDefence()));
+            if (wallsDebuff && ! enemyUnit.getType().equals("artillery")) damage *= 0.5; // Walls double the melee defence of all troops defending a settlement (except when fighting artillery),
         }
         damage = damage * (random.nextGaussian() + 1);
         int roundedDamage = (int) Math.round(damage);
@@ -165,7 +196,7 @@ public class Unit implements Serializable, Project {
             numTroops = 0;
     }
 
-    public void checkIfBroken(int casualties, int size, int enemyCasualties, int enemySize, ArmyBuff allyBuff, double legionaryDebuff, Random random) {
+    public void checkIfBroken(int casualties, int size, int enemyCasualties, int enemySize, ArmyBuff allyBuff, double legionaryDebuff, double smithDebuff, Random random) {
         if (isBroken)
             return;
 
@@ -174,7 +205,7 @@ public class Unit implements Serializable, Project {
             heroicChargeMultiplier = 1.5;
 
         
-        double finalMorale = (morale + (double) allyBuff.getLegionaryBuff() - (double) taxDebuff - legionaryDebuff) * allyBuff.getDruidMultiplier();
+        double finalMorale = (morale + (double) allyBuff.getLegionaryBuff() - (double) taxDebuff - legionaryDebuff) * allyBuff.getDruidMultiplier() * smithDebuff;
         if (finalMorale < 1) 
             finalMorale = 1;
 
@@ -234,15 +265,28 @@ public class Unit implements Serializable, Project {
         return taxDebuff;
     }
 
-    public int getAttack() {
-        int countShieldCharge = engagementCount % 4;
-        if (countShieldCharge == 0 && type.equals("heavy infantry")) return attack + shieldDefence;
-        return attack;
+    public double getSmithReducedDamage(double damage) {
+        return smithBuff.applyEnemyAttackDebuff(damage);
     }
 
-    public int getChargeValue(boolean heroicCharge) {
+    public double getSmithMoraleDebuff() {
+        if (name.equals("archer")) return smithBuff.getEnemyMoraleDebuff();
+        return 1.0;
+    }
+
+    public double getAttack() {
+        int countShieldCharge = engagementCount % 4;
+        double adjustedAttack = attack;
+        if (countShieldCharge == 0 && type.equals("heavy infantry")) adjustedAttack += shieldDefence;
+        adjustedAttack = smithBuff.applyAttackBuff(adjustedAttack);
+        if (name.equals("archer")) adjustedAttack = smithBuff.applyMissileDamageDebuff(adjustedAttack);
+        return adjustedAttack;
+    }
+
+    public int getChargeValue(boolean heroicCharge, boolean wallsDebuff) {
         int adjustedChargeValue = chargeValue;
         if (heroicCharge) adjustedChargeValue *= 2;
+        if (wallsDebuff) adjustedChargeValue = 0;
         return adjustedChargeValue;
     }
 
@@ -258,6 +302,10 @@ public class Unit implements Serializable, Project {
         isBroken = false;
         engagementCount = 0;
     }
+
+    public int getTowerDamage() {
+		return towerDamage;
+	}
     
 
     @Override
@@ -269,6 +317,7 @@ public class Unit implements Serializable, Project {
             morale == u.getMorale() && speed == u.getSpeed() && attack == u.getAttack() && defenceSkill == u.getDefenceSkill() &&
             shieldDefence == u.getShieldDefence() && baseCost == u.getBaseCost() && trainingTime == u.getTrainingTime() &&
             movementPoints == u.getMovementPoints() && movementPointsRemaining == u.getMovementPointsRemaining() &&
-            isBroken == u.isBroken() && taxDebuff == u.getTaxDebuff() && chargeValue == u.getChargeValue(false);
+            isBroken == u.isBroken() && taxDebuff == u.getTaxDebuff() && chargeValue == u.getChargeValue(false, false);
     }
+
 }

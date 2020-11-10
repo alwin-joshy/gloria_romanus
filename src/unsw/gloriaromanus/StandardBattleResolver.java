@@ -11,6 +11,7 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
     private Province attacking;
     private Province defending;
     private ArrayList<Unit> routedAttackers;
+    private ArrayList<Unit> defeatedTowers;
     private ArrayList<Unit> attackingArmy;
     private ArrayList<Unit> defendingArmy;
     private int engagementCounter;
@@ -22,6 +23,7 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
 
     public StandardBattleResolver(int seed) {
         routedAttackers = new ArrayList<Unit>();
+        defeatedTowers = new ArrayList<Unit>();
         engagementCounter = 0;
         battleObservers = new ArrayList<BattleObserver>(Arrays.asList(new VictoryObserver(), new DefeatObserver()));
         buildingObserver = new BuildingObserver();
@@ -59,30 +61,15 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
             Unit attackingUnit = attackingArmy.get(r.nextInt(attackingArmy.size()));
             Unit defendingUnit = defendingArmy.get(r.nextInt(defendingArmy.size()));
             // removes the loser from its army
-            int result = skirmish(attackingUnit, defendingUnit);
-            if (result == 1 || result == 0) {
-
-                if (defendingUnit.getName().equals("druid")) {
-                    defendingBuffs.druidKilled(attackingBuffs.getNumDruids());
-                } else if (defendingUnit.getName().equals("legionary")) {
-                    defendingBuffs.legionaryKilled(true);
-                }
-
-                defendingArmy.remove(defendingUnit);
-                defending.removeUnit(defendingUnit);
+            skirmish(attackingUnit, defendingUnit);
+            if (onlyTowersRemaining()) {
+                break;
             }
-            if (result == -1 || result == 0) {
 
-                if (attackingUnit.getName().equals("druid")) {
-                    attackingBuffs.druidKilled(defendingBuffs.getNumDruids());
-                } else if (attackingUnit.getName().equals("legionary")) {
-                    attackingBuffs.legionaryKilled(false);
-                }
-
-                attackingArmy.remove(attackingUnit);
-                attacking.removeUnit(attackingUnit);
-            }
         }
+
+        restoreTowers();
+
         if (defendingArmy.size() == 0 && attackingArmy.size() != 0) {
             Faction defendingTemp = defending.getFaction();
             transferProvinceOwnership(defending.getFaction(), attacking.getFaction(), defending);
@@ -105,19 +92,93 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
         }
     }
 
-    private int skirmish(Unit attackingUnit, Unit defendingUnit) {
+    private void skirmish(Unit attackingUnit, Unit defendingUnit) {
         int result = 0;
         while (result == 0) {
-            result = engage(attackingUnit, defendingUnit);
-            if (attackingUnit.isBroken() && defendingUnit.isBroken()) {
-                if (!routedAttackers.contains(attackingUnit)) {
-                    routedAttackers.add(attackingUnit);
+            if (defendingUnit.getType().equals("tower")){
+                result = towerEngagement(attackingUnit, defendingUnit);
+            } else {
+                result = engage(attackingUnit, defendingUnit);
+                if (attackingUnit.isBroken() && defendingUnit.isBroken()) {
+                    if (!routedAttackers.contains(attackingUnit)) {
+                        routedAttackers.add(attackingUnit);
+                    }
+                    result = 0;
+                    break;
+                } else if (attackingUnit.isDefeated() && defendingUnit.isDefeated()) {
+                    result = 0;
+                    break;
                 }
-                return 0;
+                engagementCounter++;
+                if (engagementCounter > 200) {
+                    return;
+                }
             }
-            engagementCounter++;
         }
-        return result;
+
+
+        if (result == 1 || result == 0) {
+
+            if (defendingUnit.getName().equals("druid")) {
+                defendingBuffs.druidKilled(attackingBuffs.getNumDruids());
+            } else if (defendingUnit.getName().equals("legionary")) {
+                defendingBuffs.legionaryKilled(true);
+            }
+            defendingArmy.remove(defendingUnit);
+            defending.removeUnit(defendingUnit);
+        }
+
+        if (result == -1 || result == 0) {
+
+            if (attackingUnit.getName().equals("druid")) {
+                attackingBuffs.druidKilled(defendingBuffs.getNumDruids());
+            } else if (attackingUnit.getName().equals("legionary")) {
+                attackingBuffs.legionaryKilled(false);
+            }
+
+            attackingArmy.remove(attackingUnit);
+            attacking.removeUnit(attackingUnit);
+        }
+
+    }
+
+    private int towerEngagement(Unit attackingUnit, Unit tower) {
+        
+        int towerDamage = tower.calculateDamage(attackingUnit, true, attackingBuffs.getHeroicCharge(), false, r);
+        attackingUnit.takeDamage(towerDamage);
+
+        int attackingDamage = attackingUnit.getTowerDamage();
+        tower.takeDamage(attackingDamage);
+        
+        if (attackingUnit.isDefeated()) {
+            return -1;
+        }
+        else if (tower.isDefeated()) {
+            defeatedTowers.add(tower);
+            return 1;
+        }
+
+        double escapeChance = 0.5 + attackingUnit.getSpeed() * 0.1;
+        if (escapeChance > 1.0) {
+            return -2;
+        }
+
+        return 0;
+    }
+
+    private void restoreTowers() {
+        for (Unit t : defeatedTowers) {
+            defending.addUnit(t);
+        }
+    }
+
+    private boolean onlyTowersRemaining() {
+        for (Unit u : defendingArmy) {
+            if ( ! u.getType().equals("tower")){
+                return false;
+            }
+        }
+        return true;
     }
 
     private int engage(Unit attackingUnit, Unit defendingUnit) {
@@ -145,7 +206,7 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
                     }
                 }
             }
-            attackerDamage = attackingUnit.calculateDamage(defendingUnit, isRangedEngagement, attackingBuffs.getHeroicCharge(), r);
+            attackerDamage = attackingUnit.calculateDamage(defendingUnit, isRangedEngagement, attackingBuffs.getHeroicCharge(), defending.hasWalls() ,r);
             defendingUnit.takeDamage(attackerDamage);
             if (temp != null) defendingUnit = temp;
         }
@@ -166,7 +227,7 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
                     }
                 }
             }
-            defenderDamage = defendingUnit.calculateDamage(attackingUnit, isRangedEngagement, defendingBuffs.getHeroicCharge(), r);
+            defenderDamage = defendingUnit.calculateDamage(attackingUnit, isRangedEngagement, defendingBuffs.getHeroicCharge(), false, r);
             attackingUnit.takeDamage(defenderDamage);
             if (temp != null) defendingUnit = temp;
         }
@@ -186,11 +247,13 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
         } else if (defendingUnit.isBroken()) {
             routeChance = 0.5 + 0.1 * (defendingUnit.getSpeed() - attackingUnit.getSpeed());
             if (routeChance < 0.1) routeChance = 0.1;
-            if (route < routeChance) result = 1;
+            if (route < routeChance) {
+                result = 1;
+            }
         }
 
-        defendingUnit.checkIfBroken(defenderDamage, defenderSize, attackerDamage, attackerSize, attackingBuffs, defending.getLegionaryDebuff(), r);
-        attackingUnit.checkIfBroken(attackerDamage, attackerSize, defenderDamage, defenderSize, defendingBuffs, attacking.getLegionaryDebuff(), r);
+        defendingUnit.checkIfBroken(defenderDamage, defenderSize, attackerDamage, attackerSize, attackingBuffs, defending.getLegionaryDebuff(), attackingUnit.getSmithMoraleDebuff(), r);
+        attackingUnit.checkIfBroken(attackerDamage, attackerSize, defenderDamage, defenderSize, defendingBuffs, attacking.getLegionaryDebuff(), defendingUnit.getSmithMoraleDebuff(), r);
 
         return result;
 

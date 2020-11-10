@@ -9,7 +9,7 @@ public class Walls extends Infrastructure {
     
     public Walls(){
         setBaseContructionTime(2);
-        setBaseCost(80);
+        setBaseCost(120);
         currentLevel = null;
     }
 

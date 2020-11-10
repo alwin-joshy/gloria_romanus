@@ -181,7 +181,7 @@ public class BattleTest {
         C.addUnit(archer);
         g.setBRSeed(6);
         assertFalse(g.moveUnits(new ArrayList<Unit>(Arrays.asList(peasant)), B, C));
-        assertEquals(peasant.getNumTroops(), 18);
+        assertEquals(peasant.getNumTroops(), 17);
         assertEquals(archer.getNumTroops(), 20);
     }
 
@@ -234,7 +234,7 @@ public class BattleTest {
         Random r = new Random(1);
         double haExpectedDmg = (r.nextGaussian() + 1) * ha.getNumTroops() * 0.1 * ((double) a.getAttack()/2 / ((double) (ha.getArmour() + ha.getShieldDefence())));
         r.setSeed(1);
-        assertEquals(a.calculateDamage(ha, true, false, r), Math.round(haExpectedDmg));
+        assertEquals(a.calculateDamage(ha, true, false, false, r), Math.round(haExpectedDmg));
     }
 
     @Test
@@ -265,16 +265,16 @@ public class BattleTest {
         Unit k = new Unit("knight");
         Random r = new Random(1);
         h.incrementEngagementCount();
-        assertEquals(h.calculateDamage(k, false, false, r), 5);
+        assertEquals(h.calculateDamage(k, false, false, false, r), 5);
         r.setSeed(1);
         h.incrementEngagementCount();
-        assertEquals(h.calculateDamage(k, false, false, r), 5);
+        assertEquals(h.calculateDamage(k, false, false, false, r), 5);
         r.setSeed(1);
         h.incrementEngagementCount();
-        assertEquals(h.calculateDamage(k, false, false, r), 5);
+        assertEquals(h.calculateDamage(k, false, false, false, r), 5);
         r.setSeed(1);
         h.incrementEngagementCount();
-        assertEquals(h.calculateDamage(k, false, false, r), 9);
+        assertEquals(h.calculateDamage(k, false, false, false, r), 9);
     }
 
     @Test
@@ -286,7 +286,7 @@ public class BattleTest {
         Random r = new Random(1);
         double knightExpectedDmg = (r.nextGaussian() + 1) * k.getNumTroops() * 0.1 * ((double) j.getAttack() / ((double) (k.getArmour()/2 + k.getShieldDefence())));
         r.setSeed(1);
-        assertEquals(j.calculateDamage(k, true, false, r), Math.round(knightExpectedDmg));
+        assertEquals(j.calculateDamage(k, true, false, false, r), Math.round(knightExpectedDmg));
     }
 
 
@@ -370,7 +370,7 @@ public class BattleTest {
         g.moveUnits(new ArrayList<Unit>(Arrays.asList(lancer)), B, C);
     }
 
-    // when an attacking army loses at battle, all routed units return
+    // when an attacking army loses a battle, all routed units return
     // to the original province
     @Test
     public void routedAttackersReturnTest() throws IOException {
@@ -410,7 +410,8 @@ public class BattleTest {
         C.addUnit(new Unit("lancer"));
         C.addUnit(new Unit("lancer"));
         assertFalse(g.moveUnits(army, B, C));
-        assertTrue(C.getUnits().size() == 1);
+        System.out.println(C.getUnits().size());
+        assertTrue(C.getUnits().size() == 2);
     }
 
     @Test
