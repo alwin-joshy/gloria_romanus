@@ -1,6 +1,8 @@
 package unsw.gloriaromanus;
 
-public interface SmithLevel {
+import java.io.Serializable;
+
+public interface SmithLevel extends Serializable {
     public double applyEnemyAttackDebuff(double damage);
     public double applySpeedDebuff(int speed);
     public double applyAttackBuff(double attack);
