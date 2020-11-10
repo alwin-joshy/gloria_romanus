@@ -120,6 +120,10 @@ public class Faction implements Serializable {
         isPlayer = true;
     }
 
+    public void setAI() {
+        isPlayer = false;
+    }
+
     public int getTreasury() {
         return treasury;
     }

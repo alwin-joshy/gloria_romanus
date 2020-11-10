@@ -52,16 +52,16 @@ public class Game implements Serializable{
         initialiseAdjacencyMatrix(adjacencyMap);
         Random r = new Random();
         currentFaction = r.nextInt(factions.size());
-        for (BattleObserver bo : br.getBattleObservers()) {
-            bo.setGame(this);
-        }
-        br.getBuildingObserver().setGame(this);
         victories = new ArrayList<VictoryCondition>(Arrays.asList (new ConquestGoal(getNumProvinces()), new InfrastructureGoal(), 
                                                                     new WealthGoal(), new TreasuryGoal()));
         currentVictoryCondition = generateVictoryCondition();
     }
 
     public void startGame() {
+        for (BattleObserver bo : br.getBattleObservers()) {
+            bo.setGame(this);
+        }
+        br.getBuildingObserver().setGame(this);
         factions.get(currentFaction).collectTax();
         isRunning = true;
         if (!factions.get(currentFaction).isPlayer()) {

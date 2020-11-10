@@ -34,7 +34,7 @@ public class MainMenuController {
 
     @FXML
     public void handleContinueButton() {
-        gloriaRomanusScreen.start();
+        // load the most recent save into an instance of game and pass it to start
     }
 
     @FXML
