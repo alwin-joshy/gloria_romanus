@@ -2,51 +2,79 @@
   "Rome": [
     "Lugdunensis",
     "Lusitania",
-    "Lycia et Pamphylia",
+    "Lycia et Pamphylia"
+  ],
+  "Carthage": [
     "Macedonia",
     "Mauretania Caesariensis",
-    "Mauretania Tingitana",
-    "Moesia Inferior",
-    "Moesia Superior",
-    "Narbonensis",
-    "Noricum",
-    "Numidia",
-    "Pannonia Inferior",
-    "Pannonia Superior",
-    "Raetia",
-    "Sardinia et Corsica",
-    "Sicilia",
-    "Syria",
-    "Tarraconensis",
-    "Thracia",
-    "V",
-    "VI",
-    "VII",
-    "VIII",
-    "X",
-    "XI"
+    "Mauretania Tingitana"
   ],
   "Gaul": [
+    "Moesia Inferior",
+    "Moesia Superior",
+    "Narbonensis"
+  ],
+  "Britons": [
+    "Noricum",
+    "Numidia",
+    "Pannonia Inferior"
+  ],
+  "Spain": [
+    "Pannonia Superior",
+    "Raetia",
+    "Sardinia et Corsica"
+  ],
+  "Numidia": [
+    "Sicilia",
+    "Syria",
+    "Tarraconensis"
+  ],
+  "Egypt": [
+    "Thracia",
+    "V",
+    "VI"
+  ],
+  "Seleucids": [
+    "VII",
+    "VIII",
+    "X"
+  ],
+  "Pontus": [
+    "XI",
     "Achaia",
-    "Aegyptus",
+    "Aegyptus"
+  ],
+  "Armenia": [
     "Africa Proconsularis",
     "Alpes Cottiae",
-    "Alpes Graiae et Poeninae",
+    "Alpes Graiae et Poeninae"
+  ],
+  "Parthia": [
     "Alpes Maritimae",
     "Aquitania",
-    "Arabia",
+    "Arabia"
+  ],
+  "Germanics": [
     "Armenia Mesopotamia",
     "Asia",
-    "Baetica",
+    "Baetica"
+  ],
+  "Greece": [
     "Belgica",
     "Bithynia et Pontus",
-    "Britannia",
+    "Britannia"
+  ],
+  "Macedonia": [
     "Cilicia",
     "Creta et Cyrene",
-    "Cyprus",
+    "Cyprus"
+  ],
+  "Thracia": [
     "Dacia",
     "Dalmatia",
-    "Galatia et Cappadocia",
+    "Galatia et Cappadocia"
+  ],
+  "Dacia": [
     "Germania Inferior",
     "Germania Superior",
     "I",

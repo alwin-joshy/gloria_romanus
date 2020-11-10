@@ -77,6 +77,8 @@ public class GloriaRomanusController {
 
   private FeatureLayer featureLayer_provinces;
 
+  private Game game;
+
   @FXML
   private void initialize() throws JsonParseException, JsonMappingException, IOException {
     // TODO = you should rely on an object oriented design to determine ownership
@@ -177,7 +179,7 @@ public class GloriaRomanusController {
         org.geojson.Point p = (org.geojson.Point) f.getGeometry();
         LngLatAlt coor = p.getCoordinates();
         Point curPoint = new Point(coor.getLongitude(), coor.getLatitude(), SpatialReferences.getWgs84());
-        PictureMarkerSymbol s = null;
+        // PictureMarkerSymbol s = null;
         String province = (String) f.getProperty("name");
         String faction = provinceToOwningFactionMap.get(province);
 
@@ -185,27 +187,29 @@ public class GloriaRomanusController {
             faction + "\n" + province + "\n" + provinceToNumberTroopsMap.get(province), 0xFFFF0000,
             HorizontalAlignment.CENTER, VerticalAlignment.BOTTOM);
 
-        switch (faction) {
-          case "Gaul":
-            // note can instantiate a PictureMarkerSymbol using the JavaFX Image class - so could
-            // construct it with custom-produced BufferedImages stored in Ram
-            // http://jens-na.github.io/2013/11/06/java-how-to-concat-buffered-images/
-            // then you could convert it to JavaFX image https://stackoverflow.com/a/30970114
+        // switch (faction) {
+        //   case "Gaul":
+        //     // note can instantiate a PictureMarkerSymbol using the JavaFX Image class - so could
+        //     // construct it with custom-produced BufferedImages stored in Ram
+        //     // http://jens-na.github.io/2013/11/06/java-how-to-concat-buffered-images/
+        //     // then you could convert it to JavaFX image https://stackoverflow.com/a/30970114
 
-            // you can pass in a filename to create a PictureMarkerSymbol...
-            s = new PictureMarkerSymbol(new Image((new File("images/Celtic_Druid.png")).toURI().toString()));
-            break;
-          case "Rome":
-            // you can also pass in a javafx Image to create a PictureMarkerSymbol (different to BufferedImage)
-            s = new PictureMarkerSymbol("images/legionary.png");
-            break;
-          // TODO = handle all faction names, and find a better structure...
-        }
+        //     // you can pass in a filename to create a PictureMarkerSymbol...
+        //     s = new PictureMarkerSymbol(new Image((new File("images/Celtic_Druid.png")).toURI().toString()));
+        //     break;
+        //   case "Rome":
+        //     // you can also pass in a javafx Image to create a PictureMarkerSymbol (different to BufferedImage)
+        //     s = new PictureMarkerSymbol("images/legionary.png");
+        //     break;
+        //   // TODO = handle all faction names, and find a better structure...
+        // }
         t.setHaloColor(0xFFFFFFFF);
         t.setHaloWidth(2);
-        Graphic gPic = new Graphic(curPoint, s);
+        // System.out.println(curPoint);
+        // System.out.println(s);
+        // Graphic gPic = new Graphic(curPoint, s);
         Graphic gText = new Graphic(curPoint, t);
-        graphicsOverlay.getGraphics().add(gPic);
+        // graphicsOverlay.getGraphics().add(gPic);
         graphicsOverlay.getGraphics().add(gText);
       } else {
         System.out.println("Non-point geo json object in file");
@@ -351,6 +355,10 @@ public class GloriaRomanusController {
 
   private void printMessageToTerminal(String message){
     output_terminal.appendText(message+"\n");
+  }
+
+  public void setGame(Game game) {
+    this.game = game;
   }
 
   /**

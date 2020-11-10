@@ -25,7 +25,9 @@ public class SelectFactionsScreen {
         scene = new Scene(root, 800, 700);
     }
 
-    public void start() {
+    public void start(BattleResolver br, AI ai) {
+        controller.setBattleResolver(br);
+        controller.setAI(ai);
         stage.setTitle(title);
         stage.setScene(scene);
         stage.show();
