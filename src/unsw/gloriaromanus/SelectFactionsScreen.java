@@ -17,7 +17,7 @@ public class SelectFactionsScreen {
     public SelectFactionsScreen(Stage stage) throws IOException {
         this.stage = stage;
         title = "New Game";
-        Font.loadFont(SelectFactionsScreen.class.getResource("Roman_SD.ttf").toExternalForm(), 10);
+        Font.loadFont(SelectFactionsScreen.class.getResource("Roman SD.ttf").toExternalForm(), 10);
         controller = new SelectFactionsController();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("selectFactions.fxml"));
         loader.setController(controller);
