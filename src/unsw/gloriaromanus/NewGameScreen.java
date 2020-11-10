@@ -5,6 +5,7 @@ import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class NewGameScreen {
@@ -17,6 +18,7 @@ public class NewGameScreen {
         this.stage = stage;
         title = "New Game";
         controller = new NewGameController();
+        Font.loadFont(getClass().getResourceAsStream("Roman SD.ttf"), 10);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("newGame.fxml"));
         loader.setController(controller);
         Parent root = loader.load();

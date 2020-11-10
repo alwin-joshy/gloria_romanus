@@ -5,6 +5,7 @@ import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class MainMenuScreen {
@@ -16,7 +17,7 @@ public class MainMenuScreen {
     public MainMenuScreen(Stage stage) throws IOException {
         this.stage = stage;
         title = "Main Menu";
-
+        Font.loadFont(getClass().getResourceAsStream("Roman SD.ttf"), 10);
         controller = new MainMenuController();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("mainMenu.fxml"));
         loader.setController(controller);

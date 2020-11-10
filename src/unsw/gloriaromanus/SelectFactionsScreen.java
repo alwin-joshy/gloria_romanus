@@ -5,6 +5,7 @@ import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class SelectFactionsScreen {
@@ -16,6 +17,7 @@ public class SelectFactionsScreen {
     public SelectFactionsScreen(Stage stage) throws IOException {
         this.stage = stage;
         title = "New Game";
+        Font.loadFont(SelectFactionsScreen.class.getResource("Roman_SD.ttf").toExternalForm(), 10);
         controller = new SelectFactionsController();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("selectFactions.fxml"));
         loader.setController(controller);

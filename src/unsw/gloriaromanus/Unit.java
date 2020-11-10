@@ -1,17 +1,12 @@
 package unsw.gloriaromanus;
 
-import java.io.IOException;
 import java.io.Serializable;
 
 import java.lang.Math;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Random;
 
 import org.json.JSONObject;
-
-import javafx.geometry.Side;
 
 public class Unit implements Serializable, Project {
     private String name;

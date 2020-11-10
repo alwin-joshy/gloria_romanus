@@ -18,7 +18,7 @@
             <Font name="Roman SD" size="28.0" />
          </font>
       </SplitMenuButton>
-      <Label layoutX="165.0" layoutY="60.0" text="New Game" textFill="#cd9630">
+      <Label layoutX="165.0" layoutY="60.0" styleClass="allText" stylesheets="@a.css" text="NEW GAME" textFill="#cd9630">
          <font>
             <Font name="Roman SD" size="70.0" />
          </font>

@@ -8,7 +8,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="47.0" layoutY="50.0" text="Select Factions" textFill="#cd9630">
+      <Label layoutX="47.0" layoutY="50.0" styleClass="allText" stylesheets="@a.css" text="Select Factions" textFill="#cd9630">
          <font>
             <Font name="Roman SD" size="70.0" />
          </font>
@@ -37,11 +37,11 @@
          <font>
             <Font name="Roman SD" size="18.0" />
          </font></Label>
-      <Label layoutX="440.0" layoutY="243.0" text="Gaul">
+      <Label layoutX="440.0" layoutY="243.0" styleClass="allText" stylesheets="@a.css" text="Gaul">
          <font>
             <Font name="Roman SD" size="18.0" />
          </font></Label>
-      <Label layoutX="542.0" layoutY="243.0" text="Celtic Britons">
+      <Label layoutX="542.0" layoutY="243.0" styleClass="allText" stylesheets="@a.css" text="Celtic Britons">
          <font>
             <Font name="Roman SD" size="18.0" />
          </font></Label>
@@ -93,12 +93,12 @@
          <font>
             <Font name="Roman SD" size="18.0" />
          </font></Label>
-      <Button fx:id="mainMenuButton" layoutX="14.0" layoutY="638.0" mnemonicParsing="false" onAction="#handleMainMenuButton" text="Main Menu">
+      <Button fx:id="mainMenuButton" layoutX="14.0" layoutY="638.0" mnemonicParsing="false" onAction="#handleMainMenuButton" text="MAIN MENU">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font>
       </Button>
-      <Button fx:id="startGameButton" layoutX="540.0" layoutY="638.0" mnemonicParsing="false" onAction="#handleStartGameButton" text="start game">
+      <Button fx:id="startGameButton" layoutX="540.0" layoutY="638.0" mnemonicParsing="false" onAction="#handleStartGameButton" text="START GAME">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font>
