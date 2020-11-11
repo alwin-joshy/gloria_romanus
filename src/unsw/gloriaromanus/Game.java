@@ -20,6 +20,7 @@ import org.json.JSONObject;
 public class Game implements Serializable{
 
     private ArrayList<Faction> factions;
+    private ArrayList<Province> provinces;
     private static Map<String, Map<String, Integer>> adjacentProvinces;
     private int currentYear;
     private boolean isRunning;
@@ -34,6 +35,7 @@ public class Game implements Serializable{
 
     public Game(BattleResolver br, AI ai) {
         factions = new ArrayList<Faction>();
+        provinces = new ArrayList<Province>();
         adjacentProvinces = new HashMap<String, Map<String, Integer>>();
         toRecalculateBonuses = new HashMap<String, Boolean>();
         currentYear = -200;
@@ -110,12 +112,41 @@ public class Game implements Serializable{
         }
         curr.updateAllProjects();
         curr.collectTax();
+        for (Province p : curr.checkForRevolt()) {
+            revolt(p);
+        }
         if (currentVictoryCondition.checkVictory(curr)) {
             endGame();
         }
         if (! curr.isPlayer()) {
             endTurn();
         }
+    }
+
+    public void revolt(Province p) {
+        Map<String, Integer> adjacentToP = adjacentProvinces.get(p.getName());
+        ArrayList<Faction> transferTo = new ArrayList<Faction>();
+        Faction curr = factions.get(currentFaction);
+        for (String name : adjacentToP.keySet()) {
+            if (curr.ownsProvince(name)) continue;
+            Province adjProvince = getProvince(name);
+            transferTo.add(adjProvince.getFaction());
+        }
+        Faction to;
+        if (transferTo.size() == 0) {
+            to = getFaction("rebel");
+        } else {
+            Random r = new Random();
+            to = transferTo.get(r.nextInt(transferTo.size()));
+        }
+        transferProvinceOwnership(p.getFaction(), to, p);
+    }
+
+
+    public static void transferProvinceOwnership(Faction from, Faction to, Province p) {
+        from.removeProvince(p);
+        to.addProvince(p);
+        p.setFaction(to);
     }
 
     public void playAI() {
@@ -146,11 +177,12 @@ public class Game implements Serializable{
         for (String key : initialOwnership.keySet()) {
             Faction f = new Faction(key);
             factions.add(f);
-            JSONArray provinces = initialOwnership.getJSONArray(key);
-            for (int i = 0; i < provinces.length(); i++) {
-                Province p = new Province(provinces.getString(i), f, bo);
+            JSONArray provincesJSON = initialOwnership.getJSONArray(key);
+            for (int i = 0; i < provincesJSON.length(); i++) {
+                Province p = new Province(provincesJSON.getString(i), f, bo);
                 isLandlocked(landlocked, p);
                 f.addProvince(p);
+                provinces.add(p);
             }
         }
     }
@@ -407,6 +439,13 @@ public class Game implements Serializable{
 
     public void setBRSeed(int seed) {
         br.setSeed(seed);
+    }
+
+    public Province getProvince(String name) {
+        for (Province p : provinces) {
+            if (name.equals(p.getName())) return p;
+        }
+        return null;
     }
 
     // public static void main(String[] args) {

@@ -41,7 +41,6 @@ public class Province implements Serializable {
         currentSmithLevel = new SmithLevelZero();
         taxPublicOrderDebuff = 0.3;
         unitPublicOrderDebuff = 0;
-
     }
 
     public String getName() {
@@ -88,6 +87,20 @@ public class Province implements Serializable {
 
     double getPublicOrder() {
         return 1 - taxPublicOrderDebuff - unitPublicOrderDebuff + getTownHallBuff();
+    }
+
+    private double getTownHallBuff() {
+        if (getTownHall() != null) {
+            return getTownHall().getBuff();
+        }
+        return 0;
+    }
+
+    private TownHall getTownHall() {
+        for (Infrastructure inf : infrastructure) {
+            if (inf instanceof TownHall) return (TownHall) inf;
+        }
+        return null;
     }
 
     public int applyTax() {
@@ -137,10 +150,6 @@ public class Province implements Serializable {
         return true;
     }
 
-    public double getTownHallBuff() {
-        return 0;
-    }
-
     public void updateProjects() {
         ArrayList<ProjectDetails> toRemove = new ArrayList<ProjectDetails>();
         for (ProjectDetails project : projects) {
@@ -159,6 +168,8 @@ public class Province implements Serializable {
                         buildingObserver.update(faction);
                     } else if (inf instanceof Smith) {
                         currentSmithLevel.nextLevel(this);
+                    } else if (inf instanceof TownHall) {
+                        checkRevoltStatus();
                     }
                     //  else if (inf instanceof TownHall) {
                     //     checkRevoltStatus();

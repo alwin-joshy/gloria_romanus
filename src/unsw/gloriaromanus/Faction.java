@@ -2,6 +2,7 @@ package unsw.gloriaromanus;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Faction implements Serializable {
     
@@ -63,6 +64,13 @@ public class Faction implements Serializable {
         for (Province p : alliedProvinces) {
             treasury += p.applyTax();
         }
+    }
+
+    public boolean ownsProvince(String name) {
+        for (Province p : alliedProvinces) {
+            if (name.equals(p.getName())) return true;
+        }
+        return false;
     }
 
     public void calculateMineMultiplier() {
@@ -194,6 +202,18 @@ public class Faction implements Serializable {
         mightRevolt.remove(p);
     }
 
+    public ArrayList<Province> checkForRevolt() {
+        Random r = new Random();
+        ArrayList<Province> revoltingProvinces = new ArrayList<Province>();
+        for (Province p : mightRevolt) {
+            if (r.nextDouble() < 0.10) {
+                revoltingProvinces.add(p);
+            }
+        }
+        return revoltingProvinces;
+    }
+
+
 
 
     @Override
@@ -210,6 +230,7 @@ public class Faction implements Serializable {
                 mineTurnReduction == f.getMineTurnReduction() && marketMultiplier == f.getMarketMultiplier()
                 && portBonus == f.getPortBonus());
     }
+
 
 }
 
