@@ -8,31 +8,30 @@ import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class GloriaRomanusScreen {
+public class PauseMenuScreen {
     private Stage stage;
     private String title;
-    private GloriaRomanusController controller;
+    private PauseMenuController controller;
     private Scene scene;
 
-    public GloriaRomanusScreen(Stage stage) throws IOException {
+    public PauseMenuScreen(Stage stage) throws IOException {
         this.stage = stage;
-        title = "Gloria Romanus";
+        title = "Pause Menu";
+        controller = new PauseMenuController();
         Font.loadFont(getClass().getResourceAsStream("Roman SD.ttf"), 10);
-        controller = new GloriaRomanusController();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("pauseMenu.fxml"));
+        loader.setController(controller);
         Parent root = loader.load();
-        controller = loader.getController();
         scene = new Scene(root, 800, 700);
     }
-    
+
     public void start() {
         stage.setTitle(title);
         stage.setScene(scene);
         stage.show();
     }
 
-    public GloriaRomanusController getController() {
+    public PauseMenuController getController() {
         return controller;
     }
-
 }

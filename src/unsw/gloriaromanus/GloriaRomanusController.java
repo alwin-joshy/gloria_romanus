@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -63,6 +64,8 @@ public class GloriaRomanusController {
   private TextField opponent_province;
   @FXML
   private TextArea output_terminal;
+  @FXML
+  private Button pauseButton;
 
   private ArcGISMap map;
 
@@ -76,6 +79,8 @@ public class GloriaRomanusController {
   private Feature currentlySelectedEnemyProvince;
 
   private FeatureLayer featureLayer_provinces;
+
+  private PauseMenuScreen pauseMenuScreen;
 
   private Game game;
 
@@ -131,6 +136,15 @@ public class GloriaRomanusController {
       }
 
     }
+  }
+
+  @FXML
+  private void handlePauseButton() {
+    pauseMenuScreen.start();
+  }
+
+  public void setPauseMenuScreen(PauseMenuScreen pauseMenuScreen) {
+    this.pauseMenuScreen = pauseMenuScreen;
   }
 
   /**

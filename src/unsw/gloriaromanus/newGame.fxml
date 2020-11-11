@@ -9,7 +9,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <SplitMenuButton fx:id="AISplitMenu" layoutX="144.0" layoutY="190.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="511.0" styleClass="allText" stylesheets="@a.css" text="SELECT AI LEVEL">
+      <SplitMenuButton fx:id="AISplitMenu" layoutX="103.0" layoutY="207.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="595.0" styleClass="allText" stylesheets="@a.css" text="SELECT AI LEVEL">
         <items>
           <MenuItem fx:id="simpleAIItem" mnemonicParsing="false" onAction="#handleSimpleAIItem" text="SIMPLE AI" />
           <MenuItem fx:id="standardAIItem" mnemonicParsing="false" onAction="#handleStandardAIItem" text="STANDARD AI" />
@@ -23,15 +23,15 @@
             <Font name="Roman SD" size="70.0" />
          </font>
       </Label>
-      <Button fx:id="mainMenuButton" layoutX="14.0" layoutY="638.0" mnemonicParsing="false" onAction="#handleMainMenuButton" text="Main Menu">
+      <Button fx:id="mainMenuButton" layoutX="14.0" layoutY="626.0" mnemonicParsing="false" onAction="#handleMainMenuButton" prefHeight="60.0" prefWidth="250.0" text="MAIN MENU">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font></Button>
-      <Button fx:id="selectFactionsButton" layoutX="235.0" layoutY="460.0" mnemonicParsing="false" onAction="#handleSelectFactionsButton" prefHeight="48.0" prefWidth="331.0" text="SELECT FACTIONS">
+      <Button fx:id="selectFactionsButton" layoutX="225.0" layoutY="461.0" mnemonicParsing="false" onAction="#handleSelectFactionsButton" prefHeight="60.0" prefWidth="350.0" text="SELECT FACTIONS">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font></Button>
-      <SplitMenuButton fx:id="BRSplitMenu" layoutX="144.0" layoutY="270.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="511.0" stylesheets="@a.css" text="SELECT BATTLE RESOLVER">
+      <SplitMenuButton fx:id="BRSplitMenu" layoutX="103.0" layoutY="320.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="595.0" stylesheets="@a.css" text="SELECT BATTLE RESOLVER">
          <items>
             <MenuItem fx:id="simpleBRItem" mnemonicParsing="false" onAction="#handleSimpleBRItem" text="SIMPLE BATTLE RESOLVER" />
             <MenuItem fx:id="standardBRItem" mnemonicParsing="false" onAction="#handleStandardBRItem" text="STANDARD BATTLE RESOLVER" />

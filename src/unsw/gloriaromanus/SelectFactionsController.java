@@ -40,7 +40,8 @@ public class SelectFactionsController {
     @FXML
     public void handleStartGameButton() {
         game.startGame();
-        gloriaRomanusScreen.start(game);
+        gloriaRomanusScreen.getController().setGame(game);
+        gloriaRomanusScreen.start();
     }
 
     public void initialize() throws FileNotFoundException {
