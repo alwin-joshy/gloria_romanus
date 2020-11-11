@@ -49,21 +49,65 @@ public class Game implements Serializable{
         this((BattleResolver) new StandardBattleResolver(0), (AI) new StandardAI());
     }
 
-    public void initialiseGame(JSONObject initialOwnership, JSONArray landlocked, JSONObject adjacencyMap) {
-        initialiseFactions(initialOwnership, landlocked, new BuildingObserver());
+    public void initialiseGame(JSONArray provinceList, JSONArray landlocked, JSONObject adjacencyMap) {
+        initialiseProvinces(provinceList, landlocked, new BuildingObserver(this));
         initialiseAdjacencyMatrix(adjacencyMap);
         Random r = new Random();
-        currentFaction = r.nextInt(factions.size());
         victories = new ArrayList<VictoryCondition>(Arrays.asList (new ConquestGoal(getNumProvinces()), new InfrastructureGoal(), 
                                                                     new WealthGoal(), new TreasuryGoal()));
         currentVictoryCondition = generateVictoryCondition();
     }
+
+    public void initialiseProvinces(JSONArray provinceList, JSONArray landlocked, BuildingObserver bo) {
+        for (int i = 0 ; i < provinceList.length(); i++) {
+            Province p = new Province(provinceList.getString(i), bo);
+            isLandlocked(landlocked, p);
+            provinces.add(p);
+        }
+    }
+
+    public void selectFations(ArrayList<String> factionNames) {
+        for (String name : factionNames) {
+            Faction f = new Faction(name);
+            factions.add(f);
+        }
+        distributeFactions();
+    }
+
+    public void distributeFactions() {
+        ArrayList<Province> toDistribute = (ArrayList<Province>) provinces.clone();
+        Random r = new Random();
+        int i = 0;
+        while (toDistribute.size() != 0) {
+            Province p = toDistribute.get(r.nextInt(toDistribute.size()));
+            factions.get(i % factions.size()).addProvince(p);
+            p.setFaction(factions.get(i % factions.size()));
+            toDistribute.remove(p);
+            i++;
+        }
+    }
+
+    // public void initialiseFactions(JSONObject initialOwnership, JSONArray landlocked, BuildingObserver bo) {
+    //     for (String key : initialOwnership.keySet()) {
+    //         Faction f = new Faction(key);
+    //         factions.add(f);
+    //         JSONArray provincesJSON = initialOwnership.getJSONArray(key);
+    //         for (int i = 0; i < provincesJSON.length(); i++) {
+    //             Province p = new Province(provincesJSON.getString(i), f, bo);
+    //             isLandlocked(landlocked, p);
+    //             f.addProvince(p);
+    //             provinces.add(p);
+    //         }
+    //     }
+    // }
 
     public void startGame() {
         for (BattleObserver bo : br.getBattleObservers()) {
             bo.setGame(this);
         }
         br.getBuildingObserver().setGame(this);
+        Random r = new Random();
+        currentFaction = r.nextInt(factions.size());
         factions.get(currentFaction).collectTax();
         isRunning = true;
         if (!factions.get(currentFaction).isPlayer()) {
@@ -170,20 +214,6 @@ public class Game implements Serializable{
         }
         if (currentVictoryCondition.checkVictory(curr)) {
             endGame(); 
-        }
-    }
-
-    public void initialiseFactions(JSONObject initialOwnership, JSONArray landlocked, BuildingObserver bo) {
-        for (String key : initialOwnership.keySet()) {
-            Faction f = new Faction(key);
-            factions.add(f);
-            JSONArray provincesJSON = initialOwnership.getJSONArray(key);
-            for (int i = 0; i < provincesJSON.length(); i++) {
-                Province p = new Province(provincesJSON.getString(i), f, bo);
-                isLandlocked(landlocked, p);
-                f.addProvince(p);
-                provinces.add(p);
-            }
         }
     }
 

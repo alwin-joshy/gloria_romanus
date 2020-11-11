@@ -23,9 +23,9 @@ public class Province implements Serializable {
     private double taxPublicOrderDebuff;
     private double unitPublicOrderDebuff;
 
-    public Province(String name, Faction faction, BuildingObserver buildingObserver) {
+    public Province(String name, BuildingObserver buildingObserver) {
         this.name = name;
-        this.faction = faction;
+        this.faction = null;
         this.buildingObserver = buildingObserver;
         units = new ArrayList<Unit>();
         infrastructure = new ArrayList<Infrastructure>();
