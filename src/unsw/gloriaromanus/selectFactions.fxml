@@ -15,12 +15,12 @@
             <Font name="Roman SD" size="70.0" />
          </font>
       </Label>
-      <Button fx:id="mainMenuButton" layoutX="14.0" layoutY="638.0" mnemonicParsing="false" onAction="#handleMainMenuButton" text="MAIN MENU">
+      <Button fx:id="mainMenuButton" layoutX="14.0" layoutY="626.0" mnemonicParsing="false" onAction="#handleMainMenuButton" prefHeight="60.0" prefWidth="250.0" text="MAIN MENU">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font>
       </Button>
-      <Button fx:id="startGameButton" layoutX="540.0" layoutY="638.0" mnemonicParsing="false" onAction="#handleStartGameButton" text="START GAME">
+      <Button fx:id="startGameButton" layoutX="536.0" layoutY="626.0" mnemonicParsing="false" onAction="#handleStartGameButton" prefHeight="60.0" prefWidth="250.0" text="START GAME">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font>

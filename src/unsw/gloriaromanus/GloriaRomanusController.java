@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -79,6 +80,8 @@ public class GloriaRomanusController {
 
   private FeatureLayer featureLayer_provinces;
 
+  private PauseMenuScreen pauseMenuScreen;
+
   private Game game;
 
   @FXML
@@ -137,7 +140,11 @@ public class GloriaRomanusController {
 
   @FXML
   private void handlePauseButton() {
-    pauseScreen.start();
+    pauseMenuScreen.start();
+  }
+
+  public void setPauseMenuScreen(PauseMenuScreen pauseMenuScreen) {
+    this.pauseMenuScreen = pauseMenuScreen;
   }
 
   /**

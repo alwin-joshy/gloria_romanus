@@ -25,8 +25,7 @@ public class GloriaRomanusScreen {
         scene = new Scene(root, 800, 700);
     }
     
-    public void start(Game game) {
-        controller.setGame(game);
+    public void start() {
         stage.setTitle(title);
         stage.setScene(scene);
         stage.show();

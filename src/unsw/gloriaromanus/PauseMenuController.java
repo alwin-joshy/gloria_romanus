@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 
 public class PauseMenuController {
     private GloriaRomanusScreen gloriaRomanusScreen;
+    private MainMenuScreen mainMenuScreen;
 
     @FXML
     private Button resumeButton;
@@ -21,7 +22,7 @@ public class PauseMenuController {
 
     @FXML
     private void handleResumeButton() {
-
+        gloriaRomanusScreen.start();
     }
 
     @FXML
@@ -31,7 +32,7 @@ public class PauseMenuController {
 
     @FXML
     private void handleMainMenuButton() {
-
+        mainMenuScreen.start();
     }
 
     @FXML
@@ -43,5 +44,9 @@ public class PauseMenuController {
 
     public void setGloriaRomanusScreen(GloriaRomanusScreen gloriaRomanusScreen) {
         this.gloriaRomanusScreen = gloriaRomanusScreen;
+    }
+
+    public void setMainMenuScreen(MainMenuScreen mainMenuScreen) {
+        this.mainMenuScreen = mainMenuScreen;
     }
 }
