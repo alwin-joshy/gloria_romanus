@@ -101,6 +101,7 @@ public class Game implements Serializable{
             toDistribute.remove(p);
             i++;
         }
+        generateInitialOwnership();
     }
 
     public void generateInitialOwnership() {
@@ -116,6 +117,7 @@ public class Game implements Serializable{
         try {
             BufferedWriter bw = new BufferedWriter( new FileWriter("initial_province_ownership.json", false));
             bw.write(ownership.toString());
+            bw.close();
         } catch (IOException e) {
             System.out.println("Could not create initial ownership file. Exiting...");
             System.exit(1);
