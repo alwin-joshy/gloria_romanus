@@ -20,6 +20,8 @@ public class Province implements Serializable {
     private Boolean isSeaProvince;
     private BuildingObserver buildingObserver;
     private SmithLevel currentSmithLevel;
+    private double taxPublicOrderDebuff;
+    private double unitPublicOrderDebuff;
 
     public Province(String name, Faction faction, BuildingObserver buildingObserver) {
         this.name = name;
@@ -37,6 +39,8 @@ public class Province implements Serializable {
         unitTrainingLimit = 1;
         isSeaProvince = true;
         currentSmithLevel = new SmithLevelZero();
+        taxPublicOrderDebuff = 0.3;
+        unitPublicOrderDebuff = 0;
     }
 
     public String getName() {
@@ -48,23 +52,55 @@ public class Province implements Serializable {
             case "low" :
                 tax.setRate(0.10);
                 tax.setWealthGrowthDelta(10);
+                taxPublicOrderDebuff = 0.15;
                 break;
             case "normal" :
                 tax.setRate(0.15);
                 tax.setWealthGrowthDelta(0);
+                taxPublicOrderDebuff = 0.3;
                 break;
             case "high" :
                 tax.setRate(0.20);
                 tax.setWealthGrowthDelta(-10);
+                taxPublicOrderDebuff = 0.4;
                 break;
             case "very high" :
                 tax.setRate(0.25);
                 tax.setWealthGrowthDelta(-30);
+                taxPublicOrderDebuff = 0.55;
                 break;
             default:
                 System.out.println("Fatal error. Exiting...");
                 System.exit(1);
         }
+        checkRevoltStatus();
+    }
+
+    public void checkRevoltStatus() {
+        double publicOrder = getPublicOrder();
+        if ( publicOrder < 0.3 && ! faction.couldRevolt(this)) {
+            faction.addPossibleRevolt(this);
+        } else if (publicOrder >= 0.3 && faction.couldRevolt(this)) {
+            faction.removePossibleRevolt(this);
+        }
+    }
+
+    double getPublicOrder() {
+        return 1 - taxPublicOrderDebuff - unitPublicOrderDebuff + getTownHallBuff();
+    }
+
+    private double getTownHallBuff() {
+        if (getTownHall() != null) {
+            return getTownHall().getBuff();
+        }
+        return 0;
+    }
+
+    private TownHall getTownHall() {
+        for (Infrastructure inf : infrastructure) {
+            if (inf instanceof TownHall) return (TownHall) inf;
+        }
+        return null;
     }
 
     public int applyTax() {
@@ -132,11 +168,18 @@ public class Province implements Serializable {
                         buildingObserver.update(faction);
                     } else if (inf instanceof Smith) {
                         currentSmithLevel.nextLevel(this);
+                    } else if (inf instanceof TownHall) {
+                        checkRevoltStatus();
                     }
+                    //  else if (inf instanceof TownHall) {
+                    //     checkRevoltStatus();
+                    // }
                 } else {
                     units.add((Unit) p);
                     ((Unit) p).setSmithLevel(currentSmithLevel);
                     unitsInTraining--;
+                    unitPublicOrderDebuff += 0.03;
+                    checkRevoltStatus();
                 }
                 toRemove.add(project);
             }

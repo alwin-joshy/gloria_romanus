@@ -2,6 +2,7 @@ package unsw.gloriaromanus;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Faction implements Serializable {
     
@@ -14,6 +15,7 @@ public class Faction implements Serializable {
     private Double marketMultiplier;
     private int portBonus;
     private double legionaryDebuff;
+    private ArrayList<Province> mightRevolt;
 
     public Faction(String name) {
         this.name = name;
@@ -25,6 +27,7 @@ public class Faction implements Serializable {
         mineTurnReduction = 0;
         portBonus = 0;
         legionaryDebuff = 0;
+        mightRevolt = new ArrayList<Province>();
     }
 
     public void increaseTreasury(int gold) {
@@ -61,6 +64,13 @@ public class Faction implements Serializable {
         for (Province p : alliedProvinces) {
             treasury += p.applyTax();
         }
+    }
+
+    public boolean ownsProvince(String name) {
+        for (Province p : alliedProvinces) {
+            if (name.equals(p.getName())) return true;
+        }
+        return false;
     }
 
     public void calculateMineMultiplier() {
@@ -180,6 +190,32 @@ public class Faction implements Serializable {
         treasury = gold;
     }
 
+    public boolean couldRevolt(Province p) {
+        return mightRevolt.contains(p);
+    }
+
+    public void addPossibleRevolt(Province p) {
+        mightRevolt.add(p);
+    }
+
+    public void removePossibleRevolt(Province p) {
+        mightRevolt.remove(p);
+    }
+
+    public ArrayList<Province> checkForRevolt() {
+        Random r = new Random();
+        ArrayList<Province> revoltingProvinces = new ArrayList<Province>();
+        for (Province p : mightRevolt) {
+            if (r.nextDouble() < 0.10) {
+                revoltingProvinces.add(p);
+            }
+        }
+        return revoltingProvinces;
+    }
+
+
+
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
@@ -194,6 +230,7 @@ public class Faction implements Serializable {
                 mineTurnReduction == f.getMineTurnReduction() && marketMultiplier == f.getMarketMultiplier()
                 && portBonus == f.getPortBonus());
     }
+
 
 }
 

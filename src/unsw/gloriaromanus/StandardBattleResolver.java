@@ -72,10 +72,8 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
 
         if (defendingArmy.size() == 0 && attackingArmy.size() != 0) {
             Faction defendingTemp = defending.getFaction();
-            transferProvinceOwnership(defending.getFaction(), attacking.getFaction(), defending);
-            for (Unit u : routedAttackers) {
-                defending.addUnit(u);
-            }
+            Game.transferProvinceOwnership(defending.getFaction(), attacking.getFaction(), defending);
+            attackingArmy.addAll(routedAttackers);
             if (attacking.getFaction().getName().equals("Roman")) {
                 defending.resetLegionaryDeaths();
             }
@@ -85,9 +83,10 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
             return true;
         } else {
             defending.resetLegionaryDeaths();
-            for (Unit u : routedAttackers) {
+            for( Unit u : routedAttackers) {
                 attacking.addUnit(u);
             }
+            attackingArmy.addAll(routedAttackers);
             return false;
         }
     }
@@ -277,12 +276,6 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
             rangedEngagement = r.nextDouble() <= rangedThreshold ? true : false;
         }
         return rangedEngagement;
-    }
-
-    private void transferProvinceOwnership(Faction from, Faction to, Province p) {
-        from.removeProvince(p);
-        to.addProvince(p);
-        p.setFaction(to);
     }
 
     public ArrayList<BattleObserver> getBattleObservers() {
