@@ -17,6 +17,7 @@ public class GloriaRomanusApplication extends Application {
     LoadGameScreen loadGameScreen = new LoadGameScreen(stage);
     SelectFactionsScreen selectFactionsScreen = new SelectFactionsScreen(stage);
     GloriaRomanusScreen gloriaRomanusScreen = new GloriaRomanusScreen(stage);
+    PauseMenuScreen pauseMenuScreen = new PauseMenuScreen(stage);
 
     mainMenuController = mainMenuScreen.getController();
     controller = gloriaRomanusScreen.getController();
@@ -32,6 +33,8 @@ public class GloriaRomanusApplication extends Application {
 
     selectFactionsScreen.getController().setMainMenuScreen(mainMenuScreen);
     selectFactionsScreen.getController().setGloriaRomanusScreen(gloriaRomanusScreen);
+
+    pauseMenuScreen.getController().setGloriaRomanusScreen(gloriaRomanusScreen);
 
     mainMenuScreen.start();
   }

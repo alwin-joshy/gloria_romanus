@@ -63,6 +63,8 @@ public class GloriaRomanusController {
   private TextField opponent_province;
   @FXML
   private TextArea output_terminal;
+  @FXML
+  private Button pauseButton;
 
   private ArcGISMap map;
 
@@ -131,6 +133,11 @@ public class GloriaRomanusController {
       }
 
     }
+  }
+
+  @FXML
+  private void handlePauseButton() {
+    pauseScreen.start();
   }
 
   /**
