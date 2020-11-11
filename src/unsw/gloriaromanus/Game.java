@@ -52,11 +52,25 @@ public class Game implements Serializable{
     public void initialiseGame(JSONArray provinceList, JSONArray landlocked, JSONObject adjacencyMap) {
         initialiseProvinces(provinceList, landlocked, new BuildingObserver(this));
         initialiseAdjacencyMatrix(adjacencyMap);
-        Random r = new Random();
         victories = new ArrayList<VictoryCondition>(Arrays.asList (new ConquestGoal(getNumProvinces()), new InfrastructureGoal(), 
                                                                     new WealthGoal(), new TreasuryGoal()));
         currentVictoryCondition = generateVictoryCondition();
+        for (BattleObserver bo : br.getBattleObservers()) {
+            bo.setGame(this);
+        }
+        br.getBuildingObserver().setGame(this);
     }
+
+    public void startGame(ArrayList<String> selectedFactions) {
+        selectFations(selectedFactions);
+        Random r = new Random();
+        currentFaction = r.nextInt(factions.size());
+        factions.get(currentFaction).collectTax();
+        isRunning = true;
+        if (!factions.get(currentFaction).isPlayer()) {
+            endTurn();
+        }
+    } 
 
     public void initialiseProvinces(JSONArray provinceList, JSONArray landlocked, BuildingObserver bo) {
         for (int i = 0 ; i < provinceList.length(); i++) {
@@ -84,34 +98,6 @@ public class Game implements Serializable{
             p.setFaction(factions.get(i % factions.size()));
             toDistribute.remove(p);
             i++;
-        }
-    }
-
-    // public void initialiseFactions(JSONObject initialOwnership, JSONArray landlocked, BuildingObserver bo) {
-    //     for (String key : initialOwnership.keySet()) {
-    //         Faction f = new Faction(key);
-    //         factions.add(f);
-    //         JSONArray provincesJSON = initialOwnership.getJSONArray(key);
-    //         for (int i = 0; i < provincesJSON.length(); i++) {
-    //             Province p = new Province(provincesJSON.getString(i), f, bo);
-    //             isLandlocked(landlocked, p);
-    //             f.addProvince(p);
-    //             provinces.add(p);
-    //         }
-    //     }
-    // }
-
-    public void startGame() {
-        for (BattleObserver bo : br.getBattleObservers()) {
-            bo.setGame(this);
-        }
-        br.getBuildingObserver().setGame(this);
-        Random r = new Random();
-        currentFaction = r.nextInt(factions.size());
-        factions.get(currentFaction).collectTax();
-        isRunning = true;
-        if (!factions.get(currentFaction).isPlayer()) {
-            endTurn();
         }
     }
 
