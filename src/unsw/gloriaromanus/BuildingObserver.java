@@ -5,6 +5,14 @@ import java.io.Serializable;
 public class BuildingObserver implements Serializable {
     private Game g;
 
+    public BuildingObserver() {
+        g = null;
+    }
+
+    public BuildingObserver(Game g) {
+        this.g = g;
+    }
+
     public void setGame(Game g) {
         this.g = g;
     }
