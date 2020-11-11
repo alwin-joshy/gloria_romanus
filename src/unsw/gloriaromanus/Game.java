@@ -69,7 +69,7 @@ public class Game implements Serializable{
         if (!factions.get(currentFaction).isPlayer()) {
             endTurn();
         }
-    } 
+    }
 
     // Not sure if this is necessary
     public void selectBattleResolver(StandardBattleResolver br) {
