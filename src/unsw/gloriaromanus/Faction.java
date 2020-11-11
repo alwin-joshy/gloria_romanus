@@ -214,6 +214,9 @@ public class Faction implements Serializable {
     }
 
 
+    public ArrayList<Province> getAlliedProvinces() {
+        return alliedProvinces;
+    }
 
 
     @Override

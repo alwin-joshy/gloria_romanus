@@ -2,10 +2,12 @@ package unsw.gloriaromanus;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -98,6 +100,25 @@ public class Game implements Serializable{
             p.setFaction(factions.get(i % factions.size()));
             toDistribute.remove(p);
             i++;
+        }
+    }
+
+    public void generateInitialOwnership() {
+        JSONObject ownership = new JSONObject();
+        for (Faction f : factions) {
+            JSONArray ownedProvinces = new JSONArray();
+            for (Province p : f.getAlliedProvinces()) {
+                ownedProvinces.put(p.getName());
+            }
+            ownership.put(f.getName(), ownedProvinces);
+        }
+
+        try {
+            BufferedWriter bw = new BufferedWriter( new FileWriter("initial_province_ownership.json", false));
+            bw.write(ownership.toString());
+        } catch (IOException e) {
+            System.out.println("Could not create initial ownership file. Exiting...");
+            System.exit(1);
         }
     }
 
