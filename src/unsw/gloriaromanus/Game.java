@@ -83,6 +83,7 @@ public class Game implements Serializable{
     public void selectFations(ArrayList<String> factionNames) {
         for (String name : factionNames) {
             Faction f = new Faction(name);
+            f.setPlayer();
             factions.add(f);
         }
         distributeFactions();
