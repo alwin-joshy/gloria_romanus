@@ -22,16 +22,18 @@ public class PauseMenuController {
 
     @FXML
     private void handleResumeButton() {
+        gloriaRomanusScreen.getController().closePauseMenu();
         gloriaRomanusScreen.start();
     }
 
     @FXML
     private void handleSaveButton() {
-
+        gloriaRomanusScreen.getController().openSaveMenu();
     }
 
     @FXML
     private void handleMainMenuButton() {
+        gloriaRomanusScreen.getController().closePauseMenu();
         mainMenuScreen.start();
     }
 

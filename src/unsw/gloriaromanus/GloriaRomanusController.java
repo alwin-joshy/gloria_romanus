@@ -16,14 +16,18 @@ import java.util.Random;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 
 import com.esri.arcgisruntime.concurrent.ListenableFuture;
 import com.esri.arcgisruntime.data.FeatureTable;
@@ -66,6 +70,8 @@ public class GloriaRomanusController {
   private TextArea output_terminal;
   @FXML
   private Button pauseButton;
+  @FXML
+  private StackPane stack;
 
   private ArcGISMap map;
 
@@ -80,12 +86,54 @@ public class GloriaRomanusController {
 
   private FeatureLayer featureLayer_provinces;
 
-  private PauseMenuScreen pauseMenuScreen;
+  private StackPane transparentPane;
+
+  private Pane pauseMenu;
+  private Pane saveMenu;
+
+  private MainMenuScreen mainMenuScreen;
+  private GloriaRomanusScreen gloriaRomanusScreen;
+
+  private PauseMenuController pauseMenuController;
+  private SaveController saveController;
 
   private Game game;
 
+  public void setGloriaRomanusScreen(GloriaRomanusScreen gloriaRomanusScreen) {
+    this.gloriaRomanusScreen = gloriaRomanusScreen;
+  }
+
+  public PauseMenuController getPauseMenuController() {
+    return pauseMenuController;
+  }
+
+  public void closePauseMenu() {
+    stack.getChildren().remove(transparentPane);
+    transparentPane.getChildren().remove(pauseMenu);
+  }
+
+  public void openSaveMenu() {
+    transparentPane.getChildren().remove(pauseMenu);
+    transparentPane.getChildren().add(saveMenu);
+  }
+
   @FXML
-  private void initialize() throws JsonParseException, JsonMappingException, IOException {
+  private void initialize() throws IOException {
+    this.pauseMenuController = new PauseMenuController();
+    this.saveController = new SaveController(this);
+    transparentPane = new StackPane();
+
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("pauseMenu.fxml"));
+    loader.setController(pauseMenuController);
+    pauseMenu = loader.load();
+
+    loader = new FXMLLoader(getClass().getResource("save.fxml"));
+    loader.setController(saveController);
+    saveMenu = loader.load();
+    System.out.println("dfigboeig");
+  }
+
+  public void initialiseMap() throws JsonParseException, JsonMappingException, IOException {
     // TODO = you should rely on an object oriented design to determine ownership
     provinceToOwningFactionMap = getProvinceToOwningFactionMap();
 
@@ -140,11 +188,10 @@ public class GloriaRomanusController {
 
   @FXML
   private void handlePauseButton() {
-    pauseMenuScreen.start();
-  }
+    stack.getChildren().add(transparentPane);
+    transparentPane.getChildren().add(pauseMenu);
 
-  public void setPauseMenuScreen(PauseMenuScreen pauseMenuScreen) {
-    this.pauseMenuScreen = pauseMenuScreen;
+    //pauseMenuScreen.start();
   }
 
   /**
@@ -371,8 +418,13 @@ public class GloriaRomanusController {
     output_terminal.appendText(message+"\n");
   }
 
+  public void setMainMenuScreen(MainMenuScreen mainMenuScreen) {
+    this.mainMenuScreen = mainMenuScreen;
+  }
+
   public void setGame(Game game) {
     this.game = game;
+    saveController.setGame(game);
   }
 
   /**

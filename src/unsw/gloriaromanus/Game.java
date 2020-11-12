@@ -102,6 +102,7 @@ public class Game implements Serializable{
             toDistribute.remove(p);
             i++;
         }
+        generateInitialOwnership();
     }
 
     public void generateInitialOwnership() {
@@ -115,9 +116,9 @@ public class Game implements Serializable{
         }
 
         try {
-            BufferedWriter bw = new BufferedWriter( new FileWriter("initial_province_ownership.json", false));
-            bw.write(ownership.toString());
-            System.out.println("XD\nXD\n");
+            BufferedWriter bw = new BufferedWriter( new FileWriter("src/unsw/gloriaromanus/initial_province_ownership.json", false));
+            bw.write(ownership.toString(1));
+            bw.close();
         } catch (IOException e) {
             System.out.println("Could not create initial ownership file. Exiting...");
             System.exit(1);
@@ -256,27 +257,23 @@ public class Game implements Serializable{
 
     // Might also need to save AI and BattleResolver
 
-    public void saveGame(String filename) {
+    public void saveGame(String filename) throws IOException {
         FileOutputStream out;
-        try {
-            new File("saves").mkdirs();
-            out = new FileOutputStream("saves/" + filename);
-            ObjectOutputStream os = new ObjectOutputStream(out);
-            os.writeObject(adjacentProvinces);
-            os.writeObject(currentYear);
-            os.writeObject(factions);
-            os.writeObject(currentVictoryCondition);
-            os.writeObject(br);
-            os.writeInt(currentFaction);
-            os.writeBoolean(isRunning);
-            os.writeObject(movedUnits);
-            os.writeObject(toRecalculateBonuses);
-            os.writeObject(provincesInvadedThisTurn);
-            os.flush();
-            os.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        new File("saves").mkdirs();
+        out = new FileOutputStream("saves/" + filename);
+        ObjectOutputStream os = new ObjectOutputStream(out);
+        os.writeObject(adjacentProvinces);
+        os.writeObject(currentYear);
+        os.writeObject(factions);
+        os.writeObject(currentVictoryCondition);
+        os.writeObject(br);
+        os.writeInt(currentFaction);
+        os.writeBoolean(isRunning);
+        os.writeObject(movedUnits);
+        os.writeObject(toRecalculateBonuses);
+        os.writeObject(provincesInvadedThisTurn);
+        os.flush();
+        os.close();
     }
 
     public void loadGame(String filename) {

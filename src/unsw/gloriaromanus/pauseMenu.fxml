@@ -5,28 +5,29 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #f2f2f2; -fx-border-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="resumeButton" layoutX="230.0" layoutY="243.0" mnemonicParsing="false" onAction="#handleResumeButton" prefHeight="60.0" prefWidth="300.0" text="RESUME">
+      <Button fx:id="resumeButton" layoutX="200.0" layoutY="240.0" mnemonicParsing="false" onAction="#handleResumeButton" prefHeight="60.0" prefWidth="300.0" text="RESUME">
          <font>
             <Font name="Roman SD" size="28.0" />
-         </font></Button>
-      <Label layoutX="102.0" layoutY="51.0" text="GAME PAUSED" textFill="#cd9630">
+         </font>
+      </Button>
+      <Label layoutX="65.0" layoutY="51.0" text="GAME PAUSED" textFill="#cd9630">
          <font>
             <Font name="Roman SD" size="70.0" />
          </font>
       </Label>
-      <Button fx:id="saveButton" layoutX="230.0" layoutY="323.0" mnemonicParsing="false" onAction="#handleSaveButton" prefHeight="60.0" prefWidth="300.0" text="SAVE GAME">
+      <Button fx:id="saveButton" layoutX="200.0" layoutY="322.0" mnemonicParsing="false" onAction="#handleSaveButton" prefHeight="60.0" prefWidth="300.0" text="SAVE GAME">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font>
       </Button>
-      <Button fx:id="mainMenuButton" layoutX="230.0" layoutY="403.0" mnemonicParsing="false" onAction="#handleMainMenuButton" prefHeight="60.0" prefWidth="300.0" text="MAIN MENU">
+      <Button fx:id="mainMenuButton" layoutX="200.0" layoutY="402.0" mnemonicParsing="false" onAction="#handleMainMenuButton" prefHeight="60.0" prefWidth="300.0" text="MAIN MENU">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font>
       </Button>
-      <Button fx:id="exitGameButton" layoutX="230.0" layoutY="483.0" mnemonicParsing="false" onAction="#handleExitGameButton" prefHeight="60.0" prefWidth="300.0" text="EXIT GAME">
+      <Button fx:id="exitGameButton" layoutX="200.0" layoutY="482.0" mnemonicParsing="false" onAction="#handleExitGameButton" prefHeight="60.0" prefWidth="300.0" text="EXIT GAME">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font>

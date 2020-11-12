@@ -14,7 +14,7 @@
 
 <?import com.esri.arcgisruntime.mapping.view.MapView?>
 
-<StackPane stylesheets="/unsw/gloriaromanus/style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="unsw.gloriaromanus.GloriaRomanusController">
+<StackPane fx:id="stack" stylesheets="/unsw/gloriaromanus/style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="unsw.gloriaromanus.GloriaRomanusController">
     <MapView fx:id="mapView" />
     <VBox maxWidth="250" spacing="10" styleClass="panel-region" StackPane.alignment="TOP_LEFT">
         <padding>
