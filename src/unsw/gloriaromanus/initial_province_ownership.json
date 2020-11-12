@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
  "Egypt": [
   "Bithynia et Pontus",
   "Alpes Cottiae",
@@ -55,5 +56,63 @@
   "Moesia Inferior",
   "II",
   "Raetia"
+=======
+ "Germanics": [
+  "Pannonia Superior",
+  "Armenia Mesopotamia",
+  "Alpes Graiae et Poeninae",
+  "Asia",
+  "Thracia",
+  "Achaia",
+  "Moesia Inferior",
+  "Lycia et Pamphylia",
+  "Africa Proconsularis",
+  "Cilicia",
+  "I",
+  "Arabia",
+  "Britannia",
+  "Germania Inferior",
+  "Dalmatia",
+  "Lusitania",
+  "Aquitania",
+  "Alpes Cottiae",
+  "Germania Superior",
+  "Syria",
+  "III",
+  "Cyprus",
+  "Dacia",
+  "Narbonensis",
+  "Alpes Maritimae",
+  "X",
+  "Iudaea"
+ ],
+ "Dacia": [
+  "IX",
+  "IV",
+  "Tarraconensis",
+  "VI",
+  "Moesia Superior",
+  "Sicilia",
+  "Noricum",
+  "II",
+  "Sardinia et Corsica",
+  "Galatia et Cappadocia",
+  "Raetia",
+  "Pannonia Inferior",
+  "Bithynia et Pontus",
+  "VIII",
+  "VII",
+  "Baetica",
+  "Belgica",
+  "XI",
+  "Lugdunensis",
+  "V",
+  "Mauretania Caesariensis",
+  "Numidia",
+  "Mauretania Tingitana",
+  "Creta et Cyrene",
+  "Aegyptus",
+  "Macedonia"
+>>>>>>> 3325ab9f33545ed96ef27790b44dd6c3c812365d
  ]
 }
