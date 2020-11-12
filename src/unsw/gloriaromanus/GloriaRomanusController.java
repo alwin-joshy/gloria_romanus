@@ -113,6 +113,7 @@ public class GloriaRomanusController {
   }
 
   public void openSaveMenu() {
+    saveController.populateSaveList();
     transparentPane.getChildren().remove(pauseMenu);
     transparentPane.getChildren().add(saveMenu);
   }
@@ -135,7 +136,6 @@ public class GloriaRomanusController {
     loader = new FXMLLoader(getClass().getResource("save.fxml"));
     loader.setController(saveController);
     saveMenu = loader.load();
-    System.out.println("dfigboeig");
   }
 
   public void initialiseMap() throws JsonParseException, JsonMappingException, IOException {
