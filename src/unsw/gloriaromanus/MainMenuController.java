@@ -1,5 +1,10 @@
 package unsw.gloriaromanus;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Comparator;
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -24,6 +29,7 @@ public class MainMenuController {
 
     @FXML
     public void handleLoadGameButton() {
+        loadGameScreen.getController().populateSaveList();
         loadGameScreen.start();
     }
 
@@ -33,8 +39,20 @@ public class MainMenuController {
     }
 
     @FXML
-    public void handleContinueButton() {
+    public void handleContinueButton() throws IOException { 
         // load the most recent save into an instance of game and pass it to start
+        File savesDirectory = new File("saves");
+        File[] files = savesDirectory.listFiles();
+        if (files.length != 0) {
+            Arrays.sort(files, Comparator.comparingLong(File::lastModified).reversed());
+            File mostRecent = files[0];
+            System.out.println(mostRecent.getName());
+            Game g = new Game();
+            g.loadGame(mostRecent.getName());
+            gloriaRomanusScreen.getController().setGame(g);
+            gloriaRomanusScreen.getController().initialiseMap();
+            gloriaRomanusScreen.start();
+        }
     }
 
     @FXML

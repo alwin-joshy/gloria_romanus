@@ -76,6 +76,13 @@ public class SaveController {
     @FXML
     private void initialize() {
         instruction.setWrapText(true);
+
+        saveListView.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends ListCell<String>> ov, ListCell<String> old_val, ListCell<String> new_val) -> {
+            //System.out.println(saveName);
+            if (saveListView.getSelectionModel().getSelectedItem() != null){
+                saveName.setText(saveListView.getSelectionModel().getSelectedItem().getText());
+            }
+        });
     }
 
     public SaveController(GloriaRomanusController gloriaRomanusController) {
@@ -86,8 +93,8 @@ public class SaveController {
         DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd-MM-uuuu HHmm");
         saveName.setText(LocalDateTime.now().format(formatters));
         saveListView.getItems().clear();
-        File saves = new File("saves");
-        File[] savesList = saves.listFiles();
+        File savesDirectory = new File("saves");
+        File[] savesList = savesDirectory.listFiles();
         if (savesList != null) {
             for (File save : savesList) {
                 saveListView.getItems().add(newCell(save.getName()));
@@ -96,12 +103,6 @@ public class SaveController {
         // NEW INSTANCE (OF SELECTED ITEM) CREATED EACH TIME SAVE BUTTON IS PRESSED
         // maybe have to clear selection?
         // whjen we press save game it thinks the prev selected thing is being selected?
-        saveListView.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends ListCell<String>> ov, ListCell<String> old_val, ListCell<String> new_val) -> {
-            System.out.println(saveName);
-            System.out.println(saveListView.getSelectionModel().getSelectedItem());
-            if (saveListView.getSelectionModel().getSelectedItem() != null)
-                saveName.setText(saveListView.getSelectionModel().getSelectedItem().getText());
-        });
     }
 
     public void setGame(Game game) {
