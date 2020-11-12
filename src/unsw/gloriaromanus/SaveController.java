@@ -94,12 +94,13 @@ public class SaveController {
             }
         }
         // NEW INSTANCE (OF SELECTED ITEM) CREATED EACH TIME SAVE BUTTON IS PRESSED
-        // maybe havbe to clear selection?
+        // maybe have to clear selection?
         // whjen we press save game it thinks the prev selected thing is being selected?
         saveListView.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends ListCell<String>> ov, ListCell<String> old_val, ListCell<String> new_val) -> {
             System.out.println(saveName);
-            System.out.println(saveListView.getSelectionModel().getSelectedItem().getText());
-            saveName.setText(saveListView.getSelectionModel().getSelectedItem().getText());
+            System.out.println(saveListView.getSelectionModel().getSelectedItem());
+            if (saveListView.getSelectionModel().getSelectedItem() != null)
+                saveName.setText(saveListView.getSelectionModel().getSelectedItem().getText());
         });
     }
 
