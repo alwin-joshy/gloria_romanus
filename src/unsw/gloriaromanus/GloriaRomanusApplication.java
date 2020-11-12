@@ -29,6 +29,7 @@ public class GloriaRomanusApplication extends Application {
     newGameScreen.getController().setSelectFactionsScreen(selectFactionsScreen);
 
     loadGameScreen.getController().setMainMenuScreen(mainMenuScreen);
+    loadGameScreen.getController().setGloriaRomanusScreen(gloriaRomanusScreen);
 
     selectFactionsScreen.getController().setMainMenuScreen(mainMenuScreen);
     selectFactionsScreen.getController().setGloriaRomanusScreen(gloriaRomanusScreen);
