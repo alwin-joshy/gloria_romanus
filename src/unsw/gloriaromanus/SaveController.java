@@ -48,7 +48,8 @@ public class SaveController {
 
     @FXML
     private void handleBackButton() {
-
+        gloriaRomanusController.closeSaveMenu();
+        status.setText("");
     }
 
     @FXML

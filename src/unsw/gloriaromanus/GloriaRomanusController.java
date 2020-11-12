@@ -117,6 +117,11 @@ public class GloriaRomanusController {
     transparentPane.getChildren().add(saveMenu);
   }
 
+  public void closeSaveMenu() {
+    transparentPane.getChildren().remove(saveMenu);
+    transparentPane.getChildren().add(pauseMenu);
+  }
+
   @FXML
   private void initialize() throws IOException {
     this.pauseMenuController = new PauseMenuController();
