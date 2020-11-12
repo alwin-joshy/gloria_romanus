@@ -14,18 +14,27 @@
          <font>
             <Font name="Roman SD" size="12.0" />
          </font></Label>
-      <Button fx:id="saveButton" layoutX="349.0" layoutY="441.0" mnemonicParsing="false" onAction="#handleSaveButton" text="SAVE" />
+      <Button fx:id="saveButton" layoutX="371.0" layoutY="441.0" mnemonicParsing="false" onAction="#handleSaveButton" text="SAVE">
+         <font>
+            <Font name="Roman SD" size="13.0" />
+         </font></Button>
       <ListView layoutX="192.0" layoutY="165.0" prefHeight="206.0" prefWidth="200.0" />
       <Label layoutX="218.0" layoutY="136.0" text="CURRENT SAVE FILES">
          <font>
             <Font name="Roman SD" size="12.0" />
          </font></Label>
-      <Label fx:id="title" layoutX="67.0" layoutY="14.0" text="SAVE GAME">
+      <Label fx:id="title" layoutX="67.0" layoutY="14.0" text="SAVE GAME" textFill="#cd9630">
          <font>
             <Font name="Roman SD" size="70.0" />
          </font>
       </Label>
-      <Button fx:id="backButton" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#handleBackButton" text="BACK" />
-      <Label fx:id="status" layoutX="253.0" layoutY="453.0" prefHeight="17.0" prefWidth="79.0" />
+      <Button fx:id="backButton" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#handleBackButton" text="BACK">
+         <font>
+            <Font name="Roman SD" size="13.0" />
+         </font></Button>
+      <Label fx:id="status" layoutX="231.0" layoutY="473.0" prefHeight="17.0" prefWidth="135.0">
+         <font>
+            <Font name="Roman SD" size="13.0" />
+         </font></Label>
    </children>
 </Pane>
