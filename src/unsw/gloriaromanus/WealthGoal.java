@@ -6,4 +6,8 @@ public class WealthGoal implements VictoryCondition {
         return false;
     }
     
+    @Override
+    public String toString() {
+        return "WEALTH";
+    }
 }

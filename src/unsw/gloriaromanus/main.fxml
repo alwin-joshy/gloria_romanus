@@ -65,10 +65,10 @@
             <TextArea fx:id="output_terminal" editable="false" text="" />
         </VBox>
       <Button fx:id="manageProvinceButton" mnemonicParsing="false" onAction="#handleManageProvinceButton" text="MANAGE PROVINCE" />
-      <Button mnemonicParsing="false" text="CHECK VICTORY PROGRESS" />
+      <Button fx:id="victoryProgressButton" mnemonicParsing="false" onAction="#handleVictoryProgressButton" text="CHECK VICTORY PROGRESS" />
       <HBox prefHeight="79.0" prefWidth="230.0">
          <children>
-            <Button mnemonicParsing="false" text="UNITS">
+            <Button fx:id="unitsButton" mnemonicParsing="false" onAction="#handleUnitsButton" text="UNITS">
                <HBox.margin>
                   <Insets right="5.0" />
                </HBox.margin>

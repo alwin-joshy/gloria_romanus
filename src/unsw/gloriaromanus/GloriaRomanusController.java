@@ -90,6 +90,10 @@ public class GloriaRomanusController {
   private Button manageProvinceButton;
   @FXML
   private Button infrastructureButton;
+  @FXML
+  private Button victoryProgressButton;
+  @FXML
+  private Button unitsButton;
 
   private ArcGISMap map;
 
@@ -110,6 +114,8 @@ public class GloriaRomanusController {
   private Pane saveMenu;
   private Pane manageProvinceMenu;
   private Pane infrastructureMenu;
+  private Pane victoryProgressMenu;
+  private Pane unitsMenu;
 
   private MainMenuScreen mainMenuScreen;
   private GloriaRomanusScreen gloriaRomanusScreen;
@@ -118,8 +124,17 @@ public class GloriaRomanusController {
   private SaveController saveController;
   private ManageProvinceController manageProvinceController;
   private InfrastructureController infrastructureController;
+  private VictoryProgressController victoryProgressController;
+  private UnitsController unitsController;
 
   private Game game;
+
+  @FXML
+  private void handleVictoryProgressButton() {
+    stack.getChildren().add(transparentPane);
+    transparentPane.getChildren().add(victoryProgressMenu);
+    victoryProgressController.updateProgress(game);
+  }
 
   @FXML
   private void handleManageProvinceButton() {
@@ -179,6 +194,23 @@ public class GloriaRomanusController {
     stack.getChildren().remove(transparentPane);
     transparentPane.getChildren().remove(infrastructureMenu);
   }
+  
+  public void closeVictoryProgressMenu() {
+    stack.getChildren().remove(transparentPane);
+    transparentPane.getChildren().remove(victoryProgressMenu);
+  }
+
+  public void closeUnitsMenu() {
+    stack.getChildren().remove(transparentPane);
+    transparentPane.getChildren().remove(unitsMenu);
+  }
+
+  @FXML
+  public void handleUnitsButton() {
+    transparentPane.getChildren().add(unitsMenu);
+    stack.getChildren().add(transparentPane);
+    unitsController.setupUnitDetails(game.getProvince((String) currentlySelectedAlliedProvince.getAttributes().get("name")));
+  }
 
   @FXML
   private void initialize() throws IOException {
@@ -186,6 +218,11 @@ public class GloriaRomanusController {
     this.saveController = new SaveController(this);
     this.manageProvinceController = new ManageProvinceController(this);
     this.infrastructureController = new InfrastructureController(this);
+    this.victoryProgressController = new VictoryProgressController(this);
+    this.unitsController = new UnitsController(this);
+
+    manageProvinceButton.setDisable(true);
+    unitsButton.setDisable(true);
     transparentPane = new StackPane();
 
     FXMLLoader loader = new FXMLLoader(getClass().getResource("pauseMenu.fxml"));
@@ -203,6 +240,13 @@ public class GloriaRomanusController {
     loader = new FXMLLoader(getClass().getResource("infrastructure.fxml"));
     loader.setController(infrastructureController);
     infrastructureMenu = loader.load();
+    loader = new FXMLLoader(getClass().getResource("victoryProgress.fxml"));
+    loader.setController(victoryProgressController);
+    victoryProgressMenu = loader.load();
+
+    loader = new FXMLLoader(getClass().getResource("units.fxml"));
+    loader.setController(unitsController);
+    unitsMenu = loader.load();
   }
 
   public void initialiseMap() throws JsonParseException, JsonMappingException, IOException {
@@ -381,6 +425,8 @@ public class GloriaRomanusController {
       }
       invading_province.clear();
       opponent_province.clear();
+      manageProvinceButton.setDisable(true);
+      unitsButton.setDisable(true);
     });
 
     // https://developers.arcgis.com/java/latest/guide/identify-features.htm
@@ -427,6 +473,8 @@ public class GloriaRomanusController {
                   }
                   currentlySelectedAlliedProvince = f;
                   invading_province.setText(province);
+                  manageProvinceButton.setDisable(false);
+                  unitsButton.setDisable(false);
                 }
                 else{
                   if (currentlySelectedEnemyProvince != null){

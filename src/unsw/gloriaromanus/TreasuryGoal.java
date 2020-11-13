@@ -5,4 +5,9 @@ public class TreasuryGoal implements VictoryCondition {
         if (f.getTreasury() >= 100000) return true;
         return false; 
     }
+
+    @Override
+    public String toString() {
+        return "TREASURY";
+    }
 }

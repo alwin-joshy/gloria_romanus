@@ -5,4 +5,9 @@ public class InfrastructureGoal implements VictoryCondition {
         if (f.checkMaxedInfrastructure()) return true; 
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "INFRASTRUCTURE";
+    }
 }

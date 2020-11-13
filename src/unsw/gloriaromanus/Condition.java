@@ -15,8 +15,8 @@ public class Condition implements Goal {
         return condition.checkCondition(f);
     }
 
-    public void showGoal() {
-        System.out.print(condition + " ");
+    public String showGoal() {
+        return condition.toString() + " ";
     }
 
     public VictoryCondition getVictoryCondition() {

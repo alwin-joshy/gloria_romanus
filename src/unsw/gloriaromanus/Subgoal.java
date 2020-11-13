@@ -28,16 +28,17 @@ public class Subgoal implements Goal {
             return false;
     }
 
-    public void showGoal() {
+    public String showGoal() {
+        String goal = "";
         if (isAnd)
-            System.out.println("AND:");
+            goal += "AND:";
         else
-            System.out.println("OR:");
-        System.out.println(" ( ");
+            goal += "OR:";
+        goal += " ( ";
         for (Goal g : conditions) {
-            g.showGoal();
+            goal += g.showGoal();
         }
-        System.out.println("\n) ");
+        return goal + ") ";
     }
 
     public Goal getNthGoal(int n) {
