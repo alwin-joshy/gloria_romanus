@@ -7,6 +7,7 @@ public class Farm extends WealthGenerationBuilding {
         farmBonus = 1;
         setBaseCost(40);
         setBaseContructionTime(2);
+        setName("Farm");
     }
 
     public void levelUp() {

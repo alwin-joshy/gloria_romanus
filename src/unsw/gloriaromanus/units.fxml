@@ -59,7 +59,7 @@
       <Button fx:id="disbandButton" layoutX="200.0" layoutY="274.0" mnemonicParsing="false" onAction="#handleDisbandButton" text="Disband" />
       <Button fx:id="cancelButton" layoutX="648.0" layoutY="274.0" mnemonicParsing="false" onAction="#handleCancelButton" text="Cancel" />
       <Label fx:id="unitsInTraining" layoutX="680.0" layoutY="90.0" text="0/1" />
->>>>>>> 4562de190ddec7940a24a1169922a80081a1269b
+>>>>>>> aec56ce684720e4697f1b130e9a2c796f7149801
       <SplitPane dividerPositions="0.5" layoutX="38.0" layoutY="349.0" prefHeight="191.0" prefWidth="663.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="158.0" prefWidth="260.0">
@@ -132,7 +132,7 @@
       <Button fx:id="recruitButton" layoutX="647.0" layoutY="551.0" mnemonicParsing="false" onAction="#handleRecruitButton" text="Recruit" />
       <Button fx:id="backButton" layoutX="38.0" layoutY="551.0" mnemonicParsing="false" onAction="#handleBackButton" text="Back" />
       <TableView fx:id="unitsInTrainingTable" layoutX="478.0" layoutY="114.0" prefHeight="150.0" prefWidth="222.0">
->>>>>>> 4562de190ddec7940a24a1169922a80081a1269b
+>>>>>>> aec56ce684720e4697f1b130e9a2c796f7149801
         <columns>
           <TableColumn fx:id="trainingUnitName" prefWidth="94.0" text="Unit Name" />
           <TableColumn fx:id="turnsRemaining" prefWidth="127.0" text="Turns Remaining" />

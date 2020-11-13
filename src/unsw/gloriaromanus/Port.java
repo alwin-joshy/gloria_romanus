@@ -7,6 +7,7 @@ public class Port extends WealthGenerationBuilding {
         bonus = 10;
         setBaseContructionTime(2);
         setBaseCost(50);
+        setName("Port");
     }
 
     public void levelUp() {

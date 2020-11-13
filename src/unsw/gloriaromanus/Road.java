@@ -7,6 +7,7 @@ public class Road extends Infrastructure {
         this.p = p;
         setBaseCost(85);
         setBaseContructionTime(3);
+        setName("Road");
     }
 
     public void levelUp() {

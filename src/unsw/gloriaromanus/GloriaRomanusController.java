@@ -89,6 +89,8 @@ public class GloriaRomanusController {
   @FXML
   private Button manageProvinceButton;
   @FXML
+  private Button infrastructureButton;
+  @FXML
   private Button victoryProgressButton;
   @FXML
   private Button unitsButton;
@@ -111,6 +113,7 @@ public class GloriaRomanusController {
   private Pane pauseMenu;
   private Pane saveMenu;
   private Pane manageProvinceMenu;
+  private Pane infrastructureMenu;
   private Pane victoryProgressMenu;
   private Pane unitsMenu;
 
@@ -120,6 +123,7 @@ public class GloriaRomanusController {
   private PauseMenuController pauseMenuController;
   private SaveController saveController;
   private ManageProvinceController manageProvinceController;
+  private InfrastructureController infrastructureController;
   private VictoryProgressController victoryProgressController;
   private UnitsController unitsController;
 
@@ -148,6 +152,13 @@ public class GloriaRomanusController {
     Image image = new Image(input);
     factionAvatar.setFill(new ImagePattern(image));
     humanFaction = game.getCurrentFactionName();
+  }
+
+  @FXML 
+  private void handleInfrastructureButton() {
+    stack.getChildren().add(transparentPane);
+    transparentPane.getChildren().add(infrastructureMenu);
+    infrastructureController.setupScreen(game.getProvince((String) currentlySelectedAlliedProvince.getAttributes().get("name")));
   }
 
   public void setGloriaRomanusScreen(GloriaRomanusScreen gloriaRomanusScreen) {
@@ -179,6 +190,11 @@ public class GloriaRomanusController {
     transparentPane.getChildren().add(pauseMenu);
   }
 
+  public void closeInfrastructureMenu() {
+    stack.getChildren().remove(transparentPane);
+    transparentPane.getChildren().remove(infrastructureMenu);
+  }
+
   public void closeVictoryProgressMenu() {
     stack.getChildren().remove(transparentPane);
     transparentPane.getChildren().remove(victoryProgressMenu);
@@ -201,11 +217,14 @@ public class GloriaRomanusController {
     this.pauseMenuController = new PauseMenuController();
     this.saveController = new SaveController(this);
     this.manageProvinceController = new ManageProvinceController(this);
+    this.infrastructureController = new InfrastructureController(this);
     this.victoryProgressController = new VictoryProgressController(this);
     this.unitsController = new UnitsController(this);
 
     manageProvinceButton.setDisable(true);
     unitsButton.setDisable(true);
+    infrastructureButton.setDisable(true);
+
     transparentPane = new StackPane();
 
     FXMLLoader loader = new FXMLLoader(getClass().getResource("pauseMenu.fxml"));
@@ -220,6 +239,9 @@ public class GloriaRomanusController {
     loader.setController(manageProvinceController);
     manageProvinceMenu = loader.load();
 
+    loader = new FXMLLoader(getClass().getResource("infrastructure.fxml"));
+    loader.setController(infrastructureController);
+    infrastructureMenu = loader.load();
     loader = new FXMLLoader(getClass().getResource("victoryProgress.fxml"));
     loader.setController(victoryProgressController);
     victoryProgressMenu = loader.load();
@@ -407,6 +429,7 @@ public class GloriaRomanusController {
       opponent_province.clear();
       manageProvinceButton.setDisable(true);
       unitsButton.setDisable(true);
+      infrastructureButton.setDisable(true);
     });
 
     // https://developers.arcgis.com/java/latest/guide/identify-features.htm
@@ -455,6 +478,7 @@ public class GloriaRomanusController {
                   invading_province.setText(province);
                   manageProvinceButton.setDisable(false);
                   unitsButton.setDisable(false);
+                  infrastructureButton.setDisable(false);
                 }
                 else{
                   if (currentlySelectedEnemyProvince != null){
