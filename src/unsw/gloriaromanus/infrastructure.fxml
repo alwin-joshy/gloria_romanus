@@ -27,12 +27,12 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <TableView fx:id="upgradeTable" prefHeight="274.0" prefWidth="245.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="upgrades" prefHeight="274.0" prefWidth="245.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                      <TableColumn fx:id="buildingColumn" prefWidth="84.46797561645508" text="Building " />
-                      <TableColumn fx:id="upgradeLevelColumn" prefWidth="60.76026916503906" text="Level " />
-                        <TableColumn fx:id="costColumn" prefWidth="52.733642578125" text="Cost " />
-                        <TableColumn fx:id="timeColumn" prefWidth="59.26640319824219" text="Time" />
+                      <TableColumn fx:id="upgradesName" prefWidth="84.46797561645508" text="Building " />
+                      <TableColumn fx:id="upgradesLevel" prefWidth="60.76026916503906" text="Level " />
+                        <TableColumn fx:id="upgradesCost" prefWidth="52.733642578125" text="Cost " />
+                        <TableColumn fx:id="upgradesConstructionTime" prefWidth="59.26640319824219" text="Time" />
                     </columns>
                   </TableView>
                </children>
@@ -44,10 +44,11 @@
                </children></AnchorPane>
         </items>
       </SplitPane>
-      <TableView fx:id="currentlyBuildingTable" layoutX="40.0" layoutY="250.0" prefHeight="70.0" prefWidth="525.0">
+      <TableView fx:id="currentProject" layoutX="40.0" layoutY="250.0" prefHeight="70.0" prefWidth="525.0">
         <columns>
-          <TableColumn prefWidth="269.20088958740234" text="Current Build" />
-          <TableColumn prefWidth="254.79910278320312" text="Turns Remaining" />
+            <TableColumn fx:id="currentProjectName" prefWidth="173.0" text="Current Build" />
+          <TableColumn fx:id="currentProjectLevel" prefWidth="97.0" text="Level" />
+          <TableColumn fx:id="currentProjectTurnsRemaining" prefWidth="254.0" text="Turns Remaining" />
         </columns>
       </TableView>
       <TableView fx:id="builtInfrastructure" layoutX="40.0" layoutY="80.0" prefHeight="150.0" prefWidth="525.0">
@@ -56,13 +57,18 @@
             <TableColumn fx:id="builtLevelColumn" prefWidth="254.79910278320312" text="Level " />
          </columns>
       </TableView>
-      <Button layoutX="497.0" layoutY="663.0" mnemonicParsing="false" text="Build ">
+      <Button fx:id="buildButton" layoutX="497.0" layoutY="663.0" mnemonicParsing="false" onAction="#handleBuildButton" text="Build ">
          <font>
             <Font name="Roman SD" size="13.0" />
          </font></Button>
-      <Button layoutX="484.0" layoutY="323.0" mnemonicParsing="false" text="Cancel">
+      <Button fx:id="cancelButton" layoutX="484.0" layoutY="323.0" mnemonicParsing="false" onAction="#handleCancelButton" text="Cancel">
          <font>
             <Font name="Roman SD" size="13.0" />
          </font></Button>
+      <Button fx:id="backButton" layoutX="40.0" layoutY="663.0" mnemonicParsing="false" onAction="#handleBackButton" text="Back">
+         <font>
+            <Font name="Roman SD" size="13.0" />
+         </font>
+      </Button>
    </children>
 </Pane>
