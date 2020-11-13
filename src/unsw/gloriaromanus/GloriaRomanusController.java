@@ -88,6 +88,8 @@ public class GloriaRomanusController {
   private Label currentYear;
   @FXML
   private Button manageProvinceButton;
+  @FXML
+  private Button victoryProgressButton;
 
   private ArcGISMap map;
 
@@ -107,6 +109,7 @@ public class GloriaRomanusController {
   private Pane pauseMenu;
   private Pane saveMenu;
   private Pane manageProvinceMenu;
+  private Pane victoryProgressMenu;
 
   private MainMenuScreen mainMenuScreen;
   private GloriaRomanusScreen gloriaRomanusScreen;
@@ -114,8 +117,16 @@ public class GloriaRomanusController {
   private PauseMenuController pauseMenuController;
   private SaveController saveController;
   private ManageProvinceController manageProvinceController;
+  private VictoryProgressController victoryProgressController;
 
   private Game game;
+
+  @FXML
+  private void handleVictoryProgressButton() {
+    stack.getChildren().add(transparentPane);
+    transparentPane.getChildren().add(victoryProgressMenu);
+    victoryProgressController.updateProgress(game);
+  }
 
   @FXML
   private void handleManageProvinceButton() {
@@ -164,11 +175,19 @@ public class GloriaRomanusController {
     transparentPane.getChildren().add(pauseMenu);
   }
 
+  public void closeVictoryProgressMenu() {
+    stack.getChildren().remove(transparentPane);
+    transparentPane.getChildren().remove(victoryProgressMenu);
+  }
+
   @FXML
   private void initialize() throws IOException {
     this.pauseMenuController = new PauseMenuController();
     this.saveController = new SaveController(this);
     this.manageProvinceController = new ManageProvinceController(this);
+    this.victoryProgressController = new VictoryProgressController(this);
+
+    manageProvinceButton.setDisable(true);
     transparentPane = new StackPane();
 
     FXMLLoader loader = new FXMLLoader(getClass().getResource("pauseMenu.fxml"));
@@ -182,6 +201,10 @@ public class GloriaRomanusController {
     loader = new FXMLLoader(getClass().getResource("manageProvince.fxml"));
     loader.setController(manageProvinceController);
     manageProvinceMenu = loader.load();
+
+    loader = new FXMLLoader(getClass().getResource("victoryProgress.fxml"));
+    loader.setController(victoryProgressController);
+    victoryProgressMenu = loader.load();
   }
 
   public void initialiseMap() throws JsonParseException, JsonMappingException, IOException {
@@ -360,6 +383,7 @@ public class GloriaRomanusController {
       }
       invading_province.clear();
       opponent_province.clear();
+      manageProvinceButton.setDisable(true);
     });
 
     // https://developers.arcgis.com/java/latest/guide/identify-features.htm
@@ -406,6 +430,7 @@ public class GloriaRomanusController {
                   }
                   currentlySelectedAlliedProvince = f;
                   invading_province.setText(province);
+                  manageProvinceButton.setDisable(false);
                 }
                 else{
                   if (currentlySelectedEnemyProvince != null){

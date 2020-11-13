@@ -38,6 +38,16 @@ public class Faction implements Serializable {
         return legionaryDebuff;
     }
 
+    public int getFullyUpgradedProvinces() {
+        int count = 0;
+        for (Province p : alliedProvinces) {
+            if (p.isFullyUpgraded()) {
+                count++;
+            }
+        }
+        return count;
+    }
+
     public void incrementLegionaryDebuff() {
         legionaryDebuff += 0.2;
     }

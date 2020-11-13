@@ -49,6 +49,28 @@ public class Province implements Serializable {
         return name;
     }
 
+    public boolean isFullyUpgraded() {
+        if (isSeaProvince) {
+            if (infrastructure.size() != 9) return false;
+        } else {
+            if (infrastructure.size() != 8) return false;
+        }
+        for (Infrastructure i : infrastructure) {
+            if (i instanceof Road) {
+                if (faction.getName().equals("Rome"))
+                    if (i.getLevel() != 3) return false;
+                else if (i.getLevel() != 2) return false;
+            } else {
+                if (i.getLevel() != 4) return false;
+            }
+        }
+        return true;
+    }
+
+    public ArrayList<Infrastructure> getInfrastructure() {
+        return infrastructure;
+    }
+
     public void setTax(String type) {
         switch (type) {
             case "low" :
@@ -177,9 +199,6 @@ public class Province implements Serializable {
                     } else if (inf instanceof TownHall) {
                         checkRevoltStatus();
                     }
-                    //  else if (inf instanceof TownHall) {
-                    //     checkRevoltStatus();
-                    // }
                 } else {
                     units.add((Unit) p);
                     ((Unit) p).setSmithLevel(currentSmithLevel);

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #f2f2f2; -fx-border-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="31.0" layoutY="14.0" prefHeight="103.0" prefWidth="638.0" text="VICTORY PROGRESS">
+         <font>
+            <Font size="70.0" />
+         </font>
+      </Label>
+      <GridPane fx:id="victoryGrid" layoutX="31.0" layoutY="287.0" prefHeight="202.0" prefWidth="439.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="202.0" minWidth="10.0" prefWidth="202.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="168.0" minWidth="7.0" prefWidth="145.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="116.0" minWidth="10.0" prefWidth="92.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Provinces Conquered:">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label text="Total Province Wealth:" GridPane.rowIndex="1">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label text="Treasury Wealth:" GridPane.rowIndex="2">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label text="Fully Upgraded Provinces:" GridPane.rowIndex="3">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label fx:id="provincesConquered" prefHeight="17.0" prefWidth="87.0" GridPane.columnIndex="1">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="totalWealth" prefHeight="25.0" prefWidth="128.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="treasuryWealth" prefHeight="25.0" prefWidth="130.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="fullyUpgradedProvinces" prefHeight="17.0" prefWidth="89.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="conqueredPercent" prefHeight="17.0" prefWidth="92.0" GridPane.columnIndex="2">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="provinceWealthPercent" prefHeight="17.0" prefWidth="95.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="treasuryPercent" prefHeight="17.0" prefWidth="97.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="upgradedProvincesPercent" prefHeight="17.0" prefWidth="98.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </GridPane>
+      <Label layoutX="31.0" layoutY="153.0" text="CURRENT VICTORY CONDITION">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Label>
+      <Label fx:id="currentVictoryCondition" layoutX="31.0" layoutY="193.0" prefHeight="66.0" prefWidth="638.0" wrapText="true">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <Button fx:id="backButton" layoutX="14.0" layoutY="526.0" mnemonicParsing="false" onAction="#handleBackButton" text="BACK">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Button>
+   </children>
+</Pane>
