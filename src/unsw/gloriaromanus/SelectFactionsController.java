@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.When;
+import javafx.beans.property.IntegerProperty;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -26,6 +29,7 @@ public class SelectFactionsController {
     private AI ai;
     private Game game;
     private ArrayList<String> factions;
+    private int selectedFactionCounter;
 
     @FXML
     private GridPane gridPane;
@@ -53,6 +57,8 @@ public class SelectFactionsController {
     }
 
     public void cleanUp() {
+        selectedFactionCounter = 0;
+        startGameButton.setDisable(true);
         for (Node n : gridPane.getChildren()) {
             ToggleButton b = (ToggleButton) n;
             b.setSelected(false);
@@ -60,7 +66,9 @@ public class SelectFactionsController {
         factions.clear();
     }
 
-    public void initialize() throws FileNotFoundException, IOException {;
+    public void initialize() throws FileNotFoundException, IOException {
+        selectedFactionCounter = 0;
+        startGameButton.setDisable(true);
         // create a list of all playable factions
         String content = Files.readString(Paths.get("src/unsw/gloriaromanus/factions.json"));
         JSONArray availableFactions = new JSONArray(content);
@@ -72,24 +80,26 @@ public class SelectFactionsController {
         // populate the 4x4 grid with toggle buttons
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                // create an image view
-                FileInputStream input = new FileInputStream(
-                "images/CS2511Sprites_No_Background/Flags/Celtic/CelticFlag.png");
-                Image image = new Image(input, 30, 30, true, true);
-                ImageView iv = new ImageView(image);
 
                 // create toggle button and add it to the grid pane
                 String currentFactionName = availableFactions.getString(4 * i + j);
-                ToggleButton b = new ToggleButton(currentFactionName, iv);
+                ToggleButton b = new ToggleButton(currentFactionName);
                 b.setStyle("-fx-font-family: \'Roman SD\'; -fx-font-size: 15;");
                 b.setPrefSize(140, 50);
                 // designate a faction to each button so that it can be used to toggle
                 // a faction to be a player
                 b.setOnAction((e) -> {
-                    if (b.isSelected())
+                    if (b.isSelected()) {
                         factions.add(b.getText());
-                    else
+                        selectedFactionCounter++;
+                    } else {
                         factions.remove(b.getText());
+                        selectedFactionCounter--;
+                    }
+                    if (selectedFactionCounter < 2)
+                        startGameButton.setDisable(true);
+                    else
+                        startGameButton.setDisable(false);
                 });
                 gridPane.add(b, j, i);
             }
@@ -115,11 +125,4 @@ public class SelectFactionsController {
         this.gloriaRomanusScreen = gloriaRomanusScreen;
     }
 
-    public void setBattleResolver(BattleResolver br) {
-        this.br = br;
-    }
-
-    public void setAI(AI ai) {
-        this.ai = ai;
-    }
 }

@@ -30,25 +30,19 @@ public class Game implements Serializable{
     private ArrayList<VictoryCondition> victories;
     private Goal currentVictoryCondition;
     private BattleResolver br;
-    private AI ai;
     private HashSet<Unit> movedUnits;
     private Map<String, Boolean> toRecalculateBonuses;
     private ArrayList<String> provincesInvadedThisTurn;
 
-    public Game(BattleResolver br, AI ai) {
+    public Game() {
+        this.br = new StandardBattleResolver(0);
         factions = new ArrayList<Faction>();
         provinces = new ArrayList<Province>();
         adjacentProvinces = new HashMap<String, Map<String, Integer>>();
         toRecalculateBonuses = new HashMap<String, Boolean>();
         currentYear = -200;
-        this.br = br;
-        this.ai = ai;
         movedUnits = new HashSet<Unit>();
         provincesInvadedThisTurn = new ArrayList<String>();
-    }
-
-    public Game() {
-        this((BattleResolver) new StandardBattleResolver(0), (AI) new StandardAI());
     }
 
     public void initialiseGame(JSONArray provinceList, JSONArray landlocked, JSONObject adjacencyMap) {
@@ -69,9 +63,6 @@ public class Game implements Serializable{
         currentFaction = r.nextInt(factions.size());
         factions.get(currentFaction).collectTax();
         isRunning = true;
-        if (!factions.get(currentFaction).isPlayer()) {
-            endTurn();
-        }
     } 
 
     public void initialiseProvinces(JSONArray provinceList, JSONArray landlocked, BuildingObserver bo) {
@@ -172,9 +163,6 @@ public class Game implements Serializable{
         if (currentVictoryCondition.checkVictory(curr)) {
             endGame();
         }
-        if (! curr.isPlayer()) {
-            endTurn();
-        }
     }
 
     public void revolt(Province p) {
@@ -201,30 +189,6 @@ public class Game implements Serializable{
         from.removeProvince(p);
         to.addProvince(p);
         p.setFaction(to);
-    }
-
-    public void playAI() {
-        Faction curr = factions.get(currentFaction); 
-        while (! curr.isPlayer()) {
-            if (currentVictoryCondition.checkVictory(curr)) {
-                endGame();
-            }
-            
-            int startingBalance = curr.getTreasury();
-            // handle int to double
-            while (curr.getTreasury() >= 0.5 * startingBalance) {
-                ai.buildInfrastructure(curr);
-            }
-
-            while (curr.getTreasury() >= 0) {
-                ai.recruitUnit(curr);
-            }
-
-            endTurn();
-        }
-        if (currentVictoryCondition.checkVictory(curr)) {
-            endGame(); 
-        }
     }
 
     public void isLandlocked(JSONArray landlocked, Province p) {
@@ -445,8 +409,16 @@ public class Game implements Serializable{
         return factions.get(currentFaction);
     }
 
-    public int getCurrentYear() {
-        return currentYear;
+    public String getCurrentFactionName() {
+        return getCurrentFaction().getName();
+    }
+
+    public String getCurrentYear() {
+        int currentYearTemp = currentYear;
+        if (currentYearTemp < 0) {
+            currentYearTemp = -1 * currentYearTemp;
+        }
+        return currentYearTemp + " " + (currentYear < 0 ? "BC" : "AD");
     }
 
     public HashSet<Unit> getMovedUnits() {

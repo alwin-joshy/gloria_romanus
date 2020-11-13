@@ -11,6 +11,8 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 
 <?import com.esri.arcgisruntime.mapping.view.MapView?>
 
@@ -31,21 +33,59 @@
                 </fills>
             </Background>
         </background>
-        <HBox>
-            <VBox>
-                <Label text="Your province" />
-                <TextField fx:id="invading_province" editable="false" text="" />
-            </VBox>
-            <VBox>
-                <Label text="Enemy province" />
-                <TextField fx:id="opponent_province" editable="false" text="" />
-            </VBox>
-        </HBox>
-        <Button onAction="#clickedInvadeButton" text="Invade" />
+      <HBox prefHeight="41.0" prefWidth="230.0">
+         <children>
+            <Circle fx:id="factionAvatar" fill="DODGERBLUE" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+            <Label prefHeight="41.0" prefWidth="10.0" />
+            <Label fx:id="currentFactionName" prefHeight="41.0" prefWidth="81.0">
+               <font>
+                  <Font size="20.0" />
+               </font></Label>
+            <Label prefHeight="41.0" prefWidth="35.0" textAlignment="RIGHT" />
+            <Label fx:id="currentYear" prefHeight="41.0" prefWidth="64.0">
+               <font>
+                  <Font size="20.0" />
+               </font></Label>
+         </children>
+      </HBox>
+      <VBox prefHeight="72.0" prefWidth="230.0">
+         <children>
+               <VBox>
+                   <Label text="Selected Allied Province" />
+                   <TextField fx:id="invading_province" editable="false" text="" />
+               </VBox>
+               <VBox>
+                   <Label text="Selected Enemy Province" />
+                   <TextField fx:id="opponent_province" editable="false" text="" />
+               </VBox>
+         </children>
+      </VBox>
+        <Button onAction="#clickedInvadeButton" text="MOVE UNITS" />
         <VBox>
             <Label text="Output from interactions" />
             <TextArea fx:id="output_terminal" editable="false" text="" />
         </VBox>
-      <Button fx:id="pauseButton" mnemonicParsing="false" onAction="#handlePauseButton" text="PAUSE" />
+      <Button fx:id="manageProvinceButton" mnemonicParsing="false" onAction="#handleManageProvinceButton" text="MANAGE PROVINCE" />
+      <Button mnemonicParsing="false" text="CHECK VICTORY PROGRESS" />
+      <HBox prefHeight="79.0" prefWidth="230.0">
+         <children>
+            <Button mnemonicParsing="false" text="UNITS">
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" text="INFRASTRUCTURE" />
+         </children>
+      </HBox>
+      <HBox prefHeight="24.0" prefWidth="230.0">
+         <children>
+            <Button fx:id="pauseButton" mnemonicParsing="false" onAction="#handlePauseButton" text="PAUSE">
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="endTurnButton" mnemonicParsing="false" onAction="#handleEndTurnButton" text="END TURN" />
+         </children>
+      </HBox>
     </VBox>
 </StackPane>
