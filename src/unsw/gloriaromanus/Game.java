@@ -227,6 +227,7 @@ public class Game implements Serializable{
         out = new FileOutputStream("saves/" + filename);
         ObjectOutputStream os = new ObjectOutputStream(out);
         os.writeObject(adjacentProvinces);
+        os.writeObject(provinces);
         os.writeObject(currentYear);
         os.writeObject(factions);
         os.writeObject(currentVictoryCondition);
@@ -247,6 +248,7 @@ public class Game implements Serializable{
             in = new FileInputStream("saves/" + filename);
             ins = new ObjectInputStream(in);
             adjacentProvinces = (Map<String, Map<String, Integer>>) ins.readObject();
+            provinces = (ArrayList<Province>) ins.readObject();
             currentYear = (int) ins.readObject();
             factions = (ArrayList<Faction>) ins.readObject();
             currentVictoryCondition = (Goal) ins.readObject();

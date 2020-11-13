@@ -36,15 +36,14 @@
       <HBox prefHeight="41.0" prefWidth="230.0">
          <children>
             <Circle fx:id="factionAvatar" fill="DODGERBLUE" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
-            <Label prefHeight="41.0" prefWidth="10.0" />
-            <Label fx:id="currentFactionName" prefHeight="41.0" prefWidth="81.0">
+            <Label maxWidth="10.0" minWidth="10.0" prefHeight="41.0" prefWidth="10.0" />
+            <Label fx:id="currentFactionName" prefHeight="41.0" prefWidth="112.0">
                <font>
-                  <Font size="20.0" />
+                  <Font size="15.0" />
                </font></Label>
-            <Label prefHeight="41.0" prefWidth="35.0" textAlignment="RIGHT" />
-            <Label fx:id="currentYear" prefHeight="41.0" prefWidth="64.0">
+            <Label fx:id="currentYear" prefHeight="41.0" prefWidth="73.0">
                <font>
-                  <Font size="20.0" />
+                  <Font size="15.0" />
                </font></Label>
          </children>
       </HBox>
