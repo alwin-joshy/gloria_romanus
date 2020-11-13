@@ -28,35 +28,36 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <Label layoutX="277.0" layoutY="216.0" prefHeight="33.0" prefWidth="318.0" text="You Lost the game">
-         <font>
-            <Font name="Roman SD" size="22.0" />
-         </font>
-      </Label>
-      <Button layoutX="250.0" layoutY="460.0" mnemonicParsing="false" prefHeight="85.0" prefWidth="319.0" text="Close ">
+      <Button layoutX="250.0" layoutY="360.0" mnemonicParsing="false" prefHeight="85.0" prefWidth="319.0" text="Continue">
          <font>
             <Font name="Roman SD" size="40.0" />
          </font>
       </Button>
-      <Button layoutX="250.0" layoutY="360.0" mnemonicParsing="false" prefHeight="85.0" prefWidth="319.0" text="Back">
-         <font>
-            <Font name="Roman SD" size="40.0" />
-         </font>
-      </Button>
-      <Label layoutX="204.0" layoutY="291.0" prefHeight="24.0" prefWidth="342.0" text="The  Winning Faction is  ...">
-         <font>
-            <Font name="Roman SD" size="19.0" />
-         </font>
-      </Label>
-      <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="332.0" layoutY="549.0" pickOnBounds="true" preserveRatio="true" rotate="-90.0">
+      <ImageView fitHeight="180.0" fitWidth="180.0" layoutX="330.0" layoutY="475.0" pickOnBounds="true" preserveRatio="true" rotate="-90.0">
          <image>
             <Image url="@../../../../../../../../../../../Desktop/png-transparent-knightly-sword-foam-larp-swords-medieval-dagger-weapon-katana-removebg-preview.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="333.0" layoutY="547.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="180.0" fitWidth="180.0" layoutX="330.0" layoutY="475.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../../../../../../../Desktop/png-transparent-knightly-sword-foam-larp-swords-medieval-dagger-weapon-katana-removebg-preview.png" />
          </image>
       </ImageView>
+      <GridPane layoutX="167.0" layoutY="264.0" prefHeight="40.0" prefWidth="488.0">
+         <children>
+            <Label prefHeight="24.0" prefWidth="273.0" text="Was Conqured " GridPane.columnIndex="1">
+               <font>
+                  <Font name="Roman SD" size="23.0" />
+               </font>
+            </Label>
+         </children>
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="382.04058837890625" minWidth="10.0" prefWidth="252.8424072265625" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="274.31866455078125" minWidth="10.0" prefWidth="245.1575927734375" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
    </children>
 </Pane>
