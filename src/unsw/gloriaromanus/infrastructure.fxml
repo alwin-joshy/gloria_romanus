@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="700.0" fitWidth="600.0" pickOnBounds="true">
+         <image>
+            <Image url="@Sprites/c81b5d55d53fff3f65c92c88fec9c870.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="207.0" layoutY="21.0" prefHeight="44.0" prefWidth="216.0" text="Infrastructure " textFill="WHITE">
+         <font>
+            <Font name="Tamil Sangam MN" size="36.0" />
+         </font>
+      </Label>
+      <SplitPane dividerPositions="0.5" layoutX="40.0" layoutY="380.0" prefHeight="276.0" prefWidth="525.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <TableView prefHeight="274.0" prefWidth="245.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <columns>
+                      <TableColumn prefWidth="84.46797561645508" text="Building " />
+                      <TableColumn prefWidth="60.76026916503906" text="Level " />
+                        <TableColumn prefWidth="52.733642578125" text="Cost " />
+                        <TableColumn prefWidth="59.26640319824219" text="Time" />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="162.0" prefWidth="155.0" />
+        </items>
+      </SplitPane>
+      <TableView layoutX="40.0" layoutY="250.0" prefHeight="70.0" prefWidth="525.0">
+        <columns>
+          <TableColumn prefWidth="269.20088958740234" text="Current Build" />
+          <TableColumn prefWidth="254.79910278320312" text="Turns Remaining" />
+        </columns>
+      </TableView>
+      <TableView layoutX="40.0" layoutY="80.0" prefHeight="150.0" prefWidth="525.0">
+         <columns>
+            <TableColumn prefWidth="269.20088958740234" text="Infrastructure in Province " />
+            <TableColumn prefWidth="254.79910278320312" text="Level " />
+         </columns>
+      </TableView>
+      <Button layoutX="518.0" layoutY="659.0" mnemonicParsing="false" text="Build " />
+      <Button layoutX="511.0" layoutY="323.0" mnemonicParsing="false" text="Cancel" />
+   </children>
+</Pane>

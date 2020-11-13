@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
 public class LoadGameController {
@@ -27,6 +28,9 @@ public class LoadGameController {
     public void initialize() {
         saveList.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends ListCell<String>> ov, ListCell<String> old_val, ListCell<String> new_val) -> {
             if (saveList.getSelectionModel().getSelectedItem() != null){
+                if (old_val != null)
+                    old_val.setTextFill(Paint.valueOf("black"));
+                saveList.getSelectionModel().getSelectedItem().setTextFill(Paint.valueOf("white"));
                 loadButton.setDisable(false);
             }
         });
@@ -66,6 +70,7 @@ public class LoadGameController {
     private void handleLoadButton() throws IOException {
         Game g = new Game();
         g.loadGame(saveList.getSelectionModel().getSelectedItem().getText());
+        System.out.println(g.getNumProvinces());
         gloriaRomanusScreen.getController().setGame(g);
         gloriaRomanusScreen.getController().initialiseMap();
         gloriaRomanusScreen.start();
