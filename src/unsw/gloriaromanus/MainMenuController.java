@@ -11,7 +11,7 @@ import javafx.scene.control.Button;
 
 public class MainMenuController {
 
-    private NewGameScreen newGameScreen;
+    private SelectFactionsScreen selectFactionsScreen;
     private LoadGameScreen loadGameScreen;
     private GloriaRomanusScreen gloriaRomanusScreen;
 
@@ -35,7 +35,7 @@ public class MainMenuController {
 
     @FXML
     public void handleNewGameButton() {
-        newGameScreen.start();
+        selectFactionsScreen.start();
     }
 
     @FXML
@@ -62,8 +62,8 @@ public class MainMenuController {
         System.exit(1);
     }
 
-    public void setNewGameScreen(NewGameScreen newGameScreen) {
-        this.newGameScreen = newGameScreen;
+    public void setSelectFactionsScreen(SelectFactionsScreen selectFactionsScreen) {
+        this.selectFactionsScreen = selectFactionsScreen;
     }
 
     public void setLoadGameScreen(LoadGameScreen loadGameScreen) {

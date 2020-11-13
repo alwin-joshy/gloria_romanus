@@ -22,6 +22,7 @@ public class Province implements Serializable {
     private SmithLevel currentSmithLevel;
     private double taxPublicOrderDebuff;
     private double unitPublicOrderDebuff;
+    private double publicOrder;
 
     public Province(String name, BuildingObserver buildingObserver) {
         this.name = name;
@@ -41,6 +42,7 @@ public class Province implements Serializable {
         currentSmithLevel = new SmithLevelZero();
         taxPublicOrderDebuff = 0.3;
         unitPublicOrderDebuff = 0;
+        publicOrder = 0.7;
     }
 
     public String getName() {
@@ -77,7 +79,7 @@ public class Province implements Serializable {
     }
 
     public void checkRevoltStatus() {
-        double publicOrder = getPublicOrder();
+        updatePublicOrder();
         if ( publicOrder < 0.3 && ! faction.couldRevolt(this)) {
             faction.addPossibleRevolt(this);
         } else if (publicOrder >= 0.3 && faction.couldRevolt(this)) {
@@ -85,8 +87,12 @@ public class Province implements Serializable {
         }
     }
 
-    double getPublicOrder() {
-        return 1 - taxPublicOrderDebuff - unitPublicOrderDebuff + getTownHallBuff();
+    public void updatePublicOrder() {
+        publicOrder = 1 - taxPublicOrderDebuff - unitPublicOrderDebuff + getTownHallBuff();
+    }
+
+    public double getPublicOrder() {
+        return publicOrder;
     }
 
     private double getTownHallBuff() {

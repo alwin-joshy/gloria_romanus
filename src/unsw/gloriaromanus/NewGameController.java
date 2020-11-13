@@ -44,7 +44,7 @@ public class NewGameController {
 
     @FXML
     public void handleSelectFactionsButton() {
-        selectFactionsScreen.start(br, ai);
+        selectFactionsScreen.start();
         AISplitMenu.setText("SELECT AI LEVEL");
         BRSplitMenu.setText("SELECT BATTLE RESOLVER");
     }

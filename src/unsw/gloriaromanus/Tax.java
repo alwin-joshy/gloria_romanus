@@ -42,5 +42,18 @@ public class Tax implements Serializable {
         return false;
     }
 
-    
+    @Override
+    public String toString() {
+        switch((int) (rate * 100)) {
+            case 25 :
+                return "VERY HIGH";
+            case 20 :
+                return "HIGH";
+            case 15 :
+                return "NORMAL";
+            case 10 :
+                return "LOW";
+        }
+        return null;
+    }
 }

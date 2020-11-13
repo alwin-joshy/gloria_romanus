@@ -2,6 +2,7 @@ package unsw.gloriaromanus;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -22,12 +23,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 
 import com.esri.arcgisruntime.concurrent.ListenableFuture;
 import com.esri.arcgisruntime.data.FeatureTable;
@@ -51,6 +56,7 @@ import com.esri.arcgisruntime.data.Feature;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gluonhq.charm.glisten.control.Avatar;
 
 import org.geojson.FeatureCollection;
 import org.geojson.LngLatAlt;
@@ -72,6 +78,16 @@ public class GloriaRomanusController {
   private Button pauseButton;
   @FXML
   private StackPane stack;
+  @FXML
+  private Button endTurnButton;
+  @FXML
+  private Circle factionAvatar;
+  @FXML
+  private Label currentFactionName;
+  @FXML
+  private Label currentYear;
+  @FXML
+  private Button manageProvinceButton;
 
   private ArcGISMap map;
 
@@ -81,7 +97,7 @@ public class GloriaRomanusController {
 
   private String humanFaction;
 
-  private Feature currentlySelectedHumanProvince;
+  private Feature currentlySelectedAlliedProvince;
   private Feature currentlySelectedEnemyProvince;
 
   private FeatureLayer featureLayer_provinces;
@@ -90,14 +106,34 @@ public class GloriaRomanusController {
 
   private Pane pauseMenu;
   private Pane saveMenu;
+  private Pane manageProvinceMenu;
 
   private MainMenuScreen mainMenuScreen;
   private GloriaRomanusScreen gloriaRomanusScreen;
 
   private PauseMenuController pauseMenuController;
   private SaveController saveController;
+  private ManageProvinceController manageProvinceController;
 
   private Game game;
+
+  @FXML
+  private void handleManageProvinceButton() {
+    stack.getChildren().add(transparentPane);
+    transparentPane.getChildren().add(manageProvinceMenu);
+    manageProvinceController.setupScreen(game.getProvince((String) currentlySelectedAlliedProvince.getAttributes().get("name")));
+  }
+
+  @FXML
+  private void handleEndTurnButton() throws FileNotFoundException {
+    game.endTurn();
+    currentFactionName.setText(game.getCurrentFaction().getName());
+    currentYear.setText(game.getCurrentYear());
+    FileInputStream input = new FileInputStream("images/CS2511Sprites_No_Background/Flags/" + game.getCurrentFactionName() + "/" + game.getCurrentFactionName() + "Flag.png");
+    Image image = new Image(input);
+    factionAvatar.setFill(new ImagePattern(image));
+    humanFaction = game.getCurrentFactionName();
+  }
 
   public void setGloriaRomanusScreen(GloriaRomanusScreen gloriaRomanusScreen) {
     this.gloriaRomanusScreen = gloriaRomanusScreen;
@@ -105,6 +141,11 @@ public class GloriaRomanusController {
 
   public PauseMenuController getPauseMenuController() {
     return pauseMenuController;
+  }
+
+  public void closeManageProvinceMenu() {
+    stack.getChildren().remove(transparentPane);
+    transparentPane.getChildren().remove(manageProvinceMenu);
   }
 
   public void closePauseMenu() {
@@ -127,6 +168,7 @@ public class GloriaRomanusController {
   private void initialize() throws IOException {
     this.pauseMenuController = new PauseMenuController();
     this.saveController = new SaveController(this);
+    this.manageProvinceController = new ManageProvinceController(this);
     transparentPane = new StackPane();
 
     FXMLLoader loader = new FXMLLoader(getClass().getResource("pauseMenu.fxml"));
@@ -136,9 +178,18 @@ public class GloriaRomanusController {
     loader = new FXMLLoader(getClass().getResource("save.fxml"));
     loader.setController(saveController);
     saveMenu = loader.load();
+
+    loader = new FXMLLoader(getClass().getResource("manageProvince.fxml"));
+    loader.setController(manageProvinceController);
+    manageProvinceMenu = loader.load();
   }
 
   public void initialiseMap() throws JsonParseException, JsonMappingException, IOException {
+    currentFactionName.setText(game.getCurrentFaction().getName());
+    currentYear.setText(game.getCurrentYear());
+    FileInputStream input = new FileInputStream("images/CS2511Sprites_No_Background/Flags/" + game.getCurrentFactionName() + "/" + game.getCurrentFactionName() + "Flag.png");
+    Image image = new Image(input);
+    factionAvatar.setFill(new ImagePattern(image));
     // TODO = you should rely on an object oriented design to determine ownership
     provinceToOwningFactionMap = getProvinceToOwningFactionMap();
 
@@ -150,9 +201,9 @@ public class GloriaRomanusController {
 
     // TODO = load this from a configuration file you create (user should be able to
     // select in loading screen)
-    humanFaction = "Rome";
+    humanFaction = game.getCurrentFactionName();
 
-    currentlySelectedHumanProvince = null;
+    currentlySelectedAlliedProvince = null;
     currentlySelectedEnemyProvince = null;
 
     initializeProvinceLayers();
@@ -160,8 +211,8 @@ public class GloriaRomanusController {
 
   @FXML
   public void clickedInvadeButton(ActionEvent e) throws IOException {
-    if (currentlySelectedHumanProvince != null && currentlySelectedEnemyProvince != null){
-      String humanProvince = (String)currentlySelectedHumanProvince.getAttributes().get("name");
+    if (currentlySelectedAlliedProvince != null && currentlySelectedEnemyProvince != null){
+      String humanProvince = (String)currentlySelectedAlliedProvince.getAttributes().get("name");
       String enemyProvince = (String)currentlySelectedEnemyProvince.getAttributes().get("name");
       if (confirmIfProvincesConnected(humanProvince, enemyProvince)){
         // TODO = have better battle resolution than 50% chance of winning
@@ -298,6 +349,18 @@ public class GloriaRomanusController {
 
     // Create a layer to show the feature table
     FeatureLayer flp = new FeatureLayer(geoPackageTable_provinces);
+    endTurnButton.setOnMouseClicked(e -> {
+      if (currentlySelectedAlliedProvince != null) {
+        flp.unselectFeature(currentlySelectedAlliedProvince);
+        currentlySelectedAlliedProvince = null;
+      }
+      if (currentlySelectedEnemyProvince != null) {
+        flp.unselectFeature(currentlySelectedEnemyProvince);
+        currentlySelectedEnemyProvince = null;
+      }
+      invading_province.clear();
+      opponent_province.clear();
+    });
 
     // https://developers.arcgis.com/java/latest/guide/identify-features.htm
     // listen to the mouse clicked event on the map view
@@ -338,10 +401,10 @@ public class GloriaRomanusController {
 
                 if (provinceToOwningFactionMap.get(province).equals(humanFaction)){
                   // province owned by human
-                  if (currentlySelectedHumanProvince != null){
-                    featureLayer.unselectFeature(currentlySelectedHumanProvince);
+                  if (currentlySelectedAlliedProvince != null){
+                    featureLayer.unselectFeature(currentlySelectedAlliedProvince);
                   }
-                  currentlySelectedHumanProvince = f;
+                  currentlySelectedAlliedProvince = f;
                   invading_province.setText(province);
                 }
                 else{
@@ -412,9 +475,9 @@ public class GloriaRomanusController {
   }
 
   private void resetSelections(){
-    featureLayer_provinces.unselectFeatures(Arrays.asList(currentlySelectedEnemyProvince, currentlySelectedHumanProvince));
+    featureLayer_provinces.unselectFeatures(Arrays.asList(currentlySelectedEnemyProvince, currentlySelectedAlliedProvince));
     currentlySelectedEnemyProvince = null;
-    currentlySelectedHumanProvince = null;
+    currentlySelectedAlliedProvince = null;
     invading_province.setText("");
     opponent_province.setText("");
   }

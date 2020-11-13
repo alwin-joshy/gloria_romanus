@@ -13,7 +13,6 @@ public class GloriaRomanusApplication extends Application {
   @Override
   public void start(Stage stage) throws IOException {
     MainMenuScreen mainMenuScreen = new MainMenuScreen(stage);
-    NewGameScreen newGameScreen = new NewGameScreen(stage);
     LoadGameScreen loadGameScreen = new LoadGameScreen(stage);
     SelectFactionsScreen selectFactionsScreen = new SelectFactionsScreen(stage);
     GloriaRomanusScreen gloriaRomanusScreen = new GloriaRomanusScreen(stage);
@@ -22,11 +21,8 @@ public class GloriaRomanusApplication extends Application {
     controller = gloriaRomanusScreen.getController();
 
     mainMenuController.setLoadGameScreen(loadGameScreen);
-    mainMenuController.setNewGameScreen(newGameScreen);
+    mainMenuController.setSelectFactionsScreen(selectFactionsScreen);
     mainMenuController.setGloriaRomanusScreen(gloriaRomanusScreen);
-
-    newGameScreen.getController().setMainMenuScreen(mainMenuScreen);
-    newGameScreen.getController().setSelectFactionsScreen(selectFactionsScreen);
 
     loadGameScreen.getController().setMainMenuScreen(mainMenuScreen);
     loadGameScreen.getController().setGloriaRomanusScreen(gloriaRomanusScreen);

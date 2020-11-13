@@ -101,7 +101,7 @@ public class SaveController {
             }
         }
         // NEW INSTANCE (OF SELECTED ITEM) CREATED EACH TIME SAVE BUTTON IS PRESSED
-        // maybe havbe to clear selection?
+        // maybe have to clear selection?
         // whjen we press save game it thinks the prev selected thing is being selected?
     }
 
