@@ -69,13 +69,13 @@ public class VictoryProgressController {
         currentVictoryCondition.setText(game.getVictoryCondition().showGoal());
         Faction f = game.getCurrentFaction();
         provincesConquered.setText(Integer.toString(f.getNumProvinces()) + " / 53");
-        conqueredPercent.setText(Double.toString(round((double) f.getNumProvinces() / 53 * 100, 2)));
+        conqueredPercent.setText(Double.toString(round((double) f.getNumProvinces() / 53 * 100, 2)) + "%");
         treasuryWealth.setText(Integer.toString(f.getTreasury()) + " / 100000");
-        treasuryPercent.setText(Double.toString(round((double) f.getTreasury() / 1000, 2)));
+        treasuryPercent.setText(Double.toString(round((double) f.getTreasury() / 1000, 2)) + "%");
         totalWealth.setText(Integer.toString(f.getWealth()) + " / 400000");
-        provinceWealthPercent.setText(Double.toString(round((double) f.getWealth() / 4000, 2)));
+        provinceWealthPercent.setText(Double.toString(round((double) f.getWealth() / 4000, 2)) + "%");
         fullyUpgradedProvinces.setText(Integer.toString(f.getFullyUpgradedProvinces()) + " / " + Integer.toString(f.getNumProvinces()));
-        upgradedProvincesPercent.setText(Double.toString(round((double) f.getFullyUpgradedProvinces() / f.getNumProvinces() * 100, 2)));
+        upgradedProvincesPercent.setText(Double.toString(round((double) f.getFullyUpgradedProvinces() / f.getNumProvinces() * 100, 2)) + "%");
 
     }
 

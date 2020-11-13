@@ -50,10 +50,11 @@ public class Province implements Serializable {
     }
 
     public boolean isFullyUpgraded() {
-        if (isSeaProvince)
+        if (isSeaProvince) {
             if (infrastructure.size() != 9) return false;
-        else
+        } else {
             if (infrastructure.size() != 8) return false;
+        }
         for (Infrastructure i : infrastructure) {
             if (i instanceof Road) {
                 if (faction.getName().equals("Rome"))

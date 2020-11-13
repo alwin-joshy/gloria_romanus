@@ -41,7 +41,9 @@ public class Faction implements Serializable {
     public int getFullyUpgradedProvinces() {
         int count = 0;
         for (Province p : alliedProvinces) {
-            if (p.isFullyUpgraded()) count++;
+            if (p.isFullyUpgraded()) {
+                count++;
+            }
         }
         return count;
     }
