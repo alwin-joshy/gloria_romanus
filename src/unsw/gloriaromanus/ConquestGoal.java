@@ -11,4 +11,9 @@ public class ConquestGoal implements VictoryCondition {
         if (f.getNumProvinces() == totalProvinces) return true;
         return false; 
     }
+
+    @Override
+    public String toString() {
+        return "CONQUEST";
+    }
 }

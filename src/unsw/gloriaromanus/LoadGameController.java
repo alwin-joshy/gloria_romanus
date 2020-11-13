@@ -3,9 +3,6 @@ package unsw.gloriaromanus;
 import java.io.File;
 import java.io.IOException;
 
-import javax.swing.event.ListSelectionEvent;
-
-import javafx.beans.binding.BooleanBinding;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -34,7 +31,6 @@ public class LoadGameController {
             }
         });
     }
-
 
     public void populateSaveList() {
         saveList.getItems().clear();
