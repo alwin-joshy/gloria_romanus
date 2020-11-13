@@ -30,6 +30,7 @@
             <Font name="Roman SD" size="60.0" />
          </font>
       </Label>
+<<<<<<< HEAD
       <ListView layoutX="38.0" layoutY="114.0" prefHeight="150.0" prefWidth="222.0" />
       <Label layoutX="38.0" layoutY="90.0" prefHeight="16.0" prefWidth="180.0" text="Units in province ">
          <font>
@@ -51,6 +52,14 @@
          <font>
             <Font name="Roman SD" size="13.0" />
          </font></Label>
+=======
+      <ListView fx:id="unitsInProvince" layoutX="38.0" layoutY="114.0" prefHeight="150.0" prefWidth="222.0" />
+      <Label layoutX="38.0" layoutY="90.0" prefHeight="16.0" prefWidth="153.0" text="Units in province " />
+      <Label layoutX="478.0" layoutY="90.0" text="Units in training" />
+      <Button fx:id="disbandButton" layoutX="200.0" layoutY="274.0" mnemonicParsing="false" onAction="#handleDisbandButton" text="Disband" />
+      <Button fx:id="cancelButton" layoutX="648.0" layoutY="274.0" mnemonicParsing="false" onAction="#handleCancelButton" text="Cancel" />
+      <Label fx:id="unitsInTraining" layoutX="680.0" layoutY="90.0" text="0/1" />
+>>>>>>> aec56ce684720e4697f1b130e9a2c796f7149801
       <SplitPane dividerPositions="0.5" layoutX="38.0" layoutY="349.0" prefHeight="191.0" prefWidth="663.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="158.0" prefWidth="260.0">
@@ -109,6 +118,7 @@
         </items>
       </SplitPane>
       <Label layoutX="44.0" layoutY="330.0" text="Recruit units" />
+<<<<<<< HEAD
       <Button layoutX="637.0" layoutY="551.0" mnemonicParsing="false" text="Recruit">
          <font>
             <Font name="Roman SD" size="13.0" />
@@ -118,6 +128,11 @@
             <Font name="Roman SD" size="13.0" />
          </font></Button>
       <TableView layoutX="478.0" layoutY="114.0" prefHeight="150.0" prefWidth="222.0">
+=======
+      <Button fx:id="recruitButton" layoutX="647.0" layoutY="551.0" mnemonicParsing="false" onAction="#handleRecruitButton" text="Recruit" />
+      <Button fx:id="backButton" layoutX="38.0" layoutY="551.0" mnemonicParsing="false" onAction="#handleBackButton" text="Back" />
+      <TableView fx:id="unitsInTrainingTable" layoutX="478.0" layoutY="114.0" prefHeight="150.0" prefWidth="222.0">
+>>>>>>> aec56ce684720e4697f1b130e9a2c796f7149801
         <columns>
           <TableColumn fx:id="trainingUnitName" prefWidth="94.0" text="Unit Name" />
           <TableColumn fx:id="turnsRemaining" prefWidth="127.0" text="Turns Remaining" />

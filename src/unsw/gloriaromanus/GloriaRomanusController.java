@@ -194,7 +194,7 @@ public class GloriaRomanusController {
     stack.getChildren().remove(transparentPane);
     transparentPane.getChildren().remove(infrastructureMenu);
   }
-  
+
   public void closeVictoryProgressMenu() {
     stack.getChildren().remove(transparentPane);
     transparentPane.getChildren().remove(victoryProgressMenu);
@@ -223,6 +223,8 @@ public class GloriaRomanusController {
 
     manageProvinceButton.setDisable(true);
     unitsButton.setDisable(true);
+    infrastructureButton.setDisable(true);
+
     transparentPane = new StackPane();
 
     FXMLLoader loader = new FXMLLoader(getClass().getResource("pauseMenu.fxml"));
@@ -427,6 +429,7 @@ public class GloriaRomanusController {
       opponent_province.clear();
       manageProvinceButton.setDisable(true);
       unitsButton.setDisable(true);
+      infrastructureButton.setDisable(true);
     });
 
     // https://developers.arcgis.com/java/latest/guide/identify-features.htm
@@ -475,6 +478,7 @@ public class GloriaRomanusController {
                   invading_province.setText(province);
                   manageProvinceButton.setDisable(false);
                   unitsButton.setDisable(false);
+                  infrastructureButton.setDisable(false);
                 }
                 else{
                   if (currentlySelectedEnemyProvince != null){
