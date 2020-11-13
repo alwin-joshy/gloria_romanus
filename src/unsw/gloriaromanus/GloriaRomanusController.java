@@ -88,6 +88,8 @@ public class GloriaRomanusController {
   private Label currentYear;
   @FXML
   private Button manageProvinceButton;
+  @FXML
+  private Button infrastructureButton;
 
   private ArcGISMap map;
 
@@ -107,6 +109,7 @@ public class GloriaRomanusController {
   private Pane pauseMenu;
   private Pane saveMenu;
   private Pane manageProvinceMenu;
+  private Pane infrastructureMenu;
 
   private MainMenuScreen mainMenuScreen;
   private GloriaRomanusScreen gloriaRomanusScreen;
@@ -114,6 +117,7 @@ public class GloriaRomanusController {
   private PauseMenuController pauseMenuController;
   private SaveController saveController;
   private ManageProvinceController manageProvinceController;
+  private InfrastructureController infrastructureController;
 
   private Game game;
 
@@ -133,6 +137,13 @@ public class GloriaRomanusController {
     Image image = new Image(input);
     factionAvatar.setFill(new ImagePattern(image));
     humanFaction = game.getCurrentFactionName();
+  }
+
+  @FXML 
+  private void handleInfrastructureButton() {
+    stack.getChildren().add(transparentPane);
+    transparentPane.getChildren().add(infrastructureMenu);
+    infrastructureController.setupScreen(game.getProvince((String) currentlySelectedAlliedProvince.getAttributes().get("name")));
   }
 
   public void setGloriaRomanusScreen(GloriaRomanusScreen gloriaRomanusScreen) {
@@ -164,11 +175,17 @@ public class GloriaRomanusController {
     transparentPane.getChildren().add(pauseMenu);
   }
 
+  public void closeInfrastructureMenu() {
+    stack.getChildren().remove(transparentPane);
+    transparentPane.getChildren().remove(infrastructureMenu);
+  }
+
   @FXML
   private void initialize() throws IOException {
     this.pauseMenuController = new PauseMenuController();
     this.saveController = new SaveController(this);
     this.manageProvinceController = new ManageProvinceController(this);
+    this.infrastructureController = new InfrastructureController(this);
     transparentPane = new StackPane();
 
     FXMLLoader loader = new FXMLLoader(getClass().getResource("pauseMenu.fxml"));
@@ -182,6 +199,10 @@ public class GloriaRomanusController {
     loader = new FXMLLoader(getClass().getResource("manageProvince.fxml"));
     loader.setController(manageProvinceController);
     manageProvinceMenu = loader.load();
+
+    loader = new FXMLLoader(getClass().getResource("infrastructure.fxml"));
+    loader.setController(infrastructureController);
+    infrastructureMenu = loader.load();
   }
 
   public void initialiseMap() throws JsonParseException, JsonMappingException, IOException {

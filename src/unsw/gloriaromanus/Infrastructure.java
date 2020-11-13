@@ -6,9 +6,18 @@ public abstract class Infrastructure implements Project, Serializable {
     private int baseCost;
     private int baseConstructionTime;
     private int level;
+    private String name;
 
     public Infrastructure() {
         level = 0;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
     
     public abstract void levelUp();

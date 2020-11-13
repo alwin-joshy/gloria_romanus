@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fitHeight="700.0" fitWidth="600.0" pickOnBounds="true">
          <image>
@@ -23,29 +27,33 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <TableView prefHeight="274.0" prefWidth="245.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="upgradeTable" prefHeight="274.0" prefWidth="245.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                      <TableColumn prefWidth="84.46797561645508" text="Building " />
-                      <TableColumn prefWidth="60.76026916503906" text="Level " />
-                        <TableColumn prefWidth="52.733642578125" text="Cost " />
-                        <TableColumn prefWidth="59.26640319824219" text="Time" />
+                      <TableColumn fx:id="buildingColumn" prefWidth="84.46797561645508" text="Building " />
+                      <TableColumn fx:id="upgradeLevelColumn" prefWidth="60.76026916503906" text="Level " />
+                        <TableColumn fx:id="costColumn" prefWidth="52.733642578125" text="Cost " />
+                        <TableColumn fx:id="timeColumn" prefWidth="59.26640319824219" text="Time" />
                     </columns>
                   </TableView>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="162.0" prefWidth="155.0" />
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="162.0" prefWidth="155.0">
+               <children>
+                  <Label fx:id="buildingDescription" layoutX="3.0" layoutY="31.0" prefHeight="237.0" prefWidth="249.0" text="Label" />
+                  <Label layoutX="3.0" layoutY="7.0" text="Description" />
+               </children></AnchorPane>
         </items>
       </SplitPane>
-      <TableView layoutX="40.0" layoutY="250.0" prefHeight="70.0" prefWidth="525.0">
+      <TableView fx:id="currentlyBuildingTable" layoutX="40.0" layoutY="250.0" prefHeight="70.0" prefWidth="525.0">
         <columns>
           <TableColumn prefWidth="269.20088958740234" text="Current Build" />
           <TableColumn prefWidth="254.79910278320312" text="Turns Remaining" />
         </columns>
       </TableView>
-      <TableView layoutX="40.0" layoutY="80.0" prefHeight="150.0" prefWidth="525.0">
+      <TableView fx:id="builtInfrastructure" layoutX="40.0" layoutY="80.0" prefHeight="150.0" prefWidth="525.0">
          <columns>
-            <TableColumn prefWidth="269.20088958740234" text="Infrastructure in Province " />
-            <TableColumn prefWidth="254.79910278320312" text="Level " />
+            <TableColumn fx:id="buildingNameColumn" prefWidth="269.20088958740234" text="Infrastructure in Province " />
+            <TableColumn fx:id="builtLevelColumn" prefWidth="254.79910278320312" text="Level " />
          </columns>
       </TableView>
       <Button layoutX="518.0" layoutY="659.0" mnemonicParsing="false" text="Build " />

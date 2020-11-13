@@ -6,7 +6,7 @@ public class TownHall extends Infrastructure {
     public TownHall() {
         setBaseCost(45);
         setBaseContructionTime(2);
-
+        setName("Town Hall");
     }
 
     public void levelUp() {

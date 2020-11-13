@@ -7,6 +7,7 @@ public class Market extends WealthGenerationBuilding {
         multiplier = 0.99;
         setBaseCost(40);
         setBaseContructionTime(2);
+        setName("Market");
     }
 
     public void levelUp() {

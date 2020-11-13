@@ -73,7 +73,7 @@
                   <Insets right="5.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" text="INFRASTRUCTURE" />
+            <Button fx:id="infrastructureButton" mnemonicParsing="false" onAction="#handleInfrastructureButton" text="INFRASTRUCTURE" />
          </children>
       </HBox>
       <HBox prefHeight="24.0" prefWidth="230.0">

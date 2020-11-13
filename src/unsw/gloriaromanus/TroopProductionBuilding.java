@@ -20,6 +20,7 @@ public class TroopProductionBuilding extends Infrastructure {
         this.f = f;
         this.setBaseContructionTime(1);
         this.setBaseCost(40);
+        setName("Troop Production Building");
         units = new HashMap<Integer, ArrayList<String>>();
         String content = "[\r\n\t[\"peasant\", \"horseman\", \"slingerman\"],\r\n  \t[\"archer\", \"catapult\", \"horsearcher\", \"spearman\", \"swordsman\"],\r\n  \t[\"axeman\", \"netman\", \"pikeman\", \"trebuchet\"],\r\n  \t[\"cannon\", \"crossbowman\", \"knight\", \"lancer\"]\r\n]";
         // This wont work with the test file ;-;

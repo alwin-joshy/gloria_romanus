@@ -382,6 +382,10 @@ public class Province implements Serializable {
         wealth = gold;
     }
 
+    public ArrayList<Infrastructure> getInfrastructure() {
+        return infrastructure;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
