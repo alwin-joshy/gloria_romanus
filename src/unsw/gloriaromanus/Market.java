@@ -4,7 +4,7 @@ public class Market extends WealthGenerationBuilding {
     private double multiplier;
 
     public Market () {
-        multiplier = 0.99;
+        multiplier = 1.0;
         setBaseCost(40);
         setBaseContructionTime(2);
         setName("Market");
@@ -12,7 +12,10 @@ public class Market extends WealthGenerationBuilding {
 
     public void levelUp() {
         updateCosts();
-        multiplier -= 0.01;
+        if (getLevel() == 1)
+            multiplier -= 0.02;
+        else
+            multiplier -= 0.01;
     }
 
     public double getMultiplier() {

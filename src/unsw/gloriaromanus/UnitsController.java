@@ -136,6 +136,7 @@ public class UnitsController {
         updateTrainingCount();
         if (province.getUnitTrainingLimit() == province.getUnitsInTraining())
             recruitButton.setDisable(true);
+        System.out.println(province.getFaction().getMineMultiplier());
     }
 
     @FXML
@@ -199,8 +200,6 @@ public class UnitsController {
 
     public void setupUnitDetails(Province province) throws IOException {
         this.province = province;
-        province.getInfrastructure().add(new TroopProductionBuilding(province.getFaction()));
-        province.getTroopProductionBuilding().setLevel(4);
         updateTrainingCount();
         // populate current units
         for (Unit u : province.getUnits()) {

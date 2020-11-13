@@ -149,13 +149,13 @@ public class Game implements Serializable{
         currentFaction = (currentFaction + 1) % factions.size();
         currentYear++;
         Faction curr = factions.get(currentFaction);
+        curr.updateAllProjects();
         if (toRecalculateBonuses.keySet().contains(curr.getName()) && toRecalculateBonuses.get(curr.getName()) == true) {
             curr.calculateMarketMultiplier();
             curr.calculateMineMultiplier();
             curr.calculatePortBonus();
             toRecalculateBonuses.put(curr.getName(), false);
         }
-        curr.updateAllProjects();
         curr.collectTax();
         for (Province p : curr.checkForRevolt()) {
             revolt(p);
