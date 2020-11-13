@@ -47,7 +47,13 @@
             <TableColumn prefWidth="254.79910278320312" text="Level " />
          </columns>
       </TableView>
-      <Button layoutX="518.0" layoutY="659.0" mnemonicParsing="false" text="Build " />
-      <Button layoutX="511.0" layoutY="323.0" mnemonicParsing="false" text="Cancel" />
+      <Button layoutX="497.0" layoutY="663.0" mnemonicParsing="false" text="Build ">
+         <font>
+            <Font name="Roman SD" size="13.0" />
+         </font></Button>
+      <Button layoutX="484.0" layoutY="323.0" mnemonicParsing="false" text="Cancel">
+         <font>
+            <Font name="Roman SD" size="13.0" />
+         </font></Button>
    </children>
 </Pane>
