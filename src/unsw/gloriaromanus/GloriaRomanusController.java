@@ -206,7 +206,7 @@ public class GloriaRomanusController {
   }
 
   @FXML
-  public void handleUnitsButton() {
+  public void handleUnitsButton() throws IOException {
     transparentPane.getChildren().add(unitsMenu);
     stack.getChildren().add(transparentPane);
     unitsController.setupUnitDetails(game.getProvince((String) currentlySelectedAlliedProvince.getAttributes().get("name")));

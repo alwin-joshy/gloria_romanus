@@ -1,7 +1,7 @@
 {
     "archer": {
         "type": "missile infantry",
-        "numTroops": 20,
+        "numTroops": 30,
         "ranged": true,
         "armour": 3,
         "morale": 5,
@@ -177,7 +177,7 @@
     },
     "horsearcher": {
         "type": "horse archer",
-        "numTroops": 20,
+        "numTroops": 30,
         "ranged": true,
         "armour": 4,
         "morale": 5,
@@ -295,7 +295,7 @@
     },
     "spearman": {
         "type": "spearman",
-        "numTroops": 20,
+        "numTroops": 30,
         "ranged": false,
         "armour": 5,
         "morale": 5,

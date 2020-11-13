@@ -35,7 +35,6 @@ public class InfrastructureController {
     public void setupScreen(Province p)  {
         builtInfrastructure.getItems().clear();
         builtInfrastructure.getItems().addAll(p.getInfrastructure());
-        
     }
     
 }

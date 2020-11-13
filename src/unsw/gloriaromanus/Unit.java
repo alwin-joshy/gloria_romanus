@@ -47,7 +47,7 @@ public class Unit implements Serializable, Project {
             chargeValue = json.getInt("chargeValue");
         else 
             chargeValue = 0;
-            
+        
         type = json.getString("type");
 
 

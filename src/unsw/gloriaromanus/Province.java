@@ -218,12 +218,13 @@ public class Province implements Serializable {
         }
     }
 
-    private void cancelOrder(ProjectDetails pd) {
+    public void cancelOrder(ProjectDetails pd) {
         Project project = pd.getProject();
         double cost = (double) pd.getPricePaid();
-        if (project instanceof Unit)
+        if (project instanceof Unit) {
             faction.increaseTreasury((int) Math.round(0.2 * cost * pd.getTurnsRemaining()));
-        else
+            unitsInTraining--;
+        } else
             faction.increaseTreasury((int) Math.round(0.05 * cost * pd.getTurnsRemaining()));
         projects.remove(pd);
     }
