@@ -1,8 +1,10 @@
 package unsw.gloriaromanus;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.lang.Math;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class Province implements Serializable {
@@ -30,7 +32,8 @@ public class Province implements Serializable {
         this.buildingObserver = buildingObserver;
         units = new ArrayList<Unit>();
         infrastructure = new ArrayList<Infrastructure>();
-        infrastructure.add(new Road(this));
+        ArrayList<Infrastructure> levelZero = new ArrayList<Infrastructure>(Arrays.asList(new Road(this), new Farm(), new Market(), new Smith(), new Mine(), new Walls(), new TownHall()));
+        infrastructure.addAll(levelZero);
         wealth = 100;
         wealthGrowth = 15;
         tax = new Tax(0.15, 0);
@@ -50,11 +53,6 @@ public class Province implements Serializable {
     }
 
     public boolean isFullyUpgraded() {
-        if (isSeaProvince) {
-            if (infrastructure.size() != 9) return false;
-        } else {
-            if (infrastructure.size() != 8) return false;
-        }
         for (Infrastructure i : infrastructure) {
             if (i instanceof Road) {
                 if (faction.getName().equals("Rome"))
@@ -145,14 +143,46 @@ public class Province implements Serializable {
 
     public void setLandlocked() {
         isSeaProvince = false;
+        if (isSeaProvince) {
+            infrastructure.add(new Port());
+        }
+    }
+
+    public int getInfrastructureCost(double baseCost) {
+        return (int) Math.round(baseCost * faction.getMarketMultiplier());
+    }
+
+    public int getConstructionTime(int baseTime) {
+        baseTime -= faction.getMineTurnReduction();
+        if (baseTime < 1) {
+            baseTime = 1;
+        }
+        return baseTime;
+    }
+
+    public Infrastructure getInfrastructureProject() {
+        for (ProjectDetails pd : projects) {
+            if (pd.getProject() instanceof Infrastructure) return (Infrastructure) pd.getProject();
+        }
+        return null;
+    }
+
+    public int getTurnsRemaining(Infrastructure inf){
+        for (ProjectDetails pd :  projects) {
+            if (pd.getProject() == inf) {
+                return pd.getTurnsRemaining();
+            }
+        }
+        return 0;
     }
 
     public boolean build(Project project){
         double cost = project.getBaseCost();
+        int integerCost = 0;
         if (project instanceof Unit) {
             cost *= faction.getMineMultiplier();
         } else {
-            cost *= faction.getMarketMultiplier();
+            integerCost = getInfrastructureCost(cost);
         }
 
         if (project instanceof Unit) {
@@ -162,8 +192,6 @@ public class Province implements Serializable {
         } else if (buildingInfrastructure()) {
             return false;
         }
-
-        int integerCost = (int) Math.round(cost);
 
         if (! faction.purchase(integerCost)) return false;
 
@@ -341,6 +369,13 @@ public class Province implements Serializable {
 
     public void setFaction(Faction f) {
         projects.clear();
+        TroopProductionBuilding newTroop = new TroopProductionBuilding(f);
+        if (getTroopProductionBuilding() != null) {
+            for (int i = 0; i < getTroopProductionBuilding().getLevel(); i++) {
+                newTroop.levelUp();
+            }
+        } 
+        infrastructure.add(newTroop);
         this.faction = f;
     }
 

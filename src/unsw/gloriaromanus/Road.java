@@ -4,6 +4,7 @@ public class Road extends Infrastructure {
     private Province p;
 
     public Road(Province p) {
+        super();
         this.p = p;
         setBaseCost(85);
         setBaseContructionTime(3);
