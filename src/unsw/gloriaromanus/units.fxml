@@ -25,17 +25,32 @@
             <Image url="@photo-1558346648-9757f2fa4474.jpeg" />
          </image>
       </ImageView>
-      <Label layoutX="273.0" layoutY="14.0" text="Units">
+      <Label layoutX="273.0" layoutY="14.0" text="Units" textFill="#cd9630">
          <font>
-            <Font size="60.0" />
+            <Font name="Roman SD" size="60.0" />
          </font>
       </Label>
       <ListView layoutX="38.0" layoutY="114.0" prefHeight="150.0" prefWidth="222.0" />
-      <Label layoutX="38.0" layoutY="90.0" prefHeight="16.0" prefWidth="153.0" text="Units in province " />
-      <Label layoutX="478.0" layoutY="90.0" text="Units in training" />
-      <Button layoutX="191.0" layoutY="274.0" mnemonicParsing="false" text="Disband" />
-      <Button layoutX="638.0" layoutY="274.0" mnemonicParsing="false" text="Cancel" />
-      <Label layoutX="680.0" layoutY="90.0" text="0/1" />
+      <Label layoutX="38.0" layoutY="90.0" prefHeight="16.0" prefWidth="180.0" text="Units in province ">
+         <font>
+            <Font name="Roman SD" size="13.0" />
+         </font></Label>
+      <Label layoutX="478.0" layoutY="90.0" text="Units in training">
+         <font>
+            <Font name="Roman SD" size="13.0" />
+         </font></Label>
+      <Button layoutX="191.0" layoutY="274.0" mnemonicParsing="false" text="Disband">
+         <font>
+            <Font name="Roman SD" size="13.0" />
+         </font></Button>
+      <Button layoutX="638.0" layoutY="274.0" mnemonicParsing="false" text="Cancel">
+         <font>
+            <Font name="Roman SD" size="13.0" />
+         </font></Button>
+      <Label layoutX="680.0" layoutY="90.0" text="0/1">
+         <font>
+            <Font name="Roman SD" size="13.0" />
+         </font></Label>
       <SplitPane dividerPositions="0.5" layoutX="38.0" layoutY="349.0" prefHeight="191.0" prefWidth="663.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="158.0" prefWidth="260.0">
@@ -86,8 +101,14 @@
         </items>
       </SplitPane>
       <Label layoutX="44.0" layoutY="330.0" text="Recruit units" />
-      <Button layoutX="637.0" layoutY="551.0" mnemonicParsing="false" text="Recruit" />
-      <Button layoutX="38.0" layoutY="551.0" mnemonicParsing="false" text="Back" />
+      <Button layoutX="637.0" layoutY="551.0" mnemonicParsing="false" text="Recruit">
+         <font>
+            <Font name="Roman SD" size="13.0" />
+         </font></Button>
+      <Button layoutX="38.0" layoutY="551.0" mnemonicParsing="false" text="Back">
+         <font>
+            <Font name="Roman SD" size="13.0" />
+         </font></Button>
       <TableView layoutX="478.0" layoutY="114.0" prefHeight="150.0" prefWidth="222.0">
         <columns>
           <TableColumn prefWidth="94.0" text="Unit name" />
