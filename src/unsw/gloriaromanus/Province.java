@@ -160,9 +160,9 @@ public class Province implements Serializable {
         return baseTime;
     }
 
-    public Infrastructure getInfrastructureProject() {
+    public ProjectDetails getInfrastructureProjectDetails() {
         for (ProjectDetails pd : projects) {
-            if (pd.getProject() instanceof Infrastructure) return (Infrastructure) pd.getProject();
+            if (pd.getProject() instanceof Infrastructure) return pd;
         }
         return null;
     }
@@ -176,7 +176,7 @@ public class Province implements Serializable {
         return 0;
     }
 
-    public boolean build(Project project){
+    public ProjectDetails build(Project project){
         double cost = project.getBaseCost();
         int integerCost = 0;
         if (project instanceof Unit) {
@@ -186,14 +186,14 @@ public class Province implements Serializable {
         }
 
         if (project instanceof Unit) {
-            if (unitsInTraining == unitTrainingLimit) return false;
+            if (unitsInTraining == unitTrainingLimit) return null;
             TroopProductionBuilding tb = getTroopProductionBuilding();
-            if (tb == null || ! tb.isAvailable((Unit) project)) return false; 
+            if (tb == null || ! tb.isAvailable((Unit) project)) return null; 
         } else if (buildingInfrastructure()) {
-            return false;
+            return null;
         }
 
-        if (! faction.purchase(integerCost)) return false;
+        if (! faction.purchase(integerCost)) return null;
 
         
         if (project instanceof Unit) {
@@ -203,7 +203,7 @@ public class Province implements Serializable {
         ProjectDetails p = new ProjectDetails(faction.getMineTurnReduction(), project, integerCost);
         projects.add(p);
 
-        return true;
+        return p;
     }
 
     public void updateProjects() {
@@ -214,7 +214,6 @@ public class Province implements Serializable {
                 if (p instanceof Infrastructure) {
                     if (p instanceof Farm) unitTrainingLimit = ((Farm) p).getBonus();
                     Infrastructure inf = (Infrastructure) p;
-                    if (inf.getLevel() == 0) infrastructure.add(inf);
                     inf.levelUp();
                     if (inf instanceof Walls) 
                         ((Walls) inf).levelUpTowers(this);
@@ -242,7 +241,7 @@ public class Province implements Serializable {
         }
     }
 
-    private void cancelOrder(ProjectDetails pd) {
+    public void cancelOrder(ProjectDetails pd) {
         Project project = pd.getProject();
         double cost = (double) pd.getPricePaid();
         if (project instanceof Unit)

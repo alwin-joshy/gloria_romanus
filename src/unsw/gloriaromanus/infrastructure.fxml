@@ -44,7 +44,7 @@
                </children></AnchorPane>
         </items>
       </SplitPane>
-      <TableView fx:id="currentlyBuildingTable" layoutX="40.0" layoutY="250.0" prefHeight="70.0" prefWidth="525.0">
+      <TableView fx:id="currentProject" layoutX="40.0" layoutY="250.0" prefHeight="70.0" prefWidth="525.0">
         <columns>
             <TableColumn fx:id="currentProjectName" prefWidth="173.0" text="Current Build" />
           <TableColumn fx:id="currentProjectLevel" prefWidth="97.0" text="Level" />
@@ -57,11 +57,11 @@
             <TableColumn fx:id="builtLevelColumn" prefWidth="254.79910278320312" text="Level " />
          </columns>
       </TableView>
-      <Button layoutX="497.0" layoutY="663.0" mnemonicParsing="false" text="Build ">
+      <Button fx:id="buildButton" layoutX="497.0" layoutY="663.0" mnemonicParsing="false" onAction="#handleBuildButton" text="Build ">
          <font>
             <Font name="Roman SD" size="13.0" />
          </font></Button>
-      <Button layoutX="484.0" layoutY="323.0" mnemonicParsing="false" text="Cancel">
+      <Button fx:id="cancelButton" layoutX="484.0" layoutY="323.0" mnemonicParsing="false" onAction="#handleCancelButton" text="Cancel">
          <font>
             <Font name="Roman SD" size="13.0" />
          </font></Button>

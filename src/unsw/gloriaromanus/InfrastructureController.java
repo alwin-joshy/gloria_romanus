@@ -1,8 +1,8 @@
 package unsw.gloriaromanus;
 
-import javax.swing.text.TabableView;
-
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -45,8 +45,17 @@ public class InfrastructureController {
     @FXML
     private TableColumn<InfrastructureDetails, String> upgradesConstructionTime;
 
+    @FXML
+    private Button buildButton;
+
+    @FXML
+    private Button cancelButton;
+
 
     private GloriaRomanusController gloriaRomanusController;
+    private Province p;
+    private ProjectDetails curr;
+    private InfrastructureDetails currDetails;
 
     public InfrastructureController(GloriaRomanusController gloriaRomanusController) {
         this.gloriaRomanusController = gloriaRomanusController;
@@ -54,7 +63,9 @@ public class InfrastructureController {
 
     @FXML 
     private void handleBackButton() {
-
+        curr = null;
+        currDetails = null;
+        gloriaRomanusController.closeInfrastructureMenu();
     }
 
     @FXML
@@ -68,12 +79,58 @@ public class InfrastructureController {
         upgradesLevel.setCellValueFactory(new PropertyValueFactory<>("nextLevel"));
         upgradesCost.setCellValueFactory(new PropertyValueFactory<>("cost"));
         upgradesConstructionTime.setCellValueFactory(new PropertyValueFactory<>("time"));
+        curr = null;
+        currDetails = null;
+
+        buildButton.setDisable(true);
+        cancelButton.setDisable(true);
+
+        buildButton.disableProperty().bind(Bindings.size(currentProject.getItems()).isEqualTo(1).and(upgrades.getSelectionModel().selectedItemProperty().isNotNull()));
+        //cancelButton.disableProperty().bind(Bindings.size(currentProject.getItems()).isEqualTo(0).or(currentProject.getSelectionModel().selectedItemProperty().isNotNull()));
+        cancelButton.disableProperty().bind(currentProject.getSelectionModel().selectedItemProperty().isNull());
+
     }
 
+    @FXML 
+    private void handleCancelButton() {
+        p.cancelOrder(curr);
+        currentProject.getItems().remove(currDetails);
+        upgrades.getItems().add(currDetails);
+        curr = null;
+        currDetails = null;
+    }
+
+    @FXML
+    private void handleBuildButton() {
+        ProjectDetails buildResult = p.build(upgrades.getSelectionModel().getSelectedItem().getInfrastructure());
+        if (buildResult != null) {
+            currDetails = upgrades.getSelectionModel().getSelectedItem();
+            curr = buildResult;
+            currentProject.getItems().add(currDetails);
+            upgrades.getItems().remove(currDetails);
+        } else {
+
+        }
+
+    }
+
+
+
+
     public void setupScreen(Province p)  {
+        this.p = p;
         builtInfrastructure.getItems().clear();
+        upgrades.getItems().clear();
+        currentProject.getItems().clear();
+        ProjectDetails inf = p.getInfrastructureProjectDetails();
+        if (inf != null) {
+            currDetails = new InfrastructureDetails(p, (Infrastructure) inf.getProject());
+            currentProject.getItems().add(currDetails);
+            curr = inf;
+        }
         for (Infrastructure i : p.getInfrastructure()) {
-            
+            if (curr != null && (Infrastructure) curr.getProject() == i) continue;
+
             if (i.getLevel() != 0) {
                 builtInfrastructure.getItems().add(new InfrastructureDetails(p, i));
             }
@@ -85,10 +142,8 @@ public class InfrastructureController {
                 upgrades.getItems().add(new InfrastructureDetails(p, i));
             }
         }
-        Infrastructure inf = p.getInfrastructureProject();
-        if (inf != null) {
-            currentProject.getItems().add(new InfrastructureDetails(p, inf));
-        }
+   
+
     
     }
 
@@ -121,8 +176,12 @@ public class InfrastructureController {
             return inf.getLevel() + 1;
         }
 
-        public int getTurnsRemaining(Infrastructure inf) {
+        public int getTurnsRemaining() {
             return p.getTurnsRemaining(inf);
+        }
+
+        public Infrastructure getInfrastructure() {
+            return inf;
         }
 
         
