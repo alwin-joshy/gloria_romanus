@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -8,18 +13,23 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #f2f2f2; -fx-border-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #f2f2f2; -fx-border-color: black;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="31.0" layoutY="14.0" prefHeight="103.0" prefWidth="638.0" text="VICTORY PROGRESS">
+      <ImageView fitHeight="600.0" fitWidth="700.0" pickOnBounds="true">
+         <image>
+            <Image url="@photo-1558346648-9757f2fa4474.jpeg" />
+         </image>
+      </ImageView>
+      <Label layoutX="28.0" layoutY="14.0" prefHeight="103.0" prefWidth="652.0" text="VICTORY PROGRESS" textFill="#cd9630">
          <font>
-            <Font size="70.0" />
+            <Font name="Roman SD" size="57.0" />
          </font>
       </Label>
-      <GridPane fx:id="victoryGrid" layoutX="31.0" layoutY="287.0" prefHeight="202.0" prefWidth="439.0">
+      <GridPane fx:id="victoryGrid" layoutX="31.0" layoutY="287.0" prefHeight="202.0" prefWidth="457.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="202.0" minWidth="10.0" prefWidth="202.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="168.0" minWidth="7.0" prefWidth="145.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="116.0" minWidth="10.0" prefWidth="92.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="249.26873779296875" minWidth="10.0" prefWidth="245.64999389648438" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="168.0" minWidth="7.0" prefWidth="120.35000610351562" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="116.0" minWidth="10.0" prefWidth="82.35000610351562" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -30,19 +40,19 @@
          <children>
             <Label text="Provinces Conquered:">
                <font>
-                  <Font size="16.0" />
+                  <Font name="Roman SD" size="14.0" />
                </font></Label>
             <Label text="Total Province Wealth:" GridPane.rowIndex="1">
                <font>
-                  <Font size="16.0" />
+                  <Font name="Roman SD" size="14.0" />
                </font></Label>
             <Label text="Treasury Wealth:" GridPane.rowIndex="2">
                <font>
-                  <Font size="16.0" />
+                  <Font name="Roman SD" size="14.0" />
                </font></Label>
             <Label text="Fully Upgraded Provinces:" GridPane.rowIndex="3">
                <font>
-                  <Font size="16.0" />
+                  <Font name="Roman SD" size="14.0" />
                </font></Label>
             <Label fx:id="provincesConquered" prefHeight="17.0" prefWidth="87.0" GridPane.columnIndex="1">
                <font>
@@ -88,7 +98,7 @@
       </GridPane>
       <Label layoutX="31.0" layoutY="153.0" text="CURRENT VICTORY CONDITION">
          <font>
-            <Font size="28.0" />
+            <Font name="Roman SD" size="28.0" />
          </font>
       </Label>
       <Label fx:id="currentVictoryCondition" layoutX="31.0" layoutY="193.0" prefHeight="66.0" prefWidth="638.0" wrapText="true">
@@ -97,7 +107,7 @@
          </font></Label>
       <Button fx:id="backButton" layoutX="14.0" layoutY="526.0" mnemonicParsing="false" onAction="#handleBackButton" text="BACK">
          <font>
-            <Font size="28.0" />
+            <Font name="Roman SD" size="22.0" />
          </font>
       </Button>
    </children>
