@@ -90,6 +90,7 @@ public class UnitsController {
             lc.setText(u.getName());
             unitsInProvince.getItems().add(lc);
         }
+        unitsInTraining.setText(Integer.toString(p.getUnitsInTraining()) + " / " + Integer.toString(p.getUnitTrainingLimit()));
     }
 
 }

@@ -45,6 +45,10 @@ public class Province implements Serializable {
         publicOrder = 0.7;
     }
 
+    public ArrayList<ProjectDetails> getProjects() {
+        return projects;
+    }
+
     public String getName() {
         return name;
     }
