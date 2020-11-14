@@ -103,7 +103,7 @@
       </Label>
       <Label fx:id="currentVictoryCondition" layoutX="31.0" layoutY="193.0" prefHeight="66.0" prefWidth="638.0" wrapText="true">
          <font>
-            <Font size="18.0" />
+            <Font name="Roman SD" size="18.0" />
          </font></Label>
       <Button fx:id="backButton" layoutX="14.0" layoutY="526.0" mnemonicParsing="false" onAction="#handleBackButton" text="BACK">
          <font>

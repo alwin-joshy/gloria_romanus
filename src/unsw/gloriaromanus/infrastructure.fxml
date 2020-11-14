@@ -23,9 +23,9 @@
             <Image url="@photo-1558346648-9757f2fa4474.jpeg" />
          </image>
       </ImageView>
-      <Label layoutX="170.0" layoutY="21.0" prefHeight="44.0" prefWidth="266.0" text="Infrastructure " textFill="#0d0d0d">
+      <Label layoutX="102.0" layoutY="22.0" prefHeight="44.0" prefWidth="397.0" style="-fx-text-fill: #cd9630;" text="Infrastructure " textFill="#cd9630">
          <font>
-            <Font name="Tamil Sangam MN" size="36.0" />
+            <Font name="Roman SD" size="36.0" />
          </font>
       </Label>
       <SplitPane dividerPositions="0.5" layoutX="40.0" layoutY="380.0" prefHeight="276.0" prefWidth="525.0">
@@ -75,7 +75,10 @@
             <Font name="Roman SD" size="13.0" />
          </font>
       </Button>
-      <Label fx:id="treasuryBalance" alignment="CENTER_RIGHT" layoutX="456.0" layoutY="22.0" prefHeight="17.0" prefWidth="83.0" text="Label" />
+      <Label fx:id="treasuryBalance" alignment="CENTER_RIGHT" layoutX="456.0" layoutY="22.0" prefHeight="17.0" prefWidth="83.0" text="Label">
+         <font>
+            <Font name="Roman SD" size="13.0" />
+         </font></Label>
       <ImageView fitHeight="29.0" fitWidth="22.0" layoutX="545.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@gold_pile.png" />

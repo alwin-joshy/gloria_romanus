@@ -20,7 +20,7 @@
          </image>
       </ImageView>
       <TextField fx:id="saveName" layoutX="200.0" layoutY="441.0" />
-      <Label fx:id="instruction" layoutX="163.0" layoutY="371.0" prefHeight="76.0" prefWidth="259.0" text="ENTER A NAME FOR THE NEW SAVE FILE OR CLICK ONE FROM THE LIST TO OVERWRITE">
+      <Label fx:id="instruction" layoutX="75.0" layoutY="371.0" prefHeight="76.0" prefWidth="460.0" text="ENTER A NAME FOR NEW SAVE  OR CLICK ONETO OVERWRITE">
          <font>
             <Font name="Roman SD" size="12.0" />
          </font></Label>
