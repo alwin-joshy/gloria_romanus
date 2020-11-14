@@ -70,6 +70,9 @@ public class UnitsController {
     private Label movementPoints;
 
     @FXML
+    private Label treasuryBalance;
+
+    @FXML
     private ListView<ListCell<String>> unitsInProvince;
 
     @FXML
@@ -102,6 +105,7 @@ public class UnitsController {
     private GloriaRomanusController gloriaRomanusController;
 
     private Province province;
+    private Faction faction;
 
     @FXML
     private void handleBackButton() {
@@ -136,7 +140,6 @@ public class UnitsController {
         updateTrainingCount();
         if (province.getUnitTrainingLimit() == province.getUnitsInTraining())
             recruitButton.setDisable(true);
-        System.out.println(province.getFaction().getMineMultiplier());
     }
 
     @FXML
@@ -200,6 +203,7 @@ public class UnitsController {
 
     public void setupUnitDetails(Province province) throws IOException {
         this.province = province;
+        this.faction = province.getFaction();
         updateTrainingCount();
         // populate current units
         for (Unit u : province.getUnits()) {
@@ -226,6 +230,7 @@ public class UnitsController {
             }
         }
         recruitButton.setDisable(true);
+        treasuryBalance.setText(Integer.toString(faction.getTreasury()));
     }
 
 }

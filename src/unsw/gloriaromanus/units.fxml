@@ -126,5 +126,7 @@
             <Image url="@Helmet.png" />
          </image>
       </ImageView>
+      <Label layoutX="478.0" layoutY="22.0" text="Current Treasury Balance:" />
+      <Label fx:id="treasuryBalance" layoutX="622.0" layoutY="22.0" prefHeight="17.0" prefWidth="102.0" text="Label" />
    </children>
 </Pane>
