@@ -18,6 +18,10 @@ import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
@@ -29,6 +33,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -77,7 +82,7 @@ public class GloriaRomanusController {
   @FXML
   private TextField invading_province;
   @FXML
-  private TextField opponent_province;
+  private TextField targetProvince;
   @FXML
   private TextArea output_terminal;
   @FXML
@@ -100,6 +105,8 @@ public class GloriaRomanusController {
   private Button victoryProgressButton;
   @FXML
   private Button unitsButton;
+  @FXML
+  private ToggleButton moveToggle;
 
   private ArcGISMap map;
 
@@ -110,7 +117,7 @@ public class GloriaRomanusController {
   private String humanFaction;
 
   private Feature currentlySelectedAlliedProvince;
-  private Feature currentlySelectedEnemyProvince;
+  private Feature currentlySelectedTargetProvince;
 
   private FeatureLayer featureLayer_provinces;
 
@@ -122,6 +129,7 @@ public class GloriaRomanusController {
   private Pane infrastructureMenu;
   private Pane victoryProgressMenu;
   private Pane unitsMenu;
+  private Pane selectUnitsMenu;
 
   private VictoryScreen victoryScreen;
 
@@ -131,9 +139,11 @@ public class GloriaRomanusController {
   private InfrastructureController infrastructureController;
   private VictoryProgressController victoryProgressController;
   private UnitsController unitsController;
+  private SelectUnitsController selectUnitsController;
 
   private Game game;
   private StringProperty winner;
+  private IntegerProperty factionCount;
 
   @FXML
   private void handleVictoryProgressButton() {
@@ -146,11 +156,11 @@ public class GloriaRomanusController {
   private void handleManageProvinceButton() {
     stack.getChildren().add(transparentPane);
     transparentPane.getChildren().add(manageProvinceMenu);
-    manageProvinceController.setupScreen(game.getProvince((String) currentlySelectedAlliedProvince.getAttributes().get("name")));
+    manageProvinceController.setupScreen(getProvince(currentlySelectedAlliedProvince));
   }
 
   @FXML
-  private void handleEndTurnButton() throws FileNotFoundException {
+  private void handleEndTurnButton() throws FileNotFoundException, JsonParseException, IOException {
     game.endTurn();
     currentFactionName.setText(game.getCurrentFaction().getName());
     currentYear.setText(game.getCurrentYear());
@@ -159,13 +169,17 @@ public class GloriaRomanusController {
     factionAvatar.setFill(new ImagePattern(image));
     humanFaction = game.getCurrentFactionName();
     winner.setValue(game.getWinner());
+    for (Province p : game.getCurrentFaction().getAlliedProvinces()) {
+      provinceToNumberTroopsMap.put(p.getName(), p.getTotalTroops());
+    }
+    addAllPointGraphics(); // reset graphics
   }
 
   @FXML 
   private void handleInfrastructureButton() {
     stack.getChildren().add(transparentPane);
     transparentPane.getChildren().add(infrastructureMenu);
-    infrastructureController.setupScreen(game.getProvince((String) currentlySelectedAlliedProvince.getAttributes().get("name")));
+    infrastructureController.setupScreen(getProvince(currentlySelectedAlliedProvince));
   }
 
   public PauseMenuController getPauseMenuController() {
@@ -208,6 +222,11 @@ public class GloriaRomanusController {
     transparentPane.getChildren().remove(unitsMenu);
   }
 
+  public void closeSelectUnitsMenu() {
+    stack.getChildren().remove(transparentPane);
+    transparentPane.getChildren().remove(selectUnitsMenu);
+  }
+
   public void setVictoryScreen(VictoryScreen victoryScreen) {
     this.victoryScreen = victoryScreen;
   }
@@ -228,11 +247,30 @@ public class GloriaRomanusController {
 
   }
 
+  public void handleNoUnitsSelected() {
+    Stage stage = (Stage) transparentPane.getScene().getWindow();
+
+    AlertType type = AlertType.ERROR;
+    Alert alert = new Alert(type, "");
+
+    alert.initModality(Modality.APPLICATION_MODAL);
+    alert.initOwner(stage);
+
+    alert.getDialogPane().setHeaderText("You have not selected any units to move!");
+
+    alert.showAndWait();
+
+  }
+
   @FXML
   public void handleUnitsButton() throws IOException {
     transparentPane.getChildren().add(unitsMenu);
     stack.getChildren().add(transparentPane);
-    unitsController.setupUnitDetails(game.getProvince((String) currentlySelectedAlliedProvince.getAttributes().get("name")));
+    unitsController.setupUnitDetails(getProvince(currentlySelectedAlliedProvince));
+  }
+
+  private Province getProvince(Feature fl) {
+    return game.getProvince((String) fl.getAttributes().get("name"));
   }
 
   @FXML
@@ -243,6 +281,9 @@ public class GloriaRomanusController {
     this.infrastructureController = new InfrastructureController(this);
     this.victoryProgressController = new VictoryProgressController(this);
     this.unitsController = new UnitsController(this);
+    this.selectUnitsController = new SelectUnitsController(this);
+
+    endTurnButton.disableProperty().bind(moveToggle.selectedProperty());
 
     manageProvinceButton.setDisable(true);
     unitsButton.setDisable(true);
@@ -274,9 +315,17 @@ public class GloriaRomanusController {
     loader.setController(unitsController);
     unitsMenu = loader.load();
 
+    loader = new FXMLLoader(getClass().getResource("SelectUnits.fxml"));
+    loader.setController(selectUnitsController);
+    selectUnitsMenu = loader.load();
+
   }
 
   public void initialiseMap() throws JsonParseException, JsonMappingException, IOException {
+    factionCount = new SimpleIntegerProperty(game.getFactions().size());
+    factionCount.addListener((ov, oldValue, newValue) -> {
+      
+    });
     winner = new SimpleStringProperty("");
     winner.addListener((ov, oldValue, newValue) -> {
       if (! winner.getValue().equals("")) {
@@ -294,9 +343,8 @@ public class GloriaRomanusController {
     provinceToOwningFactionMap = getProvinceToOwningFactionMap();
 
     provinceToNumberTroopsMap = new HashMap<String, Integer>();
-    Random r = new Random();
     for (String provinceName : provinceToOwningFactionMap.keySet()) {
-      provinceToNumberTroopsMap.put(provinceName, r.nextInt(500));
+      provinceToNumberTroopsMap.put(provinceName, 0);
     }
 
     // TODO = load this from a configuration file you create (user should be able to
@@ -304,50 +352,36 @@ public class GloriaRomanusController {
     humanFaction = game.getCurrentFactionName();
 
     currentlySelectedAlliedProvince = null;
-    currentlySelectedEnemyProvince = null;
+    currentlySelectedTargetProvince = null;
 
     initializeProvinceLayers();
   }
 
   @FXML
   public void clickedInvadeButton(ActionEvent e) throws IOException {
-    if (currentlySelectedAlliedProvince != null && currentlySelectedEnemyProvince != null){
+    /*if (currentlySelectedAlliedProvince != null && currentlySelectedTargetProvince != null) {
       String humanProvince = (String)currentlySelectedAlliedProvince.getAttributes().get("name");
-      String enemyProvince = (String)currentlySelectedEnemyProvince.getAttributes().get("name");
-      if (confirmIfProvincesConnected(humanProvince, enemyProvince)){
-        // TODO = have better battle resolution than 50% chance of winning
-        Random r = new Random();
-        int choice = r.nextInt(2);
-        if (choice == 0) {
-          // human won. Transfer 40% of troops of human over. No casualties by human, but enemy loses all troops
-          int numTroopsToTransfer = provinceToNumberTroopsMap.get(humanProvince)*2/5;
+      String enemyProvince = (String)currentlySelectedTargetProvince.getAttributes().get("name");
+      if (confirmIfProvincesConnected(humanProvince, enemyProvince)) {
+        if (game.moveUnits(toMove, game.getProvince(humanProvince), game.getProvince(enemyProvince))) {
+          factionCount.setValue(game.getFactions().size());
+          int numTroopsToTransfer = getNumTroopsToTransfer();
           provinceToNumberTroopsMap.put(enemyProvince, numTroopsToTransfer);
           provinceToNumberTroopsMap.put(humanProvince, provinceToNumberTroopsMap.get(humanProvince)-numTroopsToTransfer);
           provinceToOwningFactionMap.put(enemyProvince, humanFaction);
-          printMessageToTerminal("Won battle!");
+          resetSelections();  // reset selections in UI
+          addAllPointGraphics(); // reset graphics
+        } else {
+          printMessageToTerminal("Can't make this move idk why!");
         }
-        else{
-          // enemy won. Human loses 60% of soldiers in the province
-          int numTroopsLost = provinceToNumberTroopsMap.get(humanProvince)*3/5;
-          provinceToNumberTroopsMap.put(humanProvince, provinceToNumberTroopsMap.get(humanProvince)-numTroopsLost);
-          printMessageToTerminal("Lost battle!");
-        }
-        resetSelections();  // reset selections in UI
-        addAllPointGraphics(); // reset graphics
       }
-      else{
-        printMessageToTerminal("Provinces not adjacent, cannot invade!");
-      }
-
-    }
+    }*/
   }
 
   @FXML
   private void handlePauseButton() {
     stack.getChildren().add(transparentPane);
     transparentPane.getChildren().add(pauseMenu);
-
-    //pauseMenuScreen.start();
   }
 
   /**
@@ -356,7 +390,6 @@ public class GloriaRomanusController {
    * graphics initially
    */
   private void initializeProvinceLayers() throws JsonParseException, JsonMappingException, IOException {
-
     Basemap myBasemap = Basemap.createImagery();
     // myBasemap.getReferenceLayers().remove(0);
     map = new ArcGISMap(myBasemap);
@@ -454,12 +487,12 @@ public class GloriaRomanusController {
         flp.unselectFeature(currentlySelectedAlliedProvince);
         currentlySelectedAlliedProvince = null;
       }
-      if (currentlySelectedEnemyProvince != null) {
-        flp.unselectFeature(currentlySelectedEnemyProvince);
-        currentlySelectedEnemyProvince = null;
+      if (currentlySelectedTargetProvince != null) {
+        flp.unselectFeature(currentlySelectedTargetProvince);
+        currentlySelectedTargetProvince = null;
       }
       invading_province.clear();
-      opponent_province.clear();
+      targetProvince.clear();
       manageProvinceButton.setDisable(true);
       unitsButton.setDisable(true);
       infrastructureButton.setDisable(true);
@@ -502,7 +535,7 @@ public class GloriaRomanusController {
                 Feature f = features.get(0);
                 String province = (String)f.getAttributes().get("name");
 
-                if (provinceToOwningFactionMap.get(province).equals(humanFaction)){
+                if (provinceToOwningFactionMap.get(province).equals(humanFaction) && ! moveToggle.isSelected()) {
                   // province owned by human
                   if (currentlySelectedAlliedProvince != null){
                     featureLayer.unselectFeature(currentlySelectedAlliedProvince);
@@ -512,16 +545,19 @@ public class GloriaRomanusController {
                   manageProvinceButton.setDisable(false);
                   unitsButton.setDisable(false);
                   infrastructureButton.setDisable(false);
-                }
-                else{
-                  if (currentlySelectedEnemyProvince != null){
-                    featureLayer.unselectFeature(currentlySelectedEnemyProvince);
+                  featureLayer.selectFeature(f); 
+                } else if (moveToggle.isSelected() && ! f.getAttributes().get("name").equals(getProvince(currentlySelectedAlliedProvince).getName())) {
+                  if (currentlySelectedTargetProvince != null) {
+                    featureLayer.unselectFeature(currentlySelectedTargetProvince);
                   }
-                  currentlySelectedEnemyProvince = f;
-                  opponent_province.setText(province);
-                }
+                  currentlySelectedTargetProvince = f;
+                  targetProvince.setText(province);
+                  featureLayer.selectFeature(f);
 
-                featureLayer.selectFeature(f);                
+                  transparentPane.getChildren().add(selectUnitsMenu);
+                  stack.getChildren().add(transparentPane);
+                  selectUnitsController.listSetup(getProvince(currentlySelectedAlliedProvince), getProvince(currentlySelectedTargetProvince));
+                }              
               }
 
               
@@ -581,11 +617,17 @@ public class GloriaRomanusController {
   }
 
   private void resetSelections(){
-    featureLayer_provinces.unselectFeatures(Arrays.asList(currentlySelectedEnemyProvince, currentlySelectedAlliedProvince));
-    currentlySelectedEnemyProvince = null;
+    featureLayer_provinces.unselectFeatures(Arrays.asList(currentlySelectedTargetProvince, currentlySelectedAlliedProvince));
+    currentlySelectedTargetProvince = null;
     currentlySelectedAlliedProvince = null;
     invading_province.setText("");
-    opponent_province.setText("");
+    targetProvince.setText("");
+  }
+
+  public void resetTargetSelection() {
+    featureLayer_provinces.unselectFeatures(Arrays.asList(currentlySelectedTargetProvince));
+    currentlySelectedTargetProvince = null;
+    targetProvince.setText("");
   }
 
   private void printMessageToTerminal(String message){

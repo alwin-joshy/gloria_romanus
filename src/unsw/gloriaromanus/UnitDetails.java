@@ -50,4 +50,16 @@ public class UnitDetails {
         }
         return 0;
     }
+
+    public int getNumTroops() {
+        return unit.getNumTroops();
+    }
+
+    public int getRemainingMovementPoints() {
+        return unit.getMovementPointsRemaining();
+    }
+
+    public int getSmithLevel() {
+        return unit.getSmithLevel();
+    }
 }

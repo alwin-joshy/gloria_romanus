@@ -130,7 +130,7 @@ public class UnitsController {
     private void handleRecruitButton() {
         UnitDetails selected = unitTable.getSelectionModel().getSelectedItem();
         Unit toBuild = new Unit(selected.getUnit().getName());
-        if (province.build(toBuild) != null){
+        if (province.build(toBuild) != null) {
             unitsInTrainingTable.getItems().add(new UnitDetails(province, toBuild));
             updateTrainingCount();
             treasuryBalance.setText(Integer.toString(faction.getTreasury()));
@@ -138,7 +138,7 @@ public class UnitsController {
                 recruitButton.setDisable(true);
         } else {
             gloriaRomanusController.handleNotEnoughGold();
-        } 
+        }
     }
 
     @FXML
@@ -182,7 +182,7 @@ public class UnitsController {
                     speed.setText(Integer.toString((int) chosenUnit.getSpeed()));
                     movementPoints.setText(Integer.toString(chosenUnit.getMovementPoints()));
                     selectedUnit.setText(chosenUnit.getName());
-                    if (recruitButton.isDisabled())
+                    if (recruitButton.isDisabled() && province.getUnitTrainingLimit() != province.getUnitsInTraining())
                         recruitButton.setDisable(false);
                 } else {
                     recruitButton.setDisable(true);
@@ -231,6 +231,7 @@ public class UnitsController {
                 unitsInTrainingTable.getItems().add(new UnitDetails(province, (Unit) pd.getProject()));
             }
         }
+
         recruitButton.setDisable(true);
         treasuryBalance.setText(Integer.toString(faction.getTreasury()));
     }

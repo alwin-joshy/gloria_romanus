@@ -1,6 +1,8 @@
 package unsw.gloriaromanus;
 
 public class SmithLevelTwo extends SmithLevelOne {
+    private int level = 2;
+
     @Override
     public double applyEnemyAttackDebuff(double damage) {
         return super.applyEnemyAttackDebuff(damage) * 0.5 >= 1 ? super.applyEnemyAttackDebuff(damage) * 0.5  : 1;

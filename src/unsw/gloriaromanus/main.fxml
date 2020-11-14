@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.Background?>
 <?import javafx.scene.layout.BackgroundFill?>
 <?import javafx.scene.layout.HBox?>
@@ -47,19 +48,26 @@
                </font></Label>
          </children>
       </HBox>
-      <VBox prefHeight="72.0" prefWidth="230.0">
+      <VBox prefHeight="38.0" prefWidth="230.0">
          <children>
                <VBox>
                    <Label text="Selected Allied Province" />
                    <TextField fx:id="invading_province" editable="false" text="" />
                </VBox>
-               <VBox>
-                   <Label text="Selected Enemy Province" />
-                   <TextField fx:id="opponent_province" editable="false" text="" />
-               </VBox>
+               <VBox />
+            <Label text="Selected Target Province" />
+            <TextField fx:id="targetProvince" />
          </children>
       </VBox>
-        <Button onAction="#clickedInvadeButton" text="MOVE UNITS" />
+      <VBox prefHeight="30.0" prefWidth="230.0">
+         <children>
+            <HBox prefHeight="28.0" prefWidth="230.0">
+               <children>
+                  <ToggleButton fx:id="moveToggle" mnemonicParsing="false" text="MOVE UNITS" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
         <VBox>
             <Label text="Output from interactions" />
             <TextArea fx:id="output_terminal" editable="false" text="" />

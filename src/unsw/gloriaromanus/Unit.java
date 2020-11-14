@@ -116,6 +116,10 @@ public class Unit implements Serializable, Project {
     public int getBaseCost() {
         return baseCost;
     }
+
+    public int getSmithLevel() {
+        return smithBuff.getLevel();
+    }
     
     public void reduceRemainingMovementPoints(int movementPoints) {
         movementPointsRemaining -= movementPoints;

@@ -448,6 +448,14 @@ public class Province implements Serializable {
         wealth = gold;
     }
 
+    public int getTotalTroops() {
+        int total = 0;
+        for (Unit u : units) {
+            total += u.getNumTroops();
+        }
+        return total;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
