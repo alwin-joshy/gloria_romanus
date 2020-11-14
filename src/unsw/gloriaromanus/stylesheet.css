@@ -3,6 +3,20 @@
     -fx-border-radius: 20;
     -fx-background-color: #e1c082;
     -fx-background-radius: 20;
+}   
+
+.buttons:hover {
+    -fx-border-color: #140f04;
+    -fx-border-radius: 20;
+    -fx-background-color: #d99a24;;
+    -fx-background-radius: 20;
+}
+
+.buttons:active {
+    -fx-border-color: #140f04;
+    -fx-border-radius: 20;
+    -fx-background-color: #d99a24;;
+    -fx-background-radius: 20;
 }
 
 .buttons:selected {
@@ -13,13 +27,11 @@
 .menu-button {
     -fx-background-color:#e1c082;
     -fx-border-color: #140f04;
-}
-
+    }
 .split-menu-button .label {
     -fx-border-color: #140f04;
     -fx-background-color: #e1c082;
     }
-
 .split-menu-button .arrow {
     -fx-background-color: #e1c082;
 }
@@ -28,7 +40,6 @@
     -fx-border-color: #140f04;
     -fx-background-color: transparent;
 }
-
 .pane{
     -fx-border-color: #140f04;
     -fx-background-color: transparent;
