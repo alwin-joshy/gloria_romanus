@@ -19,7 +19,7 @@
       </ImageView>
       <ImageView fitHeight="550.0" fitWidth="550.0" layoutX="134.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../../../../../../Desktop/logo-roman-eagle-139107301.png" />
+            <Image url="@Eagle.png" />
          </image>
       </ImageView>
       <Button fx:id="newGameButton" layoutX="250.0" layoutY="279.0" mnemonicParsing="false" onAction="#handleNewGameButton" opacity="0.8" prefHeight="60.0" prefWidth="300.0" text="NEW GAME">
