@@ -8,6 +8,7 @@ public class Market extends WealthGenerationBuilding {
         setBaseCost(40);
         setBaseContructionTime(2);
         setName("Market");
+        setDescription("Each Market upgrade reduces the construction cost of all new buildings in the province 2/3/4/5% depending on level.");
     }
 
     public void levelUp() {

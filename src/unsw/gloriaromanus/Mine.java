@@ -8,6 +8,7 @@ public class Mine extends WealthGenerationBuilding {
         setBaseCost(40);
         setBaseContructionTime(2);
         setName("Mine");
+        setDescription("Each Mine upgrade reduces the initial cost of soldiers that are recruited in each of the province by 2/3/4/5% depending on level.");
     }
 
     public void levelUp() {

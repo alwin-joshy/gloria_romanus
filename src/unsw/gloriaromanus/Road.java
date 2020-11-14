@@ -9,6 +9,7 @@ public class Road extends Infrastructure {
         setBaseCost(85);
         setBaseContructionTime(3);
         setName("Road");
+        setDescription("Each Road upgrade will decrease the amount of movement points spent travelling to Provinces by 4/3/2/1* movement points depending on level. * Only Romans will be able to build the maximum level, however once built any other units can use the highway.*");
     }
 
     public void levelUp() {

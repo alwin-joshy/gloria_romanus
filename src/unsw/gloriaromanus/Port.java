@@ -8,6 +8,7 @@ public class Port extends WealthGenerationBuilding {
         setBaseContructionTime(2);
         setBaseCost(50);
         setName("Port");
+        setDescription("Each Port upgraded increases the before-tax rate of the town-wealth for any sea boarding region 10/20/60/240 depending on level.");
     }
 
     public void levelUp() {

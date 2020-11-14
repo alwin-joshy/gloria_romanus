@@ -5,6 +5,7 @@ import com.esri.arcgisruntime.internal.io.handler.GlobalRequestHandler;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -48,6 +49,9 @@ public class InfrastructureController {
     private TableColumn<InfrastructureDetails, String> upgradesConstructionTime;
 
     @FXML
+    private Label setDescription;
+
+    @FXML
     private Button buildButton;
 
     @FXML
@@ -83,6 +87,12 @@ public class InfrastructureController {
         upgradesConstructionTime.setCellValueFactory(new PropertyValueFactory<>("time"));
         curr = null;
         currDetails = null;
+        upgrades.getSelectionModel().selectedItemProperty().addListener((ov, oldValue, newValue) -> {
+        InfrastructureDetails selected = upgrades.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            setDescription.setText(selected.getDescription());
+        }
+        });
 
         buildButton.setDisable(true);
         cancelButton.setDisable(true);
@@ -144,7 +154,6 @@ public class InfrastructureController {
                 upgrades.getItems().add(new InfrastructureDetails(p, i));
             }
         }
-   
 
     
     }
@@ -166,6 +175,10 @@ public class InfrastructureController {
             return inf.getLevel();
         }
 
+        public String getDescription() {
+            return inf.getDescription();
+        }
+
         public int getCost() {
             return p.getInfrastructureCost(inf.getBaseCost());
         }
@@ -185,8 +198,6 @@ public class InfrastructureController {
         public Infrastructure getInfrastructure() {
             return inf;
         }
-
-        
 
     }
     
