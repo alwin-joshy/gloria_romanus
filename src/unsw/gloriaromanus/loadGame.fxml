@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
+<?import javafx.scene.effect.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
@@ -18,7 +20,7 @@
             <Image url="@photo-1558346648-9757f2fa4474.jpeg" />
          </image>
       </ImageView>
-      <Button fx:id="loadButton" layoutX="337.0" layoutY="570.0" mnemonicParsing="false" onAction="#handleLoadButton" text="Load">
+      <Button fx:id="loadButton" layoutX="337.0" layoutY="570.0" mnemonicParsing="false" onAction="#handleLoadButton" opacity="0.8" styleClass="buttons" stylesheets="@stylesheet.css" text="Load">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font></Button>
@@ -27,11 +29,11 @@
             <Font name="Roman SD" size="70.0" />
          </font>
       </Label>
-      <Button fx:id="mainMenuButton" layoutX="14.0" layoutY="638.0" mnemonicParsing="false" onAction="#handleMainMenuButton" text="main menu">
+      <Button fx:id="mainMenuButton" layoutX="14.0" layoutY="638.0" mnemonicParsing="false" onAction="#handleMainMenuButton" opacity="0.8" styleClass="buttons" stylesheets="@stylesheet.css" text="main menu">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font>
       </Button>
-      <ListView fx:id="saveList" blendMode="EXCLUSION" layoutX="81.0" layoutY="122.0" prefHeight="431.0" prefWidth="637.0" style="-fx-background-color: #ebebeb; -fx-selection-bar: #000000;" />
+      <ListView fx:id="saveList" blendMode="EXCLUSION" layoutX="81.0" layoutY="122.0" prefHeight="431.0" prefWidth="637.0" style="-fx-background-color: #ebebeb; -fx-selection-bar: #000000;" styleClass="pane" stylesheets="@stylesheet.css" />
    </children>
 </Pane>

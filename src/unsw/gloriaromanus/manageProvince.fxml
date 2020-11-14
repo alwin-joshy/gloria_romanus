@@ -22,7 +22,7 @@
             <Image url="@photo-1558346648-9757f2fa4474.jpeg" />
          </image>
       </ImageView>
-      <SplitMenuButton fx:id="currentTax" layoutX="298.0" layoutY="351.0" mnemonicParsing="false" prefWidth="250.0" text="NORMAL">
+      <SplitMenuButton fx:id="currentTax" layoutX="298.0" layoutY="351.0" mnemonicParsing="false" opacity="0.8" prefWidth="250.0" stylesheets="@stylesheet.css" text="NORMAL">
         <items>
           <MenuItem fx:id="lowTax" mnemonicParsing="false" onAction="#setLowTax" style="-fx-font-size: 28;" text="LOW" />
           <MenuItem fx:id="normalTax" mnemonicParsing="false" onAction="#setNormalTax" style="-fx-font-size: 28;" text="NORMAL" />
@@ -38,7 +38,7 @@
             <Font name="Roman SD" size="28.0" />
          </font>
       </Label>
-      <Button fx:id="backButton" layoutX="14.0" layoutY="526.0" mnemonicParsing="false" onAction="#handleBackButton" text="BACK">
+      <Button fx:id="backButton" layoutX="14.0" layoutY="526.0" mnemonicParsing="false" onAction="#handleBackButton" opacity="0.8" styleClass="buttons" stylesheets="@stylesheet.css" text="BACK">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font>

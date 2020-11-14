@@ -32,7 +32,7 @@
             <Font name="Roman SD" size="60.0" />
          </font>
       </Label>
-      <ListView fx:id="unitsInProvince" layoutX="38.0" layoutY="114.0" opacity="0.8" prefHeight="150.0" prefWidth="222.0" stylesheets="@stylesheet.css" />
+      <ListView fx:id="unitsInProvince" layoutX="38.0" layoutY="114.0" opacity="0.8" prefHeight="150.0" prefWidth="222.0" styleClass="pane" stylesheets="@stylesheet.css" />
       <Label layoutX="38.0" layoutY="90.0" prefHeight="16.0" prefWidth="180.0" text="Units in province ">
          <font>
             <Font name="Roman SD" size="13.0" />
@@ -53,7 +53,7 @@
          <font>
             <Font name="Roman SD" size="13.0" />
          </font></Label>
-      <SplitPane dividerPositions="0.5" layoutX="38.0" layoutY="349.0" prefHeight="191.0" prefWidth="663.0" styleClass="gridpane" stylesheets="@stylesheet.css">
+      <SplitPane dividerPositions="0.5" layoutX="38.0" layoutY="349.0" prefHeight="191.0" prefWidth="663.0" styleClass="pane" stylesheets="@stylesheet.css">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="158.0" prefWidth="260.0">
                <children>
