@@ -1,8 +1,9 @@
-.buttons {
+.button{
     -fx-border-color: #140f04;
     -fx-border-radius: 20;
     -fx-background-color: #e1c082;
     -fx-background-radius: 20;
+
 }
 
 .table-view{
@@ -10,12 +11,7 @@
     -fx-background-color: transparent;
 }
 
-.list-view{
-    -fx-border-color: #140f04;
-    -fx-background-color: transparent;
-}
-
-.gridpane{
+.pane{
     -fx-border-color: #140f04;
     -fx-background-color: transparent;
 }
