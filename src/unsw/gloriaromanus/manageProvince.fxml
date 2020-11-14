@@ -60,9 +60,9 @@
                   <Font name="Roman SD" size="28.0" />
                </font>
             </Label>
-            <Label fx:id="provinceName" prefHeight="45.0" prefWidth="367.0" text="Label" GridPane.columnIndex="1">
+            <Label fx:id="provinceName" prefHeight="45.0" prefWidth="402.0" text="Label" GridPane.columnIndex="1">
                <font>
-                  <Font name="Roman SD" size="28.0" />
+                  <Font name="Roman SD" size="24.0" />
                </font>
             </Label>
             <Label prefHeight="40.0" prefWidth="200.0" text="WEALTH:" GridPane.rowIndex="1">
