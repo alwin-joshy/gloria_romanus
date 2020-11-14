@@ -22,7 +22,7 @@
             <Font name="Roman SD" size="28.0" />
          </font>
       </Button>
-      <Label layoutX="65.0" layoutY="51.0" text="GAME PAUSED" textFill="#cd9630">
+      <Label layoutX="65.0" layoutY="51.0" style="-fx-text-fill: #cd9630;" text="GAME PAUSED" textFill="#cd9630">
          <font>
             <Font name="Roman SD" size="70.0" />
          </font>

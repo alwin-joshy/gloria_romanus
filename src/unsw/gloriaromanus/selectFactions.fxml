@@ -20,7 +20,7 @@
             <Image url="@photo-1558346648-9757f2fa4474.jpeg" />
          </image>
       </ImageView>
-      <Label layoutX="47.0" layoutY="50.0" text="SELECT FACTIONS" textFill="#cd9630">
+      <Label layoutX="47.0" layoutY="50.0" style="-fx-text-fill: #cd9630;" text="SELECT FACTIONS" textFill="#cd9630">
          <font>
             <Font name="Roman SD" size="70.0" />
          </font>

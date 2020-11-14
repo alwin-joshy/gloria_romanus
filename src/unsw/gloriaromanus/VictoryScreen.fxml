@@ -22,7 +22,7 @@
             <Image url="@photo-1558346648-9757f2fa4474.jpeg" />
          </image>
       </ImageView>
-      <Label layoutX="151.0" layoutY="109.0" prefHeight="86.0" prefWidth="570.0" text="VICTORY!" textFill="#cd9630">
+      <Label layoutX="151.0" layoutY="109.0" prefHeight="86.0" prefWidth="570.0" style="-fx-text-fill: #cd9630;" text="VICTORY!" textFill="#cd9630">
          <font>
             <Font name="Roman SD" size="96.0" />
          </font>

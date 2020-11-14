@@ -97,10 +97,15 @@
             </Label>
          </children>
       </GridPane>
-      <Label layoutX="32.0" layoutY="14.0" text="MANAGE PROVINCE" textFill="#cd9630">
+      <Label layoutX="32.0" layoutY="14.0" style="-fx-text-fill: #cd9630;" text="MANAGE PROVINCE" textFill="#cd9630">
          <font>
             <Font name="Roman SD" size="61.0" />
          </font>
       </Label>
+      <ImageView fitHeight="214.0" fitWidth="189.0" layoutX="568.0" layoutY="386.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@head%201.png" />
+         </image>
+      </ImageView>
    </children>
 </Pane>
