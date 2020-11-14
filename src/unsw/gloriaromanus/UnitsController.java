@@ -1,14 +1,8 @@
 package unsw.gloriaromanus;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.util.ArrayList;
 
-import org.json.JSONArray;
-
-import javafx.beans.InvalidationListener;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -18,10 +12,8 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
-import javafx.util.Callback;
 
 public class UnitsController {
     @FXML
@@ -71,6 +63,9 @@ public class UnitsController {
 
     @FXML
     private Label treasuryBalance;
+
+    @FXML
+    private Label attack;
 
     @FXML
     private ListView<ListCell<String>> unitsInProvince;
@@ -138,9 +133,9 @@ public class UnitsController {
         if (province.build(toBuild) != null){
             unitsInTrainingTable.getItems().add(new UnitDetails(province, toBuild));
             updateTrainingCount();
+            treasuryBalance.setText(Integer.toString(faction.getTreasury()));
             if (province.getUnitTrainingLimit() == province.getUnitsInTraining())
                 recruitButton.setDisable(true);
-            System.out.println(province.getFaction().getMineMultiplier());
         } else {
             gloriaRomanusController.handleNotEnoughGold();
         } 
@@ -158,6 +153,7 @@ public class UnitsController {
             }
         }
         updateTrainingCount();
+        treasuryBalance.setText(Integer.toString(faction.getTreasury()));
     }
 
     private void updateTrainingCount() {
@@ -167,7 +163,9 @@ public class UnitsController {
     @FXML
     public void initialize() {
         unitsInTrainingTable.setPlaceholder(new Label());
+        unitTable.setPlaceholder(new Label());
         cancelButton.disableProperty().bind(unitsInTrainingTable.getSelectionModel().selectedItemProperty().isNull());
+        disbandButton.disableProperty().bind(unitsInProvince.getSelectionModel().selectedItemProperty().isNull());
         unitTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue ov, Object old_val, Object new_val) {
@@ -176,6 +174,7 @@ public class UnitsController {
                     Unit chosenUnit = selected.getUnit();
                     quantity.setText(Integer.toString(chosenUnit.getNumTroops()));
                     ranged.setText(Boolean.toString(chosenUnit.isRanged()));
+                    attack.setText(Integer.toString((int) chosenUnit.getAttack()));
                     armour.setText(Integer.toString(chosenUnit.getArmour()));
                     morale.setText(Integer.toString((int) chosenUnit.getMorale()));
                     defenseSkill.setText(Integer.toString(chosenUnit.getDefenceSkill()));
@@ -217,13 +216,12 @@ public class UnitsController {
             unitsInProvince.getItems().add(lc);
         }
 
-        String content = Files.readString(Paths.get("src/unsw/gloriaromanus/units/unitLevels.json"));
-        JSONArray unitLevels = new JSONArray(content);
         // populate buy-able units
-        for (int i = 0; i < province.getTroopProductionBuilding().getLevel(); i++) {
-            JSONArray unitList = unitLevels.getJSONArray(i);
-            for (int j = 0; j < unitList.length(); j++) {
-                unitTable.getItems().add(new UnitDetails(province, new Unit((String) unitList.get(j))));
+        TroopProductionBuilding tb = province.getTroopProductionBuilding();
+        for (int i = 0; i < tb.getLevel(); i++) {
+            ArrayList<String> unitList = tb.getUnitsOfLevel(i + 1);
+            for (String j : unitList) {
+                unitTable.getItems().add(new UnitDetails(province, new Unit(j)));
             }
         }
 

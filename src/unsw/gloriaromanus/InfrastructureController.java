@@ -5,6 +5,7 @@ import com.esri.arcgisruntime.internal.io.handler.GlobalRequestHandler;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -53,9 +54,12 @@ public class InfrastructureController {
     @FXML
     private Button cancelButton;
 
+    @FXML
+    private Label treasuryBalance;
 
     private GloriaRomanusController gloriaRomanusController;
     private Province p;
+    private Faction f;
     private ProjectDetails curr;
     private InfrastructureDetails currDetails;
 
@@ -92,6 +96,9 @@ public class InfrastructureController {
         buildButton.disableProperty().bind(upgrades.getSelectionModel().selectedItemProperty().isNull().or(Bindings.size(currentProject.getItems()).isEqualTo(1)));
         cancelButton.disableProperty().bind(currentProject.getSelectionModel().selectedItemProperty().isNull());
 
+        upgrades.setPlaceholder(new Label());
+        currentProject.setPlaceholder(new Label());
+        builtInfrastructure.setPlaceholder(new Label());
     }
 
     @FXML 
@@ -101,6 +108,7 @@ public class InfrastructureController {
         upgrades.getItems().add(currDetails);
         curr = null;
         currDetails = null;
+        treasuryBalance.setText(Integer.toString(f.getTreasury()));
     }
 
     @FXML
@@ -111,6 +119,7 @@ public class InfrastructureController {
             curr = buildResult;
             currentProject.getItems().add(currDetails);
             upgrades.getItems().remove(currDetails);
+            treasuryBalance.setText(Integer.toString(f.getTreasury()));
         } else {
             gloriaRomanusController.handleNotEnoughGold();
         }
@@ -121,6 +130,7 @@ public class InfrastructureController {
 
     public void setupScreen(Province p)  {
         this.p = p;
+        this.f = p.getFaction();
         builtInfrastructure.getItems().clear();
         upgrades.getItems().clear();
         currentProject.getItems().clear();
@@ -145,7 +155,7 @@ public class InfrastructureController {
             }
         }
    
-
+        treasuryBalance.setText(Integer.toString(f.getTreasury()));
     
     }
 

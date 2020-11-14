@@ -1,10 +1,6 @@
 package unsw.gloriaromanus;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
-import org.json.JSONArray;
 
 public class UnitDetails {
     private Province province;
@@ -24,12 +20,10 @@ public class UnitDetails {
     }
 
     public int getLevel() throws IOException {
-        String content = Files.readString(Paths.get("src/unsw/gloriaromanus/units/unitLevels.json"));
-        JSONArray unitLevels = new JSONArray(content);
-        for (int i = 0; i < unitLevels.length(); i++) {
-            for (int j = 0; j < unitLevels.getJSONArray(i).length(); j++) {
-                if (getName().equals(unitLevels.getJSONArray(i).get(j)))
-                    return i + 1;
+        TroopProductionBuilding tb = province.getTroopProductionBuilding();
+        for (int i = 1; i <= tb.getLevel(); i++) {
+            if (tb.getUnitsOfLevel(i).contains(getName())) {
+                return i;
             }
         }
         return 0;

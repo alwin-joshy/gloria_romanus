@@ -1,5 +1,5 @@
 {
-    "Rome": { "level": 3, "name": "legionaire" },
+    "Rome": { "level": 3, "name": "legionary" },
     "Carthage" : { "level": 3, "name": "elephant" },
     "Gaul" : { "level": 2, "name": "berserker" },
     "Britons" : { "level": 2, "name": "berserker" },

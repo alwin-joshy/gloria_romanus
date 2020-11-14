@@ -55,13 +55,12 @@ public class SaveController {
 
     @FXML
     private void handleSaveButton() {
-        try {
-            game.saveGame(saveName.getText());
+        if (game.saveGame(saveName.getText())) {
             status.setText("SAVE SUCCESS");
             status.setTextFill(Paint.valueOf("#12b22b"));
             if (!listHasCurrentName())
                 saveListView.getItems().add(newCell());
-        } catch (IOException e) {
+        } else {
             status.setText("SAVE FAILED");
             status.setTextFill(Paint.valueOf("#ff2d00"));
         }

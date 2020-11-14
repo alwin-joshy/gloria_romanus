@@ -30,6 +30,7 @@
     },
     "catapult": {
         "type": "artillery",
+        "towerDamage": 10,
         "numTroops": 30,
         "ranged": true,
         "armour": 4,
@@ -69,21 +70,22 @@
         "baseCost": 200,
         "trainingTime": 3
     },
-    "beserker": {
+    "berserker": {
         "type": "infantry",
         "numTroops": 25,
         "ranged": false,
         "armour": 0,
         "morale": 30,
         "speed": 8,
-        "attack": 22,
+        "attack": 15,
         "defenceSkill": 0,
         "shieldDefence": 0,
-        "baseCost": 190,
-        "trainingTime": 3
+        "baseCost": 100,
+        "trainingTime": 2
     },
     "cannon": {
         "type": "artillery",
+        "towerDamage": 30,
         "numTroops": 50,
         "ranged": true,
         "armour": 11,
@@ -321,6 +323,7 @@
     },
     "trebuchet": {
         "type": "artillery",
+        "towerDamage": 20,
         "numTroops": 40,
         "ranged": true,
         "armour": 7,

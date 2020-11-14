@@ -70,7 +70,6 @@ public class LoadGameController {
     private void handleLoadButton() throws IOException {
         Game g = new Game();
         g.loadGame(saveList.getSelectionModel().getSelectedItem().getText());
-        System.out.println(g.getNumProvinces());
         gloriaRomanusScreen.getController().setGame(g);
         gloriaRomanusScreen.getController().initialiseMap();
         gloriaRomanusScreen.start();

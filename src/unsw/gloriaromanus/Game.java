@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.util.ArrayList;
@@ -25,7 +27,7 @@ public class Game implements Serializable{
     private ArrayList<Province> provinces;
     private static Map<String, Map<String, Integer>> adjacentProvinces;
     private int currentYear;
-    private boolean isRunning;
+    private String winner;
     private int currentFaction;
     private ArrayList<VictoryCondition> victories;
     private Goal currentVictoryCondition;
@@ -33,6 +35,7 @@ public class Game implements Serializable{
     private HashSet<Unit> movedUnits;
     private Map<String, Boolean> toRecalculateBonuses;
     private ArrayList<String> provincesInvadedThisTurn;
+    private boolean alreadyWon;
 
     public Game() {
         this.br = new StandardBattleResolver(0);
@@ -62,7 +65,7 @@ public class Game implements Serializable{
         Random r = new Random();
         currentFaction = r.nextInt(factions.size());
         factions.get(currentFaction).collectTax();
-        isRunning = true;
+        winner = "";
     } 
 
     public void initialiseProvinces(JSONArray provinceList, JSONArray landlocked, BuildingObserver bo) {
@@ -138,8 +141,11 @@ public class Game implements Serializable{
     }
 
     public void endTurn() {
-        if (currentVictoryCondition.checkVictory(factions.get(currentFaction))) {
-            endGame();
+        if (! alreadyWon) {
+            if (currentVictoryCondition.checkVictory(factions.get(currentFaction))) {
+                endGame();
+                alreadyWon = true;
+            }
         }
         for (Unit u : movedUnits) {
             u.resetMovementPoints();
@@ -160,8 +166,11 @@ public class Game implements Serializable{
         for (Province p : curr.checkForRevolt()) {
             revolt(p);
         }
-        if (currentVictoryCondition.checkVictory(curr)) {
-            endGame();
+        if (! alreadyWon) {
+            if (currentVictoryCondition.checkVictory(curr)) {
+                endGame();
+                alreadyWon = true;
+            }
         }
     }
 
@@ -221,24 +230,36 @@ public class Game implements Serializable{
 
     // Might also need to save AI and BattleResolver
 
-    public void saveGame(String filename) throws IOException {
+    public boolean saveGame(String filename) {
         FileOutputStream out;
-        new File("saves").mkdirs();
-        out = new FileOutputStream("saves/" + filename);
-        ObjectOutputStream os = new ObjectOutputStream(out);
-        os.writeObject(adjacentProvinces);
-        os.writeObject(provinces);
-        os.writeObject(currentYear);
-        os.writeObject(factions);
-        os.writeObject(currentVictoryCondition);
-        os.writeObject(br);
-        os.writeInt(currentFaction);
-        os.writeBoolean(isRunning);
-        os.writeObject(movedUnits);
-        os.writeObject(toRecalculateBonuses);
-        os.writeObject(provincesInvadedThisTurn);
-        os.flush();
-        os.close();
+        try {
+            new File("saves").mkdirs();
+            out = new FileOutputStream("saves/" + filename);
+            ObjectOutputStream os = new ObjectOutputStream(out);
+            os.writeObject(adjacentProvinces);
+            os.writeObject(provinces);
+            os.writeInt(currentYear);
+            os.writeObject(factions);
+            os.writeObject(currentVictoryCondition);
+            os.writeObject(br);
+            os.writeInt(currentFaction);
+            os.writeObject(winner);
+            os.writeObject(movedUnits);
+            os.writeObject(toRecalculateBonuses);
+            os.writeObject(provincesInvadedThisTurn);
+            os.writeBoolean(alreadyWon);
+            os.flush();
+            os.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean saveGame() {
+        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd-MM-uuuu HHmm");
+        return saveGame(LocalDateTime.now().format(formatters));
     }
 
     public void loadGame(String filename) {
@@ -249,22 +270,23 @@ public class Game implements Serializable{
             ins = new ObjectInputStream(in);
             adjacentProvinces = (Map<String, Map<String, Integer>>) ins.readObject();
             provinces = (ArrayList<Province>) ins.readObject();
-            currentYear = (int) ins.readObject();
+            currentYear = ins.readInt();
             factions = (ArrayList<Faction>) ins.readObject();
             currentVictoryCondition = (Goal) ins.readObject();
             br = (BattleResolver) ins.readObject();
             currentFaction = ins.readInt();
-            isRunning = ins.readBoolean();
+            winner = (String) ins.readObject();
             movedUnits = (HashSet<Unit>) ins.readObject();
             toRecalculateBonuses = (HashMap<String, Boolean>) ins.readObject();
             provincesInvadedThisTurn = (ArrayList<String>) ins.readObject();
+            alreadyWon = ins.readBoolean();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 
     public void endGame() {
-        isRunning = false;
+        winner = getCurrentFactionName();
     }
 
     public void printFactions() {
@@ -431,8 +453,8 @@ public class Game implements Serializable{
         return adjacentProvinces;
     }
 
-    public boolean isFinished() {
-        return !isRunning;
+    public String getWinner() {
+        return winner;
     }
 
     public void setVictoryCondition(Goal g) {
