@@ -1,7 +1,9 @@
 package unsw.gloriaromanus;
 
 public class SmithLevelFour extends SmithLevelThree {
-    private int level = 4;
+    public SmithLevelFour() {
+        setLevel(4);
+    }
     
     @Override
     public double getEnemyMoraleDebuff() {

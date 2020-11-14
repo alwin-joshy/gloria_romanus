@@ -1,10 +1,18 @@
 package unsw.gloriaromanus;
 
 public class SmithLevelZero implements SmithLevel {
-    private int level = 0;
+    int level; 
+    
+    public SmithLevelZero() {
+        setLevel(0);
+    }
 
     public int getLevel() {
         return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     public double applyEnemyAttackDebuff(double damage) {

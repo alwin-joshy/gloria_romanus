@@ -226,7 +226,6 @@ public class Province implements Serializable {
                 if (p instanceof Infrastructure) {
                     Infrastructure inf = (Infrastructure) p;
                     inf.levelUp();
-                    System.out.println("HERE");
 
                     if (inf instanceof Walls) {
                         ((Walls) inf).levelUpTowers(this);
