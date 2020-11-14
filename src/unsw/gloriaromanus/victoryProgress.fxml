@@ -105,7 +105,7 @@
          <font>
             <Font name="Roman SD" size="18.0" />
          </font></Label>
-      <Button fx:id="backButton" layoutX="14.0" layoutY="526.0" mnemonicParsing="false" onAction="#handleBackButton" text="BACK">
+      <Button fx:id="backButton" layoutX="14.0" layoutY="526.0" mnemonicParsing="false" onAction="#handleBackButton" opacity="0.8" styleClass="buttons" stylesheets="@stylesheet.css" text="BACK">
          <font>
             <Font name="Roman SD" size="22.0" />
          </font>

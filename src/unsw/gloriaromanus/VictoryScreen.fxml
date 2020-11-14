@@ -27,12 +27,12 @@
             <Font name="Roman SD" size="96.0" />
          </font>
       </Label>
-      <Button fx:id="continueButton" layoutX="241.0" layoutY="369.0" mnemonicParsing="false" onAction="#handleContinueButton" prefHeight="66.0" prefWidth="319.0" text="CONTINUE">
+      <Button fx:id="continueButton" layoutX="241.0" layoutY="369.0" mnemonicParsing="false" onAction="#handleContinueButton" opacity="0.8" prefHeight="66.0" prefWidth="319.0" styleClass="buttons" stylesheets="@stylesheet.css" text="CONTINUE">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font>
       </Button>
-      <Button fx:id="backButton" layoutX="241.0" layoutY="487.0" mnemonicParsing="false" onAction="#handleMainMenuButton" prefHeight="66.0" prefWidth="319.0" text="MAIN MENU">
+      <Button fx:id="backButton" layoutX="241.0" layoutY="487.0" mnemonicParsing="false" onAction="#handleMainMenuButton" opacity="0.8" prefHeight="66.0" prefWidth="319.0" styleClass="buttons" stylesheets="@stylesheet.css" text="MAIN MENU">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font>
