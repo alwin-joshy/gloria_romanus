@@ -80,6 +80,7 @@ public class SelectFactionsController {
                 String currentFactionName = availableFactions.getString(4 * i + j);
                 ToggleButton b = new ToggleButton(currentFactionName);
                 b.setStyle("-fx-font-family: \'Roman SD\'; -fx-font-size: 15;");
+                b.getStyleClass().add(getClass().getResource("stylesheet.css").toExternalForm());
                 b.setPrefSize(140, 50);
                 // designate a faction to each button so that it can be used to toggle
                 // a faction to be a player
