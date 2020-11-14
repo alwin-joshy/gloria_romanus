@@ -17,7 +17,7 @@
             <Image url="@photo-1558346648-9757f2fa4474.jpeg" />
          </image>
       </ImageView>
-      <Button fx:id="resumeButton" layoutX="200.0" layoutY="240.0" mnemonicParsing="false" onAction="#handleResumeButton" prefHeight="60.0" prefWidth="300.0" text="RESUME">
+      <Button fx:id="resumeButton" layoutX="200.0" layoutY="240.0" mnemonicParsing="false" onAction="#handleResumeButton" opacity="0.8" prefHeight="60.0" prefWidth="300.0" styleClass="buttons" stylesheets="@stylesheet.css" text="RESUME">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font>
@@ -27,17 +27,17 @@
             <Font name="Roman SD" size="70.0" />
          </font>
       </Label>
-      <Button fx:id="saveButton" layoutX="200.0" layoutY="322.0" mnemonicParsing="false" onAction="#handleSaveButton" prefHeight="60.0" prefWidth="300.0" text="SAVE GAME">
+      <Button fx:id="saveButton" layoutX="200.0" layoutY="322.0" mnemonicParsing="false" onAction="#handleSaveButton" opacity="0.8" prefHeight="60.0" prefWidth="300.0" styleClass="buttons" stylesheets="@stylesheet.css" text="SAVE GAME">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font>
       </Button>
-      <Button fx:id="mainMenuButton" layoutX="200.0" layoutY="402.0" mnemonicParsing="false" onAction="#handleMainMenuButton" prefHeight="60.0" prefWidth="300.0" text="MAIN MENU">
+      <Button fx:id="mainMenuButton" layoutX="200.0" layoutY="402.0" mnemonicParsing="false" onAction="#handleMainMenuButton" opacity="0.8" prefHeight="60.0" prefWidth="300.0" styleClass="buttons" stylesheets="@stylesheet.css" text="MAIN MENU">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font>
       </Button>
-      <Button fx:id="exitGameButton" layoutX="200.0" layoutY="482.0" mnemonicParsing="false" onAction="#handleExitGameButton" prefHeight="60.0" prefWidth="300.0" text="EXIT GAME">
+      <Button fx:id="exitGameButton" layoutX="200.0" layoutY="482.0" mnemonicParsing="false" onAction="#handleExitGameButton" opacity="0.8" prefHeight="60.0" prefWidth="300.0" styleClass="buttons" stylesheets="@stylesheet.css" text="EXIT GAME">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font>
