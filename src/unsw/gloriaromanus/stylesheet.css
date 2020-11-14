@@ -1,4 +1,4 @@
-.button{
+.buttons{
     -fx-border-color: #140f04;
     -fx-border-radius: 20;
     -fx-background-color: #e1c082;
@@ -6,6 +6,19 @@
 
 }
 
+.menu-button {
+    -fx-background-color:#e1c082;
+    }
+
+.split-menu-button .label {
+    -fx-background-color: #e1c082;
+    }
+
+.split-menu-button .arrow {
+    -fx-background-color: #e1c082;
+    }
+
+}
 .table-view{
     -fx-border-color: #140f04;
     -fx-background-color: transparent;
