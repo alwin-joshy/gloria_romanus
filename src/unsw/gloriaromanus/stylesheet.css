@@ -4,3 +4,18 @@
     -fx-background-color: #e1c082;
     -fx-background-radius: 20;
 }
+
+.table-view{
+    -fx-border-color: #140f04;
+    -fx-background-color: transparent;
+}
+
+.list-view{
+    -fx-border-color: #140f04;
+    -fx-background-color: transparent;
+}
+
+.gridpane{
+    -fx-border-color: #140f04;
+    -fx-background-color: transparent;
+}
