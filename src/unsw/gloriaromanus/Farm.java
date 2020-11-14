@@ -8,7 +8,7 @@ public class Farm extends WealthGenerationBuilding {
         setBaseCost(40);
         setBaseContructionTime(2);
         setName("Farm");
-        setDescription("Each Farm upgrade increases the rate in which troops are production per the province by 1/2/4/8% depending on level.");
+        setDescription("Each Farm upgrade increases the number of units which can be trained in a province at once by 1/2/3/4 depending on level.");
     }
 
     public void levelUp() {
