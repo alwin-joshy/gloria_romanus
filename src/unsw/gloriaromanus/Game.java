@@ -65,6 +65,7 @@ public class Game implements Serializable{
         factions.add(new Faction("rebel"));
         Random r = new Random();
         currentFaction = r.nextInt(factions.size());
+        if (getCurrentFactionName().equals("rebel")) currentFaction++;
         factions.get(currentFaction).collectTax();
         winner = "";
     } 
