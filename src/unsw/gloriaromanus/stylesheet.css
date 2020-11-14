@@ -1,26 +1,34 @@
 .buttons{
     -fx-border-color: #140f04;
     -fx-border-radius: 20;
-    -fx-background-color: #e1c082;
+    -fx-background-color:#d8b065;
     -fx-background-radius: 20;
 }   
 
 .buttons:hover {
     -fx-border-color: #140f04;
     -fx-border-radius: 20;
-    -fx-background-color: #d99a24;;
+    -fx-background-color: #ad7b1d;
     -fx-background-radius: 20;
 }
 
 .buttons:active {
     -fx-border-color: #140f04;
     -fx-border-radius: 20;
-    -fx-background-color: #d99a24;;
+    -fx-background-color: #d8b065;
     -fx-background-radius: 20;
 }
 
+.buttons:disabled {
+    -fx-border-color: #140f04;
+    -fx-border-radius: 20;
+    -fx-background-color: #e9d3a9;
+    -fx-background-radius: 20;
+    -fx-rotate: 180;
+}
+
 .buttons:selected {
-    -fx-background-color: #d99a24;
+    -fx-background-color: #ad7b1d;
     fx-effect: innershadow( gaussian , rgba(0,0,0,0.7) , 20,0,0,0 );
 }
 
