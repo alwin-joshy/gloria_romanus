@@ -22,6 +22,7 @@ public class TroopProductionBuilding extends Infrastructure {
         this.setBaseContructionTime(1);
         this.setBaseCost(40);
         setName("Troop Production Building");
+        setDescription("Each Troop Production Building upgrade will allow for more advance troops for the faction to produce; Spearmen, Missile infantry, Melee cavalry");
         units = new HashMap<Integer, ArrayList<String>>();
         String content = "[\r\n\t[\"peasant\", \"horseman\", \"slingerman\"],\r\n  \t[\"archer\", \"catapult\", \"horsearcher\", \"spearman\", \"swordsman\"],\r\n  \t[\"axeman\", \"netman\", \"pikeman\", \"trebuchet\"],\r\n  \t[\"cannon\", \"crossbowman\", \"knight\", \"lancer\"]\r\n]";
         // This wont work with the test file ;-;

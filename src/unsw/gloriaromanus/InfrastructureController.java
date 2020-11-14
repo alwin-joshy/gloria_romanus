@@ -1,7 +1,5 @@
 package unsw.gloriaromanus;
 
-import com.esri.arcgisruntime.internal.io.handler.GlobalRequestHandler;
-
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -49,6 +47,9 @@ public class InfrastructureController {
     private TableColumn<InfrastructureDetails, String> upgradesConstructionTime;
 
     @FXML
+    private Label setDescription;
+
+    @FXML
     private Button buildButton;
 
     @FXML
@@ -87,6 +88,14 @@ public class InfrastructureController {
         upgradesConstructionTime.setCellValueFactory(new PropertyValueFactory<>("time"));
         curr = null;
         currDetails = null;
+        setDescription.setWrapText(true);
+        setDescription.setText("");
+        upgrades.getSelectionModel().selectedItemProperty().addListener((ov, oldValue, newValue) -> {
+            InfrastructureDetails selected = upgrades.getSelectionModel().getSelectedItem();
+            if (selected != null) {
+                setDescription.setText(selected.getDescription());
+            }
+            });
 
         buildButton.setDisable(true);
         cancelButton.setDisable(true);
@@ -154,9 +163,7 @@ public class InfrastructureController {
                 upgrades.getItems().add(new InfrastructureDetails(p, i));
             }
         }
-   
         treasuryBalance.setText(Integer.toString(f.getTreasury()));
-    
     }
 
     public class InfrastructureDetails {
@@ -174,6 +181,10 @@ public class InfrastructureController {
 
         public int getLevel() {
             return inf.getLevel();
+        }
+
+        public String getDescription() {
+            return inf.getDescription();
         }
 
         public int getCost() {
@@ -195,8 +206,6 @@ public class InfrastructureController {
         public Infrastructure getInfrastructure() {
             return inf;
         }
-
-        
 
     }
     
