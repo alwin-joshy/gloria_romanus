@@ -44,7 +44,7 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="162.0" prefWidth="155.0">
                <children>
-                  <Label fx:id="setDescription" layoutX="3.0" layoutY="31.0" prefHeight="237.0" prefWidth="249.0" text="Label" />
+                  <Label fx:id="setDescription" alignment="TOP_LEFT" layoutX="3.0" layoutY="31.0" prefHeight="237.0" prefWidth="249.0" text="Label" />
                   <Label layoutX="3.0" layoutY="7.0" text="Description" />
                </children></AnchorPane>
         </items>
