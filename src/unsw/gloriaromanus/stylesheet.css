@@ -1,14 +1,29 @@
-.buttons {
-    -fx-background-image: url("Sandstone.jpg");
-    -fx-border-radius: 20px;
-    -fx-border-radius: 20px;
-    -fx-background-size: cover;
-    -fx-background-width: 50px;
-    -fx-background-width: 50px;
-    -fx-background-insets: 20px;
+.buttons{
+    -fx-border-color: #140f04;
+    -fx-border-radius: 20;
+    -fx-background-color: #e1c082;
+    -fx-background-radius: 20;
+
 }
 
-.background {
-    background-image: 
+.menu-button {
+    -fx-background-color:#e1c082;
+    }
 
+.split-menu-button .label {
+    -fx-background-color: #e1c082;
+    }
+
+.split-menu-button .arrow {
+    -fx-background-color: #e1c082;
+}
+
+.table-view{
+    -fx-border-color: #140f04;
+    -fx-background-color: transparent;
+}
+
+.pane{
+    -fx-border-color: #140f04;
+    -fx-background-color: transparent;
 }
