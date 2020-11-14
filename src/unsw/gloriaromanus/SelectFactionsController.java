@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -80,7 +81,11 @@ public class SelectFactionsController {
                 String currentFactionName = availableFactions.getString(4 * i + j);
                 ToggleButton b = new ToggleButton(currentFactionName);
                 b.setStyle("-fx-font-family: \'Roman SD\'; -fx-font-size: 15;");
+                b.getStylesheets().add(getClass().getResource("stylesheet.css").toExternalForm());
+                b.getStyleClass().add("buttons");
+                // b.getStyleClass().add("buttons:selected");
                 b.setPrefSize(140, 50);
+                b.setOpacity(0.8);
                 // designate a faction to each button so that it can be used to toggle
                 // a faction to be a player
                 b.setOnAction((e) -> {

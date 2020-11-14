@@ -16,29 +16,29 @@
    <children>
       <ImageView fitHeight="500.0" fitWidth="600.0" pickOnBounds="true">
          <image>
-            <Image url="@photo-1558346648-9757f2fa4474.jpeg" />
+            <Image url="@Marble0.jpeg" />
          </image>
       </ImageView>
-      <TextField fx:id="saveName" layoutX="200.0" layoutY="441.0" />
-      <Label fx:id="instruction" layoutX="163.0" layoutY="371.0" prefHeight="76.0" prefWidth="259.0" text="ENTER A NAME FOR THE NEW SAVE FILE OR CLICK ONE FROM THE LIST TO OVERWRITE">
+      <TextField fx:id="saveName" blendMode="MULTIPLY" layoutX="200.0" layoutY="441.0" stylesheets="@stylesheet.css" />
+      <Label fx:id="instruction" blendMode="DARKEN" layoutX="75.0" layoutY="371.0" prefHeight="76.0" prefWidth="460.0" text="ENTER A NAME FOR NEW SAVE  OR CLICK ONE TO OVERWRITE">
          <font>
             <Font name="Roman SD" size="12.0" />
          </font></Label>
-      <Button fx:id="saveButton" layoutX="371.0" layoutY="441.0" mnemonicParsing="false" onAction="#handleSaveButton" text="SAVE">
+      <Button fx:id="saveButton" layoutX="371.0" layoutY="441.0" mnemonicParsing="false" onAction="#handleSaveButton" opacity="0.8" styleClass="buttons" stylesheets="@stylesheet.css" text="SAVE">
          <font>
             <Font name="Roman SD" size="13.0" />
          </font></Button>
-      <ListView fx:id="saveListView" layoutX="192.0" layoutY="165.0" prefHeight="206.0" prefWidth="200.0" />
+      <ListView fx:id="saveListView" blendMode="MULTIPLY" layoutX="192.0" layoutY="165.0" prefHeight="206.0" prefWidth="200.0" stylesheets="@stylesheet.css" />
       <Label layoutX="218.0" layoutY="136.0" text="CURRENT SAVE FILES">
          <font>
             <Font name="Roman SD" size="12.0" />
          </font></Label>
-      <Label fx:id="title" layoutX="67.0" layoutY="14.0" text="SAVE GAME" textFill="#cd9630">
+      <Label fx:id="title" layoutX="67.0" layoutY="14.0" style="-fx-text-fill: #cd9630;" text="SAVE GAME" textFill="#cd9630">
          <font>
             <Font name="Roman SD" size="70.0" />
          </font>
       </Label>
-      <Button fx:id="backButton" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#handleBackButton" text="BACK">
+      <Button fx:id="backButton" layoutX="14.0" layoutY="461.0" mnemonicParsing="false" onAction="#handleBackButton" opacity="0.8" styleClass="buttons" stylesheets="@stylesheet.css" text="BACK">
          <font>
             <Font name="Roman SD" size="13.0" />
          </font></Button>

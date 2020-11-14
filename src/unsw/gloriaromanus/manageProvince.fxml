@@ -19,10 +19,10 @@
    <children>
       <ImageView fitHeight="600.0" fitWidth="750.0" pickOnBounds="true">
          <image>
-            <Image url="@photo-1558346648-9757f2fa4474.jpeg" />
+            <Image url="@Marble%202.png" />
          </image>
       </ImageView>
-      <SplitMenuButton fx:id="currentTax" layoutX="298.0" layoutY="351.0" mnemonicParsing="false" prefWidth="250.0" text="NORMAL">
+      <SplitMenuButton fx:id="currentTax" layoutX="298.0" layoutY="351.0" mnemonicParsing="false" opacity="0.8" prefWidth="250.0" stylesheets="@stylesheet.css" text="NORMAL">
         <items>
           <MenuItem fx:id="lowTax" mnemonicParsing="false" onAction="#setLowTax" style="-fx-font-size: 28;" text="LOW" />
           <MenuItem fx:id="normalTax" mnemonicParsing="false" onAction="#setNormalTax" style="-fx-font-size: 28;" text="NORMAL" />
@@ -30,7 +30,7 @@
             <MenuItem fx:id="veryHighTax" mnemonicParsing="false" onAction="#setVeryHighTax" style="-fx-font-size: 28;" text="VERY HIGH" />
         </items>
          <font>
-            <Font size="28.0" />
+            <Font name="Roman SD" size="28.0" />
          </font>
       </SplitMenuButton>
       <Label layoutX="30.0" layoutY="361.0" text="SET TAX RATE:">
@@ -38,9 +38,9 @@
             <Font name="Roman SD" size="28.0" />
          </font>
       </Label>
-      <Button fx:id="backButton" layoutX="14.0" layoutY="526.0" mnemonicParsing="false" onAction="#handleBackButton" text="BACK">
+      <Button fx:id="backButton" layoutX="14.0" layoutY="526.0" mnemonicParsing="false" onAction="#handleBackButton" opacity="0.8" styleClass="buttons" stylesheets="@stylesheet.css" text="BACK">
          <font>
-            <Font size="28.0" />
+            <Font name="Roman SD" size="28.0" />
          </font>
       </Button>
       <GridPane layoutX="32.0" layoutY="138.0" prefHeight="181.0" prefWidth="686.0">
@@ -60,47 +60,52 @@
                   <Font name="Roman SD" size="28.0" />
                </font>
             </Label>
-            <Label fx:id="provinceName" prefHeight="45.0" prefWidth="367.0" text="Label" GridPane.columnIndex="1">
+            <Label fx:id="provinceName" prefHeight="45.0" prefWidth="402.0" text="Label" GridPane.columnIndex="1">
                <font>
-                  <Font size="28.0" />
+                  <Font name="Roman SD" size="24.0" />
                </font>
             </Label>
-            <Label prefHeight="40.0" prefWidth="128.0" text="WEALTH:" GridPane.rowIndex="1">
+            <Label prefHeight="40.0" prefWidth="200.0" text="WEALTH:" GridPane.rowIndex="1">
                <font>
-                  <Font size="28.0" />
+                  <Font name="Roman SD" size="28.0" />
                </font>
             </Label>
-            <Label text="WEALTH GROWTH:" GridPane.rowIndex="2">
+            <Label prefHeight="34.0" prefWidth="312.0" text="WEALTH GROWTH:" GridPane.rowIndex="2">
                <font>
-                  <Font size="28.0" />
+                  <Font name="Roman SD" size="25.0" />
                </font>
             </Label>
             <Label text="PUBLIC ORDER:" GridPane.rowIndex="3">
                <font>
-                  <Font size="28.0" />
+                  <Font name="Roman SD" size="28.0" />
                </font>
             </Label>
             <Label fx:id="provinceWealth" prefHeight="45.0" prefWidth="296.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
-                  <Font size="28.0" />
+                  <Font name="Roman SD" size="28.0" />
                </font>
             </Label>
             <Label fx:id="provinceWealthGrowth" prefHeight="40.0" prefWidth="259.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
-                  <Font size="28.0" />
+                  <Font name="Roman SD" size="28.0" />
                </font>
             </Label>
             <Label fx:id="provincePublicOrder" prefHeight="40.0" prefWidth="255.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
-                  <Font size="28.0" />
+                  <Font name="Roman SD" size="28.0" />
                </font>
             </Label>
          </children>
       </GridPane>
-      <Label layoutX="32.0" layoutY="14.0" text="MANAGE PROVINCE" textFill="#cd9630">
+      <Label layoutX="32.0" layoutY="14.0" style="-fx-text-fill: #cd9630;" text="MANAGE PROVINCE" textFill="#cd9630">
          <font>
             <Font name="Roman SD" size="61.0" />
          </font>
       </Label>
+      <ImageView fitHeight="214.0" fitWidth="189.0" layoutX="568.0" layoutY="386.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@head%201.png" />
+         </image>
+      </ImageView>
    </children>
 </Pane>

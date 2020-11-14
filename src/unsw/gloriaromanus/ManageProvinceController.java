@@ -79,6 +79,7 @@ public class ManageProvinceController {
     public void setupScreen(Province province) {
         this.province = province;
         provinceName.setText(province.getName());
+        provinceName.setWrapText(true);
         provinceWealth.setText(Integer.toString(province.getWealth()));
         provinceWealthGrowth.setText(Integer.toString(province.getWealthGrowth() + province.getTax().getWealthGrowthDelta()));
         provincePublicOrder.setText(Integer.toString((int) Math.round(province.getPublicOrder() * 100)) + "%");

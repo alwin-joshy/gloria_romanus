@@ -18,21 +18,21 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fitHeight="700.0" fitWidth="600.0" pickOnBounds="true">
+      <ImageView fitHeight="700.0" fitWidth="600.0" layoutX="-1.0" layoutY="1.0" pickOnBounds="true">
          <image>
-            <Image url="@photo-1558346648-9757f2fa4474.jpeg" />
+            <Image url="@Marble%202.png" />
          </image>
       </ImageView>
-      <Label layoutX="170.0" layoutY="21.0" prefHeight="44.0" prefWidth="266.0" text="Infrastructure " textFill="#0d0d0d">
+      <Label layoutX="102.0" layoutY="22.0" prefHeight="44.0" prefWidth="397.0" style="-fx-text-fill: #cd9630;" text="Infrastructure " textFill="#cd9630">
          <font>
-            <Font name="Tamil Sangam MN" size="36.0" />
+            <Font name="Roman SD" size="36.0" />
          </font>
       </Label>
-      <SplitPane dividerPositions="0.5" layoutX="40.0" layoutY="380.0" prefHeight="276.0" prefWidth="525.0">
+      <SplitPane dividerPositions="0.5" layoutX="40.0" layoutY="380.0" prefHeight="276.0" prefWidth="525.0" styleClass="pane" stylesheets="@stylesheet.css">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <TableView fx:id="upgrades" prefHeight="274.0" prefWidth="245.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="upgrades" prefHeight="274.0" prefWidth="245.0" styleClass="pane" stylesheets="@stylesheet.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
                       <TableColumn fx:id="upgradesName" prefWidth="84.46797561645508" text="Building " />
                       <TableColumn fx:id="upgradesLevel" prefWidth="60.76026916503906" text="Level " />
@@ -49,33 +49,36 @@
                </children></AnchorPane>
         </items>
       </SplitPane>
-      <TableView fx:id="currentProject" layoutX="40.0" layoutY="250.0" prefHeight="70.0" prefWidth="525.0">
+      <TableView fx:id="currentProject" layoutX="40.0" layoutY="250.0" prefHeight="70.0" prefWidth="525.0" styleClass="pane" stylesheets="@stylesheet.css">
         <columns>
             <TableColumn fx:id="currentProjectName" prefWidth="173.0" text="Current Build" />
           <TableColumn fx:id="currentProjectLevel" prefWidth="97.0" text="Level" />
           <TableColumn fx:id="currentProjectTurnsRemaining" prefWidth="254.0" text="Turns Remaining" />
         </columns>
       </TableView>
-      <TableView fx:id="builtInfrastructure" layoutX="40.0" layoutY="80.0" prefHeight="150.0" prefWidth="525.0">
+      <TableView fx:id="builtInfrastructure" layoutX="40.0" layoutY="80.0" prefHeight="150.0" prefWidth="525.0" styleClass="pane" stylesheets="@stylesheet.css">
          <columns>
             <TableColumn fx:id="buildingNameColumn" prefWidth="269.20088958740234" text="Infrastructure in Province " />
             <TableColumn fx:id="builtLevelColumn" prefWidth="254.79910278320312" text="Level " />
          </columns>
       </TableView>
-      <Button fx:id="buildButton" layoutX="497.0" layoutY="663.0" mnemonicParsing="false" onAction="#handleBuildButton" text="Build ">
+      <Button fx:id="buildButton" layoutX="497.0" layoutY="663.0" mnemonicParsing="false" onAction="#handleBuildButton" opacity="0.8" styleClass="buttons" stylesheets="@stylesheet.css" text="Build ">
          <font>
             <Font name="Roman SD" size="13.0" />
          </font></Button>
-      <Button fx:id="cancelButton" layoutX="484.0" layoutY="323.0" mnemonicParsing="false" onAction="#handleCancelButton" text="Cancel">
+      <Button fx:id="cancelButton" layoutX="484.0" layoutY="323.0" mnemonicParsing="false" onAction="#handleCancelButton" opacity="0.8" styleClass="buttons" stylesheets="@stylesheet.css" text="Cancel">
          <font>
             <Font name="Roman SD" size="13.0" />
          </font></Button>
-      <Button fx:id="backButton" layoutX="40.0" layoutY="663.0" mnemonicParsing="false" onAction="#handleBackButton" text="Back">
+      <Button fx:id="backButton" layoutX="40.0" layoutY="663.0" mnemonicParsing="false" onAction="#handleBackButton" opacity="0.8" styleClass="buttons" stylesheets="@stylesheet.css" text="Back">
          <font>
             <Font name="Roman SD" size="13.0" />
          </font>
       </Button>
-      <Label fx:id="treasuryBalance" alignment="CENTER_RIGHT" layoutX="456.0" layoutY="22.0" prefHeight="17.0" prefWidth="83.0" text="Label" />
+      <Label fx:id="treasuryBalance" alignment="CENTER_RIGHT" layoutX="456.0" layoutY="22.0" prefHeight="17.0" prefWidth="83.0" text="Label">
+         <font>
+            <Font name="Roman SD" size="13.0" />
+         </font></Label>
       <ImageView fitHeight="29.0" fitWidth="22.0" layoutX="545.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@gold_pile.png" />

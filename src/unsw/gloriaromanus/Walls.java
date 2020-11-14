@@ -11,7 +11,7 @@ public class Walls extends Infrastructure {
         setBaseContructionTime(2);
         setBaseCost(120);
         setName("Walls");
-        setDescription("Each wall upgrade will provide a buffer to depending troop and can be upgraded into;\n \n \nLevel 1 : Walls  \nLevel 2: TwoArcherTowers \nLevel 3: OneBallistaTower + TwoArcherTowers \nLevel 4: ThreeBallistaTowers.");
+        setDescription("Each wall upgrade will provide a buffer to depending troop and can be upgraded into;\n \nLevel 1 : Walls  \nLevel 2: TwoArcherTowers \nLevel 3: OneBallistaTower + TwoArcherTowers \nLevel 4: ThreeBallistaTowers.");
         currentLevel = null;
     }
 

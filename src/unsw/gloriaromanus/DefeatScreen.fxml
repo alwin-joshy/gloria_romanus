@@ -17,7 +17,7 @@
             <Image url="@photo-1558346648-9757f2fa4474.jpeg" />
          </image>
       </ImageView>
-      <Label layoutX="190.0" layoutY="102.0" text="DEFEAT!" textFill="#c41818">
+      <Label layoutX="190.0" layoutY="102.0" style="-fx-text-fill: #c41818;" text="DEFEAT!" textFill="#c41818">
          <font>
             <Font name="Roman SD" size="96.0" />
          </font>
