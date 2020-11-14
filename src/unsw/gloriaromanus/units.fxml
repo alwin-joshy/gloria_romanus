@@ -101,7 +101,7 @@
                         <Label fx:id="attack" text="N/A" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
-                  <Label fx:id="selectedUnit" layoutX="104.0" layoutY="6.0" text="None" />
+                  <Label fx:id="selectedUnit" layoutX="118.0" layoutY="6.0" text="None" />
                </children>
             </AnchorPane>
         </items>
