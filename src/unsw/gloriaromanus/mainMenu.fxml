@@ -18,7 +18,7 @@
    <children>
       <ImageView fitHeight="700.0" fitWidth="800.0" pickOnBounds="true">
          <image>
-            <Image url="@Marble0.jpeg" />
+            <Image url="@Marble%201.jpg" />
          </image>
       </ImageView>
       <ImageView fitHeight="550.0" fitWidth="550.0" layoutX="123.0" layoutY="147.0" opacity="0.64" pickOnBounds="true" preserveRatio="true">

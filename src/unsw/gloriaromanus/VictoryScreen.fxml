@@ -17,7 +17,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fitHeight="700.0" fitWidth="800.0" pickOnBounds="true" rotate="180.0">
+      <ImageView fitHeight="700.0" fitWidth="800.0" pickOnBounds="true">
          <image>
             <Image url="@Marble%201.jpg" />
          </image>
