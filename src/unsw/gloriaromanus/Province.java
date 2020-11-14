@@ -224,20 +224,27 @@ public class Province implements Serializable {
             if (project.decrementTurnsRemaining()){
                 Project p = project.getProject();
                 if (p instanceof Infrastructure) {
-                    if (p instanceof Farm) unitTrainingLimit = ((Farm) p).getBonus();
                     Infrastructure inf = (Infrastructure) p;
                     inf.levelUp();
-                    if (inf instanceof Walls) 
+                    System.out.println("HERE");
+
+                    if (inf instanceof Walls) {
                         ((Walls) inf).levelUpTowers(this);
-                    else if (inf instanceof WealthGenerationBuilding) {
-                        wealth += 150 * inf.getLevel();
-                        wealthGrowth += 50 * inf.getLevel();
-                        buildingObserver.update(faction);
                     } else if (inf instanceof Smith) {
                         currentSmithLevel.nextLevel(this);
                     } else if (inf instanceof TownHall) {
                         checkRevoltStatus();
+                    } else if (inf instanceof Farm) {
+                        System.out.println(((Farm) inf).getBonus());
+                        unitTrainingLimit = ((Farm) inf).getBonus();
                     }
+
+                    if (inf instanceof WealthGenerationBuilding) {
+                        wealth += 150 * inf.getLevel();
+                        wealthGrowth += 50 * inf.getLevel();
+                        buildingObserver.update(faction);
+                    }
+
                 } else {
                     units.add((Unit) p);
                     ((Unit) p).setSmithLevel(currentSmithLevel);
