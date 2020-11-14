@@ -7,6 +7,7 @@ public abstract class Infrastructure implements Project, Serializable {
     private int baseConstructionTime;
     private int level;
     private String name;
+    private String description;
 
     public Infrastructure() {
         level = 0;
@@ -43,6 +44,14 @@ public abstract class Infrastructure implements Project, Serializable {
 
     public int getBaseCost() {
         return baseCost;
+    }
+ 
+    public void setdescription(String description) {  
+        this.description = description;
+    }
+
+    public String getdescription() {
+        return description;
     }
 
     public void setBaseContructionTime(int turns) {
