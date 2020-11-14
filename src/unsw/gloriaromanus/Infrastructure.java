@@ -56,6 +56,7 @@ public abstract class Infrastructure implements Project, Serializable {
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
+        if (getClass() != obj.getClass()) return false;
         Infrastructure i = (Infrastructure) obj;
         return baseCost == i.getBaseCost() && baseConstructionTime == i.getBaseConstructionTime() &&
                level == i.getLevel();

@@ -1,5 +1,7 @@
 package unsw.gloriaromanus;
 
+import com.esri.arcgisruntime.internal.io.handler.GlobalRequestHandler;
+
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -85,8 +87,9 @@ public class InfrastructureController {
         buildButton.setDisable(true);
         cancelButton.setDisable(true);
 
-        buildButton.disableProperty().bind(Bindings.size(currentProject.getItems()).isEqualTo(1).and(upgrades.getSelectionModel().selectedItemProperty().isNotNull()));
+        //buildButton.disableProperty().bind(Bindings.size(currentProject.getItems()).isEqualTo(1).and(upgrades.getSelectionModel().selectedItemProperty().isNotNull()));
         //cancelButton.disableProperty().bind(Bindings.size(currentProject.getItems()).isEqualTo(0).or(currentProject.getSelectionModel().selectedItemProperty().isNotNull()));
+        buildButton.disableProperty().bind(upgrades.getSelectionModel().selectedItemProperty().isNull().or(Bindings.size(currentProject.getItems()).isEqualTo(1)));
         cancelButton.disableProperty().bind(currentProject.getSelectionModel().selectedItemProperty().isNull());
 
     }
@@ -109,9 +112,8 @@ public class InfrastructureController {
             currentProject.getItems().add(currDetails);
             upgrades.getItems().remove(currDetails);
         } else {
-
+            gloriaRomanusController.handleNotEnoughGold();
         }
-
     }
 
 
