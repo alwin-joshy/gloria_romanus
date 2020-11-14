@@ -157,28 +157,27 @@ public class Game implements Serializable{
         currentFaction = (currentFaction + 1) % factions.size();
         currentYear++;
         Faction curr = factions.get(currentFaction);
-        if (! curr.getName().equals("rebel")) {
-            curr.updateAllProjects();
-            if (toRecalculateBonuses.keySet().contains(curr.getName()) && toRecalculateBonuses.get(curr.getName()) == true) {
-                curr.calculateMarketMultiplier();
-                curr.calculateMineMultiplier();
-                curr.calculatePortBonus();
-                toRecalculateBonuses.put(curr.getName(), false);
-            }
-            curr.collectTax();
-            for (Province p : curr.checkForRevolt()) {
-                revolt(p);
-            }
-            if (! alreadyWon) {
-                if (currentVictoryCondition.checkVictory(curr)) {
-                    endGame();
-                    alreadyWon = true;
-                }
-            }
-        } else {
+        if (curr.getName().equals("rebel")) {
             currentFaction = (currentFaction + 1) % factions.size();
+            curr = factions.get(currentFaction);
         }
-        
+        curr.updateAllProjects();
+        if (toRecalculateBonuses.keySet().contains(curr.getName()) && toRecalculateBonuses.get(curr.getName()) == true) {
+            curr.calculateMarketMultiplier();
+            curr.calculateMineMultiplier();
+            curr.calculatePortBonus();
+            toRecalculateBonuses.put(curr.getName(), false);
+        }
+        curr.collectTax();
+        for (Province p : curr.checkForRevolt()) {
+            revolt(p);
+        }
+        if (! alreadyWon) {
+            if (currentVictoryCondition.checkVictory(curr)) {
+                endGame();
+                alreadyWon = true;
+            }
+        } 
     }
 
     public void revolt(Province p) {
