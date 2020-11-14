@@ -46,11 +46,11 @@ public abstract class Infrastructure implements Project, Serializable {
         return baseCost;
     }
  
-    public void setdescription(String description) {  
+    public void setDescription(String description) {  
         this.description = description;
     }
 
-    public String getdescription() {
+    public String getDescription() {
         return description;
     }
 
