@@ -87,12 +87,15 @@ public class InfrastructureController {
         upgradesConstructionTime.setCellValueFactory(new PropertyValueFactory<>("time"));
         curr = null;
         currDetails = null;
+
+        setDescription.setWrapText(true);
+        
         upgrades.getSelectionModel().selectedItemProperty().addListener((ov, oldValue, newValue) -> {
-        InfrastructureDetails selected = upgrades.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            setDescription.setText(selected.getDescription());
-        }
-        });
+            InfrastructureDetails selected = upgrades.getSelectionModel().getSelectedItem();
+            if (selected != null) {
+                setDescription.setText(selected.getDescription());
+            }
+            });
 
         buildButton.setDisable(true);
         cancelButton.setDisable(true);
