@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
@@ -8,7 +14,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fitHeight="700.0" fitWidth="800.0" pickOnBounds="true">
          <image>
@@ -23,7 +29,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <Button fx:id="newGameButton" layoutX="250.0" layoutY="279.0" mnemonicParsing="false" onAction="#handleNewGameButton" opacity="0.8" prefHeight="60.0" prefWidth="300.0" styleClass="buttons" stylesheets="@stylesheet.css" text="NEW GAME">
+      <Button id=":hover" fx:id="newGameButton" layoutX="250.0" layoutY="279.0" mnemonicParsing="false" onAction="#handleNewGameButton" opacity="0.8" prefHeight="60.0" prefWidth="300.0" styleClass="buttons" stylesheets="@stylesheet.css" text="NEW GAME">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font></Button>
@@ -36,17 +42,17 @@
          <font>
             <Font name="Roman SD" size="24.0" />
          </font></Label>
-      <Button fx:id="loadGameButton" layoutX="250.0" layoutY="359.0" mnemonicParsing="false" onAction="#handleLoadGameButton" opacity="0.8" prefHeight="60.0" prefWidth="300.0" styleClass="buttons" stylesheets="@stylesheet.css" text="LOAD GAME">
+      <Button id=":hover" fx:id="loadGameButton" layoutX="250.0" layoutY="359.0" mnemonicParsing="false" onAction="#handleLoadGameButton" opacity="0.8" prefHeight="60.0" prefWidth="300.0" styleClass="buttons" stylesheets="@stylesheet.css" text="LOAD GAME">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font>
       </Button>
-      <Button fx:id="continueButton" layoutX="250.0" layoutY="439.0" mnemonicParsing="false" onAction="#handleContinueButton" opacity="0.8" prefHeight="60.0" prefWidth="300.0" styleClass="buttons" stylesheets="@stylesheet.css" text="CONTINUE">
+      <Button id=":hover" fx:id="continueButton" layoutX="250.0" layoutY="439.0" mnemonicParsing="false" onAction="#handleContinueButton" opacity="0.8" prefHeight="60.0" prefWidth="300.0" styleClass="buttons" stylesheets="@stylesheet.css" text="CONTINUE">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font>
       </Button>
-      <Button fx:id="exitGameButton" layoutX="250.0" layoutY="519.0" mnemonicParsing="false" onAction="#handleExitGameButton" opacity="0.8" prefHeight="60.0" prefWidth="300.0" styleClass="buttons" stylesheets="@stylesheet.css" text="EXIT GAME">
+      <Button id=":hover" fx:id="exitGameButton" layoutX="250.0" layoutY="519.0" mnemonicParsing="false" onAction="#handleExitGameButton" opacity="0.8" prefHeight="60.0" prefWidth="300.0" styleClass="buttons" stylesheets="@stylesheet.css" text="EXIT GAME">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font>
