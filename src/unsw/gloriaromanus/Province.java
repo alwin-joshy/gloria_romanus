@@ -241,6 +241,7 @@ public class Province implements Serializable {
                 } else {
                     units.add((Unit) p);
                     ((Unit) p).setSmithLevel(currentSmithLevel);
+                    System.out.println(((Unit) p).getSmithLevel());
                     unitsInTraining--;
                     unitPublicOrderDebuff += 0.03;
                     checkRevoltStatus();
