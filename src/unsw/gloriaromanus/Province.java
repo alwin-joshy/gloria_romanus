@@ -156,6 +156,10 @@ public class Province implements Serializable {
         return (int) Math.round(baseCost * faction.getMarketMultiplier());
     }
 
+    public int getUnitCost(double baseCost) {
+        return (int) Math.round(baseCost * faction.getMineMultiplier());
+    }
+
     public int getConstructionTime(int baseTime) {
         baseTime -= faction.getMineTurnReduction();
         if (baseTime < 1) {
@@ -180,11 +184,13 @@ public class Province implements Serializable {
         return 0;
     }
 
+
+
     public ProjectDetails build(Project project){
         double cost = project.getBaseCost();
         int integerCost = 0;
         if (project instanceof Unit) {
-            cost *= faction.getMineMultiplier();
+            integerCost = getUnitCost(cost);
         } else {
             integerCost = getInfrastructureCost(cost);
         }
