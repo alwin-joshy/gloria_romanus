@@ -17,7 +17,7 @@
    <children>
       <ImageView fitHeight="700.0" fitWidth="800.0" pickOnBounds="true">
          <image>
-            <Image url="@photo-1558346648-9757f2fa4474.jpeg" />
+            <Image url="@Marble%201.jpg" />
          </image>
       </ImageView>
       <SplitMenuButton fx:id="AISplitMenu" layoutX="103.0" layoutY="207.0" mnemonicParsing="false" opacity="0.8" prefHeight="60.0" prefWidth="595.0" styleClass="allText" text="SELECT AI LEVEL">

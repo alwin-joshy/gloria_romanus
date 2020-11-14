@@ -17,7 +17,7 @@
    <children>
       <ImageView fitHeight="700.0" fitWidth="800.0" pickOnBounds="true">
          <image>
-            <Image url="@photo-1558346648-9757f2fa4474.jpeg" />
+            <Image url="@Marble%201.jpg" />
          </image>
       </ImageView>
       <Button fx:id="loadButton" layoutX="337.0" layoutY="570.0" mnemonicParsing="false" onAction="#handleLoadButton" opacity="0.8" styleClass="buttons" stylesheets="@stylesheet.css" text="Load">

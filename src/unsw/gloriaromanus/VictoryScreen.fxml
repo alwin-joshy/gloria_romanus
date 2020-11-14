@@ -19,7 +19,7 @@
    <children>
       <ImageView fitHeight="700.0" fitWidth="800.0" pickOnBounds="true">
          <image>
-            <Image url="@photo-1558346648-9757f2fa4474.jpeg" />
+            <Image url="@Marble%201.jpg" />
          </image>
       </ImageView>
       <Label layoutX="151.0" layoutY="109.0" prefHeight="86.0" prefWidth="570.0" style="-fx-text-fill: #cd9630;" text="VICTORY!" textFill="#cd9630">
