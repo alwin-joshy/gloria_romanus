@@ -16,7 +16,7 @@
    <children>
       <ImageView fitHeight="500.0" fitWidth="600.0" pickOnBounds="true">
          <image>
-            <Image url="@photo-1558346648-9757f2fa4474.jpeg" />
+            <Image url="@Marble0.jpeg" />
          </image>
       </ImageView>
       <TextField fx:id="saveName" blendMode="MULTIPLY" layoutX="200.0" layoutY="441.0" stylesheets="@stylesheet.css" />

@@ -14,7 +14,7 @@
    <children>
       <ImageView fitHeight="600.0" fitWidth="700.0" pickOnBounds="true">
          <image>
-            <Image url="@photo-1558346648-9757f2fa4474.jpeg" />
+            <Image url="@Marble%202.png" />
          </image>
       </ImageView>
       <Button fx:id="resumeButton" layoutX="200.0" layoutY="240.0" mnemonicParsing="false" onAction="#handleResumeButton" opacity="0.8" prefHeight="60.0" prefWidth="300.0" styleClass="buttons" stylesheets="@stylesheet.css" text="RESUME">
