@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
@@ -22,7 +24,7 @@
             <Image url="@Eagle.png" />
          </image>
       </ImageView>
-      <Button fx:id="newGameButton" layoutX="250.0" layoutY="279.0" mnemonicParsing="false" onAction="#handleNewGameButton" opacity="0.8" prefHeight="60.0" prefWidth="300.0" text="NEW GAME">
+      <Button fx:id="newGameButton" layoutX="250.0" layoutY="279.0" mnemonicParsing="false" onAction="#handleNewGameButton" opacity="0.8" prefHeight="60.0" prefWidth="300.0" style="-fx-border-color: #000000; -fx-background-color: #e1c082; -fx-border-radius: 20; -fx-background-radius: 20;" text="NEW GAME">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font></Button>
@@ -35,17 +37,17 @@
          <font>
             <Font name="Roman SD" size="24.0" />
          </font></Label>
-      <Button fx:id="loadGameButton" layoutX="250.0" layoutY="359.0" mnemonicParsing="false" onAction="#handleLoadGameButton" opacity="0.8" prefHeight="60.0" prefWidth="300.0" text="LOAD GAME">
+      <Button fx:id="loadGameButton" layoutX="250.0" layoutY="359.0" mnemonicParsing="false" onAction="#handleLoadGameButton" opacity="0.8" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: #e1c082; -fx-border-color: #000000; -fx-background-radius: 20; -fx-border-radius: 20;" text="LOAD GAME">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font>
       </Button>
-      <Button fx:id="continueButton" layoutX="250.0" layoutY="439.0" mnemonicParsing="false" onAction="#handleContinueButton" opacity="0.8" prefHeight="60.0" prefWidth="300.0" text="CONTINUE">
+      <Button fx:id="continueButton" layoutX="250.0" layoutY="439.0" mnemonicParsing="false" onAction="#handleContinueButton" opacity="0.8" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: #e1c082; -fx-border-color: #000000; -fx-background-radius: 20; -fx-border-radius: 20;" text="CONTINUE">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font>
       </Button>
-      <Button fx:id="exitGameButton" layoutX="250.0" layoutY="519.0" mnemonicParsing="false" onAction="#handleExitGameButton" opacity="0.8" prefHeight="60.0" prefWidth="300.0" text="EXIT GAME">
+      <Button fx:id="exitGameButton" layoutX="250.0" layoutY="519.0" mnemonicParsing="false" onAction="#handleExitGameButton" opacity="0.8" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: #e1c082; -fx-border-color: #000000; -fx-background-radius: 20; -fx-border-radius: 20;" text="EXIT GAME">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font>
