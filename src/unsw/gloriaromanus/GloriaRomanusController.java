@@ -22,10 +22,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -33,6 +35,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import com.esri.arcgisruntime.concurrent.ListenableFuture;
 import com.esri.arcgisruntime.data.FeatureTable;
@@ -205,6 +209,22 @@ public class GloriaRomanusController {
     transparentPane.getChildren().remove(unitsMenu);
   }
 
+  public void handleNotEnoughGold() {
+    Stage stage = (Stage) transparentPane.getScene().getWindow();
+
+    AlertType type = AlertType.ERROR;
+    Alert alert = new Alert(type, "");
+
+    alert.initModality(Modality.APPLICATION_MODAL);
+    alert.initOwner(stage);
+
+    alert.getDialogPane().setContentText("You do not have enough gold to make this purchase!");
+    alert.getDialogPane().setHeaderText("Insufficient funds");
+
+    alert.showAndWait();
+
+  }
+
   @FXML
   public void handleUnitsButton() throws IOException {
     transparentPane.getChildren().add(unitsMenu);
@@ -242,6 +262,7 @@ public class GloriaRomanusController {
     loader = new FXMLLoader(getClass().getResource("infrastructure.fxml"));
     loader.setController(infrastructureController);
     infrastructureMenu = loader.load();
+
     loader = new FXMLLoader(getClass().getResource("victoryProgress.fxml"));
     loader.setController(victoryProgressController);
     victoryProgressMenu = loader.load();
@@ -249,6 +270,7 @@ public class GloriaRomanusController {
     loader = new FXMLLoader(getClass().getResource("units.fxml"));
     loader.setController(unitsController);
     unitsMenu = loader.load();
+
   }
 
   public void initialiseMap() throws JsonParseException, JsonMappingException, IOException {

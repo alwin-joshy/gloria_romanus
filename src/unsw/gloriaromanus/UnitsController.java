@@ -131,12 +131,16 @@ public class UnitsController {
     private void handleRecruitButton() {
         UnitDetails selected = unitTable.getSelectionModel().getSelectedItem();
         Unit toBuild = new Unit(selected.getUnit().getName());
-        province.build(toBuild);
-        unitsInTrainingTable.getItems().add(new UnitDetails(province, toBuild));
-        updateTrainingCount();
-        if (province.getUnitTrainingLimit() == province.getUnitsInTraining())
-            recruitButton.setDisable(true);
-        System.out.println(province.getFaction().getMineMultiplier());
+        if (province.build(toBuild) != null){
+            unitsInTrainingTable.getItems().add(new UnitDetails(province, toBuild));
+            updateTrainingCount();
+            if (province.getUnitTrainingLimit() == province.getUnitsInTraining())
+                recruitButton.setDisable(true);
+            System.out.println(province.getFaction().getMineMultiplier());
+        } else {
+            gloriaRomanusController.handleNotEnoughGold();
+        } 
+
     }
 
     @FXML
