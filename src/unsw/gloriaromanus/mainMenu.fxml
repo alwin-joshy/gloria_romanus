@@ -17,7 +17,12 @@
             <Image url="@photo-1558346648-9757f2fa4474.jpeg" />
          </image>
       </ImageView>
-      <Button fx:id="newGameButton" layoutX="241.0" layoutY="279.0" mnemonicParsing="false" onAction="#handleNewGameButton" prefHeight="60.0" prefWidth="300.0" text="NEW GAME">
+      <ImageView fitHeight="550.0" fitWidth="550.0" layoutX="134.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../../../../Desktop/logo-roman-eagle-139107301.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="newGameButton" layoutX="250.0" layoutY="279.0" mnemonicParsing="false" onAction="#handleNewGameButton" opacity="0.8" prefHeight="60.0" prefWidth="300.0" text="NEW GAME">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font></Button>
@@ -30,17 +35,17 @@
          <font>
             <Font name="Roman SD" size="24.0" />
          </font></Label>
-      <Button fx:id="loadGameButton" layoutX="242.0" layoutY="359.0" mnemonicParsing="false" onAction="#handleLoadGameButton" prefHeight="60.0" prefWidth="300.0" text="LOAD GAME">
+      <Button fx:id="loadGameButton" layoutX="250.0" layoutY="359.0" mnemonicParsing="false" onAction="#handleLoadGameButton" opacity="0.8" prefHeight="60.0" prefWidth="300.0" text="LOAD GAME">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font>
       </Button>
-      <Button fx:id="continueButton" layoutX="242.0" layoutY="439.0" mnemonicParsing="false" onAction="#handleContinueButton" prefHeight="60.0" prefWidth="300.0" text="CONTINUE">
+      <Button fx:id="continueButton" layoutX="250.0" layoutY="439.0" mnemonicParsing="false" onAction="#handleContinueButton" opacity="0.8" prefHeight="60.0" prefWidth="300.0" text="CONTINUE">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font>
       </Button>
-      <Button fx:id="exitGameButton" layoutX="242.0" layoutY="519.0" mnemonicParsing="false" onAction="#handleExitGameButton" prefHeight="60.0" prefWidth="300.0" text="EXIT GAME">
+      <Button fx:id="exitGameButton" layoutX="250.0" layoutY="519.0" mnemonicParsing="false" onAction="#handleExitGameButton" opacity="0.8" prefHeight="60.0" prefWidth="300.0" text="EXIT GAME">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font>
