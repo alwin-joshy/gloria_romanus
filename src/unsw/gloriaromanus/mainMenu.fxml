@@ -29,7 +29,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <Button id=":hover" fx:id="newGameButton" layoutX="250.0" layoutY="279.0" mnemonicParsing="false" onAction="#handleNewGameButton" opacity="0.8" prefHeight="60.0" prefWidth="300.0" styleClass="buttons" stylesheets="@stylesheet.css" text="NEW GAME">
+      <Button fx:id="newGameButton" layoutX="250.0" layoutY="279.0" mnemonicParsing="false" onAction="#handleNewGameButton" opacity="0.8" prefHeight="60.0" prefWidth="300.0" styleClass="buttons" stylesheets="@stylesheet.css" text="NEW GAME">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font></Button>
@@ -42,17 +42,17 @@
          <font>
             <Font name="Roman SD" size="24.0" />
          </font></Label>
-      <Button id=":hover" fx:id="loadGameButton" layoutX="250.0" layoutY="359.0" mnemonicParsing="false" onAction="#handleLoadGameButton" opacity="0.8" prefHeight="60.0" prefWidth="300.0" styleClass="buttons" stylesheets="@stylesheet.css" text="LOAD GAME">
+      <Button fx:id="loadGameButton" layoutX="250.0" layoutY="359.0" mnemonicParsing="false" onAction="#handleLoadGameButton" opacity="0.8" prefHeight="60.0" prefWidth="300.0" styleClass="buttons" stylesheets="@stylesheet.css" text="LOAD GAME">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font>
       </Button>
-      <Button id=":hover" fx:id="continueButton" layoutX="250.0" layoutY="439.0" mnemonicParsing="false" onAction="#handleContinueButton" opacity="0.8" prefHeight="60.0" prefWidth="300.0" styleClass="buttons" stylesheets="@stylesheet.css" text="CONTINUE">
+      <Button fx:id="continueButton" layoutX="250.0" layoutY="439.0" mnemonicParsing="false" onAction="#handleContinueButton" opacity="0.8" prefHeight="60.0" prefWidth="300.0" styleClass="buttons" stylesheets="@stylesheet.css" text="CONTINUE">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font>
       </Button>
-      <Button id=":hover" fx:id="exitGameButton" layoutX="250.0" layoutY="519.0" mnemonicParsing="false" onAction="#handleExitGameButton" opacity="0.8" prefHeight="60.0" prefWidth="300.0" styleClass="buttons" stylesheets="@stylesheet.css" text="EXIT GAME">
+      <Button fx:id="exitGameButton" layoutX="250.0" layoutY="519.0" mnemonicParsing="false" onAction="#handleExitGameButton" opacity="0.8" prefHeight="60.0" prefWidth="300.0" styleClass="buttons" stylesheets="@stylesheet.css" text="EXIT GAME">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font>
