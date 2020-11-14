@@ -32,7 +32,7 @@ public class Province implements Serializable {
         this.buildingObserver = buildingObserver;
         units = new ArrayList<Unit>();
         infrastructure = new ArrayList<Infrastructure>();
-        ArrayList<Infrastructure> levelZero = new ArrayList<Infrastructure>(Arrays.asList(new Road(this), new Farm(), new Market(), new Smith(), new Mine(), new Walls(), new TownHall()));
+        ArrayList<Infrastructure> levelZero = new ArrayList<Infrastructure>(Arrays.asList(new Road(this), new Farm(), new Market(), new Smith(), new Mine(), new Walls(), new TownHall(), new Port()));
         infrastructure.addAll(levelZero);
         wealth = 100;
         wealthGrowth = 15;
@@ -147,9 +147,11 @@ public class Province implements Serializable {
 
     public void setLandlocked() {
         isSeaProvince = false;
-        if (isSeaProvince) {
-            infrastructure.add(new Port());
+        Infrastructure toRemove = null;
+        for (Infrastructure i : infrastructure) {
+            if (i instanceof Port) toRemove = i;
         }
+        infrastructure.remove(toRemove);
     }
 
     public int getInfrastructureCost(double baseCost) {
