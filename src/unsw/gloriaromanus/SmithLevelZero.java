@@ -2,7 +2,7 @@ package unsw.gloriaromanus;
 
 public class SmithLevelZero implements SmithLevel {
     int level; 
-    
+
     public SmithLevelZero() {
         setLevel(0);
     }
@@ -39,7 +39,7 @@ public class SmithLevelZero implements SmithLevel {
         return damage;
     }
 
-    public void nextLevel(Province p) {
-        p.setSmithLevel(new SmithLevelOne());
+    public void nextLevel(Smith s) {
+        s.setSmithLevel(new SmithLevelOne());
     }
 }

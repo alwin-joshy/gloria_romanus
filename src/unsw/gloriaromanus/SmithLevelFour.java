@@ -16,7 +16,7 @@ public class SmithLevelFour extends SmithLevelThree {
     }
 
     @Override
-    public void nextLevel(Province p) {
+    public void nextLevel(Smith s) {
         // Do nothing
     }
 }

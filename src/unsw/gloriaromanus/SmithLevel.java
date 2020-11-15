@@ -9,6 +9,6 @@ public interface SmithLevel extends Serializable {
     public double applyMoraleBuff(int morale);
     public double getEnemyMoraleDebuff();
     public double applyMissileDamageDebuff(double damage);
-    public void nextLevel(Province p);
+    public void nextLevel(Smith s);
     public int getLevel();
 }

@@ -21,7 +21,6 @@ public class Province implements Serializable {
     private int unitTrainingLimit;
     private Boolean isSeaProvince;
     private BuildingObserver buildingObserver;
-    private SmithLevel currentSmithLevel;
     private double taxPublicOrderDebuff;
     private double unitPublicOrderDebuff;
     private double publicOrder;
@@ -42,7 +41,6 @@ public class Province implements Serializable {
         unitsInTraining = 0;
         unitTrainingLimit = 1;
         isSeaProvince = true;
-        currentSmithLevel = new SmithLevelZero();
         taxPublicOrderDebuff = 0.3;
         unitPublicOrderDebuff = 0;
         publicOrder = 0.7;
@@ -227,8 +225,6 @@ public class Province implements Serializable {
 
                     if (inf instanceof Walls) {
                         ((Walls) inf).levelUpTowers(this);
-                    } else if (inf instanceof Smith) {
-                        currentSmithLevel.nextLevel(this);
                     } else if (inf instanceof TownHall) {
                         checkRevoltStatus();
                     } else if (inf instanceof Farm) {
@@ -243,7 +239,7 @@ public class Province implements Serializable {
 
                 } else {
                     units.add((Unit) p);
-                    ((Unit) p).setSmithLevel(currentSmithLevel);
+                    ((Unit) p).setSmithLevel(getSmith().getSmithLevel());
                     unitsInTraining--;
                     unitPublicOrderDebuff += 0.03;
                     checkRevoltStatus();
@@ -254,6 +250,13 @@ public class Province implements Serializable {
         for (ProjectDetails p : toRemove) {
             projects.remove(p);
         }
+    }
+
+    public Smith getSmith() {
+        for (Infrastructure i : infrastructure) {
+            if (i instanceof Smith) return (Smith) i;
+        }
+        return null;
     }
 
     public void cancelOrder(ProjectDetails pd) {
@@ -376,10 +379,6 @@ public class Province implements Serializable {
 
     public Faction getFaction() {
         return faction;
-    }
-
-    public void setSmithLevel(SmithLevel sl) {
-        currentSmithLevel = sl;
     }
 
     public void setFaction(Faction f) {

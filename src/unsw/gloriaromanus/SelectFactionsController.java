@@ -21,8 +21,6 @@ import javafx.scene.text.Font;
 public class SelectFactionsController {
     private MainMenuScreen mainMenuScreen;
     private GloriaRomanusScreen gloriaRomanusScreen;
-    private BattleResolver br;
-    private AI ai;
     private Game game;
     private ArrayList<String> factions;
     private int selectedFactionCounter;

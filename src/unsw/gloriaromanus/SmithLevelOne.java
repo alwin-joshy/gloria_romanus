@@ -11,7 +11,7 @@ public class SmithLevelOne extends SmithLevelZero {
     }
 
     @Override
-    public void nextLevel(Province p) {
-        p.setSmithLevel(new SmithLevelTwo());
+    public void nextLevel(Smith s) {
+        s.setSmithLevel(new SmithLevelTwo());
     }
 }
