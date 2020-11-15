@@ -1,6 +1,5 @@
 package unsw.gloriaromanus;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -10,7 +9,6 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -21,8 +19,6 @@ import javafx.scene.text.Font;
 public class SelectFactionsController {
     private MainMenuScreen mainMenuScreen;
     private GloriaRomanusScreen gloriaRomanusScreen;
-    private BattleResolver br;
-    private AI ai;
     private Game game;
     private ArrayList<String> factions;
     private int selectedFactionCounter;

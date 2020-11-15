@@ -60,6 +60,10 @@ public class Faction implements Serializable {
         alliedProvinces.add(p);
     }
 
+    public int getTreasury() {
+        return treasury;
+    }
+
     public void removeProvince(Province p) {
         alliedProvinces.remove(p);
     }

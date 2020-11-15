@@ -416,7 +416,7 @@ public class Province implements Serializable {
         return isSeaProvince;
     }
 
-    public TroopProductionBuilding getTroopProductionBuilding(){
+    public TroopProductionBuilding getTroopProductionBuilding() {
         for (Infrastructure i : infrastructure) {
             if (i instanceof TroopProductionBuilding) return (TroopProductionBuilding) i;
         }

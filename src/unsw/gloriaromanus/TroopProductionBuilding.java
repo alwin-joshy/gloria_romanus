@@ -13,7 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class TroopProductionBuilding extends Infrastructure {
-    Faction f;
+    private Faction f;
     private Map<Integer, ArrayList<String>> units;
 
     public TroopProductionBuilding(Faction f) {
@@ -24,9 +24,12 @@ public class TroopProductionBuilding extends Infrastructure {
         setName("Troop Production Building");
         setDescription("Each Troop Production Building upgrade will allow for more advance troops for the faction to produce; Spearmen, Missile infantry, Melee cavalry");
         units = new HashMap<Integer, ArrayList<String>>();
-        String content = "[\r\n\t[\"peasant\", \"horseman\", \"slingerman\"],\r\n  \t[\"archer\", \"catapult\", \"horsearcher\", \"spearman\", \"swordsman\"],\r\n  \t[\"axeman\", \"netman\", \"pikeman\", \"trebuchet\"],\r\n  \t[\"cannon\", \"crossbowman\", \"knight\", \"lancer\"]\r\n]";
-        // This wont work with the test file ;-;
-        //String content = Files.readString(Paths.get("src/unsw/gloriaromanus/units/units.json"));
+        String content = "";
+        try {
+            content = Files.readString(Paths.get("src/unsw/gloriaromanus/units/unitLevels.json"));
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
         JSONArray unitList = new JSONArray(content);
         int countLevel = 1;
         // converts json file containing general units into a hashmap
@@ -36,8 +39,11 @@ public class TroopProductionBuilding extends Infrastructure {
             units.put(countLevel, unitsSubList);
             countLevel++;
         }
-        //content = Files.readString(Paths.get("src/unsw/gloriaromanus/units/uniqueUnits.json"));
-        content = "{\r\n    \"Rome\": { \"level\": 3, \"name\": \"legionary\" },\r\n    \"Carthage\" : { \"level\": 3, \"name\": \"elephant\" },\r\n    \"Gaul\" : { \"level\": 2, \"name\": \"berserker\" },\r\n    \"Britons\" : { \"level\": 2, \"name\": \"berserker\" },\r\n    \"Spain\" : { \"level\": 3, \"name\": \"druid\" },\r\n    \"Numidia\" : { \"level\": 1, \"name\": \"eliteCavalry\" },\r\n    \"Egypt\" : { \"level\": 2, \"name\": \"eliteHorseArcher\" },\r\n    \"Seleucid Empire\" : { \"level\": 3, \"name\": \"immortals\" }, \r\n    \"Pontus\" : { \"level\": 3, \"name\": \"hoplites\" },\r\n    \"Armenia\" : { \"level\": 1, \"name\": \"eliteCavalry\"},\r\n    \"Parthians\" : { \"level\": 2, \"name\": \"eliteHorseArcher\" },\r\n    \"Germanics\" : { \"level\": 2, \"name\": \"berserker\" },\r\n    \"Greek City States\" : { \"level\": 3, \"name\": \"hoplites\" },\r\n    \"Macedonians\" : { \"level\": 3, \"name\": \"hoplites\" },\r\n    \"Thracians\" : { \"level\": 3, \"name\": \"javelinist\" },\r\n    \"Dacians\" : { \"level\": 3, \"name\": \"javenlinist\" }\r\n}";
+        try {
+            content = Files.readString(Paths.get("src/unsw/gloriaromanus/units/uniqueUnits.json"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         JSONObject uniqueUnits = new JSONObject(content);
         if (! f.getName().equals("Rebel")) {
             JSONObject unit = uniqueUnits.getJSONObject(f.getName());
@@ -57,11 +63,16 @@ public class TroopProductionBuilding extends Infrastructure {
         return false;
     }
 
-    // TODO Change this in iteration 3
     @Override
     public boolean equals(Object obj) {
-        if (this.getClass() == obj.getClass()) return true;
-        return false;
+        if (this == obj) return true;
+        if (this.getClass() != obj.getClass()) return false;
+        TroopProductionBuilding tb = (TroopProductionBuilding) obj;
+        return this.f.getName().equals(tb.getFaction().getName());
+    }
+
+    public Faction getFaction() {
+        return f;
     }
 
     public ArrayList<String> getUnitsOfLevel(int level) {
