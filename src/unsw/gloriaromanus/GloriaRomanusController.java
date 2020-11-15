@@ -143,6 +143,7 @@ public class GloriaRomanusController {
   private Pane selectUnitsMenu;
 
   private VictoryScreen victoryScreen;
+  private DefeatScreen defeatScreen;
 
   private PauseMenuController pauseMenuController;
   private SaveController saveController;
@@ -155,6 +156,7 @@ public class GloriaRomanusController {
   private Game game;
   private StringProperty winner;
   private BooleanProperty deselect;
+  private StringProperty losingFaction;
   private boolean battleLost;
 
   @FXML
@@ -256,6 +258,10 @@ public class GloriaRomanusController {
     this.battleLost = battleLost;
   }
 
+  public void setLosingFaction(String factionName) {
+    losingFaction.setValue(factionName);
+  }
+
   public void closeManageProvinceMenu() {
     stack.getChildren().remove(transparentPane);
     transparentPane.getChildren().remove(manageProvinceMenu);
@@ -301,6 +307,10 @@ public class GloriaRomanusController {
     this.victoryScreen = victoryScreen;
   }
 
+  public void setDefeatScreen(DefeatScreen defeatScreen) {
+    this.defeatScreen = defeatScreen;
+  }
+
   public void createAlert(String content, String header, AlertType type) {
     Stage stage = (Stage) stack.getScene().getWindow();
 
@@ -338,9 +348,9 @@ public class GloriaRomanusController {
     this.selectUnitsController = new SelectUnitsController(this);
 
     deselect = new SimpleBooleanProperty(false);
+    losingFaction = new SimpleStringProperty("");
 
     moveToggle = new ToggleSwitch();
-
     output_terminal.setWrapText(true);
     endTurnButton.disableProperty().bind(moveToggle.selectedProperty());
 
@@ -351,6 +361,14 @@ public class GloriaRomanusController {
     moveBox.getChildren().add(moveToggle);
 
     transparentPane = new StackPane();
+
+    losingFaction.addListener((ov, oldValue, newValue) -> {
+      if (! losingFaction.getValue().equals("")) {
+        defeatScreen.getController().updateLoser(game.getWinner());
+        defeatScreen.start();
+        losingFaction.setValue("");
+      }
+    });
 
     FXMLLoader loader = new FXMLLoader(getClass().getResource("pauseMenu.fxml"));
     loader.setController(pauseMenuController);
@@ -385,6 +403,7 @@ public class GloriaRomanusController {
   public void initialiseMap() throws JsonParseException, JsonMappingException, IOException {
     battleLost = false;
     game.setEngagementObserver(new EngagementObserver(this));
+    game.addDefeatObserver(new DefeatObserver(this, game));
     deselect.setValue(false);
     winner = new SimpleStringProperty("");
     winner.addListener((ov, oldValue, newValue) -> {
@@ -394,6 +413,8 @@ public class GloriaRomanusController {
         victoryScreen.start();
       }
     });
+    losingFaction.setValue("");
+
     currentFactionName.setText(game.getCurrentFaction().getName());
     currentYear.setText(game.getCurrentYear());
     FileInputStream input = new FileInputStream("images/CS2511Sprites_No_Background/Flags/" + game.getCurrentFactionName() + "/" + game.getCurrentFactionName() + "Flag.png");

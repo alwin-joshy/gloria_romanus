@@ -492,6 +492,10 @@ public class Game implements Serializable {
         br.setEngagementObserver(engagementObserver);
     }
 
+    public void addDefeatObserver(DefeatObserver defObserver) {
+        br.addDefeatObserver(defObserver);
+    }
+
     // public static void main(String[] args) {
     //     Game game = new Game();
     //     Game g = new Game();

@@ -26,7 +26,7 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
         routedAttackers = new ArrayList<Unit>();
         defeatedTowers = new ArrayList<Unit>();
         engagementCounter = 0;
-        battleObservers = new ArrayList<BattleObserver>(Arrays.asList(new VictoryObserver(), new DefeatObserver()));
+        battleObservers = new ArrayList<BattleObserver>(Arrays.asList(new VictoryObserver()));
         buildingObserver = new BuildingObserver();
         if (seed != 0) {
             r = new Random(seed);
@@ -190,6 +190,10 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
             }
         }
         return true;
+    }
+
+    public void addDefeatObserver(DefeatObserver defObserver) {
+        battleObservers.add(defObserver);
     }
 
     private int engage(Unit attackingUnit, Unit defendingUnit) {
