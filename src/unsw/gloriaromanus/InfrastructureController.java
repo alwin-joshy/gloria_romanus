@@ -157,7 +157,7 @@ public class InfrastructureController {
                 upgrades.getItems().add(new InfrastructureDetails(p, i));
             } else if (i instanceof Road && i.getLevel() < 2) {
                 upgrades.getItems().add(new InfrastructureDetails(p, i));
-            } else if (i instanceof Road && i.getLevel() == 2 && p.getFaction().getName().equals("Rome")) {
+            } else if (i instanceof Road && i.getLevel() == 2 && p.getFactionName().equals("Rome")) {
                 upgrades.getItems().add(new InfrastructureDetails(p, i));
             }
         }

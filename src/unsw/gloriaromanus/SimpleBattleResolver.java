@@ -38,6 +38,10 @@ public class SimpleBattleResolver implements BattleResolver, Serializable {
         }
         
     }
+    
+    public void setEngagementObserver(EngagementObserver engagementObserver) {
+        return;
+    }
 
     public void moveInvadingArmy(ArrayList<Unit> army, Province from, Province to) {
         for (Unit u : army) {

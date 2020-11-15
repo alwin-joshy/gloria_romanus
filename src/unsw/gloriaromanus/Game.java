@@ -487,6 +487,10 @@ public class Game implements Serializable {
         return null;
     }
 
+    public void setEngagementObserver(EngagementObserver engagementObserver) {
+        br.setEngagementObserver(engagementObserver);
+    }
+
     // public static void main(String[] args) {
     //     Game game = new Game();
     //     Game g = new Game();

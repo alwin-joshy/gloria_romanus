@@ -461,6 +461,10 @@ public class Province implements Serializable {
         return total;
     }
 
+    public String getFactionName() {
+        return faction.getName();
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
@@ -475,7 +479,7 @@ public class Province implements Serializable {
         for (int i = 0; i < projects.size(); i++) {
             if (!projects.get(i).equals(p.getNthProject(i))) return false; 
         }
-        return name.equals(p.getName()) && faction.getName().equals(p.getFaction().getName()) && wealth == p.getWealth()
+        return name.equals(p.getName()) && faction.getName().equals(p.getFactionName()) && wealth == p.getWealth()
                && wealthGrowth == p.getWealthGrowth() && tax.equals(p.getTax()) && unitsInTraining == p.getUnitsInTraining()
                && unitTrainingLimit == p.getUnitTrainingLimit() && isSeaProvince == p.isSeaProvince();
     }

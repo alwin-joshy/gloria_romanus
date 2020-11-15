@@ -207,9 +207,9 @@ public class Unit implements Serializable, Project {
             numTroops = 0;
     }
 
-    public void checkIfBroken(int casualties, int size, int enemyCasualties, int enemySize, ArmyBuff allyBuff, double legionaryDebuff, double smithDebuff, Random random) {
+    public boolean checkIfBroken(int casualties, int size, int enemyCasualties, int enemySize, ArmyBuff allyBuff, double legionaryDebuff, double smithDebuff, Random random) {
         if (isBroken)
-            return;
+            return false;
 
         double heroicChargeMultiplier = 1.0;
         if (allyBuff.getHeroicCharge() && type.equals("cavalry") && !ranged) 
@@ -234,6 +234,7 @@ public class Unit implements Serializable, Project {
         if (b < breakChance) {
             isBroken = true;
         }
+        return isBroken;
     }
 
     public boolean isBroken() {

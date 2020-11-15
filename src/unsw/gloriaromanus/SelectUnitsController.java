@@ -88,7 +88,7 @@ public class SelectUnitsController {
         for (Unit u : start.getUnits()) {
             availableUnitsTable.getItems().add(new UnitDetails(start, u));
         }
-        if (start.getFaction().getName().equals(end.getFaction().getName())) {
+        if (start.getFactionName().equals(end.getFactionName())) {
             actionButton.setText("MOVE");
         } else {
             actionButton.setText("INVADE");

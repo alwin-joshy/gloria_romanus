@@ -15,7 +15,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<!-- <?import com.esri.arcgisruntime.mapping.view.MapView?> -->
+<?import com.esri.arcgisruntime.mapping.view.MapView?>
 
 <StackPane fx:id="stack" stylesheets="/unsw/gloriaromanus/style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="unsw.gloriaromanus.GloriaRomanusController">
     <MapView fx:id="mapView" />
