@@ -41,6 +41,7 @@ public class GloriaRomanusApplication extends Application {
     defeatScreen.getController().setGloriaRomanusScreen(gloriaRomanusScreen);
 
     controller.setVictoryScreen(victoryScreen);
+    controller.setDefeatScreen(defeatScreen);
 
     mainMenuScreen.start();
   }

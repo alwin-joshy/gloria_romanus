@@ -364,7 +364,7 @@ public class GloriaRomanusController {
 
     losingFaction.addListener((ov, oldValue, newValue) -> {
       if (! losingFaction.getValue().equals("")) {
-        defeatScreen.getController().updateLoser(game.getWinner());
+        defeatScreen.getController().updateLoser(losingFaction.getValue());
         defeatScreen.start();
         losingFaction.setValue("");
       }
@@ -414,6 +414,20 @@ public class GloriaRomanusController {
       }
     });
     losingFaction.setValue("");
+    int i = 0;
+    ArrayList<Province> toTransfer = new ArrayList<Province>();
+
+    // TODO get rid of this -- used to to test defeat screen
+    for (Province p : game.getFaction("Rome").getAlliedProvinces()) {
+      toTransfer.add(p);
+    }
+
+    System.out.println(game.getCurrentFactionName());
+    for (Province p : toTransfer) {
+        Game.transferProvinceOwnership(game.getFaction("Rome"), game.getFaction("Gaul"), p);
+    }
+
+    Game.transferProvinceOwnership(game.getFaction("Gaul"), game.getFaction("Rome"), game.getProvince("Germania Inferior"));
 
     currentFactionName.setText(game.getCurrentFaction().getName());
     currentYear.setText(game.getCurrentYear());
