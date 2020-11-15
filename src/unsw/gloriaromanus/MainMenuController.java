@@ -46,7 +46,6 @@ public class MainMenuController {
         if (files.length != 0) {
             Arrays.sort(files, Comparator.comparingLong(File::lastModified).reversed());
             File mostRecent = files[0];
-            System.out.println(mostRecent.getName());
             Game g = new Game();
             g.loadGame(mostRecent.getName());
             gloriaRomanusScreen.getController().setGame(g);

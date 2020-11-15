@@ -25,6 +25,15 @@ public class EngagementObserver {
         controller.printMessageToTerminal("Commencing battle between " + attacker + " and " + defender);
     }
 
+    public void notifyBattleWon(String attackingFaction, String defender) {
+        controller.printMessageToTerminal(attackingFaction + " has successfuly conquered " + defender);
+    }
+
+    public void notifyBattleLost(String attackingFaction, String defender) {
+        controller.printMessageToTerminal(attackingFaction + " has failed to conquer " + defender);
+        controller.setBattleLost(true);
+    }
+
     public void notifySkirmish(String attacker, String defender, String attackingFaction, String defendingFaction) {
         controller.printMessageToTerminal("Commencing skirmish between " + factionMap.get(attackingFaction) + " " + attacker + " and " + factionMap.get(defendingFaction) + " " + defender);
     }
@@ -34,7 +43,7 @@ public class EngagementObserver {
     }
 
     public void notifyBreak(String unit, String faction) {
-        controller.printMessageToTerminal(factionMap.get(faction) + " " + unit + "has been broken");
+        controller.printMessageToTerminal(factionMap.get(faction) + " " + unit + " has been broken");
     }
 
     public void notifyRoute(String unit, String faction) {

@@ -77,7 +77,6 @@ public class SaveController {
         instruction.setWrapText(true);
 
         saveListView.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends ListCell<String>> ov, ListCell<String> old_val, ListCell<String> new_val) -> {
-            //System.out.println(saveName);
             if (saveListView.getSelectionModel().getSelectedItem() != null){
                 saveName.setText(saveListView.getSelectionModel().getSelectedItem().getText());
             }

@@ -12,6 +12,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 
@@ -109,6 +110,7 @@ public class UnitsController {
         unitsInTrainingTable.getItems().clear();
         unitTable.getItems().clear();
         quantity.setText("N/A");
+        attack.setText("N/A");
         ranged.setText("N/A");
         armour.setText("N/A");
         morale.setText("N/A");
@@ -137,7 +139,9 @@ public class UnitsController {
             if (province.getUnitTrainingLimit() == province.getUnitsInTraining())
                 recruitButton.setDisable(true);
         } else {
-            gloriaRomanusController.handleNotEnoughGold();
+            String content = "You do not have enough gold to make this purchase!";
+            String header = "Insufficient funds";
+            gloriaRomanusController.createAlert(content, header, AlertType.ERROR);
         }
     }
 

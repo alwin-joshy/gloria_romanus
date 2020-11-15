@@ -119,7 +119,6 @@ public class GloriaRomanusController {
 
   private ToggleSwitch moveToggle;
 
-
   private ArcGISMap map;
 
   private Map<String, String> provinceToOwningFactionMap;
@@ -155,9 +154,8 @@ public class GloriaRomanusController {
 
   private Game game;
   private StringProperty winner;
-  private IntegerProperty factionCount;
   private BooleanProperty deselect;
-  private EngagementObserver engagementObserver;
+  private boolean battleLost;
 
   @FXML
   private void handleVictoryProgressButton() {
@@ -175,7 +173,17 @@ public class GloriaRomanusController {
 
   @FXML
   private void handleEndTurnButton() throws FileNotFoundException, JsonParseException, IOException {
-    game.endTurn();
+    String provincesLost = "";
+    for (Province p : game.endTurn()) {
+      provinceToOwningFactionMap.put(p.getName(), p.getFactionName());
+      provinceToNumberTroopsMap.put(p.getName(), p.getTotalTroops());
+      provincesLost += p.getName() + ", ";
+    }
+    if (! provincesLost.equals("")) {
+      provincesLost = provincesLost.substring(0, provincesLost.length() - 3);
+      createAlert(provincesLost + " revolted", "Revolution!", AlertType.WARNING);
+    }
+
     currentFactionName.setText(game.getCurrentFaction().getName());
     currentYear.setText(game.getCurrentYear());
     FileInputStream input = new FileInputStream("images/CS2511Sprites_No_Background/Flags/" + game.getCurrentFactionName() + "/" + game.getCurrentFactionName() + "Flag.png");
@@ -206,23 +214,25 @@ public class GloriaRomanusController {
       } else {
         invaded = true;
       }
+      int numTroopsToTransferBeforeMove = getNumTroopsToTransfer(toMove);
       if (game.moveUnits(toMove, game.getProvince(humanProvince), game.getProvince(targetProvince))) {
-        factionCount.setValue(game.getFactions().size());
-        int numTroopsToTransfer = getNumTroopsToTransfer(toMove);
         if (invaded) {
-          provinceToNumberTroopsMap.put(targetProvince, numTroopsToTransfer);
-          provinceToNumberTroopsMap.put(humanProvince, provinceToNumberTroopsMap.get(humanProvince) - numTroopsToTransfer);
+          int numTroopsToTransferAfterMove = getNumTroopsToTransfer(toMove);
+          provinceToNumberTroopsMap.put(targetProvince, numTroopsToTransferAfterMove);
+          provinceToNumberTroopsMap.put(humanProvince, provinceToNumberTroopsMap.get(humanProvince) - numTroopsToTransferBeforeMove);
           provinceToOwningFactionMap.put(targetProvince, humanFaction);
-          printMessageToTerminal(humanFaction + " has successfully conquered " + targetProvince);
         } else {
-          provinceToNumberTroopsMap.put(targetProvince, provinceToNumberTroopsMap.get(targetProvince) + numTroopsToTransfer);
-          provinceToNumberTroopsMap.put(humanProvince, provinceToNumberTroopsMap.get(humanProvince) - numTroopsToTransfer);
-          printMessageToTerminal(numTroopsToTransfer + " units moved from " + humanProvince + " to " + targetProvince);
+          provinceToNumberTroopsMap.put(targetProvince, provinceToNumberTroopsMap.get(targetProvince) + numTroopsToTransferBeforeMove);
+          provinceToNumberTroopsMap.put(humanProvince, provinceToNumberTroopsMap.get(humanProvince) - numTroopsToTransferBeforeMove);
+          printMessageToTerminal(numTroopsToTransferBeforeMove + " units moved from " + humanProvince + " to " + targetProvince);
         }
       } else {
-        if (invaded) {
+        if (invaded && battleLost) {
           provinceToNumberTroopsMap.put(targetProvince, getNumTroopsToTransfer(end.getUnits()));
           provinceToNumberTroopsMap.put(humanProvince, getNumTroopsToTransfer(start.getUnits()));
+          battleLost = false;
+        } else {
+          printMessageToTerminal("Selected units could not move from " + humanProvince + " to " + targetProvince);
         }
       }
       addAllPointGraphics(); // reset graphics
@@ -240,6 +250,10 @@ public class GloriaRomanusController {
 
   public PauseMenuController getPauseMenuController() {
     return pauseMenuController;
+  }
+
+  public void setBattleLost(boolean battleLost) {
+    this.battleLost = battleLost;
   }
 
   public void closeManageProvinceMenu() {
@@ -287,32 +301,16 @@ public class GloriaRomanusController {
     this.victoryScreen = victoryScreen;
   }
 
-  public void handleNotEnoughGold() {
-    Stage stage = (Stage) transparentPane.getScene().getWindow();
+  public void createAlert(String content, String header, AlertType type) {
+    Stage stage = (Stage) stack.getScene().getWindow();
 
-    AlertType type = AlertType.ERROR;
     Alert alert = new Alert(type, "");
 
     alert.initModality(Modality.APPLICATION_MODAL);
     alert.initOwner(stage);
 
-    alert.getDialogPane().setContentText("You do not have enough gold to make this purchase!");
-    alert.getDialogPane().setHeaderText("Insufficient funds");
-
-    alert.showAndWait();
-
-  }
-
-  public void handleNoUnitsSelected() {
-    Stage stage = (Stage) transparentPane.getScene().getWindow();
-
-    AlertType type = AlertType.ERROR;
-    Alert alert = new Alert(type, "");
-
-    alert.initModality(Modality.APPLICATION_MODAL);
-    alert.initOwner(stage);
-
-    alert.getDialogPane().setHeaderText("You have not selected any units to move!");
+    alert.getDialogPane().setContentText(content);
+    alert.getDialogPane().setHeaderText(header);
 
     alert.showAndWait();
 
@@ -385,7 +383,8 @@ public class GloriaRomanusController {
   }
 
   public void initialiseMap() throws JsonParseException, JsonMappingException, IOException {
-    this.engagementObserver = new EngagementObserver(this);
+    battleLost = false;
+    game.setEngagementObserver(new EngagementObserver(this));
     deselect.setValue(false);
     winner = new SimpleStringProperty("");
     winner.addListener((ov, oldValue, newValue) -> {

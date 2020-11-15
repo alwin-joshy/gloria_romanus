@@ -16,7 +16,7 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
     private ArrayList<Unit> defendingArmy;
     private int engagementCounter;
     private ArrayList<BattleObserver> battleObservers;
-    private EngagementObserver engagementObserver;
+    private transient EngagementObserver engagementObserver;
     private BuildingObserver buildingObserver;
     private Random r;
     private ArmyBuff attackingBuffs;
@@ -86,14 +86,16 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
             }
             notifyBattleObservers(attacking.getFaction());
             notifyBattleObservers(defendingTemp);
+            engagementObserver.notifyBattleWon(attacking.getFactionName(), defending.getName());
             buildingObserver.update(attacking.getFaction(), defendingTemp);
             return true;
         } else {
             defending.resetLegionaryDeaths();
-            for( Unit u : routedAttackers) {
+            for (Unit u : routedAttackers) {
                 attacking.addUnit(u);
             }
             attackingArmy.addAll(routedAttackers);
+            engagementObserver.notifyBattleLost(defending.getFactionName(), attacking.getName());
             return false;
         }
     }
@@ -261,7 +263,7 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
             if (routeChance < 0.1) routeChance = 0.1;
             if (route < routeChance) {
                 result = 1;
-                engagementObserver.notifyRoute(defending.getName(), defending.getFactionName());
+                engagementObserver.notifyRoute(defendingUnit.getName(), defending.getFactionName());
             }
         }
 

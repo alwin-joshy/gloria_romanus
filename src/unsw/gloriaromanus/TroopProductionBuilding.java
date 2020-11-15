@@ -39,10 +39,11 @@ public class TroopProductionBuilding extends Infrastructure {
         //content = Files.readString(Paths.get("src/unsw/gloriaromanus/units/uniqueUnits.json"));
         content = "{\r\n    \"Rome\": { \"level\": 3, \"name\": \"legionary\" },\r\n    \"Carthage\" : { \"level\": 3, \"name\": \"elephant\" },\r\n    \"Gaul\" : { \"level\": 2, \"name\": \"berserker\" },\r\n    \"Britons\" : { \"level\": 2, \"name\": \"berserker\" },\r\n    \"Spain\" : { \"level\": 3, \"name\": \"druid\" },\r\n    \"Numidia\" : { \"level\": 1, \"name\": \"eliteCavalry\" },\r\n    \"Egypt\" : { \"level\": 2, \"name\": \"eliteHorseArcher\" },\r\n    \"Seleucid Empire\" : { \"level\": 3, \"name\": \"immortals\" }, \r\n    \"Pontus\" : { \"level\": 3, \"name\": \"hoplites\" },\r\n    \"Armenia\" : { \"level\": 1, \"name\": \"eliteCavalry\"},\r\n    \"Parthians\" : { \"level\": 2, \"name\": \"eliteHorseArcher\" },\r\n    \"Germanics\" : { \"level\": 2, \"name\": \"berserker\" },\r\n    \"Greek City States\" : { \"level\": 3, \"name\": \"hoplites\" },\r\n    \"Macedonians\" : { \"level\": 3, \"name\": \"hoplites\" },\r\n    \"Thracians\" : { \"level\": 3, \"name\": \"javelinist\" },\r\n    \"Dacians\" : { \"level\": 3, \"name\": \"javenlinist\" }\r\n}";
         JSONObject uniqueUnits = new JSONObject(content);
-        JSONObject unit = uniqueUnits.getJSONObject(f.getName());
-        // adds the unique unit to the list
-        units.get(unit.getInt("level")).add(unit.getString("name"));
-
+        if (! f.getName().equals("Rebel")) {
+            JSONObject unit = uniqueUnits.getJSONObject(f.getName());
+            // adds the unique unit to the list
+            units.get(unit.getInt("level")).add(unit.getString("name"));
+        }
     }
 
     public void levelUp() {
