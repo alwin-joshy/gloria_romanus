@@ -98,6 +98,8 @@ public class GloriaRomanusController {
   @FXML
   private Button unitsButton;
   @FXML
+  private TextField invadingProvince;
+  @FXML
   private HBox moveBox;
 
   private ToggleSwitch moveToggle;
