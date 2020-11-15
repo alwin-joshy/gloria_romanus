@@ -135,8 +135,6 @@ public class InfrastructureController {
     }
 
 
-
-
     public void setupScreen(Province p)  {
         this.p = p;
         this.f = p.getFaction();
