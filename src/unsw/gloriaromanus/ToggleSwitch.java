@@ -33,7 +33,8 @@ public class ToggleSwitch extends HBox {
 		//Default Width
 		setWidth(80);
 		label.setAlignment(Pos.CENTER);
-		setStyle("-fx-background-color: grey; -fx-text-fill:black; -fx-background-radius: 4;");
+		setStyle("-fx-text-fill:black; -fx-background-radius: 10;");
+		setStyle("-fx-background-color: #2E4053;");
 		setAlignment(Pos.CENTER_LEFT);
 	}
 	
@@ -49,12 +50,12 @@ public class ToggleSwitch extends HBox {
 		selected.addListener((a,b,c) -> {
 			if (c) {
                 		label.setText("ON");
-                		setStyle("-fx-background-color: green;");
+						setStyle("-fx-background-color: #5D6D7E;");
                 		label.toFront();
             		}
             		else {
             			label.setText("OFF");
-        			setStyle("-fx-background-color: red;");
+						setStyle("-fx-background-color: #2E4053;");
                 		button.toFront();
             		}
 		});

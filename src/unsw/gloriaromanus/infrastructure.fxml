@@ -62,7 +62,7 @@
             <TableColumn fx:id="builtLevelColumn" prefWidth="254.79910278320312" text="Level " />
          </columns>
       </TableView>
-      <Button fx:id="buildButton" layoutX="497.0" layoutY="663.0" mnemonicParsing="false" onAction="#handleBuildButton" opacity="0.8" styleClass="buttons" stylesheets="@stylesheet.css" text="Build ">
+      <Button fx:id="buildButton" alignment="CENTER_RIGHT" contentDisplay="TOP" layoutX="497.0" layoutY="663.0" mnemonicParsing="false" onAction="#handleBuildButton" opacity="0.8" prefHeight="25.0" prefWidth="78.0" styleClass="buttons" stylesheets="@stylesheet.css" text="Build ">
          <font>
             <Font name="Roman SD" size="13.0" />
          </font></Button>
