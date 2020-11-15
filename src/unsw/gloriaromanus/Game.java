@@ -21,7 +21,7 @@ import java.util.Random;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class Game implements Serializable{
+public class Game implements Serializable {
 
     private ArrayList<Faction> factions;
     private ArrayList<Province> provinces;
