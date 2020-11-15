@@ -7,25 +7,25 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #f2f2f2; -fx-border-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="750.0" style="-fx-background-color: #f2f2f2; -fx-border-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="130.0" layoutY="14.0" prefHeight="103.0" prefWidth="440.0" text="SELECT UNITS">
+      <Label layoutX="126.0" layoutY="14.0" prefHeight="103.0" prefWidth="513.0" text="SELECT UNITS">
          <font>
             <Font size="70.0" />
          </font>
       </Label>
-      <Button fx:id="backButton" layoutX="14.0" layoutY="562.0" mnemonicParsing="false" onAction="#handleBackButton" text="BACK" />
+      <Button fx:id="backButton" layoutX="14.0" layoutY="553.0" mnemonicParsing="false" onAction="#handleBackButton" text="BACK" />
       <Label layoutX="59.0" layoutY="129.0" text="Available units" />
-      <TableView fx:id="availableUnitsTable" layoutX="59.0" layoutY="146.0" prefHeight="345.0" prefWidth="578.0">
+      <TableView fx:id="availableUnitsTable" layoutX="59.0" layoutY="146.0" prefHeight="345.0" prefWidth="647.0">
         <columns>
-          <TableColumn fx:id="name" prefWidth="144.0" text="Name" />
-            <TableColumn fx:id="type" prefWidth="128.0" text="Type" />
-            <TableColumn fx:id="movementPoints" prefWidth="111.0" text="Movement points" />
-          <TableColumn fx:id="numTroops" prefWidth="120.0" text="Number of troops" />
-            <TableColumn fx:id="smithLevel" prefWidth="74.0" text="Smith level" />
+          <TableColumn fx:id="name" prefWidth="121.0" text="Name" />
+            <TableColumn fx:id="type" prefWidth="130.0" text="Type" />
+            <TableColumn fx:id="movementPoints" prefWidth="146.0" text="Movement points" />
+          <TableColumn fx:id="numTroops" prefWidth="145.0" text="Number of troops" />
+            <TableColumn fx:id="smithLevel" prefWidth="104.0" text="Smith level" />
         </columns>
       </TableView>
       <Label layoutX="637.0" layoutY="566.0" />
-      <Button fx:id="actionButton" layoutX="627.0" layoutY="562.0" mnemonicParsing="false" onAction="#handleActionButton" text="ACTION" />
+      <Button fx:id="actionButton" layoutX="668.0" layoutY="553.0" mnemonicParsing="false" onAction="#handleActionButton" text="ACTION" />
    </children>
 </Pane>

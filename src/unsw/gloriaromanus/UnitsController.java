@@ -207,6 +207,7 @@ public class UnitsController {
     public void setupUnitDetails(Province province) throws IOException {
         this.province = province;
         this.faction = province.getFaction();
+        
         updateTrainingCount();
         // populate current units
         for (Unit u : province.getUnits()) {

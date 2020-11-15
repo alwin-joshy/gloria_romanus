@@ -1,0 +1,63 @@
+.buttons{
+    -fx-border-color: #140f04;
+    -fx-border-radius: 20;
+    -fx-background-color:#d8b065;
+    -fx-background-radius: 20;
+}   
+
+.buttons:hover {
+    -fx-border-color: #140f04;
+    -fx-border-radius: 20;
+    -fx-background-color: #ad7b1d;
+    -fx-background-radius: 20;
+}
+
+.buttons:active {
+    -fx-border-color: #140f04;
+    -fx-border-radius: 20;
+    -fx-background-color: #d8b065;
+    -fx-background-radius: 20;
+}
+
+.buttons:disabled {
+    -fx-border-color: #140f04;
+    -fx-border-radius: 20;
+    /* -fx-background-color: #e9d3a9; */
+    -fx-background-color: #f6eddc;
+    -fx-background-radius: 20;
+}
+
+.buttons:pressed {
+    -fx-background-color: #ad7b1d;
+    -moz-box-shadow:    inset 0 0 10px #000000;
+    -webkit-box-shadow: inset 0 0 10px #000000;
+    box-shadow:         inset 0 0 10px #000000;
+}
+
+.buttons:selected {
+    -fx-background-color: #ad7b1d;
+    -moz-box-shadow:    inset 0 0 10px #000000;
+    -webkit-box-shadow: inset 0 0 10px #000000;
+    box-shadow:         inset 0 0 100px #000000;
+}
+
+.menu-button {
+    -fx-background-color:#e1c082;
+    -fx-border-color: #140f04;
+    }
+.split-menu-button .label {
+    -fx-border-color: #140f04;
+    -fx-background-color: #e1c082;
+    }
+.split-menu-button .arrow {
+    -fx-background-color: #e1c082;
+}
+
+.table-view{
+    -fx-border-color: #140f04;
+    -fx-background-color: transparent;
+}
+.pane{
+    -fx-border-color: #140f04;
+    -fx-background-color: transparent;
+}

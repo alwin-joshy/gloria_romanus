@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
@@ -16,10 +17,10 @@
    <children>
       <ImageView fitHeight="700.0" fitWidth="800.0" pickOnBounds="true">
          <image>
-            <Image url="@photo-1558346648-9757f2fa4474.jpeg" />
+            <Image url="@Marble%201.jpg" />
          </image>
       </ImageView>
-      <SplitMenuButton fx:id="AISplitMenu" layoutX="103.0" layoutY="207.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="595.0" styleClass="allText" stylesheets="@a.css" text="SELECT AI LEVEL">
+      <SplitMenuButton fx:id="AISplitMenu" layoutX="103.0" layoutY="207.0" mnemonicParsing="false" opacity="0.8" prefHeight="60.0" prefWidth="595.0" styleClass="allText" text="SELECT AI LEVEL">
         <items>
           <MenuItem fx:id="simpleAIItem" mnemonicParsing="false" onAction="#handleSimpleAIItem" text="SIMPLE AI" />
           <MenuItem fx:id="standardAIItem" mnemonicParsing="false" onAction="#handleStandardAIItem" text="STANDARD AI" />
@@ -27,21 +28,25 @@
          <font>
             <Font name="Roman SD" size="28.0" />
          </font>
+         <stylesheets>
+            <URL value="@a.css" />
+            <URL value="@stylesheet.css" />
+         </stylesheets>
       </SplitMenuButton>
-      <Label layoutX="165.0" layoutY="60.0" text="NEW GAME" textFill="#cd9630">
+      <Label layoutX="165.0" layoutY="60.0" style="-fx-text-fill: #cd9630;" text="NEW GAME" textFill="#cd9630">
          <font>
             <Font name="Roman SD" size="70.0" />
          </font>
       </Label>
-      <Button fx:id="mainMenuButton" layoutX="14.0" layoutY="626.0" mnemonicParsing="false" onAction="#handleMainMenuButton" prefHeight="60.0" prefWidth="250.0" text="MAIN MENU">
+      <Button fx:id="mainMenuButton" layoutX="14.0" layoutY="626.0" mnemonicParsing="false" onAction="#handleMainMenuButton" opacity="0.8" prefHeight="60.0" prefWidth="250.0" styleClass="buttons" stylesheets="@stylesheet.css" text="MAIN MENU">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font></Button>
-      <Button fx:id="selectFactionsButton" layoutX="225.0" layoutY="461.0" mnemonicParsing="false" onAction="#handleSelectFactionsButton" prefHeight="60.0" prefWidth="350.0" text="SELECT FACTIONS">
+      <Button fx:id="selectFactionsButton" layoutX="225.0" layoutY="461.0" mnemonicParsing="false" onAction="#handleSelectFactionsButton" opacity="0.8" prefHeight="60.0" prefWidth="350.0" styleClass="buttons" stylesheets="@stylesheet.css" text="SELECT FACTIONS">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font></Button>
-      <SplitMenuButton fx:id="BRSplitMenu" layoutX="103.0" layoutY="320.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="595.0" stylesheets="@a.css" text="SELECT BATTLE RESOLVER">
+      <SplitMenuButton fx:id="BRSplitMenu" layoutX="103.0" layoutY="320.0" mnemonicParsing="false" opacity="0.8" prefHeight="60.0" prefWidth="595.0" text="SELECT BATTLE RESOLVER">
          <items>
             <MenuItem fx:id="simpleBRItem" mnemonicParsing="false" onAction="#handleSimpleBRItem" text="SIMPLE BATTLE RESOLVER" />
             <MenuItem fx:id="standardBRItem" mnemonicParsing="false" onAction="#handleStandardBRItem" text="STANDARD BATTLE RESOLVER" />
@@ -49,6 +54,10 @@
          <font>
             <Font name="Roman SD" size="28.0" />
          </font>
+         <stylesheets>
+            <URL value="@a.css" />
+            <URL value="@stylesheet.css" />
+         </stylesheets>
       </SplitMenuButton>
       <Label layoutX="229.0" layoutY="148.0" text="Prepare for Battle!">
          <font>

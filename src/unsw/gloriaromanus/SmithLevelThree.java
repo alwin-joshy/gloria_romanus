@@ -1,7 +1,9 @@
 package unsw.gloriaromanus;
 
 public class SmithLevelThree extends SmithLevelTwo {
-    private int level = 3;
+    public SmithLevelThree() {
+        setLevel(3);
+    }
     
     @Override
     public double applyAttackBuff(double attack) {

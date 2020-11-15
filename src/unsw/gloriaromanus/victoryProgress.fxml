@@ -17,10 +17,10 @@
    <children>
       <ImageView fitHeight="600.0" fitWidth="700.0" pickOnBounds="true">
          <image>
-            <Image url="@photo-1558346648-9757f2fa4474.jpeg" />
+            <Image url="@Marble%201.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="28.0" layoutY="14.0" prefHeight="103.0" prefWidth="652.0" text="VICTORY PROGRESS" textFill="#cd9630">
+      <Label layoutX="28.0" layoutY="14.0" prefHeight="103.0" prefWidth="652.0" style="-fx-text-fill: #cd9630;" text="VICTORY PROGRESS" textFill="#cd9630">
          <font>
             <Font name="Roman SD" size="57.0" />
          </font>
@@ -103,9 +103,9 @@
       </Label>
       <Label fx:id="currentVictoryCondition" layoutX="31.0" layoutY="193.0" prefHeight="66.0" prefWidth="638.0" wrapText="true">
          <font>
-            <Font size="18.0" />
+            <Font name="Roman SD" size="18.0" />
          </font></Label>
-      <Button fx:id="backButton" layoutX="14.0" layoutY="526.0" mnemonicParsing="false" onAction="#handleBackButton" text="BACK">
+      <Button fx:id="backButton" layoutX="14.0" layoutY="526.0" mnemonicParsing="false" onAction="#handleBackButton" opacity="0.8" styleClass="buttons" stylesheets="@stylesheet.css" text="BACK">
          <font>
             <Font name="Roman SD" size="22.0" />
          </font>

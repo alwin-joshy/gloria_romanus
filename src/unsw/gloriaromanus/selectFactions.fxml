@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
@@ -17,20 +18,28 @@
    <children>
       <ImageView fitHeight="700.0" fitWidth="800.0" pickOnBounds="true">
          <image>
-            <Image url="@photo-1558346648-9757f2fa4474.jpeg" />
+            <Image url="@Marble%201.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="47.0" layoutY="50.0" text="SELECT FACTIONS" textFill="#cd9630">
+      <ImageView fitHeight="550.0" fitWidth="550.0" layoutX="123.0" layoutY="147.0" opacity="0.64" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <DropShadow />
+         </effect>
+         <image>
+            <Image url="@Eagle.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="47.0" layoutY="50.0" style="-fx-text-fill: #cd9630;" text="SELECT FACTIONS" textFill="#cd9630">
          <font>
             <Font name="Roman SD" size="70.0" />
          </font>
       </Label>
-      <Button fx:id="mainMenuButton" layoutX="14.0" layoutY="626.0" mnemonicParsing="false" onAction="#handleMainMenuButton" prefHeight="60.0" prefWidth="250.0" text="MAIN MENU">
+      <Button fx:id="mainMenuButton" layoutX="14.0" layoutY="626.0" mnemonicParsing="false" onAction="#handleMainMenuButton" opacity="0.8" prefHeight="60.0" prefWidth="250.0" styleClass="buttons" stylesheets="@stylesheet.css" text="MAIN MENU">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font>
       </Button>
-      <Button fx:id="startGameButton" layoutX="536.0" layoutY="626.0" mnemonicParsing="false" onAction="#handleStartGameButton" prefHeight="60.0" prefWidth="250.0" text="START GAME">
+      <Button fx:id="startGameButton" layoutX="536.0" layoutY="626.0" mnemonicParsing="false" onAction="#handleStartGameButton" opacity="0.8" prefHeight="60.0" prefWidth="250.0" styleClass="buttons" stylesheets="@stylesheet.css" text="START GAME">
          <font>
             <Font name="Roman SD" size="28.0" />
          </font>

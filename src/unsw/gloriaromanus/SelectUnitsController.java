@@ -70,6 +70,14 @@ public class SelectUnitsController {
         numTroops.setCellValueFactory(new PropertyValueFactory<>("numTroops"));
         smithLevel.setCellValueFactory(new PropertyValueFactory<>("smithLevel"));
         availableUnitsTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        actionButton.setDisable(true);
+        availableUnitsTable.getSelectionModel().selectedItemProperty().addListener((ov, oldValue, newValue) -> {
+            if (availableUnitsTable.getSelectionModel().getSelectedItem() != null) {
+                actionButton.setDisable(false);
+            } else {
+                actionButton.setDisable(true);
+            }
+        });
     }
 
     public void listSetup(Province start, Province end) {
@@ -78,6 +86,11 @@ public class SelectUnitsController {
         availableUnitsTable.getItems().clear();
         for (Unit u : start.getUnits()) {
             availableUnitsTable.getItems().add(new UnitDetails(start, u));
+        }
+        if (start.getFaction().getName().equals(end.getFaction().getName())) {
+            actionButton.setText("MOVE");
+        } else {
+            actionButton.setText("INVADE");
         }
     }
     

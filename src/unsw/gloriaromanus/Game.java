@@ -62,8 +62,10 @@ public class Game implements Serializable{
 
     public void startGame(ArrayList<String> selectedFactions) {
         selectFations(selectedFactions);
+        factions.add(new Faction("rebel"));
         Random r = new Random();
         currentFaction = r.nextInt(factions.size());
+        if (getCurrentFactionName().equals("rebel")) currentFaction = (currentFaction + 1) % factions.size();
         factions.get(currentFaction).collectTax();
         winner = "";
     } 
@@ -155,6 +157,10 @@ public class Game implements Serializable{
         currentFaction = (currentFaction + 1) % factions.size();
         currentYear++;
         Faction curr = factions.get(currentFaction);
+        if (curr.getName().equals("rebel")) {
+            currentFaction = (currentFaction + 1) % factions.size();
+            curr = factions.get(currentFaction);
+        }
         curr.updateAllProjects();
         if (toRecalculateBonuses.keySet().contains(curr.getName()) && toRecalculateBonuses.get(curr.getName()) == true) {
             curr.calculateMarketMultiplier();
@@ -171,7 +177,7 @@ public class Game implements Serializable{
                 endGame();
                 alreadyWon = true;
             }
-        }
+        } 
     }
 
     public void revolt(Province p) {
