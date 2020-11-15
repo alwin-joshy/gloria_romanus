@@ -74,8 +74,6 @@ public class GloriaRomanusController {
   @FXML
   private TextField targetProvince;
   @FXML
-  private TextField invadingProvince;
-  @FXML
   private TextArea outputTerminal;
   @FXML
   private Button pauseButton;
