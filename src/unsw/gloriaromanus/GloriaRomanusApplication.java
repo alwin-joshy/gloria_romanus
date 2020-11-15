@@ -33,7 +33,6 @@ public class GloriaRomanusApplication extends Application {
     selectFactionsScreen.getController().setGloriaRomanusScreen(gloriaRomanusScreen);
 
     gloriaRomanusScreen.getController().getPauseMenuController().setMainMenuScreen(mainMenuScreen);
-    gloriaRomanusScreen.getController().getPauseMenuController().setGloriaRomanusScreen(gloriaRomanusScreen);
 
     victoryScreen.getController().setMainMenuScreen(mainMenuScreen);
     victoryScreen.getController().setGloriaRomanusScreen(gloriaRomanusScreen);

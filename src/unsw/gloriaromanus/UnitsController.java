@@ -169,7 +169,6 @@ public class UnitsController {
         unitsInTrainingTable.setPlaceholder(new Label());
         unitTable.setPlaceholder(new Label());
         cancelButton.disableProperty().bind(unitsInTrainingTable.getSelectionModel().selectedItemProperty().isNull());
-        disbandButton.disableProperty().bind(unitsInProvince.getSelectionModel().selectedItemProperty().isNull());
         unitTable.getSelectionModel().selectedItemProperty().addListener((ov, oldVal, newVal) -> {
             UnitDetails selected = unitTable.getSelectionModel().getSelectedItem();
             if (selected != null) {
@@ -188,6 +187,21 @@ public class UnitsController {
                     recruitButton.setDisable(false);
             } else {
                 recruitButton.setDisable(true);
+            }
+        });
+        
+        disbandButton.setDisable(true);
+
+        unitsInProvince.getSelectionModel().selectedItemProperty().addListener((ov, oldVal, newVal) -> {
+            ListCell<String> selectedCell = unitsInProvince.getSelectionModel().getSelectedItem();
+            if (selectedCell != null) {
+                String selected = selectedCell.getText();
+                if (selected.equals("ballistatower") || selected.equals("archertower"))
+                    disbandButton.setDisable(true);
+                else
+                    disbandButton.setDisable(false);
+            } else {
+                disbandButton.setDisable(true);
             }
         });
 

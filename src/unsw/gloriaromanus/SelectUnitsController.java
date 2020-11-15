@@ -85,7 +85,8 @@ public class SelectUnitsController {
         this.end = end;
         availableUnitsTable.getItems().clear();
         for (Unit u : start.getUnits()) {
-            availableUnitsTable.getItems().add(new UnitDetails(start, u));
+            if (! u.getType().equals("tower"))
+                availableUnitsTable.getItems().add(new UnitDetails(start, u));
         }
         if (start.getFactionName().equals(end.getFactionName())) {
             actionButton.setText("MOVE");

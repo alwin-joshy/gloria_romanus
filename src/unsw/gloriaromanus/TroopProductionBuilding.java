@@ -45,7 +45,6 @@ public class TroopProductionBuilding extends Infrastructure {
             e.printStackTrace();
         }
 
-        //content = "{\r\n    \"Rome\": { \"level\": 3, \"name\": \"legionary\" },\r\n    \"Carthage\" : { \"level\": 3, \"name\": \"elephant\" },\r\n    \"Gaul\" : { \"level\": 2, \"name\": \"berserker\" },\r\n    \"Britons\" : { \"level\": 2, \"name\": \"berserker\" },\r\n    \"Spain\" : { \"level\": 3, \"name\": \"druid\" },\r\n    \"Numidia\" : { \"level\": 1, \"name\": \"eliteCavalry\" },\r\n    \"Egypt\" : { \"level\": 2, \"name\": \"eliteHorseArcher\" },\r\n    \"Seleucid Empire\" : { \"level\": 3, \"name\": \"immortals\" }, \r\n    \"Pontus\" : { \"level\": 3, \"name\": \"hoplites\" },\r\n    \"Armenia\" : { \"level\": 1, \"name\": \"eliteCavalry\"},\r\n    \"Parthia\" : { \"level\": 2, \"name\": \"eliteHorseArcher\" },\r\n    \"Germanics\" : { \"level\": 2, \"name\": \"berserker\" },\r\n    \"Greek\" : { \"level\": 3, \"name\": \"hoplites\" },\r\n    \"Macedonia\" : { \"level\": 3, \"name\": \"hoplites\" },\r\n    \"Thracia\" : { \"level\": 3, \"name\": \"javelinist\" },\r\n    \"Dacia\" : { \"level\": 3, \"name\": \"javenlinist\" }\r\n}";
         JSONObject uniqueUnits = new JSONObject(content);
         if (! f.getName().equals("Rebel")) {
             JSONObject unit = uniqueUnits.getJSONObject(f.getName());

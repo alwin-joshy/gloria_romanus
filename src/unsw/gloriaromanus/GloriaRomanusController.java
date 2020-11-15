@@ -322,7 +322,7 @@ public class GloriaRomanusController {
 
   @FXML
   private void initialize() throws IOException {
-    this.pauseMenuController = new PauseMenuController();
+    this.pauseMenuController = new PauseMenuController(this);
     this.saveController = new SaveController(this);
     this.manageProvinceController = new ManageProvinceController(this);
     this.infrastructureController = new InfrastructureController(this);
