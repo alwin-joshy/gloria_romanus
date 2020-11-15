@@ -13,10 +13,12 @@ public class Smith extends Infrastructure{
 
     public void levelUp() {
         updateCosts();
+        smithLevel.nextLevel(this);
     }
 
     public void setSmithLevel(SmithLevel s) {
         this.smithLevel = s;
+        System.out.println(smithLevel.getLevel());
     }
 
     public SmithLevel getSmithLevel() {
