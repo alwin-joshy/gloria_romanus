@@ -43,19 +43,16 @@
 
 .menu-item .label{
     -fx-font-family: 'Roman SD';
-    -fx-font-size: '28';
     -fx-font-fill: #000000;
 }
 
 .menu-item:focused {
     -fx-font-family: 'Roman SD';
-    -fx-font-size: '28';
     -fx-font-fill: #000000;
 }
 
 .menu-item {
     -fx-font-family: 'Roman SD';
-    -fx-font-size: '28';
     -fx-font-fill: #000000
 }
 
