@@ -31,7 +31,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <Button layoutX="250.0" layoutY="360.0" mnemonicParsing="false" prefHeight="85.0" prefWidth="319.0" text="Continue">
+      <Button fx:id="continueButton" layoutX="250.0" layoutY="360.0" mnemonicParsing="false" onAction="#handleContinueButton" prefHeight="85.0" prefWidth="319.0" text="Continue">
          <font>
             <Font name="Roman SD" size="40.0" />
          </font>
@@ -46,9 +46,14 @@
             <Image url="@png-transparent-knightly-sword-foam-larp-swords-medieval-dagger-weapon-katana-removebg-preview.png" />
          </image>
       </ImageView>
-      <GridPane layoutX="167.0" layoutY="264.0" prefHeight="40.0" prefWidth="488.0">
+      <GridPane layoutX="167.0" layoutY="264.0" prefHeight="40.0" prefWidth="526.0">
          <children>
             <Label prefHeight="24.0" prefWidth="273.0" text="Was Conquered " GridPane.columnIndex="1">
+               <font>
+                  <Font name="Roman SD" size="23.0" />
+               </font>
+            </Label>
+            <Label fx:id="losingFaction" layoutX="277.0" layoutY="18.0" prefHeight="24.0" prefWidth="273.0">
                <font>
                   <Font name="Roman SD" size="23.0" />
                </font>

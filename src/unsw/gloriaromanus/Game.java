@@ -61,11 +61,11 @@ public class Game implements Serializable {
     }
 
     public void startGame(ArrayList<String> selectedFactions) {
-        selectFations(selectedFactions);
-        factions.add(new Faction("rebel"));
+        selectFactions(selectedFactions);
+        factions.add(new Faction("Rebel"));
         Random r = new Random();
         currentFaction = r.nextInt(factions.size());
-        if (getCurrentFactionName().equals("rebel")) currentFaction = (currentFaction + 1) % factions.size();
+        if (getCurrentFactionName().equals("Rebel")) currentFaction = (currentFaction + 1) % factions.size();
         factions.get(currentFaction).collectTax();
         winner = "";
     } 
@@ -78,7 +78,7 @@ public class Game implements Serializable {
         }
     }
 
-    public void selectFations(ArrayList<String> factionNames) {
+    public void selectFactions(ArrayList<String> factionNames) {
         for (String name : factionNames) {
             Faction f = new Faction(name);
             f.setPlayer();
@@ -111,14 +111,14 @@ public class Game implements Serializable {
             ownership.put(f.getName(), ownedProvinces);
         }
 
-        try {
-            BufferedWriter bw = new BufferedWriter( new FileWriter("src/unsw/gloriaromanus/initial_province_ownership.json", false));
-            bw.write(ownership.toString(1));
-            bw.close();
-        } catch (IOException e) {
-            System.out.println("Could not create initial ownership file. Exiting...");
-            System.exit(1);
-        }
+        // try {
+        //     BufferedWriter bw = new BufferedWriter( new FileWriter("src/unsw/gloriaromanus/initial_province_ownership.json", false));
+        //     bw.write(ownership.toString(1));
+        //     bw.close();
+        // } catch (IOException e) {
+        //     System.out.println("Could not create initial ownership file. Exiting...");
+        //     System.exit(1);
+        // }
     }
 
     // Not sure if this is necessary
@@ -142,7 +142,7 @@ public class Game implements Serializable {
         return adjacentProvinces.keySet().size();
     }
 
-    public void endTurn() {
+    public ArrayList<Province> endTurn() {
         if (! alreadyWon) {
             if (currentVictoryCondition.checkVictory(factions.get(currentFaction))) {
                 endGame();
@@ -157,7 +157,7 @@ public class Game implements Serializable {
         currentFaction = (currentFaction + 1) % factions.size();
         currentYear++;
         Faction curr = factions.get(currentFaction);
-        if (curr.getName().equals("rebel")) {
+        if (curr.getName().equals("Rebel")) {
             currentFaction = (currentFaction + 1) % factions.size();
             curr = factions.get(currentFaction);
         }
@@ -169,15 +169,20 @@ public class Game implements Serializable {
             toRecalculateBonuses.put(curr.getName(), false);
         }
         curr.collectTax();
+
+        ArrayList<Province> revoltingProvinces = new ArrayList<Province>();
         for (Province p : curr.checkForRevolt()) {
+            revoltingProvinces.add(p);
             revolt(p);
         }
+
         if (! alreadyWon) {
             if (currentVictoryCondition.checkVictory(curr)) {
                 endGame();
                 alreadyWon = true;
             }
-        } 
+        }
+        return revoltingProvinces;
     }
 
     public void revolt(Province p) {
@@ -191,10 +196,11 @@ public class Game implements Serializable {
         }
         Faction to;
         if (transferTo.size() == 0) {
-            to = getFaction("rebel");
+            to = getFaction("Rebel");
         } else {
             Random r = new Random();
             to = transferTo.get(r.nextInt(transferTo.size()));
+            p.destroyAllUnits();
         }
         transferProvinceOwnership(p.getFaction(), to, p);
     }
@@ -230,7 +236,7 @@ public class Game implements Serializable {
     public static void updateAdjacentProvinces(Province p) {
         Map<String, Integer> province = adjacentProvinces.get(p.getName());
         for (String key : province.keySet()) {
-            province.compute(key, (k, v) -> v--);
+            province.put(key, province.get(key) - 1);
         }
     }
 
@@ -308,14 +314,11 @@ public class Game implements Serializable {
         for (String p : adjacentProvinces.keySet()) {
             dist.put(p, Integer.MAX_VALUE);
         }
-        int movementPoints = 4;
-        for (String p : adjacentProvinces.get(start).keySet()) {
-            movementPoints = adjacentProvinces.get(start).get(p);
-        }
-        dist.replace(start, movementPoints);
+        
+        dist.replace(start, 0);
         int prevSize = -1;
 
-        while (! visited.contains(end) || prevSize != visited.size()) {
+        while (prevSize != visited.size()) {
             String next = minVertex(dist, visited);
             if (next == null) break;
             prevSize = visited.size();
@@ -323,17 +326,16 @@ public class Game implements Serializable {
 
             if (! factions.get(currentFaction).isAlliedProvince(next)) continue;
             if (provincesInvadedThisTurn.contains(next)) continue;
+            if (next.equals(end)) break;
             Map<String, Integer> innerMap = adjacentProvinces.get(next);
-
             for (String neighbour : innerMap.keySet()) {
-
-                int d = dist.get(next); 
                 
-                if (!neighbour.equals(end)) d += innerMap.get(neighbour);
+                int d = dist.get(next) + innerMap.get(neighbour);
                 if (dist.get(neighbour) > d) {
                     dist.replace(neighbour, d);
                 }
             }
+            
         }
         return dist.get(end);
     }
@@ -353,7 +355,6 @@ public class Game implements Serializable {
     public boolean moveUnits(ArrayList<Unit> units, Province start, Province end) {
         if (start.equals(end)) return false; 
         if (!start.getUnits().containsAll(units)) return false;
-        System.out.println("contains all");
         int distance = shortestPathLength(start.getName(), end.getName());
         for (Unit u : units) {
             if (! u.canMove(distance)) return false;
@@ -489,6 +490,10 @@ public class Game implements Serializable {
 
     public void setEngagementObserver(EngagementObserver engagementObserver) {
         br.setEngagementObserver(engagementObserver);
+    }
+
+    public void addDefeatObserver(DefeatObserver defObserver) {
+        br.addDefeatObserver(defObserver);
     }
 
     // public static void main(String[] args) {

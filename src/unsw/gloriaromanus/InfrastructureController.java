@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class InfrastructureController {
@@ -130,7 +131,9 @@ public class InfrastructureController {
             upgrades.getItems().remove(currDetails);
             treasuryBalance.setText(Integer.toString(f.getTreasury()));
         } else {
-            gloriaRomanusController.handleNotEnoughGold();
+            String content = "You do not have enough gold to make this purchase!";
+            String header = "Insufficient funds";
+            gloriaRomanusController.createAlert(content, header, AlertType.ERROR);
         }
     }
 

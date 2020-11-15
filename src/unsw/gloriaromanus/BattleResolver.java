@@ -9,4 +9,5 @@ public interface BattleResolver {
     public BuildingObserver getBuildingObserver();
     public void setSeed(int seed); 
     public void setEngagementObserver(EngagementObserver engagementObserver);
+    public void addDefeatObserver(DefeatObserver defObserver);
 }

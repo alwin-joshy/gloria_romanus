@@ -17,6 +17,7 @@ public class GloriaRomanusApplication extends Application {
     SelectFactionsScreen selectFactionsScreen = new SelectFactionsScreen(stage);
     GloriaRomanusScreen gloriaRomanusScreen = new GloriaRomanusScreen(stage);
     VictoryScreen victoryScreen = new VictoryScreen(stage);
+    DefeatScreen defeatScreen = new DefeatScreen(stage);
 
     mainMenuController = mainMenuScreen.getController();
     controller = gloriaRomanusScreen.getController();
@@ -37,7 +38,10 @@ public class GloriaRomanusApplication extends Application {
     victoryScreen.getController().setMainMenuScreen(mainMenuScreen);
     victoryScreen.getController().setGloriaRomanusScreen(gloriaRomanusScreen);
 
+    defeatScreen.getController().setGloriaRomanusScreen(gloriaRomanusScreen);
+
     controller.setVictoryScreen(victoryScreen);
+    controller.setDefeatScreen(defeatScreen);
 
     mainMenuScreen.start();
   }

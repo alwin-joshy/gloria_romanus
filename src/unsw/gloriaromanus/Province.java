@@ -232,7 +232,6 @@ public class Province implements Serializable {
                     } else if (inf instanceof TownHall) {
                         checkRevoltStatus();
                     } else if (inf instanceof Farm) {
-                        System.out.println(((Farm) inf).getBonus());
                         unitTrainingLimit = ((Farm) inf).getBonus();
                     }
 
@@ -245,7 +244,6 @@ public class Province implements Serializable {
                 } else {
                     units.add((Unit) p);
                     ((Unit) p).setSmithLevel(currentSmithLevel);
-                    System.out.println(((Unit) p).getSmithLevel());
                     unitsInTraining--;
                     unitPublicOrderDebuff += 0.03;
                     checkRevoltStatus();
@@ -391,8 +389,11 @@ public class Province implements Serializable {
             for (int i = 0; i < getTroopProductionBuilding().getLevel(); i++) {
                 newTroop.levelUp();
             }
-        } 
-        infrastructure.add(newTroop);
+            infrastructure.remove(getTroopProductionBuilding());
+            infrastructure.add(newTroop);
+        } else if (faction == null) {
+            infrastructure.add(newTroop);
+        }
         this.faction = f;
     }
 
