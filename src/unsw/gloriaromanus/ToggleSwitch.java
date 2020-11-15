@@ -8,6 +8,7 @@ import javafx.scene.layout.HBox;
 
 
 public class ToggleSwitch extends HBox {
+	// Added this
 	
 	private final Label label = new Label();
 	private final Button button = new Button();
