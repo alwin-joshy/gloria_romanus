@@ -76,6 +76,7 @@ public class ManageProvinceController {
         this.gloriaRomanusController = gloriaRomanusController;
     }
 
+
     public void setupScreen(Province province) {
         this.province = province;
         provinceName.setText(province.getName());

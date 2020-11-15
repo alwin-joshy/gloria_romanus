@@ -1,28 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="750.0" style="-fx-background-color: #f2f2f2; -fx-border-color: black;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="750.0" style="-fx-background-color: #f2f2f2; -fx-border-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fitHeight="600.0" fitWidth="750.0" pickOnBounds="true">
          <image>
             <Image url="@Marble%202.png" />
          </image>
       </ImageView>
-      <SplitMenuButton fx:id="currentTax" layoutX="298.0" layoutY="351.0" mnemonicParsing="false" opacity="0.8" prefWidth="250.0" stylesheets="@stylesheet.css" text="NORMAL">
+      <SplitMenuButton fx:id="currentTax" layoutX="298.0" layoutY="351.0" mnemonicParsing="false" opacity="0.8" prefHeight="50.0" prefWidth="285.0" stylesheets="@stylesheet.css" text="NORMAL">
         <items>
           <MenuItem fx:id="lowTax" mnemonicParsing="false" onAction="#setLowTax" style="-fx-font-size: 28;" text="LOW" />
           <MenuItem fx:id="normalTax" mnemonicParsing="false" onAction="#setNormalTax" style="-fx-font-size: 28;" text="NORMAL" />
@@ -62,7 +59,7 @@
             </Label>
             <Label fx:id="provinceName" prefHeight="45.0" prefWidth="402.0" text="Label" GridPane.columnIndex="1">
                <font>
-                  <Font name="Roman SD" size="24.0" />
+                  <Font name="Roman SD" size="28.0" />
                </font>
             </Label>
             <Label prefHeight="40.0" prefWidth="200.0" text="WEALTH:" GridPane.rowIndex="1">

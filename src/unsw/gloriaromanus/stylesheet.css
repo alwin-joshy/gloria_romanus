@@ -41,6 +41,24 @@
     box-shadow:         inset 0 0 100px #000000;
 }
 
+.menu-item .label{
+    -fx-font-family: 'Roman SD';
+    -fx-font-size: '28';
+    -fx-font-fill: #000000;
+}
+
+.menu-item:focused {
+    -fx-font-family: 'Roman SD';
+    -fx-font-size: '28';
+    -fx-font-fill: #000000;
+}
+
+.menu-item {
+    -fx-font-family: 'Roman SD';
+    -fx-font-size: '28';
+    -fx-font-fill: #000000
+}
+
 .menu-button {
     -fx-background-color:#e1c082;
     -fx-border-color: #140f04;
