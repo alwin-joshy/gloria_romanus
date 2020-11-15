@@ -59,6 +59,7 @@ public class SelectUnitsController {
             toMove.add(ud.getUnit());
         }
         gloriaRomanusController.moveUnits(toMove, start, end);
+        gloriaRomanusController.closeSelectUnitsMenu();
     }
 
 

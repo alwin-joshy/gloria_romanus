@@ -144,6 +144,7 @@ public class GloriaRomanusController {
   private Game game;
   private StringProperty winner;
   private IntegerProperty factionCount;
+  private BooleanProperty deselect;
 
   @FXML
   private void handleVictoryProgressButton() {
@@ -199,9 +200,11 @@ public class GloriaRomanusController {
           provinceToNumberTroopsMap.put(targetProvince, numTroopsToTransfer);
           provinceToNumberTroopsMap.put(humanProvince, provinceToNumberTroopsMap.get(humanProvince) - numTroopsToTransfer);
           provinceToOwningFactionMap.put(targetProvince, humanFaction);
+          printMessageToTerminal(humanFaction + " has successfully conquered " + targetProvince);
         } else {
           provinceToNumberTroopsMap.put(targetProvince, provinceToNumberTroopsMap.get(targetProvince) + numTroopsToTransfer);
           provinceToNumberTroopsMap.put(humanProvince, provinceToNumberTroopsMap.get(humanProvince) - numTroopsToTransfer);
+          printMessageToTerminal(numTroopsToTransfer + " units moved from " + humanProvince + " to " + targetProvince);
         }
       } else {
         if (invaded) {
@@ -210,6 +213,7 @@ public class GloriaRomanusController {
         }
       }
       addAllPointGraphics(); // reset graphics
+      deselect.setValue(true);
     }
   }
 
@@ -322,6 +326,9 @@ public class GloriaRomanusController {
     this.unitsController = new UnitsController(this);
     this.selectUnitsController = new SelectUnitsController(this);
 
+    deselect = new SimpleBooleanProperty(false);
+
+    output_terminal.setWrapText(true);
     endTurnButton.disableProperty().bind(moveToggle.selectedProperty());
 
     manageProvinceButton.setDisable(true);
@@ -361,6 +368,7 @@ public class GloriaRomanusController {
   }
 
   public void initialiseMap() throws JsonParseException, JsonMappingException, IOException {
+    deselect.setValue(false);
     factionCount = new SimpleIntegerProperty(game.getFactions().size());
     factionCount.addListener((ov, oldValue, newValue) -> {
       
@@ -535,6 +543,23 @@ public class GloriaRomanusController {
       manageProvinceButton.setDisable(true);
       unitsButton.setDisable(true);
       infrastructureButton.setDisable(true);
+    });
+
+    moveToggle.setOnMouseClicked(e -> {
+      if (! moveToggle.isSelected() && currentlySelectedTargetProvince != null) {
+        flp.unselectFeature(currentlySelectedTargetProvince);
+        currentlySelectedTargetProvince = null;
+        targetProvince.clear();
+      }
+    });
+
+    deselect.addListener((ov, oldVal, newVal) -> {
+      if (deselect.getValue()) {
+        flp.unselectFeature(currentlySelectedTargetProvince);
+        currentlySelectedTargetProvince = null;
+        targetProvince.clear();
+        deselect.setValue(false);
+      }
     });
 
     // https://developers.arcgis.com/java/latest/guide/identify-features.htm
