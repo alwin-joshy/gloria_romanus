@@ -56,19 +56,6 @@ public class Province implements Serializable {
         return name;
     }
 
-    public boolean isFullyUpgraded() {
-        for (Infrastructure i : infrastructure) {
-            if (i instanceof Road) {
-                if (faction.getName().equals("Rome"))
-                    if (i.getLevel() != 3) return false;
-                else if (i.getLevel() != 2) return false;
-            } else {
-                if (i.getLevel() != 4) return false;
-            }
-        }
-        return true;
-    }
-
     public ArrayList<Infrastructure> getInfrastructure() {
         return infrastructure;
     }
@@ -267,7 +254,7 @@ public class Province implements Serializable {
         projects.remove(pd);
     }
 
-    private boolean buildingInfrastructure(){
+    private boolean buildingInfrastructure() {
         for (ProjectDetails project : projects) {
             if (project.getProject() instanceof Infrastructure) return true; 
         }

@@ -72,11 +72,9 @@ public class GloriaRomanusController {
   @FXML
   private MapView mapView;
   @FXML
-  private TextField invading_province;
-  @FXML
   private TextField targetProvince;
   @FXML
-  private TextArea output_terminal;
+  private TextArea outputTerminal;
   @FXML
   private Button pauseButton;
   @FXML
@@ -97,8 +95,6 @@ public class GloriaRomanusController {
   private Button victoryProgressButton;
   @FXML
   private Button unitsButton;
-  //@FXML
-  //private ToggleButton moveToggle;
   @FXML
   private HBox moveBox;
 
@@ -115,7 +111,7 @@ public class GloriaRomanusController {
   private Feature currentlySelectedAlliedProvince;
   private Feature currentlySelectedTargetProvince;
 
-  private FeatureLayer featureLayer_provinces;
+  private FeatureLayer featureLayerProvinces;
 
   private StackPane transparentPane;
 
@@ -336,7 +332,7 @@ public class GloriaRomanusController {
     losingFaction = new SimpleStringProperty("");
 
     moveToggle = new ToggleSwitch();
-    output_terminal.setWrapText(true);
+    outputTerminal.setWrapText(true);
     endTurnButton.disableProperty().bind(moveToggle.selectedProperty());
 
     manageProvinceButton.setDisable(true);
@@ -447,8 +443,8 @@ public class GloriaRomanusController {
     gpkg_provinces.addDoneLoadingListener(() -> {
       if (gpkg_provinces.getLoadStatus() == LoadStatus.LOADED) {
         // create province border feature
-        featureLayer_provinces = createFeatureLayer(gpkg_provinces);
-        map.getOperationalLayers().add(featureLayer_provinces);
+        featureLayerProvinces = createFeatureLayer(gpkg_provinces);
+        map.getOperationalLayers().add(featureLayerProvinces);
 
       } else {
         System.out.println("load failure");
@@ -512,7 +508,7 @@ public class GloriaRomanusController {
         flp.unselectFeature(currentlySelectedTargetProvince);
         currentlySelectedTargetProvince = null;
       }
-      invading_province.clear();
+      invadingProvince.clear();
       targetProvince.clear();
       manageProvinceButton.setDisable(true);
       unitsButton.setDisable(true);
@@ -579,7 +575,7 @@ public class GloriaRomanusController {
                     featureLayer.unselectFeature(currentlySelectedAlliedProvince);
                   }
                   currentlySelectedAlliedProvince = f;
-                  invading_province.setText(province);
+                  invadingProvince.setText(province);
                   manageProvinceButton.setDisable(false);
                   unitsButton.setDisable(false);
                   infrastructureButton.setDisable(false);
@@ -655,21 +651,21 @@ public class GloriaRomanusController {
   }
 
   private void resetSelections() {
-    featureLayer_provinces.unselectFeatures(Arrays.asList(currentlySelectedTargetProvince, currentlySelectedAlliedProvince));
+    featureLayerProvinces.unselectFeatures(Arrays.asList(currentlySelectedTargetProvince, currentlySelectedAlliedProvince));
     currentlySelectedTargetProvince = null;
     currentlySelectedAlliedProvince = null;
-    invading_province.setText("");
+    invadingProvince.setText("");
     targetProvince.setText("");
   }
 
   public void resetTargetSelection() {
-    featureLayer_provinces.unselectFeatures(Arrays.asList(currentlySelectedTargetProvince));
+    featureLayerProvinces.unselectFeatures(Arrays.asList(currentlySelectedTargetProvince));
     currentlySelectedTargetProvince = null;
     targetProvince.setText("");
   }
 
   public void printMessageToTerminal(String message){
-    output_terminal.appendText(message+"\n");
+    outputTerminal.appendText(message+"\n");
   }
 
   public void setGame(Game game) {

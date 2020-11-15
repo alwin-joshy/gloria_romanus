@@ -41,7 +41,7 @@ public class Faction implements Serializable {
     public int getFullyUpgradedProvinces() {
         int count = 0;
         for (Province p : alliedProvinces) {
-            if (p.isFullyUpgraded()) {
+            if (p.maxedInfrastructure()) {
                 count++;
             }
         }
@@ -138,14 +138,6 @@ public class Faction implements Serializable {
 
     public void setPlayer() {
         isPlayer = true;
-    }
-
-    public void setAI() {
-        isPlayer = false;
-    }
-
-    public int getTreasury() {
-        return treasury;
     }
 
     public int getWealth() {

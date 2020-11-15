@@ -132,14 +132,6 @@ public class Game implements Serializable {
         toRecalculateBonuses.put(factionName, true);
     }
 
-    public void selectFaction(String name) {
-        for (Faction f : factions) {
-            if (name.equals(f.getName())) {
-                f.setPlayer();
-            }
-        }
-    }
-
     public int getNumProvinces() {
         return adjacentProvinces.keySet().size();
     }
