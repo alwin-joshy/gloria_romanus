@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -7,16 +12,27 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="750.0" style="-fx-background-color: #f2f2f2; -fx-border-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="750.0" style="-fx-background-color: #f2f2f2; -fx-border-color: black;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="126.0" layoutY="14.0" prefHeight="103.0" prefWidth="513.0" text="SELECT UNITS">
+      <ImageView fitHeight="600.0" fitWidth="750.0" pickOnBounds="true">
+         <image>
+            <Image url="@Marble%201.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="126.0" layoutY="14.0" prefHeight="103.0" prefWidth="571.0" style="-fx-text-fill: #cd9630;" text="SELECT UNITS" textFill="#cd9630">
          <font>
-            <Font size="70.0" />
+            <Font name="Roman SD" size="70.0" />
          </font>
       </Label>
-      <Button fx:id="backButton" layoutX="14.0" layoutY="553.0" mnemonicParsing="false" onAction="#handleBackButton" text="BACK" />
-      <Label layoutX="59.0" layoutY="129.0" text="Available units" />
-      <TableView fx:id="availableUnitsTable" layoutX="59.0" layoutY="146.0" prefHeight="345.0" prefWidth="647.0">
+      <Button fx:id="backButton" layoutX="14.0" layoutY="553.0" mnemonicParsing="false" onAction="#handleBackButton" styleClass="buttons" stylesheets="@stylesheet.css" text="BACK">
+         <font>
+            <Font name="Roman SD" size="13.0" />
+         </font></Button>
+      <Label layoutX="59.0" layoutY="129.0" prefHeight="17.0" prefWidth="144.0" text="Available Units">
+         <font>
+            <Font name="Roman SD" size="13.0" />
+         </font></Label>
+      <TableView fx:id="availableUnitsTable" layoutX="59.0" layoutY="146.0" prefHeight="345.0" prefWidth="647.0" styleClass="pane" stylesheets="@stylesheet.css">
         <columns>
           <TableColumn fx:id="name" prefWidth="121.0" text="Name" />
             <TableColumn fx:id="type" prefWidth="130.0" text="Type" />
@@ -26,6 +42,9 @@
         </columns>
       </TableView>
       <Label layoutX="637.0" layoutY="566.0" />
-      <Button fx:id="actionButton" layoutX="668.0" layoutY="553.0" mnemonicParsing="false" onAction="#handleActionButton" text="ACTION" />
+      <Button fx:id="actionButton" layoutX="668.0" layoutY="553.0" mnemonicParsing="false" onAction="#handleActionButton" styleClass="buttons" stylesheets="@stylesheet.css" text="ACTION">
+         <font>
+            <Font name="Roman SD" size="13.0" />
+         </font></Button>
    </children>
 </Pane>
