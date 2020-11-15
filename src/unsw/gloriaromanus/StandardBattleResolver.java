@@ -88,6 +88,7 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
             notifyBattleObservers(defendingTemp);
             engagementObserver.notifyBattleWon(attacking.getFactionName(), defending.getName());
             buildingObserver.update(attacking.getFaction(), defendingTemp);
+            notifyDefeat(defending.getFaction());
             return true;
         } else {
             defending.resetLegionaryDeaths();
@@ -309,5 +310,9 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
 
     public void setSeed(int seed) {
         r.setSeed(seed);
+    }
+
+    public void notifyDefeat(Faction f) {
+        battleObservers.get(1).update(f);
     }
 }

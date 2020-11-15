@@ -10,4 +10,5 @@ public interface BattleResolver {
     public void setSeed(int seed); 
     public void setEngagementObserver(EngagementObserver engagementObserver);
     public void addDefeatObserver(DefeatObserver defObserver);
+    public void notifyDefeat(Faction f);
 }

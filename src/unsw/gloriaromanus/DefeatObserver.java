@@ -14,6 +14,7 @@ public class DefeatObserver implements BattleObserver {
     }
 
     public void update(Faction f) {
+        System.out.println(f.getName());
         if (f.getNumProvinces() == 0 && ! f.getName().equals("Rebel")){
             g.getFactions().remove(f);
             controller.setLosingFaction(f.getName());

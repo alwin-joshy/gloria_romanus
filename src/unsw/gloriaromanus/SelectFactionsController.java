@@ -76,7 +76,6 @@ public class SelectFactionsController {
         // populate the 4x4 grid with toggle buttons
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-
                 // create toggle button and add it to the grid pane
                 String currentFactionName = availableFactions.getString(4 * i + j);
                 ToggleButton b = new ToggleButton(currentFactionName);
