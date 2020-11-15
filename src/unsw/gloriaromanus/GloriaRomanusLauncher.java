@@ -6,3 +6,4 @@ public class GloriaRomanusLauncher {
         GloriaRomanusApplication.main(args);
     }
 }
+
