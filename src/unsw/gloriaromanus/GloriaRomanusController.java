@@ -36,6 +36,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -407,7 +408,7 @@ public class GloriaRomanusController {
 
     provinceToNumberTroopsMap = new HashMap<String, Integer>();
     for (String provinceName : provinceToOwningFactionMap.keySet()) {
-      provinceToNumberTroopsMap.put(provinceName, 0);
+      provinceToNumberTroopsMap.put(provinceName, getNumTroopsToTransfer(game.getProvince(provinceName).getUnits()));
     }
 
     humanFaction = game.getCurrentFactionName();

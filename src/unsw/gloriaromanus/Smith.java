@@ -18,7 +18,6 @@ public class Smith extends Infrastructure{
 
     public void setSmithLevel(SmithLevel s) {
         this.smithLevel = s;
-        System.out.println(smithLevel.getLevel());
     }
 
     public SmithLevel getSmithLevel() {

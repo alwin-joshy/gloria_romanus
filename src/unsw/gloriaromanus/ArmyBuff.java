@@ -1,8 +1,9 @@
 package unsw.gloriaromanus;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ArmyBuff {
+public class ArmyBuff implements Serializable {
     private int numDruids;
     private double druidMultiplier;
     private int numLegionary;
