@@ -1,0 +1,18 @@
+{
+    "Rome": "Roman",
+    "Carthage" : "Carthaginian",
+    "Gaul" : "Gallic",
+    "Britons" : "Briton",
+    "Spain":"Spanish",
+    "Numidia": "Numidian",
+    "Egypt": "Egyptian", 
+    "Seleucids" : "Seleucid", 
+    "Pontus" : "Pontic",
+    "Armenia" : "Armenian", 
+    "Parthia" : "Parthian", 
+    "Germanics" : "Germanic", 
+    "Greece" : "Greek", 
+    "Macedonia" : "Macedonian", 
+    "Thracia" : "Thracian", 
+    "Dacia" : "Dacian"
+}
