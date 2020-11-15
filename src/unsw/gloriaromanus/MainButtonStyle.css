@@ -1,0 +1,27 @@
+.buttons{
+    -fx-border-color: #2E4053;
+    -fx-border-radius: 20;
+    -fx-background-color:#5D6D7E;
+    -fx-background-radius: 20;
+}   
+
+.buttons:hover {
+    -fx-border-color: #2E4053;
+    -fx-border-radius: 20;
+    -fx-background-color: #34495E;  
+    -fx-background-radius: 20;
+}
+
+.buttons:active {
+    -fx-border-color: #2E4053;
+    -fx-border-radius: 20;
+    -fx-background-color: #5D6D7E;
+    -fx-background-radius: 20;
+}
+
+.buttons:disabled {
+    -fx-border-color: #2E4053;
+    -fx-border-radius: 20;
+    -fx-background-color: #AEB6BF;
+    -fx-background-radius: 20;
+}
