@@ -78,4 +78,6 @@ public class SimpleBattleResolver implements BattleResolver, Serializable {
     public void setSeed(int seed) {}
 
     public void addDefeatObserver(DefeatObserver defObserver) {}
+
+    public void notifyDefeat(Faction f) {}
 }

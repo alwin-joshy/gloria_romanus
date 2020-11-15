@@ -111,14 +111,14 @@ public class Game implements Serializable {
             ownership.put(f.getName(), ownedProvinces);
         }
 
-        // try {
-        //     BufferedWriter bw = new BufferedWriter( new FileWriter("src/unsw/gloriaromanus/initial_province_ownership.json", false));
-        //     bw.write(ownership.toString(1));
-        //     bw.close();
-        // } catch (IOException e) {
-        //     System.out.println("Could not create initial ownership file. Exiting...");
-        //     System.exit(1);
-        // }
+        try {
+            BufferedWriter bw = new BufferedWriter( new FileWriter("src/unsw/gloriaromanus/initial_province_ownership.json", false));
+            bw.write(ownership.toString(1));
+            bw.close();
+        } catch (IOException e) {
+            System.out.println("Could not create initial ownership file. Exiting...");
+            System.exit(1);
+        }
     }
 
     // Not sure if this is necessary
@@ -203,6 +203,8 @@ public class Game implements Serializable {
             p.destroyAllUnits();
         }
         transferProvinceOwnership(p.getFaction(), to, p);
+        if (! curr.getName().equals("Rebel"))
+            br.notifyDefeat(curr);
     }
 
 

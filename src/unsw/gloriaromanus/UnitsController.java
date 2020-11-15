@@ -170,27 +170,24 @@ public class UnitsController {
         unitTable.setPlaceholder(new Label());
         cancelButton.disableProperty().bind(unitsInTrainingTable.getSelectionModel().selectedItemProperty().isNull());
         disbandButton.disableProperty().bind(unitsInProvince.getSelectionModel().selectedItemProperty().isNull());
-        unitTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
-            @Override
-            public void changed(ObservableValue ov, Object old_val, Object new_val) {
-                UnitDetails selected = unitTable.getSelectionModel().getSelectedItem();
-                if (selected != null) {
-                    Unit chosenUnit = selected.getUnit();
-                    quantity.setText(Integer.toString(chosenUnit.getNumTroops()));
-                    ranged.setText(Boolean.toString(chosenUnit.isRanged()));
-                    attack.setText(Integer.toString((int) chosenUnit.getAttack()));
-                    armour.setText(Integer.toString(chosenUnit.getArmour()));
-                    morale.setText(Integer.toString((int) chosenUnit.getMorale()));
-                    defenseSkill.setText(Integer.toString(chosenUnit.getDefenceSkill()));
-                    shieldDefense.setText(Integer.toString(chosenUnit.getShieldDefence()));
-                    speed.setText(Integer.toString((int) chosenUnit.getSpeed()));
-                    movementPoints.setText(Integer.toString(chosenUnit.getMovementPoints()));
-                    selectedUnit.setText(chosenUnit.getName());
-                    if (recruitButton.isDisabled() && province.getUnitTrainingLimit() != province.getUnitsInTraining())
-                        recruitButton.setDisable(false);
-                } else {
-                    recruitButton.setDisable(true);
-                }
+        unitTable.getSelectionModel().selectedItemProperty().addListener((ov, oldVal, newVal) -> {
+            UnitDetails selected = unitTable.getSelectionModel().getSelectedItem();
+            if (selected != null) {
+                Unit chosenUnit = selected.getUnit();
+                quantity.setText(Integer.toString(chosenUnit.getNumTroops()));
+                ranged.setText(Boolean.toString(chosenUnit.isRanged()));
+                attack.setText(Integer.toString((int) chosenUnit.getAttack()));
+                armour.setText(Integer.toString(chosenUnit.getArmour()));
+                morale.setText(Integer.toString((int) chosenUnit.getMorale()));
+                defenseSkill.setText(Integer.toString(chosenUnit.getDefenceSkill()));
+                shieldDefense.setText(Integer.toString(chosenUnit.getShieldDefence()));
+                speed.setText(Integer.toString((int) chosenUnit.getSpeed()));
+                movementPoints.setText(Integer.toString(chosenUnit.getMovementPoints()));
+                selectedUnit.setText(chosenUnit.getName());
+                if (recruitButton.isDisabled() && province.getUnitTrainingLimit() != province.getUnitsInTraining())
+                    recruitButton.setDisable(false);
+            } else {
+                recruitButton.setDisable(true);
             }
         });
 
