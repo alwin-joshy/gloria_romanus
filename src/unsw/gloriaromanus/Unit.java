@@ -123,6 +123,9 @@ public class Unit implements Serializable, Project {
     
     public void reduceRemainingMovementPoints(int movementPoints) {
         movementPointsRemaining -= movementPoints;
+        if (movementPointsRemaining < 0) {
+            movementPointsRemaining = 0;
+        }
     }
 
     public int getMovementPointsRemaining() {
