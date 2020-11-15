@@ -186,8 +186,6 @@ public class Province implements Serializable {
         return 0;
     }
 
-
-
     public ProjectDetails build(Project project){
         double cost = project.getBaseCost();
         int integerCost = 0;

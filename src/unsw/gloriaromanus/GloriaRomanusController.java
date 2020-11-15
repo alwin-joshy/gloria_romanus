@@ -182,6 +182,33 @@ public class GloriaRomanusController {
     infrastructureController.setupScreen(getProvince(currentlySelectedAlliedProvince));
   }
 
+  public void moveUnits(ArrayList<Unit> toMove, Province start, Province end) throws IOException {
+    if (currentlySelectedAlliedProvince != null && currentlySelectedTargetProvince != null) {
+      String humanProvince = (String)currentlySelectedAlliedProvince.getAttributes().get("name");
+      String enemyProvince = (String)currentlySelectedTargetProvince.getAttributes().get("name");
+      if (confirmIfProvincesConnected(humanProvince, enemyProvince)) {
+        if (game.moveUnits(toMove, game.getProvince(humanProvince), game.getProvince(enemyProvince))) {
+          factionCount.setValue(game.getFactions().size());
+          int numTroopsToTransfer = getNumTroopsToTransfer(toMove);
+          provinceToNumberTroopsMap.put(enemyProvince, provinceToNumberTroopsMap.get(enemyProvince) + numTroopsToTransfer);
+          provinceToNumberTroopsMap.put(humanProvince, provinceToNumberTroopsMap.get(humanProvince) - numTroopsToTransfer);
+          provinceToOwningFactionMap.put(enemyProvince, humanFaction);
+          addAllPointGraphics(); // reset graphics
+        } else {
+          printMessageToTerminal("Can't make this move idk why!");
+        }
+      }
+    }
+  }
+
+  public int getNumTroopsToTransfer(ArrayList<Unit> toMove) {
+    int total = 0;
+    for (Unit u : toMove) {
+      total += u.getNumTroops();
+    }
+    return total;
+  }
+
   public PauseMenuController getPauseMenuController() {
     return pauseMenuController;
   }
@@ -358,7 +385,7 @@ public class GloriaRomanusController {
   }
 
   @FXML
-  public void clickedInvadeButton(ActionEvent e) throws IOException {
+  public void clickedInvadeButton(ActionEvent e) {
     /*if (currentlySelectedAlliedProvince != null && currentlySelectedTargetProvince != null) {
       String humanProvince = (String)currentlySelectedAlliedProvince.getAttributes().get("name");
       String enemyProvince = (String)currentlySelectedTargetProvince.getAttributes().get("name");

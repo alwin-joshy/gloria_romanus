@@ -1,8 +1,10 @@
 package unsw.gloriaromanus;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.SelectionMode;
@@ -50,8 +52,13 @@ public class SelectUnitsController {
     }
 
     @FXML
-    private void handleActionButton() {
-
+    private void handleActionButton() throws IOException {
+        ObservableList<UnitDetails> selected = availableUnitsTable.getSelectionModel().getSelectedItems();
+        ArrayList<Unit> toMove = new ArrayList<Unit>();
+        for (UnitDetails ud : selected) {
+            toMove.add(ud.getUnit());
+        }
+        gloriaRomanusController.moveUnits(toMove, start, end);
     }
 
 
