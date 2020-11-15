@@ -38,8 +38,10 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
@@ -110,8 +112,13 @@ public class GloriaRomanusController {
   private Button victoryProgressButton;
   @FXML
   private Button unitsButton;
+  //@FXML
+  //private ToggleButton moveToggle;
   @FXML
-  private ToggleButton moveToggle;
+  private HBox moveBox;
+
+  private ToggleSwitch moveToggle;
+
 
   private ArcGISMap map;
 
@@ -333,12 +340,16 @@ public class GloriaRomanusController {
 
     deselect = new SimpleBooleanProperty(false);
 
+    moveToggle = new ToggleSwitch();
+
     output_terminal.setWrapText(true);
     endTurnButton.disableProperty().bind(moveToggle.selectedProperty());
 
     manageProvinceButton.setDisable(true);
     unitsButton.setDisable(true);
     infrastructureButton.setDisable(true);
+
+    moveBox.getChildren().add(moveToggle);
 
     transparentPane = new StackPane();
 
@@ -615,7 +626,7 @@ public class GloriaRomanusController {
                   unitsButton.setDisable(false);
                   infrastructureButton.setDisable(false);
                   featureLayer.selectFeature(f); 
-                } else if (moveToggle.isSelected() && ! f.getAttributes().get("name").equals(getProvince(currentlySelectedAlliedProvince).getName())) {
+                } else if (moveToggle.isSelected() && currentlySelectedAlliedProvince != null && ! f.getAttributes().get("name").equals(getProvince(currentlySelectedAlliedProvince).getName())) {
                   if (currentlySelectedTargetProvince != null) {
                     featureLayer.unselectFeature(currentlySelectedTargetProvince);
                   }
