@@ -25,10 +25,10 @@
             <Font name="Roman SD" size="57.0" />
          </font>
       </Label>
-      <GridPane fx:id="victoryGrid" layoutX="31.0" layoutY="287.0" prefHeight="202.0" prefWidth="457.0">
+      <GridPane fx:id="victoryGrid" layoutX="98.0" layoutY="301.0" prefHeight="149.0" prefWidth="488.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="249.26873779296875" minWidth="10.0" prefWidth="245.64999389648438" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="168.0" minWidth="7.0" prefWidth="120.35000610351562" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="305.9812316894531" minWidth="10.0" prefWidth="300.3830871582031" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="168.0" minWidth="7.0" prefWidth="117.61691284179688" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="116.0" minWidth="10.0" prefWidth="82.35000610351562" />
         </columnConstraints>
         <rowConstraints>
@@ -40,19 +40,19 @@
          <children>
             <Label text="Provinces Conquered:">
                <font>
-                  <Font name="Roman SD" size="14.0" />
+                  <Font name="Roman SD" size="17.0" />
                </font></Label>
             <Label text="Total Province Wealth:" GridPane.rowIndex="1">
                <font>
-                  <Font name="Roman SD" size="14.0" />
+                  <Font name="Roman SD" size="17.0" />
                </font></Label>
             <Label text="Treasury Wealth:" GridPane.rowIndex="2">
                <font>
-                  <Font name="Roman SD" size="14.0" />
+                  <Font name="Roman SD" size="17.0" />
                </font></Label>
             <Label text="Fully Upgraded Provinces:" GridPane.rowIndex="3">
                <font>
-                  <Font name="Roman SD" size="14.0" />
+                  <Font name="Roman SD" size="17.0" />
                </font></Label>
             <Label fx:id="provincesConquered" prefHeight="17.0" prefWidth="87.0" GridPane.columnIndex="1">
                <font>
@@ -105,7 +105,7 @@
          <font>
             <Font name="Roman SD" size="18.0" />
          </font></Label>
-      <Button fx:id="backButton" layoutX="14.0" layoutY="526.0" mnemonicParsing="false" onAction="#handleBackButton" opacity="0.8" styleClass="buttons" stylesheets="@stylesheet.css" text="BACK">
+      <Button fx:id="backButton" layoutX="32.0" layoutY="529.0" mnemonicParsing="false" onAction="#handleBackButton" opacity="0.8" styleClass="buttons" stylesheets="@stylesheet.css" text="BACK">
          <font>
             <Font name="Roman SD" size="22.0" />
          </font>
