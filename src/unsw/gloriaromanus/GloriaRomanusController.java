@@ -182,6 +182,45 @@ public class GloriaRomanusController {
     infrastructureController.setupScreen(getProvince(currentlySelectedAlliedProvince));
   }
 
+  public void moveUnits(ArrayList<Unit> toMove, Province start, Province end) throws IOException {
+    if (currentlySelectedAlliedProvince != null && currentlySelectedTargetProvince != null) {
+      String humanProvince = (String)currentlySelectedAlliedProvince.getAttributes().get("name");
+      String targetProvince = (String)currentlySelectedTargetProvince.getAttributes().get("name");
+      boolean invaded;
+      if (game.getCurrentFaction().isAlliedProvince(targetProvince)) {
+        invaded = false;
+      } else {
+        invaded = true;
+      }
+      if (game.moveUnits(toMove, game.getProvince(humanProvince), game.getProvince(targetProvince))) {
+        factionCount.setValue(game.getFactions().size());
+        int numTroopsToTransfer = getNumTroopsToTransfer(toMove);
+        if (invaded) {
+          provinceToNumberTroopsMap.put(targetProvince, numTroopsToTransfer);
+          provinceToNumberTroopsMap.put(humanProvince, provinceToNumberTroopsMap.get(humanProvince) - numTroopsToTransfer);
+          provinceToOwningFactionMap.put(targetProvince, humanFaction);
+        } else {
+          provinceToNumberTroopsMap.put(targetProvince, provinceToNumberTroopsMap.get(targetProvince) + numTroopsToTransfer);
+          provinceToNumberTroopsMap.put(humanProvince, provinceToNumberTroopsMap.get(humanProvince) - numTroopsToTransfer);
+        }
+      } else {
+        if (invaded) {
+          provinceToNumberTroopsMap.put(targetProvince, getNumTroopsToTransfer(end.getUnits()));
+          provinceToNumberTroopsMap.put(humanProvince, getNumTroopsToTransfer(start.getUnits()));
+        }
+      }
+      addAllPointGraphics(); // reset graphics
+    }
+  }
+
+  public int getNumTroopsToTransfer(ArrayList<Unit> toMove) {
+    int total = 0;
+    for (Unit u : toMove) {
+      total += u.getNumTroops();
+    }
+    return total;
+  }
+
   public PauseMenuController getPauseMenuController() {
     return pauseMenuController;
   }
@@ -358,10 +397,10 @@ public class GloriaRomanusController {
   }
 
   @FXML
-  public void clickedInvadeButton(ActionEvent e) throws IOException {
+  public void clickedInvadeButton(ActionEvent e) {
     /*if (currentlySelectedAlliedProvince != null && currentlySelectedTargetProvince != null) {
       String humanProvince = (String)currentlySelectedAlliedProvince.getAttributes().get("name");
-      String enemyProvince = (String)currentlySelectedTargetProvince.getAttributes().get("name");
+      String targetProvince = (String)currentlySelectedTargetProvince.getAttributes().get("name");
       if (confirmIfProvincesConnected(humanProvince, enemyProvince)) {
         if (game.moveUnits(toMove, game.getProvince(humanProvince), game.getProvince(enemyProvince))) {
           factionCount.setValue(game.getFactions().size());
