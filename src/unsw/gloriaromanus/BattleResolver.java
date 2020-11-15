@@ -8,4 +8,5 @@ public interface BattleResolver {
     public void notifyBattleObservers(Faction f);
     public BuildingObserver getBuildingObserver();
     public void setSeed(int seed); 
+    public void setEngagementObserver(EngagementObserver engagementObserver);
 }

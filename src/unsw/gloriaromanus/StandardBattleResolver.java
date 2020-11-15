@@ -16,6 +16,7 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
     private ArrayList<Unit> defendingArmy;
     private int engagementCounter;
     private ArrayList<BattleObserver> battleObservers;
+    private EngagementObserver engagementObserver;
     private BuildingObserver buildingObserver;
     private Random r;
     private ArmyBuff attackingBuffs;
@@ -34,6 +35,10 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
         }
     }
 
+    public void setEngagementObserver(EngagementObserver engagementObserver) {
+        this.engagementObserver = engagementObserver;
+    }
+
     public void notifyBattleObservers(Faction f) {
         for (BattleObserver bo : battleObservers) {
             bo.update(f);
@@ -45,6 +50,7 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
         this.attackingArmy = attackingArmy;
         this.defending = defending;
         this.defendingArmy = defendingArmy;
+
         attackingBuffs = new ArmyBuff(attackingArmy, attacking);
         defendingBuffs = new ArmyBuff(defendingArmy, defending);
 
@@ -52,6 +58,7 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
         attackingBuffs.calculateDruidMultiplier(defendingBuffs.getNumDruids());
 
         engagementCounter = 0;
+        engagementObserver.notifyBattle(attacking.getName(), defending.getName());
 
         while (attackingArmy.size() > 0 && defendingArmy.size() > 0 && engagementCounter <= 200) {
             // randomly choose a unit from each
@@ -74,7 +81,7 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
             Faction defendingTemp = defending.getFaction();
             Game.transferProvinceOwnership(defending.getFaction(), attacking.getFaction(), defending);
             attackingArmy.addAll(routedAttackers);
-            if (attacking.getFaction().getName().equals("Roman")) {
+            if (attacking.getFactionName().equals("Roman")) {
                 defending.resetLegionaryDeaths();
             }
             notifyBattleObservers(attacking.getFaction());
@@ -93,6 +100,7 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
 
     private void skirmish(Unit attackingUnit, Unit defendingUnit) {
         int result = 0;
+        engagementObserver.notifySkirmish(attackingUnit.getName(), defendingUnit.getName(), attacking.getFactionName(), defending.getFactionName());
         while (result == 0) {
             if (defendingUnit.getType().equals("tower")){
                 result = towerEngagement(attackingUnit, defendingUnit);
@@ -145,9 +153,11 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
         
         int towerDamage = tower.calculateDamage(attackingUnit, true, attackingBuffs.getHeroicCharge(), false, r);
         attackingUnit.takeDamage(towerDamage);
+        engagementObserver.notifyEngagement(tower.getName(), towerDamage, attackingUnit.getName(), defending.getFactionName(), attacking.getFactionName());
 
         int attackingDamage = attackingUnit.getTowerDamage();
         tower.takeDamage(attackingDamage);
+        engagementObserver.notifyEngagement(attackingUnit.getName(), attackingDamage, tower.getName(), attacking.getFactionName(), defending.getFactionName());
         
         if (attackingUnit.isDefeated()) {
             return -1;
@@ -207,6 +217,7 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
             }
             attackerDamage = attackingUnit.calculateDamage(defendingUnit, isRangedEngagement, attackingBuffs.getHeroicCharge(), defending.hasWalls() ,r);
             defendingUnit.takeDamage(attackerDamage);
+            engagementObserver.notifyEngagement(attackingUnit.getName(), attackerDamage, defendingUnit.getName(), attacking.getFactionName(), defending.getFactionName());
             if (temp != null) defendingUnit = temp;
         }
 
@@ -228,6 +239,7 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
             }
             defenderDamage = defendingUnit.calculateDamage(attackingUnit, isRangedEngagement, defendingBuffs.getHeroicCharge(), false, r);
             attackingUnit.takeDamage(defenderDamage);
+            engagementObserver.notifyEngagement(defendingUnit.getName(), defenderDamage, attackingUnit.getName(), defending.getFactionName(), attacking.getFactionName());
             if (temp != null) defendingUnit = temp;
         }
 
@@ -242,18 +254,21 @@ public class StandardBattleResolver implements BattleResolver, Serializable {
             if (route < routeChance) {
                 routedAttackers.add(attackingUnit);
                 result = -1;
+                engagementObserver.notifyRoute(attackingUnit.getName(), attacking.getFactionName());
             }
         } else if (defendingUnit.isBroken()) {
             routeChance = 0.5 + 0.1 * (defendingUnit.getSpeed() - attackingUnit.getSpeed());
             if (routeChance < 0.1) routeChance = 0.1;
             if (route < routeChance) {
                 result = 1;
+                engagementObserver.notifyRoute(defending.getName(), defending.getFactionName());
             }
         }
 
-        defendingUnit.checkIfBroken(defenderDamage, defenderSize, attackerDamage, attackerSize, attackingBuffs, defending.getLegionaryDebuff(), attackingUnit.getSmithMoraleDebuff(), r);
-        attackingUnit.checkIfBroken(attackerDamage, attackerSize, defenderDamage, defenderSize, defendingBuffs, attacking.getLegionaryDebuff(), defendingUnit.getSmithMoraleDebuff(), r);
-
+        if (defendingUnit.checkIfBroken(defenderDamage, defenderSize, attackerDamage, attackerSize, attackingBuffs, defending.getLegionaryDebuff(), attackingUnit.getSmithMoraleDebuff(), r))
+            engagementObserver.notifyBreak(defendingUnit.getName(), defending.getFactionName());
+        if (attackingUnit.checkIfBroken(attackerDamage, attackerSize, defenderDamage, defenderSize, defendingBuffs, attacking.getLegionaryDebuff(), defendingUnit.getSmithMoraleDebuff(), r))
+            engagementObserver.notifyBreak(attackingUnit.getName(), attacking.getFactionName());
         return result;
 
     }

@@ -157,6 +157,7 @@ public class GloriaRomanusController {
   private StringProperty winner;
   private IntegerProperty factionCount;
   private BooleanProperty deselect;
+  private EngagementObserver engagementObserver;
 
   @FXML
   private void handleVictoryProgressButton() {
@@ -384,11 +385,8 @@ public class GloriaRomanusController {
   }
 
   public void initialiseMap() throws JsonParseException, JsonMappingException, IOException {
+    this.engagementObserver = new EngagementObserver(this);
     deselect.setValue(false);
-    factionCount = new SimpleIntegerProperty(game.getFactions().size());
-    factionCount.addListener((ov, oldValue, newValue) -> {
-      
-    });
     winner = new SimpleStringProperty("");
     winner.addListener((ov, oldValue, newValue) -> {
       if (! winner.getValue().equals("")) {
@@ -710,7 +708,7 @@ public class GloriaRomanusController {
     targetProvince.setText("");
   }
 
-  private void printMessageToTerminal(String message){
+  public void printMessageToTerminal(String message){
     output_terminal.appendText(message+"\n");
   }
 
