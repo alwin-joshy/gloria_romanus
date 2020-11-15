@@ -110,6 +110,8 @@ public class Game implements Serializable {
             }
             ownership.put(f.getName(), ownedProvinces);
         }
+        
+        // TODO restore this - removed to test defeat screen
 
         try {
             BufferedWriter bw = new BufferedWriter( new FileWriter("src/unsw/gloriaromanus/initial_province_ownership.json", false));
